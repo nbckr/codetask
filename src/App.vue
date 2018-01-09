@@ -10,7 +10,7 @@
           Learn Scala with ease
         </p>
         <br>
-        <button>Start Learning Now</button>
+        <el-button type="primary">Start Learning Now</el-button>
       </div>
       <vue-particles
         color="#ffffff"
