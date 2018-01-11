@@ -2,8 +2,13 @@
 
   <el-main>
     <section>
-      <p>Lorem Ipsum etc.</p>
+
+      <div class="description">
+        {{ activeTask.data.description }}
+      </div>
+
       <p v-if="activeTask != null">{{ activeTask }}</p>
+
     </section>
   </el-main>
 

@@ -1,8 +1,12 @@
 <template>
   <article v-if="activeChapter">
-    {{ activeChapter }} <<
-    <app-task-stepper></app-task-stepper>
-    <app-task></app-task>
+    <h1>{{ activeChapter.title }}</h1>
+    <app-task-stepper
+      :tasks="activeChapter.tasks"
+      :active-task="activeTask"/>
+    <app-task
+      :active-task="activeChapter.tasks[Number.parseInt(activeTask)]"
+    />
   </article>
 </template>
 
@@ -16,7 +20,7 @@
       appTask: Task
     },
 
-    props: ['activeChapter']
+    props: ['chapters', 'activeChapter', 'activeTask']
   }
 </script>
 

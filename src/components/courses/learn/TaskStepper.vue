@@ -1,17 +1,30 @@
 <template>
 
-  <el-steps :active="active" finish-status="success">
-    <el-step title="Step 1"></el-step>
-    <el-step title="Step 2"></el-step>
-    <el-step title="Step 3"></el-step>
-  </el-steps>
+  <aside>
+    <el-steps
+      :active="activeTask"
+      process-status="process"
+      finish-status="success"
+      align-center="true">
+
+      <el-step
+        v-for="(task, index) in tasks"
+        :title="index + 1"/>
+
+    </el-steps>
+
+  </aside>
 
 </template>
 
 <script>
 export default {
+  props: ['tasks', 'activeTask']
 }
 </script>
 
 <style scoped>
+  aside {
+    padding: 1.2rem 0;
+  }
 </style>

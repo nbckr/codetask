@@ -8,14 +8,11 @@
     ></app-chapter-list>
 
     <app-course-panel
-      :active-chapter="chapters.find(el => el.id === Number.parseInt(chapter))">
+      :chapters="chapters"
+      :active-chapter="chapters.find(el => el.id === Number.parseInt(chapter))"
+      :active-task="task">
 
     </app-course-panel>
-
-    !! {{ course }} {{ chapter }} !!
-    <p v-if="false">
-      {{ chapters }}
-    </p>
 
   </el-container>
 
@@ -29,7 +26,6 @@
   export default {
     data () {
       return {
-        activeTask: null,
         chapters: test.chapters
       }
     },
@@ -40,7 +36,7 @@
     },
 
     // de-couple raw $route.query values as props
-    props: ['course', 'chapter']
+    props: ['course', 'chapter', 'task']
   }
 </script>
 
