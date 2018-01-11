@@ -1,5 +1,5 @@
 <template>
-  <el-header>
+  <div>
 
     <h1>CodeTask</h1>
     <!--<el-menu
@@ -20,7 +20,7 @@
       <el-menu-item index="3"><a href="https://www.ele.me" target="_blank">Orders</a></el-menu-item>
     </el-menu>-->
 
-  </el-header>
+  </div>
 </template>
 
 <script>
@@ -43,7 +43,11 @@ export default {
 
 <style scoped>
 
-  header {
+  div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
     border: orangered 5px dotted;
     margin: 0;
     height: 56px;
@@ -52,7 +56,7 @@ export default {
     color: #ffffff;
   }
 
-  header span {
+  div span {
     display: block;
     position: relative;
     font-size: 20px;

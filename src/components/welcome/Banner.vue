@@ -1,43 +1,39 @@
 <template>
 
-  <div class="wrap-banner">
-    <div class="main-title">
+    <div id="banner">
       <h2>CodeTask</h2>
       <p class="subtitle">
         Learn Scala with ease
       </p>
       <br>
-      <el-button type="primary">Start Learning Now</el-button>
+      <router-link
+        :to="{name: 'LearnPage'}">
+        <el-button
+          type="primary">
+          Start Learning Now
+        </el-button>
+      </router-link>
     </div>
 
-  </div>
 </template>
 
 <script>
-export default {
-};
+  export default {};
 </script>
 
 <style scoped>
 
-
-  .wrap-banner {
-    position: relative;
-    -webkit-align-items: center;
-    -ms-flex-align: center;
-    align-items: center;
-    display: -webkit-flex;
-    display: flex;
-    height: 100%;
-    justify-content: center;
-  }
-
-  .main-title {
-    color: #555;
+  #banner {
+    background-color: azure;
     z-index: 999;
+    display: inline-block;
+    padding: 2rem;
+    box-shadow: 5px 5px;
+
+    color: #555;
   }
 
-  .main-title h2 {
+  h2 {
     font-size: 4rem;
     font-family: 'Teko', sans-serif;
     text-shadow: 3px 3px #777;
@@ -45,7 +41,7 @@ export default {
     margin: 0;
   }
 
-  .main-title p.subtitle {
+  p.subtitle {
     font-size: 1.7rem;
     margin: 0;
   }

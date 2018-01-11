@@ -43,26 +43,25 @@
     text-align: center;
   }
 
-  .el-container {
+ .el-container {
     height: 100%;
-    margin-bottom: 40px;
     border: green 3px solid;
-
   }
 
-  .el-header, .el-footer {
-    background-color: #B3C0D1;
-    color: #333;
-    text-align: center;
-  }
+  /*   .el-header, .el-footer {
+      background-color: #B3C0D1;
+      color: #333;
+      text-align: center;
+    }
 
-  .el-main {
-    background-color: #E9EEF3;
-    color: #333;
-    text-align: center;
-  }
+    .el-main {
+      z-index: 99;
+      background-color: #E9EEF3;
+      color: #333;
+      text-align: center;
+    }
 
-  .el-main, .el-header {
-    border: red 3px solid;
-  }
+    .el-main, .el-header {
+      border: red 3px solid;
+    }*/
 </style>
