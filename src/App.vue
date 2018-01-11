@@ -1,20 +1,14 @@
 <template>
-  <!--<router-view></router-view>-->
 
   <div id="app">
-
     <el-container>
-      <el-header>HEADER</el-header>
+      <el-header>
+        <app-header/>
+      </el-header>
       <el-main>
-        <router-view></router-view>
+        <router-view/>
       </el-main>
     </el-container>
-
-
-
-<!--    <router-view></router-view>
-    <app-background></app-background>-->
-
   </div>
 
 </template>

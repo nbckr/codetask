@@ -1,7 +1,7 @@
 <template>
   <el-header>
 
-    <slot></slot>
+    <h1>CodeTask</h1>
     <!--<el-menu
       :default-active="activeIndex2"
       class="el-menu-demo"
