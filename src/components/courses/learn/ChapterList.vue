@@ -2,15 +2,21 @@
 
   <el-aside>
 
-
     <el-menu
       default-active="2"
-      class="el-menu-vertical-demo"
-    >
-      <el-menu-item v-for="(chapter, index) in test" :index="index">
-        <i class="el-icon-arrow-right"></i>
-        <span>{{ chapter.title }}</span>
+      :router="true"
+      :default-active="this.$route.query.chapter">
+
+      <el-menu-item
+        v-for="chapter in chapters"
+        :route="{path: `/courses/learn?course=1&chapter=${chapter.id}`}"
+        :index="`${chapter.id}`">
+        <a>
+          <i class="el-icon-arrow-right"></i>
+          <span>{{ chapter.title }}</span>
+        </a>
       </el-menu-item>
+
     </el-menu>
 
   </el-aside>
@@ -18,13 +24,12 @@
 </template>
 
 <script>
-  import test from '@/data/test-course.tmp'
-
   export default {
+    props: ['chapters'],
 
-    data () {
-      return {
-        test: test.chapters
+    methods: {
+      loadChapter (event) {
+        console.log(event)
       }
     }
   }
