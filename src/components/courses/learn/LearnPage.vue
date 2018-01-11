@@ -19,15 +19,15 @@
 </template>
 
 <script>
-  import ChapterList from './ChapterList'
-  import CoursePanel from './CoursePanel'
-  import test from '@/data/test-course.tmp'
+  import ChapterList from './ChapterList';
+  import CoursePanel from './CoursePanel';
+  import test from '@/data/test-course.tmp';
 
   export default {
     data () {
       return {
         chapters: test.chapters
-      }
+      };
     },
 
     components: {
@@ -37,7 +37,7 @@
 
     // de-couple raw $route.query values as props
     props: ['course', 'chapter', 'task']
-  }
+  };
 </script>
 
 <style scoped>

@@ -20,7 +20,7 @@
 <script>
 export default {
   props: ['tasks', 'activeTask']
-}
+};
 </script>
 
 <style scoped>

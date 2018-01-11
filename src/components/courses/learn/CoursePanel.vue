@@ -11,8 +11,8 @@
 </template>
 
 <script>
-  import TaskStepper from './TaskStepper'
-  import Task from './Task'
+  import TaskStepper from './TaskStepper';
+  import Task from './Task';
 
   export default {
     components: {
@@ -21,7 +21,7 @@
     },
 
     props: ['chapters', 'activeChapter', 'activeTask']
-  }
+  };
 </script>
 
 <style scoped>
