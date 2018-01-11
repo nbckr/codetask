@@ -5,7 +5,7 @@
     <el-menu
       default-active="2"
       :router="true"
-      :default-active="this.$route.query.chapter">
+      :default-active="activeChapter">
 
       <el-menu-item
         v-for="chapter in chapters"
@@ -25,13 +25,7 @@
 
 <script>
   export default {
-    props: ['chapters'],
-
-    methods: {
-      loadChapter (event) {
-        console.log(event)
-      }
-    }
+    props: ['chapters', 'activeChapter']
   }
 </script>
 
