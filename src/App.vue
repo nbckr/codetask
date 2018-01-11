@@ -1,13 +1,19 @@
 <template>
   <!--<router-view></router-view>-->
 
-  <div>
+  <div id="app">
 
-    <app-header></app-header>
+    <el-container>
+      <el-header>HEADER</el-header>
+      <el-main>
+        <router-view></router-view>
+      </el-main>
+    </el-container>
 
-    <div id="frame">
-      <router-view></router-view>
-    </div>
+
+
+<!--    <router-view></router-view>
+    <app-background></app-background>-->
 
   </div>
 
@@ -15,12 +21,14 @@
 
 <script>
   import Header from './components/shared/Header.vue'
+  import Background from './components/shared/Background.vue'
 
   export default {
     name: 'app',
 
     components: {
-      appHeader: Header
+      appHeader: Header,
+      appBackground: Background
     }
   }
 </script>
@@ -41,13 +49,26 @@
     text-align: center;
   }
 
-  main {
-    text-align: center;
-    margin-top: 40px;
+  .el-container {
+    height: 100%;
+    margin-bottom: 40px;
+    border: green 3px solid;
+
   }
 
-  #frame {
-    height: 500px;
-    width: 100%;
+  .el-header, .el-footer {
+    background-color: #B3C0D1;
+    color: #333;
+    text-align: center;
+  }
+
+  .el-main {
+    background-color: #E9EEF3;
+    color: #333;
+    text-align: center;
+  }
+
+  .el-main, .el-header {
+    border: red 3px solid;
   }
 </style>

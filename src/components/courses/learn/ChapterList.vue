@@ -1,12 +1,19 @@
 <template>
 
-  <aside>
-    <ul>
-      <li v-for="chapter in test">
-        <p>{{ chapter.title }}</p>
-      </li>
-    </ul>
-  </aside>
+  <el-aside>
+
+
+    <el-menu
+      default-active="2"
+      class="el-menu-vertical-demo"
+    >
+      <el-menu-item v-for="(chapter, index) in test" :index="index">
+        <i class="el-icon-arrow-right"></i>
+        <span>{{ chapter.title }}</span>
+      </el-menu-item>
+    </el-menu>
+
+  </el-aside>
 
 </template>
 

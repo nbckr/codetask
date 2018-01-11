@@ -1,13 +1,17 @@
 <template>
 
-  <section>
-    <p>Lorem Ipsum etc.</p>
-  </section>
+  <el-main>
+    <section>
+      <p>Lorem Ipsum etc.</p>
+      <p v-if="activeTask != null">{{ activeTask }}</p>
+    </section>
+  </el-main>
 
 </template>
 
 <script>
 export default {
+  props: ['activeTask']
 }
 </script>
 

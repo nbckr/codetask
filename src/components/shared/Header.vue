@@ -1,7 +1,7 @@
 <template>
-  <header>
+  <el-header>
 
-    <h1>CodeTask</h1>
+    <slot></slot>
     <!--<el-menu
       :default-active="activeIndex2"
       class="el-menu-demo"
@@ -20,7 +20,7 @@
       <el-menu-item index="3"><a href="https://www.ele.me" target="_blank">Orders</a></el-menu-item>
     </el-menu>-->
 
-  </header>
+  </el-header>
 </template>
 
 <script>
@@ -44,6 +44,7 @@ export default {
 <style scoped>
 
   header {
+    border: orangered 5px dotted;
     margin: 0;
     height: 56px;
     padding: 0 16px 0 24px;

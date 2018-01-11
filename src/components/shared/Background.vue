@@ -1,39 +1,36 @@
 <template>
 
-  <!--<vue-particles
-  color="#ffffff"
-  :particleOpacity="0.7"
-  linesColor="#ffffff"
-  :particlesNumber="80"
-  shapeType="circle"
-  :particleSize="5"
-  :linesWidth="2"
-  :lineLinked="true"
-  :lineOpacity="0.4"
-  :linesDistance="150"
-  :moveSpeed="3"
-  :hoverEffect="true"
-  hoverMode="grab"
-  :clickEffect="true"
-  clickMode="push"
-/>-->
+  <div>
+    <vue-particles
+    color="#ffffff"
+    :particleOpacity="0.7"
+    linesColor="#ffffff"
+    :particlesNumber="80"
+    shapeType="circle"
+    :particleSize="5"
+    :linesWidth="2"
+    :lineLinked="true"
+    :lineOpacity="0.4"
+    :linesDistance="150"
+    :moveSpeed="3"
+    :hoverEffect="true"
+    hoverMode="grab"
+    :clickEffect="true"
+    clickMode="push"
+  />
+  </div>
 
 </template>
 
 <script>
-  import VueParticles from 'vue-particles'
-
   export default {
-    components: {
-      VueParticles
-    }
   }
 </script>
 
 <style scoped>
 
-  vue-particles {
-    background-image: url("https://ak9.picdn.net/shutterstock/videos/33473869/thumb/1.jpg");
+  div {
+    /* background-image: url("https://ak9.picdn.net/shutterstock/videos/33473869/thumb/1.jpg"); */
     background-size: cover;
     position: absolute;
     top: 0;

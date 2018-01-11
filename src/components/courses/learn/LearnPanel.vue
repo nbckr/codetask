@@ -1,10 +1,9 @@
 <template>
 
-  <div>
-    <h1>LearnPanel</h1>
+  <el-container>
     <app-chapter-list></app-chapter-list>
-    <app-task></app-task>
-  </div>
+    <app-task :active-task="activeTask"></app-task>
+  </el-container>
 
 </template>
 
@@ -13,6 +12,12 @@
   import Task from './Task'
 
 export default {
+    data () {
+      return {
+        activeTask: null
+      }
+    },
+
     components: {
       appChapterList: ChapterList,
       appTask: Task
@@ -21,4 +26,9 @@ export default {
 </script>
 
 <style scoped>
+
+  div {
+    border: aqua 5px dashed;
+  }
+
 </style>
