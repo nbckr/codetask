@@ -13,7 +13,7 @@
 
 <script>
   import TaskStepper from './TaskStepper';
-  import Task from './Task';
+  import Task from './tasks/Task';
 
   export default {
     components: {

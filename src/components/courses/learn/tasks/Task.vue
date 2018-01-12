@@ -12,12 +12,9 @@
         :active-task="activeTask"
       />
 
-      <youtube
+      <app-video-task
         v-if="activeTask.tag === 'video-task'"
-        :video-id="activeTask.data.url"
-        player-width="100%"
-        :player-vars="{ autoplay: 1 }"
-        @ended=""
+        :active-task="activeTask"
       />
 
       <br>
@@ -35,10 +32,12 @@
 
 <script>
   import KoanTask from './KoanTask';
+  import VideoTask from './VideoTask';
 
   export default {
     components: {
-      appKoanTask: KoanTask
+      appKoanTask: KoanTask,
+      appVideoTask: VideoTask
     },
 
     props: [ 'activeTask', 'activeTaskIndex' ],
