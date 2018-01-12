@@ -30,6 +30,7 @@
     padding: 2rem;
     box-shadow: 5px 5px;
 
+    text-align: center;
     color: #555;
   }
 

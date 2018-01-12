@@ -2,14 +2,14 @@
 
   <aside>
     <el-steps
-      :active="activeTask"
+      :active="Number.parseInt(activeTask)"
       process-status="process"
       finish-status="success"
-      align-center="true">
+      :align-center="true">
 
       <el-step
         v-for="(task, index) in tasks"
-        :title="index + 1"/>
+        :title="`${index + 1}`"/>
 
     </el-steps>
 
