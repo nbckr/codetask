@@ -9,7 +9,8 @@
 
       <el-step
         v-for="(task, index) in tasks"
-        :title="`${index + 1}`"/>
+        :title="`${index + 1}`"
+      />
 
     </el-steps>
 
@@ -18,9 +19,9 @@
 </template>
 
 <script>
-export default {
-  props: ['tasks', 'activeTaskIndex']
-};
+  export default {
+    props: [ 'tasks', 'activeTaskIndex' ]
+  };
 </script>
 
 <style scoped>

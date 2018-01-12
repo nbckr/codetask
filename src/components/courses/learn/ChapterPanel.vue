@@ -3,7 +3,7 @@
     <h1>{{ activeChapter.title }}</h1>
     <app-task-stepper
       :tasks="activeChapter.tasks"
-      :active-task="activeTaskIndex"/>
+      :active-task-index="activeTaskIndex"/>
     <app-task
       :active-task="activeChapter.tasks[activeTaskIndex]"
       :active-task-index="activeTaskIndex"

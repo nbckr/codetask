@@ -9,14 +9,9 @@
 
       <p v-if="activeTask">{{ activeTask }}</p>
 
-      <codemirror
+      <app-koan-task
         v-if="activeTask.tag === 'koan-task'"
-        :value="activeTask.data.code"
-        :options="cmOption"
-        @ready="onCmReady"
-        @focus="onCmFocus"
-        @input="onCmCodeChange"
-        @blur="onCmBlur"
+        :active-task="activeTask"
       />
 
       <youtube
@@ -38,27 +33,11 @@
 </template>
 
 <script>
-  import { codemirror } from 'vue-codemirror';
-  import 'codemirror/lib/codemirror.css';
-  import 'codemirror/theme/monokai.css';    // Theme
-  import 'codemirror/mode/clike/clike';     // Scala
+  import KoanTask from './KoanTask';
 
   export default {
-    data () {
-      return {
-        code: 'const a = 10',
-        cmOption: {
-          tabSize: 4,
-          styleActiveLine: true,
-          lineNumbers: true,
-          mode: 'text/x-scala',
-          theme: 'monokai'
-        }
-      };
-    },
-
     components: {
-      codemirror
+      appKoanTask: KoanTask
     },
 
     props: [ 'activeTask', 'activeTaskIndex' ],
@@ -66,45 +45,33 @@
     methods: {
       checkInputAndGoToNextTask () {
         // TODO: Check solutions
+        console.log(typeof this.activeTaskIndex);
 
-        const currentQuery = this.$route.query;
-        currentQuery.task = `${this.activeTaskIndex + 1}`;
-        console.log(currentQuery);
         this.$router.replace({
-          query: currentQuery
+          params: { task: this.activeTaskIndex + 1 }
         });
-      },
-
-      onCmBlur (cm) {
-        console.log('blur', cm);
-
-        let replace = document.createElement('input');
-        let bm = cm.setBookmark({ line: 2, ch: 2 }, {
-          widget: replace
-        });
-        console.log(bm);
-      },
-      onCmReady (cm) {
-        console.log('the editor is readied!', cm);
-      },
-      onCmFocus (cm) {
-        console.log('the editor is focus!', cm);
-      },
-      onCmCodeChange (newCode) {
-        console.log('this is new code', newCode);
-        // Nicht nötig this.code = newCode;
       }
     }
   };
 </script>
 
-<style scoped>
+<style>
 
   section {
     border: red 4px solid;
     background-color: white;
     display: inline-block;
     padding: 1.6rem;
+    /* white-space: pre; */
+  }
+
+  #halloX {
+    font-family: monospace;
+    color: #D4D4BD;
+    background-color: #1E1E1E;
+
+    background-color: green;
+    max-width: available;
   }
 
 </style>

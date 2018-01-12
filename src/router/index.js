@@ -36,10 +36,10 @@ export default new Router({
       component: EnrollPage
     },
     {
-      path: '/courses/learn',
+      path: '/courses/learn/:course/chapters/:chapter/tasks/:task',
       name: 'LearnPage',
       component: LearnPage,
-      props: (route) => route.query
+      props: true
     },
     {
       path: '*',

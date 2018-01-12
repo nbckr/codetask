@@ -16,6 +16,7 @@
     "element-ui": "^2.0.11",
     "vue": "^2.5.2",
     "vue-codemirror": "^4.0.2",
+    "vue-input-autowidth": "^1.0.2",
     "vue-particles": "^1.0.9",
     "vue-router": "^3.0.1",
     "vue-youtube-embed": "^2.1.3"

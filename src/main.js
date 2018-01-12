@@ -7,10 +7,13 @@ import VueParticles from 'vue-particles';
 import Element from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
 import VueYouTubeEmbed from 'vue-youtube-embed';
+import VueInputAutowidth from 'vue-input-autowidth';
+
 Vue.config.productionTip = false;
 
 Vue.use(Element);
 Vue.use(VueYouTubeEmbed);
+Vue.use(VueInputAutowidth);
 Vue.use(VueParticles);
 
 /* eslint-disable no-new */
