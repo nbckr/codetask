@@ -1,9 +1,7 @@
 <template>
   <div>
 
-    {{ userInput }}
-
-
+    <!-- Inputs to be inserted into the codemirror component at initialization time-->
     <input
       v-for="(solution, index) in activeTask.data.solutions"
       v-autowidth="{ minWidth: '5`0px', maxWidth: '300px', comfortZone: 0 }"
@@ -16,8 +14,6 @@
       :value="activeTask.data.code"
       :options="cmOption"
       @ready="onCmReady"
-      @focus="onCmFocus"
-      @input="onCmCodeChange"
       @blur="onCmBlur"
     />
 
@@ -62,31 +58,17 @@
       },
       onCmReady (cm) {
         const inputNodes = Array.from(document.querySelectorAll('.code-input'));
-        console.log(inputNodes);
-
-        // const positions = [];
         const regex = /\(__\)/g;   // golbal regex matching the solution placeholder
 
-        // let matchedPlaceholders = 0;
-        // let codeWithoutPlaceholders = [];
+        cm.setValue(this.activeTask.data.code.replace(regex, ''));
 
         this.activeTask.data.code.split('\n').forEach((line, index) => {
           let match;
           while ((match = regex.exec(line))) {
             const pos = { line: index, ch: match.index };
-            console.log(pos);
             cm.setBookmark(pos, { widget: inputNodes.shift() });
           }
         });
-
-        // cm.setValue(this.activeTask.data.code.replace(regex, ''));
-      },
-      onCmFocus (cm) {
-        console.log('the editor is focus!', cm);
-      },
-      onCmCodeChange (newCode) {
-        console.log('this is new code', newCode);
-        // Nicht nötig this.code = newCode;
       }
     },
 
@@ -98,12 +80,22 @@
 
 <style>
 
-  input {
+  .CodeMirror-line, .CodeMirror-linenumber {
+    /* Code style */
     font-family: monospace;
-    color: #fff;
-    border: 2px solid #dadada;
-    border-radius: 0.2rem;
+    line-height: 2rem !important;
+  }
 
+  input {
+    /* From Monokai Syntax CSS theme */
+    background-color: #49483E;
+    border: 1px solid #ccc;
+    padding: 6px 10px;
+    border-radius: 0.2rem;
+    color: #FFFFFF;
+
+    margin: 0 0.3rem;
+    transition: width 0.15s;
     min-width: 40px;
     max-width: 300px;
   }

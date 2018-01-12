@@ -7,8 +7,6 @@
         {{ activeTask.data.description }}
       </div>
 
-      <p v-if="activeTask">{{ activeTask }}</p>
-
       <app-koan-task
         v-if="activeTask.tag === 'koan-task'"
         :active-task="activeTask"
