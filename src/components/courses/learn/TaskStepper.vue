@@ -2,7 +2,7 @@
 
   <aside>
     <el-steps
-      :active="Number.parseInt(activeTask)"
+      :active="activeTaskIndex"
       process-status="process"
       finish-status="success"
       :align-center="true">
@@ -19,7 +19,7 @@
 
 <script>
 export default {
-  props: ['tasks', 'activeTask']
+  props: ['tasks', 'activeTaskIndex']
 };
 </script>
 

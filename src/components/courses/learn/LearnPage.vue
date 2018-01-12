@@ -7,12 +7,12 @@
       :active-chapter="chapter"
     ></app-chapter-list>
 
-    <app-course-panel
+    <app-chapter-panel
       :chapters="chapters"
-      :active-chapter="chapters.find(el => el.id === Number.parseInt(chapter))"
-      :active-task="task">
+      :active-chapter="chapters.find(el => el.id === chapterIdAsNumber)"
+      :active-task-index="taskIndexAsNumber">
 
-    </app-course-panel>
+    </app-chapter-panel>
 
   </el-container>
 
@@ -20,7 +20,7 @@
 
 <script>
   import ChapterList from './ChapterList';
-  import CoursePanel from './CoursePanel';
+  import ChapterPanel from './ChapterPanel';
   import test from '@/data/test-course.tmp';
 
   export default {
@@ -30,13 +30,18 @@
       };
     },
 
+    computed: {
+      chapterIdAsNumber: (vm) => Number.parseInt(vm.chapter),
+      taskIndexAsNumber: (vm) => Number.parseInt(vm.task)
+    },
+
     components: {
       appChapterList: ChapterList,
-      appCoursePanel: CoursePanel
+      appChapterPanel: ChapterPanel
     },
 
     // de-couple raw $route.query values as props
-    props: ['course', 'chapter', 'task']
+    props: [ 'course', 'chapter', 'task' ]
   };
 </script>
 

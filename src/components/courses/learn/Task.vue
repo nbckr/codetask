@@ -27,6 +27,11 @@
         @ended=""
       />
 
+      <el-button
+        @click="checkInputAndGoToNextTask">
+        &gt; Weiter
+      </el-button>
+
     </section>
   </el-main>
 
@@ -56,9 +61,20 @@
       codemirror
     },
 
-    props: [ 'activeTask' ],
+    props: [ 'activeTask', 'activeTaskIndex' ],
 
     methods: {
+      checkInputAndGoToNextTask () {
+        // TODO: Check solutions
+
+        const currentQuery = this.$route.query;
+        currentQuery.task = `${this.activeTaskIndex + 1}`;
+        console.log(currentQuery);
+        this.$router.replace({
+          query: currentQuery
+        });
+      },
+
       onCmBlur (cm) {
         console.log('blur', cm);
 

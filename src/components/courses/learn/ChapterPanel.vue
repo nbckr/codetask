@@ -3,9 +3,10 @@
     <h1>{{ activeChapter.title }}</h1>
     <app-task-stepper
       :tasks="activeChapter.tasks"
-      :active-task="activeTask"/>
+      :active-task="activeTaskIndex"/>
     <app-task
-      :active-task="activeChapter.tasks[Number.parseInt(activeTask)]"
+      :active-task="activeChapter.tasks[activeTaskIndex]"
+      :active-task-index="activeTaskIndex"
     />
   </article>
 </template>
@@ -20,7 +21,7 @@
       appTask: Task
     },
 
-    props: ['chapters', 'activeChapter', 'activeTask']
+    props: ['chapters', 'activeChapter', 'activeTaskIndex']
   };
 </script>
 
