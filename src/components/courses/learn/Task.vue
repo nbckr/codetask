@@ -9,17 +9,23 @@
 
       <p v-if="activeTask">{{ activeTask }}</p>
 
-      <div style="overflow: scroll">
-        <codemirror
-          v-if="activeTask.tag === 'koan-task'"
-          :value="activeTask.data.code"
-          :options="cmOption"
-          @ready="onCmReady"
-          @focus="onCmFocus"
-          @input="onCmCodeChange"
-          @blur="onCmBlur"
-        />
-      </div>
+      <codemirror
+        v-if="activeTask.tag === 'koan-task'"
+        :value="activeTask.data.code"
+        :options="cmOption"
+        @ready="onCmReady"
+        @focus="onCmFocus"
+        @input="onCmCodeChange"
+        @blur="onCmBlur"
+      />
+
+      <youtube
+        v-if="activeTask.tag === 'video-task'"
+        :video-id="activeTask.data.url"
+        player-width="100%"
+        :player-vars="{ autoplay: 1 }"
+        @ended=""
+      />
 
     </section>
   </el-main>
@@ -27,7 +33,7 @@
 </template>
 
 <script>
-  import {codemirror} from 'vue-codemirror';
+  import { codemirror } from 'vue-codemirror';
   import 'codemirror/lib/codemirror.css';
   import 'codemirror/theme/monokai.css';    // Theme
   import 'codemirror/mode/clike/clike';     // Scala
@@ -50,14 +56,14 @@
       codemirror
     },
 
-    props: ['activeTask'],
+    props: [ 'activeTask' ],
 
     methods: {
       onCmBlur (cm) {
         console.log('blur', cm);
 
         let replace = document.createElement('input');
-        let bm = cm.setBookmark({line: 2, ch: 2}, {
+        let bm = cm.setBookmark({ line: 2, ch: 2 }, {
           widget: replace
         });
         console.log(bm);

@@ -6,10 +6,11 @@ import router from './router';
 import VueParticles from 'vue-particles';
 import Element from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
-
+import VueYouTubeEmbed from 'vue-youtube-embed';
 Vue.config.productionTip = false;
 
 Vue.use(Element);
+Vue.use(VueYouTubeEmbed);
 Vue.use(VueParticles);
 
 /* eslint-disable no-new */
