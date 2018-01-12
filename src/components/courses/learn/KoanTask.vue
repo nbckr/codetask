@@ -17,6 +17,9 @@
       @blur="onCmBlur"
     />
 
+    {{ allSolutionsCorrect }} <- :)
+
+    {{ userInput }}
   </div>
 
 </template>
@@ -46,7 +49,7 @@
       codemirror
     },
 
-    props: [ 'activeTask' ],
+    props: ['activeTask'],
 
     methods: {
       parseSolutions () {
@@ -72,8 +75,15 @@
       }
     },
 
-    created () {
-      this.parseSolutions();
+    computed: {
+      allSolutionsCorrect () {
+        if (this.activeTask.data.solutions.length !== this.userInput.length) {
+          return false;
+        }
+
+        return this.activeTask.data.solutions
+          .every((solution, index) => this.userInput[index].trim() === solution.trim());
+      }
     }
   };
 </script>

@@ -9,7 +9,7 @@
 
       <el-menu-item
         v-for="chapter in chapters"
-        :route="{path: `/courses/learn?course=1&chapter=${chapter.id}`}"
+        :route="{ params: { chapter: `${chapter.id}`, task: 1 } }"
         :index="`${chapter.id}`">
         <a>
           <i class="el-icon-arrow-right"></i>
@@ -25,7 +25,7 @@
 
 <script>
   export default {
-    props: ['chapters', 'activeChapter']
+    props: [ 'chapters', 'activeChapter' ]
   };
 </script>
 

@@ -20,10 +20,13 @@
         @ended=""
       />
 
+      <br>
       <el-button
         @click="checkInputAndGoToNextTask">
         &gt; Weiter
       </el-button>
+
+      <p style="font-size: x-small" v-if="activeTask">{{ activeTask.data.solutions }}</p>
 
     </section>
   </el-main>
