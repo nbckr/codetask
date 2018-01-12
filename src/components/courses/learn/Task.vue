@@ -26,7 +26,7 @@
         &gt; Weiter
       </el-button>
 
-      <p style="font-size: x-small" v-if="activeTask">{{ activeTask.data.solutions }}</p>
+      <p style="font-size: x-small" v-for="s in activeTask.data.solutions">{{ s }}</p>
 
     </section>
   </el-main>
