@@ -1,37 +1,11 @@
 <template>
 
-  <section>
+  <div>
 
-    <div class="description">
-      <p>{{ activeTask.data.description.trim() }}</p>
-    </div>
-
-      <component
-        :is="activeTask.tag"
-        :active-task="activeTask"
-      />
-
-
-    <!--<app-koan-task
-    <transition enter-active-class="animated slideInRight" leave-active-class="animated slideOutLeft" mode="out-in">
-    </transition>
-
-
-
-      v-if="activeTask.tag === 'koan-task'"
+    <component
+      :is="activeTask.tag"
       :active-task="activeTask"
     />
-
-    <app-video-task
-      v-if="activeTask.tag === 'video-task'"
-      :active-task="activeTask"
-    />
-
-    <app-code-task
-      v-if="activeTask.tag === 'code-task'"
-      :active-task="activeTask"
-    />-->
-
 
     <br>
     <el-button
@@ -41,7 +15,7 @@
 
     <p style="font-size: x-small" v-for="s in activeTask.data.solutions">{{ s }}</p>
 
-  </section>
+  </div>
 
 </template>
 

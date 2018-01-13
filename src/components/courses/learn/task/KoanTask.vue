@@ -1,5 +1,9 @@
 <template>
-  <div>
+  <section>
+
+    <div class="description">
+      <p>{{ activeTask.data.description.trim() }}</p>
+    </div>
 
     <!-- Inputs to be inserted into the codemirror component at initialization time-->
     <input
@@ -18,17 +22,20 @@
     />
 
     <small> All correct: {{ allSolutionsCorrect }}</small>
-  </div>
+  </section>
 
 </template>
 
 <script>
+  import BaseTask from './BaseTask';
   import { codemirror } from 'vue-codemirror';
   import 'codemirror/lib/codemirror.css';
   import 'codemirror/theme/monokai.css';    // Theme
   import 'codemirror/mode/clike/clike';     // Scala
 
   export default {
+    extends: BaseTask,
+
     data () {
       return {
         userInputs: [],
@@ -51,8 +58,6 @@
     components: {
       codemirror
     },
-
-    props: ['activeTask'],
 
     methods: {
       onCmReady (cm) {
