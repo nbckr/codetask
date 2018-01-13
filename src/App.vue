@@ -42,9 +42,14 @@
     color: #2c3e50;
   }
 
- .el-container {
+  .el-container {
+    padding: 0;
     height: 100%;
     border: green 3px solid;
+  }
+
+  .el-header, .el-main {
+    padding: 0;
   }
 
   /*   .el-header, .el-footer {

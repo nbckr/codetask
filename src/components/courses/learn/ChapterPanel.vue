@@ -29,4 +29,9 @@
   article {
     width: 100%;
   }
+
+  h1 {
+    margin: 0.5rem 1rem;
+    text-align: center;
+  }
 </style>
