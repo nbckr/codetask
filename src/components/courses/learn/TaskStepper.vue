@@ -10,6 +10,7 @@
       <el-step
         v-for="(task, index) in tasks"
         :title="`${index + 1}`"
+        :key="`step-${index + 1}`"
       />
 
     </el-steps>

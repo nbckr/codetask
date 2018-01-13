@@ -9,6 +9,7 @@
       <el-menu-item
         v-for="chapter in chapters"
         :route="{ params: { chapter: `${chapter.id}`, task: 1 } }"
+        :key="`${chapter.id}`"
         :index="`${chapter.id}`">
         <a>
           <i class="el-icon-arrow-right"></i>

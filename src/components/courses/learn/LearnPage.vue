@@ -46,7 +46,7 @@
     },
 
     // de-couple raw $route.query values as props
-    props: ['course', 'chapter', 'task']
+    props: ['course', 'chapter']
   };
 </script>
 
