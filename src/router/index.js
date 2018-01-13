@@ -2,9 +2,10 @@ import Vue from 'vue';
 import Router from 'vue-router';
 import WelcomePage from '@/components/welcome/WelcomePage';
 import EnrollPage from '@/components/courses/enroll/EnrollPage';
-import DashboardPage from '@/components/courses/dashboard/DashboardPage';
 import ChapterStart from '@/components/courses/learn/chapter/ChapterStart';
+import DashboardPage from '@/components/courses/dashboard/DashboardPage';
 import ChapterPanel from '@/components/courses/learn/chapter/ChapterPanel';
+import CourseStart from '@/components/courses/learn/CourseStart';
 import TaskPanel from '@/components/courses/learn/task/TaskPanel';
 import LearnPage from '@/components/courses/learn/LearnPage';
 import AdminPage from '@/components/admin/AdminPage';
@@ -26,15 +27,16 @@ export default new Router({
     },
 
     {
-      path: '/courses/learn',
-      component: DashboardPage,
-      name: 'dashboard',
-      exact: true
+      path: '/courses/enroll',
+      component: EnrollPage
     },
 
     {
-      path: '/courses/enroll',
-      component: EnrollPage
+      path: '/courses/learn',
+      alias: '/courses/learn/dashboard',
+      component: DashboardPage,
+      name: 'dashboard',
+      exact: true
     },
 
     {
@@ -43,20 +45,25 @@ export default new Router({
       props: true,
       children: [
         {
+          path: '',
+          component: CourseStart
+        },
+        {
           path: 'chapters/:chapter/',
           component: ChapterPanel,
           props: true,
           children: [
             {
+              path: '',
+              component: ChapterStart
+            },
+            {
               path: 'tasks/:task',
               component: TaskPanel,
+              name: 'task',
               props: true
             }
           ]
-        },
-        {
-          path: '',
-          component: ChapterStart
         }
       ]
     },

@@ -43,7 +43,7 @@
     color: #2c3e50;
   }
 
-  .el-container {
+  #app > .el-container {
     padding: 0;
     height: 100%;
     border: green 3px solid;
