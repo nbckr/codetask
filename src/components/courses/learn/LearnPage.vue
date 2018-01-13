@@ -2,25 +2,30 @@
 
   <el-container>
 
-    <app-chapter-list
-      :chapters="chapters"
-      :active-chapter="chapter"
-    ></app-chapter-list>
+    <el-aside>
+      <app-chapter-list
+        :chapters="chapters"
+        :active-chapter="chapter"
+      ></app-chapter-list>
+    </el-aside>
 
-    <app-chapter-panel
+    <!--<app-chapter-panel
       :chapters="chapters"
       :active-chapter="chapters.find(el => el.id === chapterIdAsNumber)"
-      :active-task-index="taskIndexAsNumber">
+      :active-task-index="taskIndexAsNumber"
+    />-->
 
-    </app-chapter-panel>
+    <el-main>
+      <router-view/>
+    </el-main>
 
   </el-container>
 
 </template>
 
 <script>
-  import ChapterList from './ChapterList';
-  import ChapterPanel from './ChapterPanel';
+  import ChapterList from './chapter/ChapterList';
+  import ChapterPanel from './chapter/ChapterPanel';
   import test from '@/data/test-course.tmp';
 
   export default {
@@ -41,7 +46,7 @@
     },
 
     // de-couple raw $route.query values as props
-    props: [ 'course', 'chapter', 'task' ]
+    props: ['course', 'chapter', 'task']
   };
 </script>
 

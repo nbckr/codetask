@@ -1,38 +1,36 @@
 <template>
 
-  <el-main>
-    <section>
+  <section>
 
-      <div class="description">
-        <p>{{ activeTask.data.description.trim() }}</p>
-      </div>
+    <div class="description">
+      <p>{{ activeTask.data.description.trim() }}</p>
+    </div>
 
-      <app-koan-task
-        v-if="activeTask.tag === 'koan-task'"
-        :active-task="activeTask"
-      />
+    <app-koan-task
+      v-if="activeTask.tag === 'koan-task'"
+      :active-task="activeTask"
+    />
 
-      <app-video-task
-        v-if="activeTask.tag === 'video-task'"
-        :active-task="activeTask"
-      />
+    <app-video-task
+      v-if="activeTask.tag === 'video-task'"
+      :active-task="activeTask"
+    />
 
-      <app-code-task
-        v-if="activeTask.tag === 'code-task'"
-        :active-task="activeTask"
-      />
+    <app-code-task
+      v-if="activeTask.tag === 'code-task'"
+      :active-task="activeTask"
+    />
 
 
-      <br>
-      <el-button
-        @click="checkInputAndGoToNextTask">
-        &gt; Weiter
-      </el-button>
+    <br>
+    <el-button
+      @click="checkInputAndGoToNextTask">
+      &gt; Weiter
+    </el-button>
 
-      <p style="font-size: x-small" v-for="s in activeTask.data.solutions">{{ s }}</p>
+    <p style="font-size: x-small" v-for="s in activeTask.data.solutions">{{ s }}</p>
 
-    </section>
-  </el-main>
+  </section>
 
 </template>
 
@@ -40,15 +38,23 @@
   import KoanTask from './KoanTask';
   import CodeTask from './CodeTask';
   import VideoTask from './VideoTask';
+  import test from '@/data/test-course.tmp';
 
   export default {
+    data () {
+      return {
+        activeTask: test.chapters[0].tasks[0],
+        activeTaskIndex: 2
+      };
+    },
+
     components: {
       appKoanTask: KoanTask,
       appCodeTask: CodeTask,
       appVideoTask: VideoTask
     },
 
-    props: [ 'activeTask', 'activeTaskIndex' ],
+    /* props: [ 'activeTask', 'activeTaskIndex' ], */
 
     methods: {
       checkInputAndGoToNextTask () {
@@ -66,7 +72,7 @@
 <style>
 
   section {
-    border: red 4px solid;
+    border: yellow 2px solid;
     background-color: white;
     display: inline-block;
     padding: 1.6rem;
@@ -80,6 +86,7 @@
     padding: 0.8rem;
     margin-bottom: 1.5rem;
   }
+
   .description > p {
     margin: 0;
     /* white-space: pre; */

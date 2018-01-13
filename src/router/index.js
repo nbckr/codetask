@@ -1,10 +1,13 @@
 import Vue from 'vue';
 import Router from 'vue-router';
 import WelcomePage from '@/components/welcome/WelcomePage';
-import AdminPage from '@/components/admin/AdminPage';
-import EnrollPage from '@/components/courses/enroll/EnrollPage';
-import LearnPage from '@/components/courses/learn/LearnPage';
 import DashboardPage from '@/components/dashboard/DashboardPage';
+import EnrollPage from '@/components/courses/enroll/EnrollPage';
+import ChapterStart from '@/components/courses/learn/chapter/ChapterStart';
+import ChapterPanel from '@/components/courses/learn/chapter/ChapterPanel';
+import TaskPanel from '@/components/courses/learn/task/TaskPanel';
+import LearnPage from '@/components/courses/learn/LearnPage';
+import AdminPage from '@/components/admin/AdminPage';
 
 Vue.use(Router);
 
@@ -14,33 +17,49 @@ export default new Router({
   routes: [
     {
       path: '/',
-      name: 'WelcomePage',
       component: WelcomePage
     },
 
     {
-      path: '/dashboard',
-      name: 'DashboardPage',
-      component: DashboardPage
-    },
-
-    {
       path: '/admin',
-      name: 'AdminPage',
       component: AdminPage
     },
 
     {
+      path: '/courses/learn',
+      component: DashboardPage,
+      exact: true
+    },
+
+    {
       path: '/courses/enroll',
-      name: 'EnrollPage',
       component: EnrollPage
     },
+
     {
-      path: '/courses/learn/:course/chapters/:chapter/tasks/:task',
-      name: 'LearnPage',
+      path: '/courses/learn/:course',
       component: LearnPage,
-      props: true
+      props: true,
+      children: [
+        {
+          path: 'chapters/:chapter/',
+          component: ChapterPanel,
+          props: true,
+          children: [
+            {
+              path: 'tasks/:task',
+              component: TaskPanel,
+              props: true
+            }
+          ]
+        },
+        {
+          path: '',
+          component: ChapterStart
+        }
+      ]
     },
+
     {
       path: '*',
       redirect: '/'

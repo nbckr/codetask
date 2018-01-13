@@ -14,7 +14,6 @@
       :value="activeTask.data.code"
       :options="codemirrorOptions"
       @ready="onCmReady"
-      @blur="onCmBlur"
     />
 
     <small> All correct: {{ allSolutionsCorrect }}</small>
@@ -55,19 +54,15 @@
     props: ['activeTask'],
 
     methods: {
-      parseSolutions () {
-        return 'null';
-      },
-
-      onCmBlur (cm) {
-        console.log('blur', cm);
-      },
       onCmReady (cm) {
         const inputNodes = Array.from(document.querySelectorAll('.code-input'));
         const regex = /\(__\)/g;   // golbal regex matching the solution placeholder
 
+        // Change editor value to code without placeholders
+        // Note: This implementation doesn't support multiple placeholders in one line
         cm.setValue(this.activeTask.data.code.replace(regex, ''));
 
+        // Manually move the <input> DOM nodes into editor, making use of CodeMirror's bookmark feature
         this.activeTask.data.code.split('\n').forEach((line, index) => {
           let match;
           while ((match = regex.exec(line))) {

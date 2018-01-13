@@ -1,6 +1,6 @@
 <template>
 
-  <el-aside>
+  <nav>
 
     <el-menu
       default-active="2"
@@ -19,13 +19,13 @@
 
     </el-menu>
 
-  </el-aside>
+  </nav>
 
 </template>
 
 <script>
   export default {
-    props: [ 'chapters', 'activeChapter' ]
+    props: ['chapters', 'activeChapter']
   };
 </script>
 
