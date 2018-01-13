@@ -20,7 +20,11 @@
 
 <script>
   export default {
-    props: [ 'tasks', 'activeTaskIndex' ]
+    props: ['tasks'],
+
+    computed: {
+      activeTaskIndex: (vm) => Number.parseInt(vm.$route.params.task) - 1
+    }
   };
 </script>
 

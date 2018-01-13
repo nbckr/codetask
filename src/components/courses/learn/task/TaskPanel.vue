@@ -41,31 +41,33 @@
   import test from '@/data/test-course.tmp';
 
   export default {
-    data () {
-      return {
-        activeTask: test.chapters[0].tasks[0],
-        activeTaskIndex: 2
-      };
-    },
-
     components: {
       appKoanTask: KoanTask,
       appCodeTask: CodeTask,
       appVideoTask: VideoTask
     },
 
-    /* props: [ 'activeTask', 'activeTaskIndex' ], */
-
     methods: {
       checkInputAndGoToNextTask () {
         // TODO: Check solutions
-        console.log(typeof this.activeTaskIndex, this.activeTaskIndex);
 
-        this.$router.replace({
-          params: { task: this.activeTaskIndex + 2 }    // index is 0-indexed, resource ain't
+        this.$router.push({
+          params: { task: this.taskIndexAsNumber + 1 }
         });
       }
-    }
+    },
+
+    computed: {
+      taskIndexAsNumber: (vm) => Number.parseInt(vm.task),
+      chapterIdAsNumber: (vm) => Number.parseInt(vm.chapter),
+      activeTask: (vm) => {
+        return test.chapters
+          .find(chapter => chapter.id === vm.chapterIdAsNumber)
+          .tasks[vm.taskIndexAsNumber];
+      }
+    },
+
+    props: ['task', 'chapter']
   };
 </script>
 

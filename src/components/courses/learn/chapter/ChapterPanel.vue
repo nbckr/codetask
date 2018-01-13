@@ -2,9 +2,9 @@
   <article>
 
     <h1>{{ activeChapter.title }}</h1>
+
     <app-task-stepper
-      :tasks="activeChapter.tasks"
-      :active-task-index="activeTaskIndex"/>
+      :tasks="activeChapter.tasks" />
 
     <!--<app-task
       :active-task="activeChapter.tasks[activeTaskIndex]"
@@ -27,15 +27,12 @@
       appTask: Task
     },
 
-    data () {
-      return {
-        chapters: [],
-        activeChapter: test.chapters[0],
-        activeTaskIndex: 2
-      };
-    }
+    computed: {
+      chapterIdAsNumber: (vm) => Number.parseInt(vm.chapter),
+      activeChapter: (vm) => test.chapters.find(chapter => chapter.id === vm.chapterIdAsNumber)
+    },
 
-    /* props: ['chapters', 'activeChapter', 'activeTaskIndex'] */
+    props: ['chapter']
   };
 </script>
 

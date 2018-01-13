@@ -7,6 +7,7 @@
       v-autowidth="autowidthOptions"
       :id="`input-${index}`"
       class="code-input"
+      :class="{success: userInputsCorrect[index] }"
       v-model="userInputs[index]"
     />
 
@@ -81,6 +82,11 @@
 
         return this.activeTask.data.solutions
           .every((solution, index) => this.userInputs[index].trim() === solution.trim());
+      },
+
+      userInputsCorrect () {
+        // TODO: Problem with array sizes; better solution might be vuelidate
+        return this.activeTask.data.solutions.map((input, index) => input === this.userInputs[index]);
       }
     }
   };
@@ -128,6 +134,10 @@
     background-color: rgba(254, 130, 85, 0.75);
     border-color: #9ecaed;
     box-shadow: 0 0 10px #9ecaed;
+  }
+
+  input.success {
+    background-color: rgba(111, 240, 111, 0.75) !important;
   }
 
 </style>

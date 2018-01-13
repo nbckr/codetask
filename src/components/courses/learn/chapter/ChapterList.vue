@@ -1,7 +1,6 @@
 <template>
 
   <nav>
-
     <el-menu
       default-active="2"
       :router="true"
@@ -16,7 +15,6 @@
           <span>{{ chapter.title }}</span>
         </a>
       </el-menu-item>
-
     </el-menu>
 
   </nav>
@@ -30,6 +28,9 @@
 </script>
 
 <style scoped>
+  nav {
+    border: purple 3px solid;
+  }
 
   aside {
     border: red 4px solid;
