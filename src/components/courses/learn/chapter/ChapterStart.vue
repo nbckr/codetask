@@ -1,25 +1,11 @@
 <template>
   <div>
     <h1>Welcome to chapter!</h1>
-
-    <el-button
-      @click="goToFirstTask">
-      &gt; Start
-    </el-button>
+    <p>Lorem Ipsum</p>
   </div>
 </template>
 
 <script>
-  export default {
-    methods: {
-      goToFirstTask () {
-        this.$router.push({
-          name: 'task',
-          params: { task: 1 }
-        });
-      }
-    }
-  };
 </script>
 
 <style scoped>

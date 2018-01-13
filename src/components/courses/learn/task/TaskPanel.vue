@@ -6,11 +6,29 @@
     </transition>
 
     <br>
-    <el-button
-      @click="checkInputAndGoToNextTask">
-      &gt; Weiter
-    </el-button>
 
+    <el-row type="flex" class="row-bg" justify="space-between">
+
+      <el-col :xs="6" :sm="3" :md="2">
+        <el-button
+          v-if="!isCourseStart"
+          @click="goToLastTask">
+          <i class="el-icon-arrow-left"></i>
+        </el-button>
+      </el-col>
+
+      <el-col :xs="6" :sm="3" :md="4">
+        <el-button
+          v-if="!isCourseEnd"
+          type="primary" plain
+          :disabled="nextIsDisabled"
+          @click="checkInputAndGoToNextTask">
+          <span class="hidden-sm-and-down">Weiter </span>
+          <i class="el-icon-arrow-right"></i>
+        </el-button>
+      </el-col>
+
+    </el-row>
 
   </div>
 
@@ -19,16 +37,34 @@
 <script>
   export default {
     computed: {
+      isCourseStart: (vm) => !vm.$route.params.task || !vm.$route.params.task === 1,
+
+      isCourseEnd: (vm) => false,
+
+      nextIsDisabled: () => false,
+
       // TODO: taskIndexAsNumber is duplicate from BaseTask, navigation should get refactored anyhow
       taskIndexAsNumber: (vm) => Number.parseInt(vm.$route.params.task)
     },
 
     methods: {
+      goToLastTask () {
+        console.log(this.taskIndexAsNumber);
+
+        if (this.taskIndexAsNumber === 1) {
+          this.$router.push({ name: 'chapter' });
+        } else {
+          this.$router.push({ name: 'task', params: { task: this.taskIndexAsNumber - 1 } });
+        }
+      },
+
       checkInputAndGoToNextTask () {
         // TODO: Check solutions
+        // TODO: Check if go to ChapterEnd
 
+        const task = this.taskIndexAsNumber ? this.taskIndexAsNumber + 1 : 1;
         this.$router.push({
-          params: { task: this.taskIndexAsNumber + 1 }
+          name: 'task', params: { task }
         });
       }
     }
@@ -58,11 +94,7 @@
     /* white-space: pre; */
   }
 
-  /* .slideOutLeft {
-    animation-duration: 0.5s;
+  .el-button {
+    width: 100%;
   }
-
-  .slideInRight {
-    animation-delay: 0.6s;
-  } */
 </style>
