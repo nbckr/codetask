@@ -1,7 +1,9 @@
 <template>
   <div>
 
+    <router-link to="/">
     <h1>CodeTask</h1>
+    </router-link>
     <!--<el-menu
       :default-active="activeIndex2"
       class="el-menu-demo"

@@ -6,7 +6,9 @@
         <app-header/>
       </el-header>
       <el-main>
-        <router-view/>
+        <transition enter-active-class="animated fadeInUp" leave-active-class="animated slideOutUp" mode="out-in">
+          <router-view/>
+        </transition>
       </el-main>
     </el-container>
   </div>
@@ -17,6 +19,7 @@
   import Header from './components/shared/Header.vue';
   import Background from './components/shared/Background.vue';
   import 'element-ui/lib/theme-chalk/display.css';
+  import 'animate.css/animate.css';
 
   export default {
     name: 'app',

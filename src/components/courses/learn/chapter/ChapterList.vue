@@ -4,11 +4,11 @@
     <el-menu
       default-active="2"
       :router="true"
-      :default-active="activeChapter">
+      :default-active="`${activeChapter}`">
 
       <el-menu-item
         v-for="chapter in chapters"
-        :route="{ params: { chapter: `${chapter.id}`, task: 1 } }"
+        :route="{ name: 'chapter', params: { chapter: chapter.id } }"
         :key="`${chapter.id}`"
         :index="`${chapter.id}`">
         <a>

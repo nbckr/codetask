@@ -2,7 +2,7 @@
   <el-container>
     <el-main>
       <h1>Course overview</h1>
-      <h2>Chaoters:</h2>
+      <h2>Chapters:</h2>
 
       <el-row>
         <ul>
@@ -19,6 +19,11 @@
 
 <script>
   export default {
+    data () {
+      return {
+        course: 'MyCourse'
+      };
+    }
   };
 </script>
 

@@ -6,7 +6,18 @@
       <p>{{ activeTask.data.description.trim() }}</p>
     </div>
 
-    <app-koan-task
+      <component
+        :is="activeTask.tag"
+        :active-task="activeTask"
+      />
+
+
+    <!--<app-koan-task
+    <transition enter-active-class="animated slideInRight" leave-active-class="animated slideOutLeft" mode="out-in">
+    </transition>
+
+
+
       v-if="activeTask.tag === 'koan-task'"
       :active-task="activeTask"
     />
@@ -19,7 +30,7 @@
     <app-code-task
       v-if="activeTask.tag === 'code-task'"
       :active-task="activeTask"
-    />
+    />-->
 
 
     <br>
@@ -42,9 +53,9 @@
 
   export default {
     components: {
-      appKoanTask: KoanTask,
-      appCodeTask: CodeTask,
-      appVideoTask: VideoTask
+      KoanTask,
+      CodeTask,
+      VideoTask
     },
 
     methods: {

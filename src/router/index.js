@@ -55,6 +55,7 @@ export default new Router({
           children: [
             {
               path: '',
+              name: 'chapter',
               component: ChapterStart
             },
             {

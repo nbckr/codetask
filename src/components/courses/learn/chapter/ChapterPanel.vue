@@ -6,12 +6,10 @@
     <app-task-stepper
       :tasks="activeChapter.tasks" />
 
-    <!--<app-task
-      :active-task="activeChapter.tasks[activeTaskIndex]"
-      :active-task-index="activeTaskIndex"
-    />-->
-
-    <router-view/>
+    <!-- <app-task-panel> -->
+    <transition leave-active-class="animated slideOutLeft" enter-active-class="animated slideInRight" mode="out-in">
+      <router-view :key="$route.params.task"/>
+    </transition>
 
   </article>
 </template>
@@ -37,6 +35,14 @@
 </script>
 
 <style scoped>
+  .slideOutLeft {
+    animation-duration: 0.5s;
+  }
+
+  .slideInRight {
+    animation-delay: 0.6s;
+  }
+
   article {
     width: 100%;
     border: orangered 3px solid;
