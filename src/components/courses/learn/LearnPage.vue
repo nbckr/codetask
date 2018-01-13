@@ -9,12 +9,7 @@
       ></app-chapter-list>
     </el-aside>
 
-    <!--<app-chapter-panel
-      :chapters="chapters"
-      :active-chapter="chapters.find(el => el.id === chapterIdAsNumber)"
-      :active-task-index="taskIndexAsNumber"
-    />-->
-
+    <!--<app-chapter-panel>-->
     <el-main>
       <router-view/>
     </el-main>

@@ -1,11 +1,9 @@
 <template>
 
   <div>
-
-    <component
-      :is="activeTask.tag"
-      :active-task="activeTask"
-    />
+    <transition leave-active-class="animated slideOutLeft" enter-active-class="animated slideInRight" mode="out-in">
+      <router-view :key="$route.params.task"/>
+    </transition>
 
     <br>
     <el-button
@@ -13,23 +11,16 @@
       &gt; Weiter
     </el-button>
 
-    <p style="font-size: x-small" v-for="s in activeTask.data.solutions">{{ s }}</p>
 
   </div>
 
 </template>
 
 <script>
-  import KoanTask from './KoanTask';
-  import CodeTask from './CodeTask';
-  import VideoTask from './VideoTask';
-  import test from '@/data/test-course.tmp';
-
   export default {
-    components: {
-      KoanTask,
-      CodeTask,
-      VideoTask
+    computed: {
+      // TODO: taskIndexAsNumber is duplicate from BaseTask, navigation should get refactored anyhow
+      taskIndexAsNumber: (vm) => Number.parseInt(vm.$route.params.task)
     },
 
     methods: {
@@ -40,19 +31,7 @@
           params: { task: this.taskIndexAsNumber + 1 }
         });
       }
-    },
-
-    computed: {
-      taskIndexAsNumber: (vm) => Number.parseInt(vm.task),
-      chapterIdAsNumber: (vm) => Number.parseInt(vm.chapter),
-      activeTask: (vm) => {
-        return test.chapters
-          .find(chapter => chapter.id === vm.chapterIdAsNumber)
-          .tasks[vm.taskIndexAsNumber];
-      }
-    },
-
-    props: ['task', 'chapter']
+    }
   };
 </script>
 
@@ -79,4 +58,11 @@
     /* white-space: pre; */
   }
 
+  /* .slideOutLeft {
+    animation-duration: 0.5s;
+  }
+
+  .slideInRight {
+    animation-delay: 0.6s;
+  } */
 </style>

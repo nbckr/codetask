@@ -6,23 +6,20 @@
     <app-task-stepper
       :tasks="activeChapter.tasks" />
 
-    <!-- <app-task-panel> -->
-    <transition leave-active-class="animated slideOutLeft" enter-active-class="animated slideInRight" mode="out-in">
-      <router-view :key="$route.params.task"/>
-    </transition>
+    <app-task-panel/>
 
   </article>
 </template>
 
 <script>
   import TaskStepper from '../TaskStepper';
-  import Task from '../task/TaskPanel';
+  import TaskPanel from '../task/TaskPanel';
   import test from '@/data/test-course.tmp';
 
   export default {
     components: {
       appTaskStepper: TaskStepper,
-      appTask: Task
+      appTaskPanel: TaskPanel
     },
 
     computed: {
@@ -35,18 +32,16 @@
 </script>
 
 <style scoped>
-  .slideOutLeft {
-    animation-duration: 0.5s;
-  }
-
-  .slideInRight {
-    animation-delay: 0.6s;
-  }
-
   article {
     width: 100%;
     border: orangered 3px solid;
     display: inline-block;
+    transition: height 1s;
+  }
+
+  section {
+    transition: height 1s;
+
   }
 
   h1 {

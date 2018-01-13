@@ -1,10 +1,5 @@
 <template>
-  <section>
-
-    <div class="description">
-      <p>{{ activeTask.data.description.trim() }}</p>
-    </div>
-
+  <div>
     <!-- Inputs to be inserted into the codemirror component at initialization time-->
     <input
       v-for="(solution, index) in activeTask.data.solutions"
@@ -22,20 +17,17 @@
     />
 
     <small> All correct: {{ allSolutionsCorrect }}</small>
-  </section>
+  </div>
 
 </template>
 
 <script>
-  import BaseTask from './BaseTask';
   import { codemirror } from 'vue-codemirror';
   import 'codemirror/lib/codemirror.css';
   import 'codemirror/theme/monokai.css';    // Theme
   import 'codemirror/mode/clike/clike';     // Scala
 
   export default {
-    extends: BaseTask,
-
     data () {
       return {
         userInputs: [],
@@ -93,7 +85,9 @@
         // TODO: Problem with array sizes; better solution might be vuelidate
         return this.activeTask.data.solutions.map((input, index) => input === this.userInputs[index]);
       }
-    }
+    },
+
+    props: ['activeTask']
   };
 </script>
 

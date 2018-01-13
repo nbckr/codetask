@@ -10,10 +10,8 @@
 </template>
 
 <script>
-  import BaseTask from './BaseTask';
-
   export default {
-    extends: BaseTask
+    props: ['activeTask']
   };
 </script>
 

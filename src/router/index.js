@@ -6,8 +6,8 @@ import ChapterStart from '@/components/courses/learn/chapter/ChapterStart';
 import DashboardPage from '@/components/courses/dashboard/DashboardPage';
 import ChapterPanel from '@/components/courses/learn/chapter/ChapterPanel';
 import CourseStart from '@/components/courses/learn/CourseStart';
-import TaskPanel from '@/components/courses/learn/task/TaskPanel';
 import LearnPage from '@/components/courses/learn/LearnPage';
+import BaseTask from '@/components/courses/learn/task/BaseTask';
 import AdminPage from '@/components/admin/AdminPage';
 
 Vue.use(Router);
@@ -60,7 +60,7 @@ export default new Router({
             },
             {
               path: 'tasks/:task',
-              component: TaskPanel,
+              component: BaseTask,
               name: 'task',
               props: true
             }
