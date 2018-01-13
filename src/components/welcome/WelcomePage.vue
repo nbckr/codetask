@@ -1,5 +1,5 @@
 <template>
-  <div id="wrapper">
+  <el-container id="wrapper">
 
     <app-banner/>
 
@@ -21,9 +21,7 @@
       clickMode="push"
     />
 
-
-
-  </div>
+  </el-container>
 </template>
 
 <script>

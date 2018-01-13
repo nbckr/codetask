@@ -7,7 +7,7 @@
       </p>
       <br>
       <router-link
-        :to="{name: 'LearnPage', params: { course: 1, chapter: 1, task: 1 } }">
+        :to="{ name: 'dashboard' }">
         <el-button
           type="primary">
           Start Learning Now

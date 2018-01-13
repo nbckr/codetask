@@ -1,8 +1,8 @@
 import Vue from 'vue';
 import Router from 'vue-router';
 import WelcomePage from '@/components/welcome/WelcomePage';
-import DashboardPage from '@/components/dashboard/DashboardPage';
 import EnrollPage from '@/components/courses/enroll/EnrollPage';
+import DashboardPage from '@/components/courses/dashboard/DashboardPage';
 import ChapterStart from '@/components/courses/learn/chapter/ChapterStart';
 import ChapterPanel from '@/components/courses/learn/chapter/ChapterPanel';
 import TaskPanel from '@/components/courses/learn/task/TaskPanel';
@@ -28,6 +28,7 @@ export default new Router({
     {
       path: '/courses/learn',
       component: DashboardPage,
+      name: 'dashboard',
       exact: true
     },
 
