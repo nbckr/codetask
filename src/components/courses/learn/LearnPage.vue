@@ -32,7 +32,7 @@
 
     computed: {
       chapterIdAsNumber: (vm) => Number.parseInt(vm.chapter),
-      taskIndexAsNumber: (vm) => Number.parseInt(vm.task)
+      taskIndexAsNumber: (vm) => Number.parseInt(vm.task) - 1   // subtract -1 offset to hide 0-indexing
     },
 
     components: {

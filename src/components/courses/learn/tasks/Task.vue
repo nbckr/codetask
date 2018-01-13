@@ -45,10 +45,10 @@
     methods: {
       checkInputAndGoToNextTask () {
         // TODO: Check solutions
-        console.log(typeof this.activeTaskIndex);
+        console.log(typeof this.activeTaskIndex, this.activeTaskIndex);
 
         this.$router.replace({
-          params: { task: this.activeTaskIndex + 1 }
+          params: { task: this.activeTaskIndex + 2 }    // index is 0-indexed, resource ain't
         });
       }
     }
