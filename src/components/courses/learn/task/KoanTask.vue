@@ -7,6 +7,7 @@
       :id="`input-${index}`"
       class="code-input"
       :class="{success: userInputsCorrect[index] }"
+      :autofocus="index === 0"
       v-model="userInputs[index]"
     />
 
@@ -89,25 +90,24 @@
   };
 </script>
 
-<style>
-  /* Attention: <style> not scoped! */
+<style scoped>
 
-  .CodeMirror {
+  >>> .CodeMirror {
     padding: 1rem;
     font-family: monospace;
     line-height: 2rem !important;
     cursor: default !important;
   }
 
-  .CodeMirror-linenumbers {
+  >>> .CodeMirror-linenumbers {
     width: 1.5rem;
   }
 
-  .CodeMirror-linenumber {
+  >>> .CodeMirror-linenumber {
     text-align: center;
   }
 
-  input {
+  >>> input {
     /* transition: width 0.15s; */
 
     /* From Monokai Syntax CSS theme */
@@ -126,14 +126,14 @@
     cursor: text;
   }
 
-  input:focus {
+  >>> input:focus {
     outline: none;
     background-color: rgba(254, 130, 85, 0.75);
     border-color: #9ecaed;
     box-shadow: 0 0 10px #9ecaed;
   }
 
-  input.success {
+  >>> input.success {
     background-color: rgba(111, 240, 111, 0.75) !important;
   }
 

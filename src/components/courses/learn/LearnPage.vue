@@ -2,7 +2,7 @@
 
   <el-container>
 
-    <el-aside>
+    <el-aside class="hidden-sm-and-down">
       <app-chapter-list
         :chapters="chapters"
         :active-chapter="chapter"

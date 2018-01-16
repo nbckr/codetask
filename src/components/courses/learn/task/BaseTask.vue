@@ -34,7 +34,7 @@
       activeTask: (vm) => {
         return test.chapters
           .find(chapter => chapter.id === vm.chapterIdAsNumber)
-          .tasks[vm.taskIndexAsNumber];
+          .tasks[vm.taskIndexAsNumber - 1];   // Compensate 0-indexing
       }
     },
 

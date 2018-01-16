@@ -2,7 +2,6 @@
 
   <div>
 
-
     <div id="router-window">
       <transition leave-active-class="animated slideOutLeft" enter-active-class="animated slideInRight" mode="out-in">
         <router-view :key="$route.params.task"/>
@@ -75,16 +74,16 @@
   };
 </script>
 
-<style>
+<style scoped>
 
   section {
     border: yellow 2px solid;
     background-color: white;
-    display: inline-block;
+    // display: inline-block;
     padding: 1.6rem;
   }
 
-  .description {
+  >>> .description {
     border: lightgrey 1px solid;
     border-radius: 0.3rem;
     /* box-shadow: darkgrey 3px 3px; */
@@ -93,7 +92,7 @@
     margin-bottom: 1.5rem;
   }
 
-  .description > p {
+  >>> .description > p {
     margin: 0;
     /* white-space: pre; */
   }

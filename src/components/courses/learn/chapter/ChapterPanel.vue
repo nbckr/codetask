@@ -1,25 +1,43 @@
 <template>
-  <article>
+  <div id="chapter-wrapper">
 
     <h1>{{ activeChapter.title }}</h1>
 
-    <app-task-stepper
-      :tasks="activeChapter.tasks" />
+    <!-- Small devices get the small progress indicator and a chapter picker right here -->
+    <app-small-chapter-picker
+      class="hidden-md-and-up"
+      :active-chapter="activeChapter"
+    ></app-small-chapter-picker>
+
+    <app-small-chapter-progress
+      class="hidden-sm-and-up"
+      :tasks="activeChapter.tasks"
+    />
+
+    <!-- Large devices get the nav aside (on LearnPage) and the full-sized ChapterTasksProgress -->
+    <app-chapter-tasks-progress
+      class="hidden-xs-only"
+      :tasks="activeChapter.tasks"
+    />
 
     <app-task-panel/>
 
-  </article>
+  </div>
 </template>
 
 <script>
-  import TaskStepper from '../TaskStepper';
+  import ChapterTasksProgress from './ChapterTasksProgress';
+  import SmallChapterProgress from './SmallChapterProgress';
+  import SmallChapterPicker from './SmallChapterPicker';
   import TaskPanel from '../task/TaskPanel';
   import test from '@/data/test-course.tmp';
 
   export default {
     components: {
-      appTaskStepper: TaskStepper,
-      appTaskPanel: TaskPanel
+      appChapterTasksProgress: ChapterTasksProgress,
+      appTaskPanel: TaskPanel,
+      appSmallChapterPicker: SmallChapterPicker,
+      appSmallChapterProgress: SmallChapterProgress
     },
 
     computed: {
@@ -32,17 +50,22 @@
 </script>
 
 <style scoped>
-  article {
+  #chapter-wrapper {
     width: 100%;
+    min-width: 444px;
+    margin: 0 auto;
 
-    border: lightgrey 1px solid;
-    display: inline-block;
-    transition: height 1s;
+    padding: 0.1rem;
+    // border: lightgrey 1px solid;
+    // display: inline-block;
+    transition: height 1s, padding 0.5s ease-out;
   }
 
-  section {
-    transition: height 1s;
-
+  @media only screen and (min-width: 768px) {
+    #chapter-wrapper {
+      width: 768px;
+      padding: 1.6rem;
+    }
   }
 
   h1 {
