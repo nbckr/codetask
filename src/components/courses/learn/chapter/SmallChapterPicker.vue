@@ -37,7 +37,7 @@
 
 <style scoped>
   nav {
-    padding: 1.6rem;
+    padding: 1.2rem 0.6rem 0 0.6rem;
   }
 
   .el-breadcrumb {
