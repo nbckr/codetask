@@ -31,6 +31,6 @@
 
 <style scoped>
   aside {
-    padding: 1.2rem 0;
+    padding: 1.2rem 0 0 0;
   }
 </style>

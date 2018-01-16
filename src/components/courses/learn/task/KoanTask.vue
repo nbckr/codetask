@@ -15,8 +15,6 @@
       :options="codemirrorOptions"
       @ready="onCmReady"
     />
-
-    <small> All correct: {{ allSolutionsCorrect }}</small>
   </div>
 
 </template>

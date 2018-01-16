@@ -34,7 +34,8 @@
 <style scoped>
   article {
     width: 100%;
-    border: orangered 3px solid;
+
+    border: lightgrey 1px solid;
     display: inline-block;
     transition: height 1s;
   }
@@ -45,7 +46,10 @@
   }
 
   h1 {
-    margin: 0.5rem 1rem;
+    padding: 0.5rem 1rem;
+    margin: 0;
     text-align: center;
+    background-color: lightgrey;
+    color: white;
   }
 </style>

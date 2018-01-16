@@ -10,7 +10,7 @@
       :active-task="activeTask"
     />
 
-    <p style="font-size: x-small" v-for="s in activeTask.data.solutions">{{ s }}</p>
+    <p style="font-size: x-small">Cheat mode: <i v-for="s in activeTask.data.solutions">{{ s }}     |     </i></p>
 
   </section>
 </template>

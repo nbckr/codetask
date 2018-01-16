@@ -1,7 +1,7 @@
 <template>
   <div>
 
-    <router-link to="/">
+    <router-link :to="{name: 'dashboard'}">
     <h1>CodeTask</h1>
     </router-link>
     <!--<el-menu
@@ -44,6 +44,15 @@ export default {
 </script>
 
 <style scoped>
+
+  a {
+    color: white;
+    text-decoration: none;
+  }
+
+  a:hover {
+    text-decoration: underline;
+  }
 
   div {
     display: flex;

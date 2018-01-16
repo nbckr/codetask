@@ -51,4 +51,9 @@
     border: aqua 5px dashed;
   }
 
+  .el-aside {
+    width: 13rem !important;
+    margin-right: 1.6rem;
+  }
+
 </style>

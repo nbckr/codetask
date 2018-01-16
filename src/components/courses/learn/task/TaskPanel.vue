@@ -1,9 +1,13 @@
 <template>
 
   <div>
-    <transition leave-active-class="animated slideOutLeft" enter-active-class="animated slideInRight" mode="out-in">
-      <router-view :key="$route.params.task"/>
-    </transition>
+
+
+    <div id="router-window">
+      <transition leave-active-class="animated slideOutLeft" enter-active-class="animated slideInRight" mode="out-in">
+        <router-view :key="$route.params.task"/>
+      </transition>
+    </div>
 
     <br>
 
@@ -96,5 +100,10 @@
 
   .el-button {
     width: 100%;
+  }
+
+  #router-window {
+    height: 550px;
+    overflow: scroll;
   }
 </style>
