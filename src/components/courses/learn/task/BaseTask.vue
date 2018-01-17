@@ -21,7 +21,7 @@
   import VideoTask from './VideoTask';
   import { mapGetters } from 'vuex';
 
-  export default class BaseTask extends Vue {
+  export default {
     components: {
       KoanTask,
       CodeTask,

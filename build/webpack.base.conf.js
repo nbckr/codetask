@@ -30,8 +30,9 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.tsx?$/,
-        loader: 'ts-loader',
+        test: /\.ts$/,
+        loader: 'ts',
+        include: [resolve('src'), resolve('test')],
         exclude: /node_modules/,
         options: {
           appendTsSuffixTo: [/\.vue$/]
