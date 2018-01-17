@@ -16,10 +16,10 @@
 </template>
 
 <script>
-  import test from '@/data/test-course.tmp';
   import KoanTask from './KoanTask';
   import CodeTask from './CodeTask';
   import VideoTask from './VideoTask';
+  import { mapGetters } from 'vuex';
 
   export default {
     components: {
@@ -29,16 +29,10 @@
     },
 
     computed: {
-      taskIndexAsNumber: (vm) => Number.parseInt(vm.task),
-      chapterIdAsNumber: (vm) => Number.parseInt(vm.chapter),
-      activeTask: (vm) => {
-        return test.chapters
-          .find(chapter => chapter.id === vm.chapterIdAsNumber)
-          .tasks[vm.taskIndexAsNumber - 1];   // Compensate 0-indexing
-      }
-    },
-
-    props: ['task', 'chapter']
+      ...mapGetters([
+        'activeTask'
+      ])
+    }
   };
 </script>
 

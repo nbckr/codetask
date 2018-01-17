@@ -34,15 +34,25 @@ const getters = {
       .find(c => c.id === Number.parseInt(course));
   },
 
-  activeChapter: state => {
-    const { course, chapter } = router.app.$route.params;
-    if (!course || !chapter || state.courses.length === 0) return;
+  activeChapter: (state, getters) => {
+    const { chapter } = router.app.$route.params;
+    const course = getters.activeCourse;
+    if (!course || !chapter) return;
 
-    return state
-      .courses
-      .find(c => c.id === Number.parseInt(course))
+    return course
       .chapters
       .find(c => c.id === Number.parseInt(chapter));
+  },
+
+  activeTask: (state, getters) => {
+    const { task } = router.app.$route.params;
+    const chapter = getters.activeChapter;
+    if (!task || !chapter) return;
+
+    const task2 = chapter
+      .tasks[Number.parseInt(task) - 1];
+    console.log('TASK', task2);
+    return task2;   // Compensate 0-indexing
   }
 };
 

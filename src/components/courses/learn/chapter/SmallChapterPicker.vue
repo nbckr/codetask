@@ -26,8 +26,6 @@
 
   export default {
     computed: {
-      // chapterIdAsNumber: (vm) => Number.parseInt(vm.chapter),
-      // taskIndexAsNumber: (vm) => Number.parseInt(vm.task) - 1,   // subtract -1 offset to hide 0-indexing
       ...mapGetters([
         'activeCourse',
         'activeChapter'
@@ -38,7 +36,8 @@
 
 <style scoped>
   nav {
-    padding: 1.2rem 0.6rem 0 0.6rem;
+    // padding: 1.2rem 0.6rem 0 0.6rem;
+    padding: 1.2rem 1.2rem 0 1.2rem;
   }
 
   .el-breadcrumb {

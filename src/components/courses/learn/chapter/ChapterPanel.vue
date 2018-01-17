@@ -31,8 +31,6 @@
     },
 
     computed: {
-      // chapterIdAsNumber: (vm) => Number.parseInt(vm.chapter),
-      // activeChapter: (vm) => test.chapters.find(chapter => chapter.id === vm.chapterIdAsNumber),
       ...mapGetters([
         'activeChapter'
       ])
