@@ -1,16 +1,16 @@
-import Vue from 'vue';
-import Router from 'vue-router';
-import WelcomePage from '@/components/welcome/WelcomePage';
-import EnrollPage from '@/components/courses/enroll/EnrollPage';
-import ChapterStart from '@/components/courses/learn/chapter/ChapterStart';
-import DashboardPage from '@/components/courses/dashboard/DashboardPage';
-import ChapterPanel from '@/components/courses/learn/chapter/ChapterPanel';
-import CourseStart from '@/components/courses/learn/CourseStart';
-import LearnPage from '@/components/courses/learn/LearnPage';
-import BaseTask from '@/components/courses/learn/task/BaseTask';
-import AdminPage from '@/components/admin/AdminPage';
+import Vue from 'vue'
+import Router from 'vue-router'
+import WelcomePage from '@/components/welcome/WelcomePage'
+import EnrollPage from '@/components/courses/enroll/EnrollPage'
+import ChapterStart from '@/components/courses/learn/chapter/ChapterStart'
+import DashboardPage from '@/components/courses/dashboard/DashboardPage'
+import ChapterPanel from '@/components/courses/learn/chapter/ChapterPanel'
+import CourseStart from '@/components/courses/learn/CourseStart'
+import LearnPage from '@/components/courses/learn/LearnPage'
+import BaseTask from '@/components/courses/learn/task/BaseTask'
+import AdminPage from '@/components/admin/AdminPage'
 
-Vue.use(Router);
+Vue.use(Router)
 
 export default new Router({
   mode: 'history',
@@ -75,4 +75,4 @@ export default new Router({
       redirect: '/'
     }
   ]
-});
+})

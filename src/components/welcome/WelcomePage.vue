@@ -25,15 +25,15 @@
 </template>
 
 <script>
-  import Banner from '@/components/welcome/Banner';
-  import Background from '@/components/shared/Background';
+  import Banner from '@/components/welcome/Banner'
+  import Background from '@/components/shared/Background'
 
   export default {
     components: {
       appBanner: Banner,
       appBackground: Background
     }
-  };
+  }
 </script>
 
 <style scoped>

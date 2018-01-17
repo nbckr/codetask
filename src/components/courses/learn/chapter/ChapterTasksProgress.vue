@@ -35,16 +35,16 @@
       activeTaskIndex: (vm) => Number.parseInt(vm.$route.params.task) - 1,
 
       percentage: (vm) => {
-        const taskIndex = vm.activeTaskIndex + 1; // Compensate 0-indexing
-        const numberOfTasks = vm.tasks.length;
+        const taskIndex = vm.activeTaskIndex + 1 // Compensate 0-indexing
+        const numberOfTasks = vm.tasks.length
         if (!taskIndex || !numberOfTasks) {
-          return 0;
+          return 0
         } else {
-          return Math.ceil(taskIndex * 100 / numberOfTasks);
+          return Math.ceil(taskIndex * 100 / numberOfTasks)
         }
       }
     }
-  };
+  }
 </script>
 
 <style scoped>
@@ -56,7 +56,7 @@
     padding: 1.2rem;
   }
 
-  >>> .el-progress-bar__inner {
+  > > > .el-progress-bar__inner {
     transition: width 1s, background-color 1s;
   }
 </style>

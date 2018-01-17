@@ -10,13 +10,13 @@
 </template>
 
 <script>
-  import CourseList from './CourseList';
+  import CourseList from './CourseList'
 
   export default {
     components: {
       appCourseList: CourseList
     }
-  };
+  }
 </script>
 
 <style scoped>

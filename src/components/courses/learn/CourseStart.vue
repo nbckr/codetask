@@ -8,7 +8,9 @@
         <ul>
           <li v-for="chapter in 5">
             <el-col :span="10"><p>Chapter # {{ course }}:</p></el-col>
-            <el-col :span="10"><el-progress :percentage="70"></el-progress></el-col>
+            <el-col :span="10">
+              <el-progress :percentage="70"></el-progress>
+            </el-col>
           </li>
         </ul>
       </el-row>
@@ -22,9 +24,9 @@
     data () {
       return {
         course: 'MyCourse'
-      };
+      }
     }
-  };
+  }
 </script>
 
 <style scoped>

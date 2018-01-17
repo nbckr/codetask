@@ -52,12 +52,12 @@
 
     methods: {
       goToLastTask () {
-        console.log(this.taskIndexAsNumber);
+        console.log(this.taskIndexAsNumber)
 
         if (this.taskIndexAsNumber === 1) {
-          this.$router.push({ name: 'chapter' });
+          this.$router.push({name: 'chapter'})
         } else {
-          this.$router.push({ name: 'task', params: { task: this.taskIndexAsNumber - 1 } });
+          this.$router.push({name: 'task', params: {task: this.taskIndexAsNumber - 1}})
         }
       },
 
@@ -65,13 +65,13 @@
         // TODO: Check solutions
         // TODO: Check if go to ChapterEnd
 
-        const task = this.taskIndexAsNumber ? this.taskIndexAsNumber + 1 : 1;
+        const task = this.taskIndexAsNumber ? this.taskIndexAsNumber + 1 : 1
         this.$router.push({
-          name: 'task', params: { task }
-        });
+          name: 'task', params: {task}
+        })
       }
     }
-  };
+  }
 </script>
 
 <style scoped>
@@ -79,11 +79,11 @@
   section {
     border: yellow 2px solid;
     background-color: white;
-    // display: inline-block;
+  / / display: inline-block;
     padding: 1.6rem;
   }
 
-  >>> .description {
+  > > > .description {
     border: lightgrey 1px solid;
     border-radius: 0.3rem;
     /* box-shadow: darkgrey 3px 3px; */
@@ -92,7 +92,7 @@
     margin-bottom: 1.5rem;
   }
 
-  >>> .description > p {
+  > > > .description > p {
     margin: 0;
     /* white-space: pre; */
   }

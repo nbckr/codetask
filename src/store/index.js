@@ -1,10 +1,10 @@
-import Vue from 'vue';
-import Vuex from 'vuex';
+import Vue from 'vue'
+import Vuex from 'vuex'
 
-import courses from './modules/courses';
-import users from './modules/users';
+import courses from './modules/courses'
+import users from './modules/users'
 
-Vue.use(Vuex);
+Vue.use(Vuex)
 
 export default new Vuex.Store({
 
@@ -12,4 +12,4 @@ export default new Vuex.Store({
     courses,
     users
   }
-});
+})

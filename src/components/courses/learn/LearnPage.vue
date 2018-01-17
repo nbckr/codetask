@@ -25,15 +25,15 @@
 </template>
 
 <script>
-  import ChapterList from './chapter/ChapterList';
-  import ChapterPanel from './chapter/ChapterPanel';
-  import { mapGetters } from 'vuex';
+  import ChapterList from './chapter/ChapterList'
+  import ChapterPanel from './chapter/ChapterPanel'
+  import { mapGetters } from 'vuex'
 
   export default {
     data () {
       return {
         chapters: [] // TODO
-      };
+      }
     },
 
     computed: {
@@ -52,7 +52,7 @@
 
     // de-couple raw $route.params values as props
     // props: ['course', 'chapter']
-  };
+  }
 </script>
 
 <style scoped>

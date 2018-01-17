@@ -2,7 +2,7 @@
   <div>
 
     <router-link :to="{name: 'dashboard'}">
-    <h1>CodeTask</h1>
+      <h1>CodeTask</h1>
     </router-link>
     <!--<el-menu
       :default-active="activeIndex2"
@@ -26,21 +26,21 @@
 </template>
 
 <script>
-export default {
+  export default {
 
-  data () {
-    return {
-      activeIndex: '1',
-      activeIndex2: '1'
-    };
-  },
+    data () {
+      return {
+        activeIndex: '1',
+        activeIndex2: '1'
+      }
+    },
 
-  methods: {
-    handleSelect (key, keyPath) {
-      console.log(key, keyPath);
+    methods: {
+      handleSelect (key, keyPath) {
+        console.log(key, keyPath)
+      }
     }
   }
-};
 </script>
 
 <style scoped>

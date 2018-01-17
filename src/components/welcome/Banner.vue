@@ -1,24 +1,24 @@
 <template>
 
-    <div id="banner">
-      <h2>CodeTask</h2>
-      <p class="subtitle">
-        Learn Scala with ease
-      </p>
-      <br>
-      <router-link
-        :to="{ name: 'dashboard' }">
-        <el-button
-          type="primary">
-          Start Learning Now
-        </el-button>
-      </router-link>
-    </div>
+  <div id="banner">
+    <h2>CodeTask</h2>
+    <p class="subtitle">
+      Learn Scala with ease
+    </p>
+    <br>
+    <router-link
+      :to="{ name: 'dashboard' }">
+      <el-button
+        type="primary">
+        Start Learning Now
+      </el-button>
+    </router-link>
+  </div>
 
 </template>
 
 <script>
-  export default {};
+  export default {}
 </script>
 
 <style scoped>

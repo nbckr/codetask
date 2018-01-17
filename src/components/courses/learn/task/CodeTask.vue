@@ -1,17 +1,17 @@
 <template>
 
-    <codemirror
-      :value="activeTask.data.code"
-      :options="codemirrorOptions"
-    />
+  <codemirror
+    :value="activeTask.data.code"
+    :options="codemirrorOptions"
+  />
 
 </template>
 
 <script>
-  import { codemirror } from 'vue-codemirror';
-  import 'codemirror/lib/codemirror.css';
-  import 'codemirror/theme/monokai.css';    // Theme
-  import 'codemirror/mode/clike/clike';     // Scala
+  import { codemirror } from 'vue-codemirror'
+  import 'codemirror/lib/codemirror.css'
+  import 'codemirror/theme/monokai.css' // Theme
+  import 'codemirror/mode/clike/clike' // Scala
 
   export default {
     data () {
@@ -23,7 +23,7 @@
           mode: 'text/x-scala',
           theme: 'monokai'
         }
-      };
+      }
     },
 
     components: {
@@ -32,7 +32,6 @@
 
     props: ['activeTask']
   }
-  ;
 </script>
 
 <style>

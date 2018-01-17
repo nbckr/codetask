@@ -18,10 +18,10 @@
 </template>
 
 <script>
-  import ChapterTasksProgress from './ChapterTasksProgress';
-  import SmallChapterPicker from './SmallChapterPicker';
-  import TaskPanel from '../task/TaskPanel';
-  import { mapGetters } from 'vuex';
+  import ChapterTasksProgress from './ChapterTasksProgress'
+  import SmallChapterPicker from './SmallChapterPicker'
+  import TaskPanel from '../task/TaskPanel'
+  import { mapGetters } from 'vuex'
 
   export default {
     components: {
@@ -37,7 +37,7 @@
     },
 
     props: ['chapter']
-  };
+  }
 </script>
 
 <style scoped>

@@ -4,7 +4,8 @@
 
     <el-breadcrumb separator-class="el-icon-arrow-right">
       <el-breadcrumb-item :to="{ name: 'dashboard' }">Meine Kurse</el-breadcrumb-item>
-      <el-breadcrumb-item :to="{ name: 'course', params: { course: activeCourse.id } }">{{ activeCourse.title }}</el-breadcrumb-item>
+      <el-breadcrumb-item :to="{ name: 'course', params: { course: activeCourse.id } }">{{ activeCourse.title }}
+      </el-breadcrumb-item>
       <el-breadcrumb-item>
         <el-select :value="activeChapter.title" size="mini" :placeholder="activeChapter.title">
           <el-option
@@ -22,7 +23,7 @@
 </template>
 
 <script>
-  import { mapGetters } from 'vuex';
+  import { mapGetters } from 'vuex'
 
   export default {
     computed: {
@@ -31,12 +32,12 @@
         'activeChapter'
       ])
     }
-  };
+  }
 </script>
 
 <style scoped>
   nav {
-    // padding: 1.2rem 0.6rem 0 0.6rem;
+  / / padding: 1.2 rem 0.6 rem 0 0.6 rem;
     padding: 1.2rem 1.2rem 0 1.2rem;
   }
 
