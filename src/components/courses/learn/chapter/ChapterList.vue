@@ -4,10 +4,10 @@
     <el-menu
       default-active="2"
       :router="true"
-      :default-active="`${activeChapter}`">
+      :default-active="`${activeChapter.id}`">
 
       <el-menu-item
-        v-for="chapter in chapters"
+        v-for="chapter in activeCourse.chapters"
         :route="{ name: 'chapter', params: { chapter: chapter.id } }"
         :key="`${chapter.id}`"
         :index="`${chapter.id}`">
@@ -23,8 +23,15 @@
 </template>
 
 <script>
+  import { mapGetters } from 'vuex';
+
   export default {
-    props: ['chapters', 'activeChapter']
+    computed: {
+      ...mapGetters([
+        'activeCourse',
+        'activeChapter'
+      ])
+    }
   };
 </script>
 

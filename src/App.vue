@@ -6,7 +6,7 @@
         <app-header/>
       </el-header>
       <el-main>
-        <transition enter-active-class="animated fadeInUp" leave-active-class="animated slideOutUp" mode="out-in">
+        <transition enter-active-class="animated fadeInUp" leave-active-class="animated slideOutUp" mode="out-in" appear="">
           <router-view/>
         </transition>
       </el-main>
@@ -29,9 +29,8 @@
       appBackground: Background
     },
 
-    mounted: function () {
+    beforeCreate () {
       this.$store.dispatch('LOAD_COURSES');
-      console.log(process.env);
     }
   };
 </script>

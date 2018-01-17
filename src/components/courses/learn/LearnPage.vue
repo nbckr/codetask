@@ -1,12 +1,10 @@
 <template>
 
-  <el-container>
+  <!-- As soon as activeCourse is true, it is save to render child components -->
+  <el-container v-if="activeCourse">
 
     <el-aside class="hidden-sm-and-down">
-      <app-chapter-list
-        :chapters="chapters"
-        :active-chapter="chapter"
-      ></app-chapter-list>
+      <app-chapter-list/>
     </el-aside>
 
     <!--<app-chapter-panel>-->
@@ -16,32 +14,44 @@
 
   </el-container>
 
+  <el-container v-else>
+
+    <el-main>
+      <!-- Could show loading indicator if it takes too long -->
+    </el-main>
+
+  </el-container>
+
 </template>
 
 <script>
   import ChapterList from './chapter/ChapterList';
   import ChapterPanel from './chapter/ChapterPanel';
-  import test from '@/data/test-course.tmp';
+  import { mapGetters } from 'vuex';
 
   export default {
     data () {
       return {
-        chapters: test.chapters
+        chapters: [] // TODO
       };
     },
 
     computed: {
-      chapterIdAsNumber: (vm) => Number.parseInt(vm.chapter),
-      taskIndexAsNumber: (vm) => Number.parseInt(vm.task) - 1   // subtract -1 offset to hide 0-indexing
+      // chapterIdAsNumber: (vm) => Number.parseInt(vm.chapter),
+      // taskIndexAsNumber: (vm) => Number.parseInt(vm.task) - 1,   // subtract -1 offset to hide 0-indexing
+      ...mapGetters([
+        'activeCourse',
+        'activeChapter'
+      ])
     },
 
     components: {
       appChapterList: ChapterList,
       appChapterPanel: ChapterPanel
-    },
+    }
 
-    // de-couple raw $route.query values as props
-    props: ['course', 'chapter']
+    // de-couple raw $route.params values as props
+    // props: ['course', 'chapter']
   };
 </script>
 

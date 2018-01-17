@@ -1,4 +1,5 @@
 import axios from 'axios';
+import router from '../../router';
 
 const state = {
   courses: []
@@ -6,6 +7,7 @@ const state = {
 
 const mutations = {
   SET_COURSES: (state, courses) => {
+    console.log('Setting courses');
     state.courses = courses;
   }
 };
@@ -22,7 +24,27 @@ const actions = {
   }
 };
 
-const getters = {};
+const getters = {
+  activeCourse: state => {
+    const { course } = router.app.$route.params;
+    if (!course || state.courses.length === 0) return;
+
+    return state
+      .courses
+      .find(c => c.id === Number.parseInt(course));
+  },
+
+  activeChapter: state => {
+    const { course, chapter } = router.app.$route.params;
+    if (!course || !chapter || state.courses.length === 0) return;
+
+    return state
+      .courses
+      .find(c => c.id === Number.parseInt(course))
+      .chapters
+      .find(c => c.id === Number.parseInt(chapter));
+  }
+};
 
 export default {
   state,
