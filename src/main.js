@@ -11,6 +11,7 @@ import 'element-ui/lib/theme-chalk/index.css'
 import VueYoutubeEmbed from 'vue-youtube-embed'
 import VueInputAutowidth from 'vue-input-autowidth'
 import Vuelidate from 'vuelidate'
+import VueFire from 'vuefire'
 
 Vue.config.productionTip = false
 
@@ -21,6 +22,7 @@ Vue.use(VueYoutubeEmbed)
 Vue.use(VueInputAutowidth)
 Vue.use(VueParticles)
 Vue.use(Vuelidate)
+Vue.use(VueFire)
 
 /* eslint-disable no-new */
 new Vue({

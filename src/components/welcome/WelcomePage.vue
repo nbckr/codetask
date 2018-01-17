@@ -2,8 +2,10 @@
   <el-container id="wrapper">
 
     <banner/>
+    <signup/>
 
     <vue-particles
+      v-if="false"
       color="#ffffff"
       :particleOpacity="0.7"
       linesColor="#ffffff"
@@ -25,11 +27,13 @@
 </template>
 
 <script>
-  import Banner from '@/components/welcome/Banner'
+  import Banner from './Banner'
+  import Signup from './Signup'
 
   export default {
     components: {
-      Banner
+      Banner,
+      Signup
     }
   }
 </script>
