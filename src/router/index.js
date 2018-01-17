@@ -9,12 +9,19 @@ import LearnPage from '@/components/courses/learn/LearnPage'
 import BaseTask from '@/components/courses/learn/task/BaseTask'
 import AdminPage from '@/components/admin/AdminPage'
 
+import SignupPage from '../components/welcome/Signup'
+import SigninPage from '../components/welcome/Signin'
+
 Vue.use(Router)
 
 export default new Router({
   mode: 'history',
 
   routes: [
+
+    {path: '/signup', component: SignupPage},
+    {path: '/signin', component: SigninPage},
+
     {
       path: '/',
       component: WelcomePage

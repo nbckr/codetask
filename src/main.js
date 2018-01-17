@@ -10,16 +10,17 @@ import Element from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
 import VueYoutubeEmbed from 'vue-youtube-embed'
 import VueInputAutowidth from 'vue-input-autowidth'
+import Vuelidate from 'vuelidate'
 
 Vue.config.productionTip = false
 
-axios.defaults.baseURL = process.env.API_BASE_URL
-axios.defaults.headers['Content-Type'] = 'application/json'
+axios.defaults.baseURL = process.env.PLAY_BASE_URL
 
 Vue.use(Element)
 Vue.use(VueYoutubeEmbed)
 Vue.use(VueInputAutowidth)
 Vue.use(VueParticles)
+Vue.use(Vuelidate)
 
 /* eslint-disable no-new */
 new Vue({
