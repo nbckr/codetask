@@ -1,7 +1,9 @@
 <template>
 
   <aside>
+
     <el-steps
+      class="hidden-xs-only"
       :active="activeTaskIndex"
       process-status="process"
       finish-status="success"
@@ -15,6 +17,12 @@
 
     </el-steps>
 
+    <el-progress
+      class="hidden-sm-and-up"
+      :percentage="percentage"
+      :status="percentage === 100 ? 'success' : ''"
+    />
+
   </aside>
 
 </template>
@@ -24,13 +32,31 @@
     props: ['tasks'],
 
     computed: {
-      activeTaskIndex: (vm) => Number.parseInt(vm.$route.params.task) - 1
+      activeTaskIndex: (vm) => Number.parseInt(vm.$route.params.task) - 1,
+
+      percentage: (vm) => {
+        const taskIndex = vm.activeTaskIndex + 1; // Compensate 0-indexing
+        const numberOfTasks = vm.tasks.length;
+        if (!taskIndex || !numberOfTasks) {
+          return 0;
+        } else {
+          return Math.ceil(taskIndex * 100 / numberOfTasks);
+        }
+      }
     }
   };
 </script>
 
 <style scoped>
-  aside {
+  .el-steps {
     padding: 1.2rem 0 0 0;
+  }
+
+  .el-progress {
+    padding: 1.2rem;
+  }
+
+  >>> .el-progress-bar__inner {
+    transition: width 1s, background-color 1s;
   }
 </style>

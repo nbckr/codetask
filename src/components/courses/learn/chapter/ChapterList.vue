@@ -4,7 +4,7 @@
     <el-menu
       default-active="2"
       :router="true"
-      :default-active="`${activeChapter.id}`">
+      :default-active="`${activeChapter ? activeChapter.id : ''}`">
 
       <el-menu-item
         v-for="chapter in activeCourse.chapters"

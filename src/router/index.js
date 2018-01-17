@@ -1,6 +1,5 @@
 import Vue from 'vue';
 import Router from 'vue-router';
-import store from '../store';
 import WelcomePage from '@/components/welcome/WelcomePage';
 import EnrollPage from '@/components/courses/enroll/EnrollPage';
 import ChapterStart from '@/components/courses/learn/chapter/ChapterStart';
@@ -12,30 +11,6 @@ import BaseTask from '@/components/courses/learn/task/BaseTask';
 import AdminPage from '@/components/admin/AdminPage';
 
 Vue.use(Router);
-
-const checkDataLoaded = (to, from, next) => {
-  console.log('>>>');
-
-  function proceed () {
-    if (store.state.courses.length !== 0) {
-      next();
-    }
-  }
-  console.log('>>>');
-  if (store.state.courses.length === 0) {
-    store.watch(
-      (state) => state.courses.length !== 0,
-      (value) => {
-        console.log('<<<<>>>');
-        if (value === true) {
-          proceed();
-        }
-      }
-    );
-  } else {
-    proceed();
-  }
-};
 
 export default new Router({
   mode: 'history',
@@ -67,11 +42,11 @@ export default new Router({
     {
       path: '/courses/learn/:course',
       component: LearnPage,
-      beforeEnter: checkDataLoaded,
       props: true,
       children: [
         {
           path: '',
+          name: 'course',
           component: CourseStart
         },
         {

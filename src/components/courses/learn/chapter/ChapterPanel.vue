@@ -3,20 +3,12 @@
 
     <h1>{{ activeChapter.title }}</h1>
 
-    <!-- Small devices get the small progress indicator and a chapter picker right here -->
+    <!-- Small devices get and a chapter picker to replace the nav aside (on LearnPage) -->
     <app-small-chapter-picker
       class="hidden-md-and-up"
-      :active-chapter="activeChapter"
-    ></app-small-chapter-picker>
-
-    <app-small-chapter-progress
-      class="hidden-sm-and-up"
-      :tasks="activeChapter.tasks"
     />
 
-    <!-- Large devices get the nav aside (on LearnPage) and the full-sized ChapterTasksProgress -->
     <app-chapter-tasks-progress
-      class="hidden-xs-only"
       :tasks="activeChapter.tasks"
     />
 
@@ -27,7 +19,6 @@
 
 <script>
   import ChapterTasksProgress from './ChapterTasksProgress';
-  import SmallChapterProgress from './SmallChapterProgress';
   import SmallChapterPicker from './SmallChapterPicker';
   import TaskPanel from '../task/TaskPanel';
   import { mapGetters } from 'vuex';
@@ -36,8 +27,7 @@
     components: {
       appChapterTasksProgress: ChapterTasksProgress,
       appTaskPanel: TaskPanel,
-      appSmallChapterPicker: SmallChapterPicker,
-      appSmallChapterProgress: SmallChapterProgress
+      appSmallChapterPicker: SmallChapterPicker
     },
 
     computed: {

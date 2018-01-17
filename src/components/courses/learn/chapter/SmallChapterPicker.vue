@@ -4,11 +4,11 @@
 
     <el-breadcrumb separator-class="el-icon-arrow-right">
       <el-breadcrumb-item :to="{ name: 'dashboard' }">Meine Kurse</el-breadcrumb-item>
-      <el-breadcrumb-item :to="{ path: '/TODO' }">KursName</el-breadcrumb-item>
+      <el-breadcrumb-item :to="{ name: 'course', params: { course: activeCourse.id } }">{{ activeCourse.title }}</el-breadcrumb-item>
       <el-breadcrumb-item>
-        <el-select :value="activeChapter" size="mini" :placeholder="activeChapter.title">
+        <el-select :value="activeChapter.title" size="mini" :placeholder="activeChapter.title">
           <el-option
-            v-for="chapter in chapters"
+            v-for="chapter in activeCourse.chapters"
             :key="chapter.id"
             :label="chapter.title"
             :value="chapter.title">
@@ -22,16 +22,17 @@
 </template>
 
 <script>
-  import test from '@/data/test-course.tmp';
+  import { mapGetters } from 'vuex';
 
   export default {
-    data () {
-      return {
-        chapters: test.chapters
-      };
-    },
-
-    props: ['activeChapter']
+    computed: {
+      // chapterIdAsNumber: (vm) => Number.parseInt(vm.chapter),
+      // taskIndexAsNumber: (vm) => Number.parseInt(vm.task) - 1,   // subtract -1 offset to hide 0-indexing
+      ...mapGetters([
+        'activeCourse',
+        'activeChapter'
+      ])
+    }
   };
 </script>
 
