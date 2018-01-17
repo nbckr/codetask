@@ -5,7 +5,7 @@
 
     <h2>Meine Kurse</h2>
 
-    <app-course-list/>
+    <course-list/>
   </div>
 </template>
 
@@ -14,7 +14,7 @@
 
   export default {
     components: {
-      appCourseList: CourseList
+      CourseList
     }
   }
 </script>

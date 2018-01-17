@@ -1,7 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import WelcomePage from '@/components/welcome/WelcomePage'
-import EnrollPage from '@/components/courses/enroll/EnrollPage'
 import ChapterStart from '@/components/courses/learn/chapter/ChapterStart'
 import DashboardPage from '@/components/courses/dashboard/DashboardPage'
 import ChapterPanel from '@/components/courses/learn/chapter/ChapterPanel'
@@ -24,11 +23,6 @@ export default new Router({
     {
       path: '/admin',
       component: AdminPage
-    },
-
-    {
-      path: '/courses/enroll',
-      component: EnrollPage
     },
 
     {

@@ -4,15 +4,15 @@
     <h1>{{ activeChapter.title }}</h1>
 
     <!-- Small devices get and a chapter picker to replace the nav aside (on LearnPage) -->
-    <app-small-chapter-picker
+    <small-chapter-picker
       class="hidden-md-and-up"
     />
 
-    <app-chapter-tasks-progress
+    <chapter-tasks-progress
       :tasks="activeChapter.tasks"
     />
 
-    <app-task-panel/>
+    <task-panel/>
 
   </div>
 </template>
@@ -25,9 +25,9 @@
 
   export default {
     components: {
-      appChapterTasksProgress: ChapterTasksProgress,
-      appTaskPanel: TaskPanel,
-      appSmallChapterPicker: SmallChapterPicker
+      ChapterTasksProgress,
+      TaskPanel,
+      SmallChapterPicker
     },
 
     computed: {

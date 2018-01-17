@@ -4,7 +4,7 @@
   <el-container v-if="activeCourse">
 
     <el-aside class="hidden-sm-and-down">
-      <app-chapter-list/>
+      <chapter-list/>
     </el-aside>
 
     <!--<app-chapter-panel>-->
@@ -26,7 +26,6 @@
 
 <script>
   import ChapterList from './chapter/ChapterList'
-  import ChapterPanel from './chapter/ChapterPanel'
   import { mapGetters } from 'vuex'
 
   export default {
@@ -46,8 +45,7 @@
     },
 
     components: {
-      appChapterList: ChapterList,
-      appChapterPanel: ChapterPanel
+      ChapterList
     }
 
     // de-couple raw $route.params values as props

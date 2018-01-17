@@ -1,7 +1,7 @@
 <template>
   <el-container id="wrapper">
 
-    <app-banner/>
+    <banner/>
 
     <vue-particles
       color="#ffffff"
@@ -26,12 +26,10 @@
 
 <script>
   import Banner from '@/components/welcome/Banner'
-  import Background from '@/components/shared/Background'
 
   export default {
     components: {
-      appBanner: Banner,
-      appBackground: Background
+      Banner
     }
   }
 </script>
