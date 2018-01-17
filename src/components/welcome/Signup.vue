@@ -9,6 +9,7 @@
           <input
             type="email"
             id="email"
+            autocomplete="email"
             @blur="$v.email.$touch()"
             v-model="email">
           <p v-if="!$v.email.email">Please provide a valid email address</p>
@@ -19,15 +20,17 @@
           <input
             type="password"
             id="password"
+            autocomplete="password"
             @blur="$v.password.$touch()"
             v-model="password">
         </div>
 
-        <div class="input">
+        <div class="input" :class="{invalid: $v.confirmPassword.$error}">
           <label for="confirm-password">Confirm Password</label>
           <input
             type="password"
             id="confirm-password"
+            autocomplete="password"
             v-model="confirmPassword">
         </div>
 
@@ -55,7 +58,8 @@
       return {
         email: '',
         password: '',
-        confirmPassword: ''
+        confirmPassword: '',
+        testa: { b: 'testb' }
       }
     },
 
@@ -90,7 +94,7 @@
       },
 
       confirmPassword: {
-        sameAs: sameAs('password')
+        sameAs: sameAs('testa.b')
       }
     }
   }
