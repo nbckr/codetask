@@ -27,6 +27,11 @@
     components: {
       appHeader: Header,
       appBackground: Background
+    },
+
+    mounted: function () {
+      this.$store.dispatch('LOAD_COURSES');
+      console.log(process.env);
     }
   };
 </script>

@@ -1,14 +1,15 @@
 <template>
+
   <el-collapse v-model="collapsedName" accordion>
 
-    <el-collapse-item v-for="(course, i) in courses" :name="i">
+    <el-collapse-item v-for="(course, i) in courses" :name="i" :key="i">
 
       <!-- Course title and overall percentage -->
       <template slot="title">
         <el-row type="flex" align="middle">
           <el-col :span="10"><p>{{ course.title }}</p></el-col>
           <el-col :span="10">
-            <el-progress :percentage="70" :stroke-width="10"></el-progress>
+            <el-progress :percentage="70" :stroke-width="10"/>
           </el-col>
         </el-row>
       </template>
@@ -24,7 +25,7 @@
               <a>{{ chapter.title }}</a>
             </router-link>
             <el-col :span="10">
-              <el-progress :percentage="15"></el-progress>
+              <el-progress :percentage="15"/>
             </el-col>
           </li>
         </ul>
@@ -33,18 +34,22 @@
     </el-collapse-item>
 
   </el-collapse>
+
 </template>
 
 <script>
-  import test from '@/data/test-course.tmp';
+  import { mapState } from 'vuex';
 
   export default {
     data () {
       return {
-        courses: [ test, test, test ],
         collapsedName: ''
       };
-    }
+    },
+
+    computed: mapState({
+      courses: state => state.courses.courses
+    })
   };
 </script>
 
