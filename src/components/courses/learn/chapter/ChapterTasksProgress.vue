@@ -56,7 +56,8 @@
     padding: 1.2rem;
   }
 
-  > > > .el-progress-bar__inner {
+  >>> .el-progress-bar__inner {
+    background-color: #67c23a; /* To match el-steps */
     transition: width 1s, background-color 1s;
   }
 </style>

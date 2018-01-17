@@ -83,7 +83,7 @@
     padding: 1.6rem;
   }
 
-  > > > .description {
+  >>> .description {
     border: lightgrey 1px solid;
     border-radius: 0.3rem;
     /* box-shadow: darkgrey 3px 3px; */
@@ -92,7 +92,7 @@
     margin-bottom: 1.5rem;
   }
 
-  > > > .description > p {
+  >>> .description > p {
     margin: 0;
     /* white-space: pre; */
   }
