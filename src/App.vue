@@ -6,7 +6,8 @@
         <app-header/>
       </el-header>
       <el-main>
-        <transition enter-active-class="animated fadeInUp" leave-active-class="animated slideOutUp" mode="out-in" appear="">
+        <transition enter-active-class="animated fadeInUp" leave-active-class="animated slideOutUp" mode="out-in"
+                    appear="">
           <router-view/>
         </transition>
       </el-main>
@@ -15,24 +16,28 @@
 
 </template>
 
-<script>
+<script lang="ts">
+  import Vue from 'vue';
+  import Component from 'vue-class-component';
   import Header from './components/shared/Header.vue';
   import Background from './components/shared/Background.vue';
   import 'element-ui/lib/theme-chalk/display.css';
   import 'animate.css/animate.css';
 
-  export default {
-    name: 'app',
-
+  @Component({
     components: {
       appHeader: Header,
       appBackground: Background
-    },
+    }
+  })
+  export default class App extends Vue {
+    name: 'app';
 
-    beforeCreate () {
+    beforeCreate() {
       this.$store.dispatch('LOAD_COURSES');
     }
-  };
+  }
+  ;
 </script>
 
 <style>
