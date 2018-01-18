@@ -1,7 +1,10 @@
 <template>
   <el-container id="wrapper">
 
-    <banner/>
+    <banner class="before-background"/>
+
+    <signup class="before-background"/>
+    <signin class="before-background"/>
 
     <vue-particles
       color="#ffffff"
@@ -26,10 +29,12 @@
 
 <script>
   import Banner from '@/components/welcome/Banner'
+  import Signup from './Signup'
+  import Signin from './Signin'
 
   export default {
     components: {
-      Banner
+      Banner, Signup, Signin
     }
   }
 </script>
@@ -43,6 +48,10 @@
     justify-content: center;
     background-image: url("https://ak9.picdn.net/shutterstock/videos/33473869/thumb/1.jpg");
     background-size: cover;
+  }
+
+  >>> .before-background {
+    z-index: 999;
   }
 
   #particles-js {

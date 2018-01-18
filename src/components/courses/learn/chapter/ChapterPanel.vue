@@ -3,7 +3,7 @@
 
     <h1>{{ activeChapter.title }}</h1>
 
-    <!-- Small devices get and a chapter picker to replace the nav aside (on LearnPage) -->
+    <!-- Small devices get a chapter picker to replace the nav aside (on LearnPage) -->
     <small-chapter-picker
       class="hidden-md-and-up"
     />
@@ -34,9 +34,7 @@
       ...mapGetters([
         'activeChapter'
       ])
-    },
-
-    props: ['chapter']
+    }
   }
 </script>
 

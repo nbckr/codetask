@@ -25,7 +25,6 @@
 
   #banner {
     background-color: azure;
-    z-index: 999;
     display: inline-block;
     padding: 2rem;
     box-shadow: 5px 5px;

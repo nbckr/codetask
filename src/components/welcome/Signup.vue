@@ -35,14 +35,14 @@
         </div>
 
         <div class="submit">
-          <button type="submit" :disabled="$v.$error">Submit</button>
+          <button type="submit" :disabled="$v.$invalid">Submit</button>
         </div>
 
       </form>
     </div>
 
 
-    <div style="font-size: x-small; white-space: pre">
+    <div style="font-size: x-small; white-space: pre; display: none">
       {{ $v }}
     </div>
 
@@ -70,7 +70,7 @@
           password: this.password
         }
 
-        this.$store.dispatch('SIGNUP_USER', formData)
+        this.$store.dispatch('REGISTER_USER', formData)
       }
     },
 

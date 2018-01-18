@@ -32,6 +32,7 @@
 
     beforeCreate () {
       this.$store.dispatch('LOAD_COURSES')
+      this.$store.dispatch('TRY_AUTO_LOGIN')
     }
   }
 </script>

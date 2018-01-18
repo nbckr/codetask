@@ -22,11 +22,23 @@ Vue.use(VueInputAutowidth)
 Vue.use(VueParticles)
 Vue.use(Vuelidate)
 
+/* Setup global navigation guard */
+router.beforeEach((to, from, next) => {
+  const requiresAuth = to.matched.some(record => record.meta.requiresAuth)
+  console.log('beforeEach', requiresAuth)
+
+  if (requiresAuth && !store.getters.isAuthenticated) {
+    next('/')
+  } else {
+    next()
+  }
+})
+
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
   router,
   store,
   template: '<App/>',
-  components: { App }
+  components: {App}
 })

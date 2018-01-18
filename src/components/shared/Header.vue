@@ -1,44 +1,60 @@
 <template>
-  <div>
 
+    <!--
     <router-link :to="{name: 'dashboard'}">
       <h1>CodeTask</h1>
     </router-link>
-    <!--<el-menu
-      :default-active="activeIndex2"
+    <p v-if="isAuthenticated">hey</p>
+-->
+    <el-menu
+      :default-active="activeIndex"
       class="el-menu-demo"
       mode="horizontal"
+      :router="true"
       @select="handleSelect"
       background-color="#545c64"
       text-color="#fff"
-      active-text-color="#ffd04b">
-      <el-menu-item index="1">Processing Center</el-menu-item>
-      <el-submenu index="2">
-        <template slot="title">Workspace</template>
-        <el-menu-item index="2-1">item one</el-menu-item>
-        <el-menu-item index="2-2">item two</el-menu-item>
-        <el-menu-item index="2-3">item three</el-menu-item>
-      </el-submenu>
-      <el-menu-item index="3"><a href="https://www.ele.me" target="_blank">Orders</a></el-menu-item>
-    </el-menu>-->
+      active-text-color="#ffd04b"
+    >
 
-  </div>
+      <el-menu-item index="1">CodeTask</el-menu-item>
+      <el-menu-item index="2">Meine Kurse</el-menu-item>
+      <el-submenu index="3" v-if="user">
+        <template slot="title">
+          <img src="http://via.placeholder.com/128x128" id="user-img" /> {{ user.email }}
+        </template>
+        <el-menu-item index="3-1">Mein Profil</el-menu-item>
+        <el-menu-item index="3-2">Einstellungen</el-menu-item>
+        <el-menu-item index="3-3" @click="logout">Ausloggen</el-menu-item>
+      </el-submenu>
+    </el-menu>
+
 </template>
 
 <script>
+  import { mapGetters } from 'vuex'
+
   export default {
 
     data () {
       return {
-        activeIndex: '1',
-        activeIndex2: '1'
+        activeIndex: '1'
       }
     },
 
     methods: {
-      handleSelect (key, keyPath) {
-        console.log(key, keyPath)
+      handleSelect (key, keyPath) {},
+
+      logout () {
+        this.$store.dispatch('LOGOUT')
       }
+    },
+
+    computed: {
+      ...mapGetters([
+        'isAuthenticated',
+        'user'
+      ])
     }
   }
 </script>
@@ -76,6 +92,11 @@
     font-weight: 400;
     box-sizing: border-box;
     padding-top: 16px;
+  }
+
+  #user-img {
+    border-radius: 50%;
+    height: 70%;
   }
 
 </style>

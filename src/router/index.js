@@ -19,7 +19,14 @@ export default new Router({
 
   routes: [
 
-    {path: '/signup', component: SignupPage},
+    {
+      path: '/signup',
+      component: SignupPage,
+      meta: {
+        requiresAuth: true
+      }
+    },
+
     {path: '/signin', component: SigninPage},
 
     {
@@ -43,7 +50,6 @@ export default new Router({
     {
       path: '/courses/learn/:course',
       component: LearnPage,
-      props: true,
       children: [
         {
           path: '',
@@ -53,7 +59,6 @@ export default new Router({
         {
           path: 'chapters/:chapter/',
           component: ChapterPanel,
-          props: true,
           children: [
             {
               path: '',
@@ -63,8 +68,7 @@ export default new Router({
             {
               path: 'tasks/:task',
               component: BaseTask,
-              name: 'task',
-              props: true
+              name: 'task'
             }
           ]
         }

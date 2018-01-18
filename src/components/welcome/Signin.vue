@@ -39,7 +39,7 @@
           password: this.password
         }
 
-        this.$store.dispatch('signin', {
+        this.$store.dispatch('LOGIN_USER', {
           email: formData.email,
           password: formData.password,
           returnSecureToken: true

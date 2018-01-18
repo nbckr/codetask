@@ -2,6 +2,8 @@ import axiosData from '../axios-firebase-data'
 import axiosAuth from '../axios-firebase-auth'
 import router from '../../router'
 
+// TODO: Refactor. Separate state and localstorage
+
 const state = {
   idToken: null,
   userId: null,
@@ -9,82 +11,92 @@ const state = {
 }
 
 const mutations = {
-  authUser (state, userData) {
+  DO_AUTH_USER (state, userData) {
     state.idToken = userData.token
     state.userId = userData.userId
   },
-  storeUser (state, user) {
+  DO_STORE_USER_DETAILS (state, user) {
     state.user = user
   },
-  clearAuthData (state) {
+  DO_CLEAR_AUTH_DATA (state) {
     state.idToken = null
     state.userId = null
+  },
+  DO_CLEAR_USER_DATA (state) {
+    state.user = null
   }
 }
 
 const actions = {
-  SIGNUP_USER ({commit, dispatch}, authData) {
+  REGISTER_USER ({commit, dispatch}, authData) {
     axiosAuth.post('/signupNewUser', {
       email: authData.email,
       password: authData.password,
       returnSecureToken: true
-    }).then(response => {
-      console.log(response)
-      commit('authUser', {
-        token: response.data.idToken,
-        userId: response.data.localId
+    })
+      .then(response => {
+        commit('DO_AUTH_USER', {
+          token: response.data.idToken,
+          userId: response.data.localId
+        })
+        dispatch('STORE_USER', authData)
       })
-      dispatch('storeUser', authData)
-    }).catch(error => console.error(error))
+      .catch(error => console.error(error))
   },
 
-  signin ({commit, dispatch}, authData) {
+  LOGIN_USER ({commit, dispatch}, authData) {
     axiosAuth.post('/verifyPassword', {
       email: authData.email,
       password: authData.password,
       returnSecureToken: true
-    }).then(response => {
-      console.log(response)
-      commit('authUser', {
-        token: response.data.idToken,
-        userId: response.data.localId
+    })
+      .then(response => {
+        commit('DO_AUTH_USER', {
+          token: response.data.idToken,
+          userId: response.data.localId
+        })
+
+        dispatch('FETCH_USER_DETAILS')
+
+        const expirationDate = new Date(new Date().getTime() +
+          response.data.expiresIn * 1000)
+        localStorage.setItem('token', response.data.idToken)
+        localStorage.setItem('expirationDate', expirationDate)
+        localStorage.setItem('userId', response.data.localId)
+        dispatch('SET_LOGOUT_TIMER', response.data.expiresIn)
       })
-
-      const expirationDate = new Date(new Date().getTime() +
-        response.data.expiresIn * 1000)
-      localStorage.setItem('token', response.data.idToken)
-      localStorage.setItem('expiresIn', expirationDate)
-      localStorage.setItem('usedId', response.data.localId)
-
-      dispatch('setLogoutTimer', response.data.expiresIn)
-    }).catch(error => console.error(error))
+      .catch(error => console.error(error))
   },
 
-  tryAutoLogin ({commit}) {
+  TRY_AUTO_LOGIN ({commit, dispatch}) {
     const token = localStorage.getItem('token')
     if (!token) return
 
-    const expires = localStorage.getItem('expiresIn')
+    const expires = localStorage.getItem('expirationDate')
     if (new Date() >= expires) {
       return
     }
 
     const userId = localStorage.getItem('userId')
-    commit('authUser', {
+    commit('DO_AUTH_USER', {
       token,
       userId
     })
+    dispatch('FETCH_USER_DETAILS')
   },
 
-  logout ({commit}) {
-    commit('clearAuthData')
-    router.replace('/signin') // push()
+  LOGOUT ({commit}) {
+    commit('DO_CLEAR_AUTH_DATA')
+    commit('DO_CLEAR_USER_DATA')
+
     localStorage.removeItem('token')
-    localStorage.removeItem('expiresIn')
+    localStorage.removeItem('expirationDate')
     localStorage.removeItem('userId')
+
+    router.push('/')
   },
 
-  storeUser ({commit, state}, userData) {
+  STORE_USER ({commit, state}, userData) {
     if (!state.idToken) {
       return
     }
@@ -93,28 +105,29 @@ const actions = {
       .catch(err => console.error(err))
   },
 
-  fetchUser ({commit, state}) {
+  // Get additional user data from firebase db
+  FETCH_USER_DETAILS ({commit, state}) {
     if (!state.idToken) {
       return
     }
 
-    // first user might not be the active user...
-    axiosData.get('/users.json' + '?auth=' + state.idToken).then(res => {
-      console.log(res)
-      const data = res.data
-      const users = []
-      for (let key in data) {
-        const user = data[key]
-        user.id = key
-        users.push(user)
-      }
-      console.log(users)
-      commit('storeUser', users[0])
-    }).catch(err => console.error(err))
+    // TODO: first user might not be the active user...
+    axiosData.get('/users.json' + '?auth=' + state.idToken)
+      .then(res => {
+        const data = res.data
+        const users = []
+        for (let key in data) {
+          const user = data[key]
+          user.id = key
+          users.push(user)
+        }
+        commit('DO_STORE_USER_DETAILS', users[0])
+      })
+      .catch(err => console.error(err))
   },
 
-  setLogoutTimer ({commit, dispatch}, expirationTime) {
-    setTimeout(() => dispatch('logout'),
+  SET_LOGOUT_TIMER ({commit, dispatch}, expirationTime) {
+    setTimeout(() => dispatch('LOGOUT'),
       expirationTime * 1000)
   }
 }
