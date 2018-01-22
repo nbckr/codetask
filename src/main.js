@@ -12,6 +12,16 @@ import VueYoutubeEmbed from 'vue-youtube-embed'
 import VueInputAutowidth from 'vue-input-autowidth'
 import Vuelidate from 'vuelidate'
 
+/* vue-awesome icons */
+import 'vue-awesome/icons/tasks'
+import 'vue-awesome/icons/terminal'
+import 'vue-awesome/icons/film'
+import 'vue-awesome/icons/question-circle'
+import 'vue-awesome/icons/check-circle'
+import 'vue-awesome/icons/clock-o'
+import 'vue-awesome/icons/percent'
+import 'vue-awesome/icons/list-ul'
+
 Vue.config.productionTip = false
 
 axios.defaults.baseURL = process.env.PLAY_BASE_URL

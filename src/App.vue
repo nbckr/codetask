@@ -67,6 +67,20 @@
     padding: 0;
   }
 
+  .framed {
+    border: lightgrey 1px solid;
+    border-radius: 0.3rem;
+    /* box-shadow: darkgrey 3px 3px; */
+
+    padding: 0.8rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .framed > p {
+    margin: 0;
+    /* white-space: pre; */
+  }
+
   /*   .el-header, .el-footer {
       background-color: #B3C0D1;
       color: #333;

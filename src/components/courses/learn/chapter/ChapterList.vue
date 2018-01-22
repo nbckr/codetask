@@ -51,4 +51,9 @@
     padding: 0;
     list-style: none;
   }
+
+  li {
+    text-overflow: ellipsis;
+    overflow: hidden;
+  }
 </style>

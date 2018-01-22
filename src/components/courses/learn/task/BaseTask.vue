@@ -1,7 +1,7 @@
 <template>
   <section>
 
-    <div class="description">
+    <div class="framed">
       <p>{{ activeTask.data.description.trim() }}</p>
     </div>
 

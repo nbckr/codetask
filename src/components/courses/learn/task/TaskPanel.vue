@@ -82,20 +82,7 @@
   / / display: inline-block;
     padding: 1.6rem;
   }
-
-  >>> .description {
-    border: lightgrey 1px solid;
-    border-radius: 0.3rem;
-    /* box-shadow: darkgrey 3px 3px; */
-
-    padding: 0.8rem;
-    margin-bottom: 1.5rem;
-  }
-
-  >>> .description > p {
-    margin: 0;
-    /* white-space: pre; */
-  }
++
 
   .el-button {
     width: 100%;

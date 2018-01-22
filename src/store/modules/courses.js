@@ -25,6 +25,9 @@ const actions = {
 }
 
 const getters = {
+
+  /* currently active course, chapter and task derived from route */
+
   activeCourse: state => {
     const { course } = router.app.$route.params
     if (!course || state.courses.length === 0) return
@@ -51,7 +54,14 @@ const getters = {
 
     return chapter
       .tasks[Number.parseInt(task) - 1] // Compensate 0-indexing
-  }
+  },
+
+  /* current chapter's tasks filtered by varios criteria */
+
+  checkedTasks: (state, getters) => getters.activeChapter.tasks.filter(task => task.tag.checked),
+  activeKoanTasks: (state, getters) => getters.activeChapter.tasks.filter(task => task.tag === 'koan-task'),
+  activeCodeTasks: (state, getters) => getters.activeChapter.tasks.filter(task => task.tag === 'code-task'),
+  activeVideoTasks: (state, getters) => getters.activeChapter.tasks.filter(task => task.tag === 'video-task')
 }
 
 export default {
