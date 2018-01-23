@@ -6,8 +6,7 @@
         <app-header/>
       </el-header>
       <el-main>
-        <transition enter-active-class="animated fadeInUp" leave-active-class="animated slideOutUp" mode="out-in"
-                    appear="">
+        <transition enter-active-class="animated fadeInUp" leave-active-class="animated slideOutUp" mode="out-in">
           <router-view/>
         </transition>
       </el-main>
@@ -37,7 +36,16 @@
   }
 </script>
 
-<style>
+<style lang="scss">
+
+  // HTWG Colors
+  $htwg-color-teal: #009b91;
+  $htwg-color-soft-blue: #d9e5ec;
+  $htwg-color-dark-blue: #334152;
+
+  // Dimensions
+  $dot-size: 0.2rem;
+  $dot-space: 8rem;
 
   * {
     box-sizing: border-box;
@@ -46,7 +54,15 @@
   body, html {
     margin: 0;
     height: 100%;
-    background: white;
+    //background: white;
+  }
+
+  body {
+    // HTWG style soft-blue grid, inspired by https://codepen.io/edmundojr/pen/xOYJGw
+    background: linear-gradient(90deg, $htwg-color-soft-blue ($dot-space - $dot-size), transparent 1%) center,
+    linear-gradient($htwg-color-soft-blue ($dot-space - $dot-size), transparent 1%) center,
+    $htwg-color-dark-blue;
+    background-size: $dot-space $dot-space;
   }
 
   #app {

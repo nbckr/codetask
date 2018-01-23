@@ -52,8 +52,7 @@
 
     methods: {
       goToLastTask () {
-        console.log(this.taskIndexAsNumber)
-
+        // If first task, go to chapter overview
         if (this.taskIndexAsNumber === 1) {
           this.$router.push({name: 'chapter'})
         } else {
@@ -79,7 +78,7 @@
   section {
     border: yellow 2px solid;
     background-color: white;
-  / / display: inline-block;
+   // display: inline-block;
     padding: 1.6rem;
   }
 +

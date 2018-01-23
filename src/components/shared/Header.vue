@@ -18,7 +18,7 @@
     >
 
       <el-menu-item index="1">CodeTask</el-menu-item>
-      <el-menu-item index="2">Meine Kurse</el-menu-item>
+      <el-menu-item index="2" :route="{ name: 'dashboard' }">Meine Kurse</el-menu-item>
       <el-submenu index="3" v-if="user">
         <template slot="title">
           <img src="http://via.placeholder.com/128x128" id="user-img" /> {{ user.email }}
@@ -97,6 +97,10 @@
   #user-img {
     border-radius: 50%;
     height: 70%;
+  }
+
+  .el-menu {
+    background-color: #334152 !important;
   }
 
 </style>

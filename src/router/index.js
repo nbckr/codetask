@@ -11,6 +11,7 @@ import AdminPage from '@/components/admin/AdminPage'
 
 import SignupPage from '../components/welcome/Signup'
 import SigninPage from '../components/welcome/Signin'
+import Banner from '../components/welcome/Banner'
 
 Vue.use(Router)
 
@@ -20,23 +21,26 @@ export default new Router({
   routes: [
 
     {
-      path: '/signup',
-      component: SignupPage,
-      meta: {
-        requiresAuth: true
-      }
-    },
-
-    {path: '/signin', component: SigninPage},
-
-    {
       path: '/',
-      component: WelcomePage
-    },
-
-    {
-      path: '/admin',
-      component: AdminPage
+      component: WelcomePage,
+      children: [
+        {
+          path: '/signup',
+          component: SignupPage,
+          meta: {
+            requiresAuth: true
+          }
+        },
+        {
+          path: '',
+          component: Banner
+        },
+        {path: '/signin', component: SigninPage},
+        {
+          path: '/admin',
+          component: AdminPage
+        }
+      ]
     },
 
     {

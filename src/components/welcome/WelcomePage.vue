@@ -1,10 +1,9 @@
 <template>
   <el-container id="wrapper">
 
-    <banner class="before-background"/>
-
-    <signup class="before-background"/>
-    <signin class="before-background"/>
+    <div id="welcome-box" class="before-background">
+      <router-view />
+    </div>
 
     <vue-particles
       color="#ffffff"
@@ -24,34 +23,49 @@
       clickMode="push"
     />
 
+    <img src="/static/img/background/htwg-letter-c.svg" class="htwg-letter"/>
+
   </el-container>
 </template>
 
 <script>
-  import Banner from '@/components/welcome/Banner'
-  import Signup from './Signup'
-  import Signin from './Signin'
-
-  export default {
-    components: {
-      Banner, Signup, Signin
-    }
-  }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
+
+  // HTWG Colors
+  $htwg-color-teal: #009b91;
+  $htwg-color-soft-blue: #d9e5ec;
+  $htwg-color-dark-blue: #334152;
+
+  // Dimensions
+  $dot-size: 0.2rem;
+  $dot-space: 8rem;
+
   #wrapper {
     position: relative;
     align-items: center;
     display: flex;
     height: 100%;
     justify-content: center;
-    background-image: url("https://ak9.picdn.net/shutterstock/videos/33473869/thumb/1.jpg");
-    background-size: cover;
+
+    // HTWG style dark-blue grid, inspired by https://codepen.io/edmundojr/pen/xOYJGw
+    background:
+      linear-gradient(90deg, $htwg-color-dark-blue ($dot-space - $dot-size), transparent 1%) center,
+      linear-gradient($htwg-color-dark-blue ($dot-space - $dot-size), transparent 1%) center,
+      $htwg-color-soft-blue;
+    background-size: $dot-space $dot-space;
   }
 
-  >>> .before-background {
-    z-index: 999;
+  #welcome-box {
+    border: 7px solid royalblue;
+    // width: 100%;
+    // height: 100%;
+    // transition: width 0.5s ease-out, height 0.5s ease-out;
+  }
+
+  .before-background {
+    z-index: 90;
   }
 
   #particles-js {
@@ -60,5 +74,15 @@
     left: 0;
     right: 0;
     bottom: 0;
+  }
+
+  .htwg-letter {
+    position: absolute;
+    left: 13%;
+    top: 13%;
+    transition: transform 7s ease-in;
+    z-index: 80;
+
+    &:hover { transform: scale(3); }
   }
 </style>

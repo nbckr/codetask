@@ -13,6 +13,14 @@
         Start Learning Now
       </el-button>
     </router-link>
+
+    <router-link
+      to="/signin">
+      <el-button
+        type="primary">
+        Signin
+      </el-button>
+    </router-link>
   </div>
 
 </template>

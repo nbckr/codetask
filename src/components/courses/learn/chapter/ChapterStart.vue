@@ -2,46 +2,46 @@
 
   <div>
 
-      <el-row :gutter="12">
-        <el-col :xl="24" :sm="12">
-          <h1>{{ activeCourse.title }}</h1>
-          <h2>{{ activeChapter.title }}</h2>
+    <el-row :gutter="12">
+      <el-col :xl="24" :sm="12">
+        <h1>{{ activeCourse.title }}</h1>
+        <h2>{{ activeChapter.title }}</h2>
 
-          <p>Willkommen im Kapitel <i>{{ activeChapter.title }}</i>!</p>
-        </el-col>
+        <p>Willkommen im Kapitel <i>{{ activeChapter.title }}</i>!</p>
+      </el-col>
 
-        <el-col :xl="24" :sm="12" class="framed">
-          <ul>
-            <li>
-              <icon name="clock-o" label="Dauer"/>
-              Dauer: ~ {{ duration }} min
-            </li>
-            <li>
-              <icon name="list-ul" label="Aufgaben"/>
-              Aufgaben: {{ activeChapter.tasks.length }}
-              <ul>
-                <li v-if="activeKoanTasks.length > 0">
-                  <icon name="tasks"/>
-                  {{ activeKoanTasks.length }} Koan-Aufgaben
-                </li>
-                <li v-if="activeVideoTasks.length > 0">
-                  <icon name="film"/>
-                  {{ activeVideoTasks.length }} Video-Aufgaben
-                </li>
-                <li v-if="activeCodeTasks.length > 0">
-                  <icon name="terminal"/>
-                  {{ activeCodeTasks.length }} Code-Aufgaben
-                </li>
+      <el-col :xl="24" :sm="12" class="framed">
+        <ul>
+          <li>
+            <icon name="clock-o" label="Dauer"/>
+            Dauer: ~ {{ duration }} min
+          </li>
+          <li>
+            <icon name="list-ul" label="Aufgaben"/>
+            Aufgaben: {{ activeChapter.tasks.length }}
+            <ul>
+              <li v-if="activeKoanTasks.length > 0">
+                <icon name="tasks"/>
+                {{ activeKoanTasks.length }} Koan-Aufgaben
+              </li>
+              <li v-if="activeVideoTasks.length > 0">
+                <icon name="film"/>
+                {{ activeVideoTasks.length }} Video-Aufgaben
+              </li>
+              <li v-if="activeCodeTasks.length > 0">
+                <icon name="terminal"/>
+                {{ activeCodeTasks.length }} Code-Aufgaben
+              </li>
 
-              </ul>
-            </li>
-            <li>
-              <icon name="percent" label="Fortschritt" class="fa-success"/>
-              Fortschritt: {{ checkedTasks.length }} / {{ activeChapter.tasks.length }}
-            </li>
-          </ul>
-        </el-col>
-      </el-row>
+            </ul>
+          </li>
+          <li>
+            <icon name="percent" label="Fortschritt" class="fa-success"/>
+            Fortschritt: {{ checkedTasks.length }} / {{ activeChapter.tasks.length }}
+          </li>
+        </ul>
+      </el-col>
+    </el-row>
 
   </div>
 
