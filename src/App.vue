@@ -33,7 +33,12 @@
   body, html {
     margin: 0;
     height: 100%;
-    //htwg: white;
+
+    // HTWG style soft-blue grid, inspired by https://codepen.io/edmundojr/pen/xOYJGw
+    background: linear-gradient(90deg, $htwg-color-soft-blue ($grid-dot-space - $grid-dot-size), transparent 1%) center,
+    linear-gradient($htwg-color-soft-blue ($grid-dot-space - $grid-dot-size), transparent 1%) center,
+    $htwg-color-dark-blue;
+    background-size: $grid-dot-space $grid-dot-space;
   }
 
   #app {
