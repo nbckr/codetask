@@ -37,15 +37,6 @@
 
 <style scoped lang="scss">
 
-  // HTWG Colors
-  $htwg-color-teal: #009b91;
-  $htwg-color-soft-blue: #d9e5ec;
-  $htwg-color-dark-blue: #334152;
-
-  // Dimensions
-  $dot-size: 0.2rem;
-  $dot-space: 8rem;
-
   #wrapper {
     position: relative;
     align-items: center;
@@ -54,18 +45,14 @@
     justify-content: center;
 
     // HTWG style dark-blue grid, inspired by https://codepen.io/edmundojr/pen/xOYJGw
-    background: linear-gradient(90deg, $htwg-color-dark-blue ($dot-space - $dot-size), transparent 1%) center,
-    linear-gradient($htwg-color-dark-blue ($dot-space - $dot-size), transparent 1%) center,
+    background: linear-gradient(90deg, $htwg-color-dark-blue ($grid-dot-space - $grid-dot-size), transparent 1%) center,
+    linear-gradient($htwg-color-dark-blue ($grid-dot-space - $grid-dot-size), transparent 1%) center,
     $htwg-color-soft-blue;
-    background-size: $dot-space $dot-space;
+    background-size: $grid-dot-space $grid-dot-space;
   }
 
   #welcome-box {
     background-color: rgba(255, 255, 255, 0.9);
-    // border: 7px solid royalblue;
-    // width: 100%;
-    // height: 100%;
-    // transition: width 0.5s ease-out, height 0.5s ease-out;
   }
 
   .before-background {

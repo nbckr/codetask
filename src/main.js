@@ -11,6 +11,8 @@ import 'element-ui/lib/theme-chalk/index.css'
 import VueYoutubeEmbed from 'vue-youtube-embed'
 import VueInputAutowidth from 'vue-input-autowidth'
 import Vuelidate from 'vuelidate'
+import 'animate.css/animate.css'
+import './stylesheets/htwg-theme.scss'
 
 /* vue-awesome icons */
 import 'vue-awesome/icons/tasks'

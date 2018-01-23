@@ -37,17 +37,7 @@
 
 <style scoped lang="scss">
 
-  // HTWG Colors
-  $htwg-color-teal: #009b91;
-  $htwg-color-soft-blue: #d9e5ec;
-  $htwg-color-dark-blue: #334152;
-
-  // Dimensions
-  $dot-size: 0.2rem;
-  $dot-space: 8rem;
-
   $tablet-width: 768px;
-  $desktop-width: 1024px;
 
   @mixin sm {
     @media (min-width: #{$tablet-width}) {
@@ -61,10 +51,10 @@
     border: green 3px solid;
 
     // HTWG style soft-blue grid, inspired by https://codepen.io/edmundojr/pen/xOYJGw
-    background: linear-gradient(90deg, $htwg-color-soft-blue ($dot-space - $dot-size), transparent 1%) center,
-    linear-gradient($htwg-color-soft-blue ($dot-space - $dot-size), transparent 1%) center,
+    background: linear-gradient(90deg, $htwg-color-soft-blue ($grid-dot-space - $grid-dot-size), transparent 1%) center,
+    linear-gradient($htwg-color-soft-blue ($grid-dot-space - $grid-dot-size), transparent 1%) center,
     $htwg-color-dark-blue;
-    background-size: $dot-space $dot-space;
+    background-size: $grid-dot-space $grid-dot-space;
   }
 
   .el-header, .el-main {
@@ -81,7 +71,7 @@
     // max-width: 1150px;
     width: 100%; // Managed by Element rows / cols
     background-color: white;
-    border-bottom: teal solid 0.6rem;
+    border-bottom: $htwg-color-teal solid 0.6rem;
 
     padding: 0.4rem;
     margin-top: 0;
