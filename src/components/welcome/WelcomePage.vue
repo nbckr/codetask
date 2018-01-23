@@ -61,7 +61,8 @@
   }
 
   #welcome-box {
-    border: 7px solid royalblue;
+    background-color: rgba(255, 255, 255, 0.9);
+    // border: 7px solid royalblue;
     // width: 100%;
     // height: 100%;
     // transition: width 0.5s ease-out, height 0.5s ease-out;

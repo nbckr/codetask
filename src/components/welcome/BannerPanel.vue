@@ -31,13 +31,12 @@
   export default {}
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 
   #banner {
-    background-color: azure;
     display: inline-block;
-    padding: 2rem;
-    box-shadow: 5px 5px;
+    padding: 1.6rem;
+    // box-shadow: 5px 5px;
 
     text-align: center;
     color: #555;
@@ -45,9 +44,8 @@
 
   h2 {
     font-size: 4rem;
-    font-family: 'Teko', sans-serif;
-    text-shadow: 3px 3px #777;
-    text-transform: uppercase;
+    // font-family: 'Teko', sans-serif;
+    // text-shadow: 3px 3px #777;
     margin: 0;
   }
 
