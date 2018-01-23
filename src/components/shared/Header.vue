@@ -17,7 +17,7 @@
       active-text-color="#ffd04b"
     >
 
-      <el-menu-item index="1">CodeTask</el-menu-item>
+      <el-menu-item index="1" :route="{ name: 'welcome' }">CodeTask</el-menu-item>
       <el-menu-item index="2" :route="{ name: 'dashboard' }">Meine Kurse</el-menu-item>
       <el-submenu index="3" v-if="user">
         <template slot="title">

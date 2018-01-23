@@ -2,6 +2,7 @@
   <el-container id="wrapper">
 
     <div id="welcome-box" class="before-background">
+      <!-- Show banner, login or register panel -->
       <router-view />
     </div>
 

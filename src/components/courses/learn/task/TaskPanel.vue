@@ -77,7 +77,7 @@
 
   section {
     border: yellow 2px solid;
-    background-color: white;
+    // background-color: white;
    // display: inline-block;
     padding: 1.6rem;
   }

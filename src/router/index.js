@@ -1,17 +1,22 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+
+// Landing page
 import WelcomePage from '@/components/welcome/WelcomePage'
-import ChapterStart from '@/components/courses/learn/chapter/ChapterStart'
+import AppShell from '@/components/shared/AppShell'
+import LoginPanel from '../components/welcome/LoginPanel'
+import RegisterPanel from '../components/welcome/RegisterPanel'
+import BannerPanel from '../components/welcome/BannerPanel'
+
+// Dashboard
 import DashboardPage from '@/components/courses/dashboard/DashboardPage'
+
+// Learning
+import LearnPage from '@/components/courses/learn/LearnPage'
+import ChapterStart from '@/components/courses/learn/chapter/ChapterStart'
 import ChapterPanel from '@/components/courses/learn/chapter/ChapterPanel'
 import CourseStart from '@/components/courses/learn/CourseStart'
-import LearnPage from '@/components/courses/learn/LearnPage'
 import BaseTask from '@/components/courses/learn/task/BaseTask'
-import AdminPage from '@/components/admin/AdminPage'
-
-import SignupPage from '../components/welcome/Signup'
-import SigninPage from '../components/welcome/Signin'
-import Banner from '../components/welcome/Banner'
 
 Vue.use(Router)
 
@@ -20,65 +25,80 @@ export default new Router({
 
   routes: [
 
+    // This is the landing page, only seen until logged in
     {
       path: '/',
       component: WelcomePage,
       children: [
         {
-          path: '/signup',
-          component: SignupPage,
-          meta: {
-            requiresAuth: true
-          }
-        },
-        {
           path: '',
-          component: Banner
+          name: 'welcome',
+          component: BannerPanel
         },
-        {path: '/signin', component: SigninPage},
         {
-          path: '/admin',
-          component: AdminPage
+          path: 'register',
+          name: 'register',
+          component: LoginPanel
+        },
+        {
+          path: 'login',
+          name: 'login',
+          component: RegisterPanel
         }
       ]
     },
 
+    // Everything else is the actual app, thus authentication is needed
     {
-      path: '/courses/learn',
-      alias: '/courses/learn/dashboard',
-      component: DashboardPage,
-      name: 'dashboard',
-      exact: true
-    },
-
-    {
-      path: '/courses/learn/:course',
-      component: LearnPage,
+      path: '/app',
+      component: AppShell,
+      meta: {
+        requiresAuth: false // TODO
+      },
       children: [
+        // ----------------------------------------------------------- Dashboard
         {
-          path: '',
-          name: 'course',
-          component: CourseStart
+          path: 'dashboard',
+          // path: 'courses/learn',
+          // alias: 'courses/learn/dashboard',
+          component: DashboardPage,
+          name: 'dashboard',
+          exact: true
         },
+
+        // ------------------------------------------------------------ Learning
         {
-          path: 'chapters/:chapter/',
-          component: ChapterPanel,
+          path: 'courses/learn/:course',
+          component: LearnPage,
           children: [
             {
               path: '',
-              name: 'chapter',
-              component: ChapterStart
+              name: 'course',
+              component: CourseStart
             },
             {
-              path: 'tasks/:task',
-              component: BaseTask,
-              name: 'task'
+              path: 'chapters/:chapter/',
+              component: ChapterPanel,
+              children: [
+                {
+                  path: '',
+                  name: 'chapter',
+                  component: ChapterStart
+                },
+                {
+                  path: 'tasks/:task',
+                  component: BaseTask,
+                  name: 'task'
+                }
+              ]
             }
           ]
         }
       ]
     },
 
+    // Catch all other routes
+    // TODO: Provide 404 error page
     {
       path: '*',
       redirect: '/'

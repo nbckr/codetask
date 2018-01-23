@@ -21,8 +21,8 @@
 
 <style scoped>
   #dashboard-wrapper {
-    margin: 0 auto;
-    padding: 2rem 4.5rem;
-    max-width: 900px;
+    // margin: 0 auto;
+    // padding: 2rem 4.5rem;
+    // max-width: 900px;
   }
 </style>

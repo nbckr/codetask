@@ -17,10 +17,10 @@
     </router-link>
 
     <router-link
-      to="/signin">
+      :to="{ name: 'login' }">
       <el-button
         type="primary">
-        Signin
+        Login
       </el-button>
     </router-link>
   </div>
