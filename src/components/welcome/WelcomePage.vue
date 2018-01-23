@@ -23,7 +23,8 @@
       clickMode="push"
     />
 
-    <img src="/static/img/background/htwg-letter-c.svg" class="htwg-letter"/>
+    <img src="/static/img/htwg/htwg-letter-c.svg" class="htwg-letter"/>
+    <img src="/static/img/htwg/htwg-in-logo.png" id="htwg-in-logo" class="hidden-xs-only"/>
 
   </el-container>
 </template>
@@ -84,5 +85,12 @@
     z-index: 80;
 
     &:hover { transform: scale(3); }
+  }
+
+  #htwg-in-logo {
+    width: 30rem;
+    position: absolute;
+    top: 30px;
+    right: -100px;
   }
 </style>

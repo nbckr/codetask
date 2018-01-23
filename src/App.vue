@@ -31,6 +31,7 @@
 
     beforeCreate () {
       this.$store.dispatch('LOAD_COURSES')
+      this.$store.dispatch('LOAD_SOLUTIONS')
       this.$store.dispatch('TRY_AUTO_LOGIN')
     }
   }
@@ -54,7 +55,7 @@
   body, html {
     margin: 0;
     height: 100%;
-    //background: white;
+    //htwg: white;
   }
 
   body {
@@ -98,14 +99,14 @@
   }
 
   /*   .el-header, .el-footer {
-      background-color: #B3C0D1;
+      htwg-color: #B3C0D1;
       color: #333;
       text-align: center;
     }
 
     .el-main {
       z-index: 99;
-      background-color: #E9EEF3;
+      htwg-color: #E9EEF3;
       color: #333;
       text-align: center;
     }

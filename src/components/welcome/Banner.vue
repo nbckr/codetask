@@ -1,6 +1,8 @@
 <template>
 
   <div id="banner">
+    <img src="https://code.google.com/images/developers.png" alt="" style="width: 13rem">
+
     <h2>CodeTask</h2>
     <p class="subtitle">
       Learn Scala with ease
