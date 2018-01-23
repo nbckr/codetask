@@ -10,7 +10,7 @@
 
     <br>
 
-    <el-row type="flex" class="row-bg" justify="space-between">
+    <el-row type="flex" justify="space-between">
 
       <el-col :xs="6" :sm="3" :md="2">
         <el-button

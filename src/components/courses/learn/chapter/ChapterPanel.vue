@@ -38,22 +38,20 @@
   }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
   #chapter-wrapper {
     width: 100%;
     min-width: 444px;
     margin: 0 auto;
 
-    padding: 0.1rem;
-  / / border: lightgrey 1 px solid;
-  / / display: inline-block;
+    //padding: 0.1rem;
     transition: height 1s, padding 0.5s ease-out;
   }
 
   @media only screen and (min-width: 768px) {
     #chapter-wrapper {
-      width: 768px;
-      padding: 1.6rem;
+      //width: 768px;
+      //padding: 1.6rem;
     }
   }
 

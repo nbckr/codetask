@@ -2,8 +2,10 @@
   <el-container id="wrapper">
 
     <div id="welcome-box" class="before-background">
-      <!-- Show banner, login or register panel -->
-      <router-view />
+      <el-collapse-transition>
+        <!-- Show banner, login or register panel -->
+        <router-view/>
+      </el-collapse-transition>
     </div>
 
     <vue-particles
@@ -52,10 +54,9 @@
     justify-content: center;
 
     // HTWG style dark-blue grid, inspired by https://codepen.io/edmundojr/pen/xOYJGw
-    background:
-      linear-gradient(90deg, $htwg-color-dark-blue ($dot-space - $dot-size), transparent 1%) center,
-      linear-gradient($htwg-color-dark-blue ($dot-space - $dot-size), transparent 1%) center,
-      $htwg-color-soft-blue;
+    background: linear-gradient(90deg, $htwg-color-dark-blue ($dot-space - $dot-size), transparent 1%) center,
+    linear-gradient($htwg-color-dark-blue ($dot-space - $dot-size), transparent 1%) center,
+    $htwg-color-soft-blue;
     background-size: $dot-space $dot-space;
   }
 
@@ -85,7 +86,9 @@
     transition: transform 7s ease-in;
     z-index: 80;
 
-    &:hover { transform: scale(3); }
+    &:hover {
+      transform: scale(3);
+    }
   }
 
   #htwg-in-logo {

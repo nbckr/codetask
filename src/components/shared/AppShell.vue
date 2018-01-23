@@ -5,12 +5,20 @@
       <app-header/>
     </el-header>
 
-    <el-main>
-      <div id="main-wapper">
-        <!-- Show main page: Dashboard, learning, settings, ... -->
-        <router-view />
-      </div>
-    </el-main>
+    <el-row type="flex" justify="space-around">
+      <!-- Width of main wrapper -->
+      <el-col :xs="23" :sm="22" :md="21" :lg="17" :xl="15">
+        <el-main>
+          <div id="main-wapper">
+            <el-collapse-transition>
+              <!-- Show main page: Dashboard, learning, settings, ... -->
+              <router-view/>
+            </el-collapse-transition>
+          </div>
+        </el-main>
+
+      </el-col>
+    </el-row>
 
   </el-container>
 </template>
@@ -38,6 +46,15 @@
   $dot-size: 0.2rem;
   $dot-space: 8rem;
 
+  $tablet-width: 768px;
+  $desktop-width: 1024px;
+
+  @mixin sm {
+    @media (min-width: #{$tablet-width}) {
+      @content;
+    }
+  }
+
   #container {
     padding: 0;
     height: 100%;
@@ -60,11 +77,19 @@
   }
 
   #main-wapper {
-    min-width: 600px;
-    max-width: 1150px;
+    // min-width: 600px;
+    // max-width: 1150px;
+    width: 100%; // Managed by Element rows / cols
     background-color: white;
-    border: rosybrown solid 10px;
-    padding: 2rem;
+    border-bottom: teal solid 0.6rem;
+
+    padding: 0.4rem;
+    margin-top: 0;
+
+    @include sm {
+      padding: 2rem;
+      margin-top: 1.6rem;
+    }
   }
 
 </style>

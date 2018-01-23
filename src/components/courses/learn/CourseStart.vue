@@ -29,10 +29,10 @@
   }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
   .el-main {
     background: white;
-    padding: 1.6rem;
+    // padding: 1.6rem;
   }
 
   li {

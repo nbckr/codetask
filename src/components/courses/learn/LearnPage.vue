@@ -36,8 +36,6 @@
     },
 
     computed: {
-      // chapterIdAsNumber: (vm) => Number.parseInt(vm.chapter),
-      // taskIndexAsNumber: (vm) => Number.parseInt(vm.task) - 1,   // subtract -1 offset to hide 0-indexing
       ...mapGetters([
         'activeCourse',
         'activeChapter'
@@ -47,9 +45,6 @@
     components: {
       ChapterList
     }
-
-    // de-couple raw $route.params values as props
-    // props: ['course', 'chapter']
   }
 </script>
 
@@ -62,6 +57,10 @@
   .el-aside {
     width: 13rem !important;
     margin-right: 1.6rem;
+  }
+
+  .el-main {
+    padding: 0;
   }
 
 </style>

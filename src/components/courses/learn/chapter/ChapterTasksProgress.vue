@@ -3,7 +3,7 @@
   <aside>
 
     <el-steps
-      class="hidden-xs-only"
+      class="hidden-md-and-down"
       :active="activeTaskIndex"
       process-status="process"
       finish-status="success"
@@ -18,7 +18,7 @@
     </el-steps>
 
     <el-progress
-      class="hidden-sm-and-up"
+      class="hidden-lg-and-up"
       :percentage="percentage"
       :status="percentage === 100 ? 'success' : ''"
     />

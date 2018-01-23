@@ -2,15 +2,15 @@
 
   <div>
 
-    <el-row :gutter="12">
-      <el-col :xl="24" :sm="12">
+    <el-row :gutter="20">
+      <el-col :xs="24" :sm="12">
         <h1>{{ activeCourse.title }}</h1>
         <h2>{{ activeChapter.title }}</h2>
 
         <p>Willkommen im Kapitel <i>{{ activeChapter.title }}</i>!</p>
       </el-col>
 
-      <el-col :xl="24" :sm="12" class="framed">
+      <el-col :xs="24" :sm="12" class="framed">
         <ul>
           <li>
             <icon name="clock-o" label="Dauer"/>
