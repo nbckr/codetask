@@ -10,9 +10,6 @@
 </template>
 
 <script>
-  // import 'element-ui/lib/theme-chalk/display.css'
-  // import 'animate.css/animate.css'
-
   export default {
     name: 'app',
 
