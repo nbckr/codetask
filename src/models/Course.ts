@@ -4,4 +4,5 @@ export default interface Course {
   id: number // TODO: Use whatever firebase uses
   title: string
   chapters: Chapter[]
+  nothing: string
 }

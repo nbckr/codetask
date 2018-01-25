@@ -61,7 +61,7 @@ const actions = {
         const expirationDate = new Date(new Date().getTime() +
           response.data.expiresIn * 1000)
         localStorage.setItem('token', response.data.idToken)
-        localStorage.setItem('expirationDate', expirationDate)
+        localStorage.setItem('expirationDate', expirationDate.toDateString())
         localStorage.setItem('userId', response.data.localId)
         dispatch('SET_LOGOUT_TIMER', response.data.expiresIn)
       })
@@ -72,8 +72,9 @@ const actions = {
     const token = localStorage.getItem('token')
     if (!token) return
 
-    const expires = localStorage.getItem('expirationDate')
-    if (new Date() >= expires) {
+    // TODO: This should not be strings
+    const expires = localStorage.getItem('expirationDate') || ''
+    if (new Date().toDateString() >= expires) {
       return
     }
 
@@ -115,7 +116,7 @@ const actions = {
     axiosData.get('/users.json' + '?auth=' + state.idToken)
       .then(res => {
         const data = res.data
-        const users = []
+        const users: any[] = []
         for (let key in data) {
           const user = data[key]
           user.id = key

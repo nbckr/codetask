@@ -1,13 +1,20 @@
-import axios from '../axios-play'
+import axios from '../axios-firebase-data'
 import router from '../../router'
+import Course from '../../models/Course'
+import ChapterProgress from '../../models/ChapterProgress'
 
-const state = {
+interface CoursesState {
+  courses: Course[]
+  solutions: ChapterProgress[]
+}
+
+const state: CoursesState = {
   courses: [],
   solutions: []
 }
 
 const mutations = {
-  SET_COURSES: (state, courses) => {
+  SET_COURSES: (state, courses: Course[]) => {
     console.log('Setting courses')
     state.courses = courses
   },
@@ -20,8 +27,9 @@ const mutations = {
 
 const actions = {
   LOAD_COURSES: ({commit}) => {
-    axios.get('/courses/all')
+    axios.get('/courses.json')
       .then((response) => {
+        console.log('axios response', response)
         commit('SET_COURSES', response.data)
       })
       .catch((error) => {
