@@ -60,8 +60,6 @@ router.beforeEach((to, from, next) => {
 new Vue({
   el: '#app',
   router,
-  // store,
-  // template: '<App/>',
-  render: h => h(App),
-  // components: {App}
+  store,
+  render: h => h(App)
 })
