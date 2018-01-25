@@ -8,31 +8,19 @@
       </el-collapse-transition>
     </div>
 
-    <vue-particles
-      color="#ffffff"
-      :particleOpacity="0.7"
-      linesColor="#ffffff"
-      :particlesNumber="80"
-      shapeType="circle"
-      :particleSize="5"
-      :linesWidth="2"
-      :lineLinked="true"
-      :lineOpacity="0.4"
-      :linesDistance="150"
-      :moveSpeed="3"
-      :hoverEffect="true"
-      hoverMode="grab"
-      :clickEffect="true"
-      clickMode="push"
-    />
-
-    <img src="/static/img/htwg/htwg-letter-c.svg" class="htwg-letter"/>
-    <img src="/static/img/htwg/htwg-in-logo.png" id="htwg-in-logo" class="hidden-xs-only"/>
+    <background />
 
   </el-container>
 </template>
 
 <script>
+  import Background from './Background'
+
+  export default {
+    components: {
+      Background: Background
+    }
+  }
 </script>
 
 <style scoped lang="scss">
@@ -52,37 +40,10 @@
   }
 
   #welcome-box {
-    background-color: rgba(255, 255, 255, 0.9);
+    background-color: rgba(255, 255, 255, 0.95);
   }
 
   .before-background {
     z-index: 90;
-  }
-
-  #particles-js {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-  }
-
-  .htwg-letter {
-    position: absolute;
-    left: 13%;
-    top: 13%;
-    transition: transform 7s ease-in;
-    z-index: 80;
-
-    &:hover {
-      transform: scale(3);
-    }
-  }
-
-  #htwg-in-logo {
-    width: 30rem;
-    position: absolute;
-    top: 30px;
-    right: -100px;
   }
 </style>

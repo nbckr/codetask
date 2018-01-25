@@ -25,12 +25,10 @@
 
 <script>
   import Header from '@/components/shared/Header.vue'
-  import Background from '@/components/shared/Background.vue'
 
   export default {
     components: {
-      appHeader: Header,
-      appBackground: Background
+      appHeader: Header
     }
   }
 </script>
