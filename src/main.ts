@@ -6,7 +6,7 @@ import axios from 'axios'
 import Vuelidate from 'vuelidate'
 
 // App and features
-import App from './App'
+import App from './App.vue'
 import VueYoutubeEmbed from 'vue-youtube-embed'
 import VueInputAutowidth from 'vue-input-autowidth'
 
@@ -60,7 +60,8 @@ router.beforeEach((to, from, next) => {
 new Vue({
   el: '#app',
   router,
-  store,
-  template: '<App/>',
-  components: {App}
+  // store,
+  // template: '<App/>',
+  render: h => h(App),
+  // components: {App}
 })
