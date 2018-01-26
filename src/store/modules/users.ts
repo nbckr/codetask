@@ -2,7 +2,7 @@ import axiosData from '../axios-firebase-data'
 import axiosAuth from '../axios-firebase-auth'
 import router from '../../router'
 import { firebase } from  'firebase/database'
-import db from '../vuexfire-db'
+import { db } from '../firebase-setup'
 import { firebaseAction } from 'vuexfire'
 import User from '../../models/User'
 
@@ -38,23 +38,22 @@ const mutations = {
 }
 
 const actions = {
-  REGISTER_USER ({commit, dispatch}, authData) {
+
+  REGISTER_USER ({commit, dispatch}, formData) {
 
     // Adjust data from form
-    authData.returnSecureToken = true
+    formData.returnSecureToken = true
     // name?!
-    console.log('data', authData)
+    console.log('data', formData)
 
     // TODO: use vuefire / firebase directly
-    axiosAuth.post('/signupNewUser', authData)
+    axiosAuth.post('/signupNewUser', formData)
       .then(response => {
         console.log('got auth response', response)
 
-        // no direct mutations, but use VFX // dispatch('STORE_USER', authData)
-
         // User registered in auth, now store in db as well
         // We can safely push new user as we checked for uniqueness in vuelidate
-        const user = new User(response.data.localId, authData.email, authData.name)
+        const user = new User(response.data.localId, formData.email, formData.name)
         usersRef.push(user)
 
         // ... and log in
@@ -119,14 +118,14 @@ const actions = {
     router.push('/')
   },
 
-  STORE_USER ({commit, state}, userData) {
-    if (!state.idToken) {
-      return
-    }
-    axiosData.post('/users.json' + '?auth=' + state.idToken, userData)
-      .then(res => console.log(res))
-      .catch(err => console.error(err))
-  },
+  // STORE_USER ({commit, state}, userData) {
+  //   if (!state.idToken) {
+  //     return
+  //   }
+  //   axiosData.post('/users.json' + '?auth=' + state.idToken, userData)
+  //     .then(res => console.log(res))
+  //     .catch(err => console.error(err))
+  // },
 
   // Get additional user data from firebase db
   FETCH_USER_DETAILS ({commit, state}) {
