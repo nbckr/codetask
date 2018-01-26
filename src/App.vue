@@ -1,9 +1,15 @@
 <template>
 
-  <div id="app">
-    <transition enter-active-class="animated fadeInUp" leave-active-class="animated slideOutUp" mode="out-in">
+  <div id="app" :class=" {hideOverflow }">
+    <transition
+      enter-active-class="animated fadeInUp"
+      leave-active-class="animated slideOutUp"
+      mode="out-in"
+      @before-enter="hideOverflow = true"
+      @after-enter="hideOverflow = false"
+    >
       <!-- Either show landing page or the actual app -->
-      <router-view />
+      <router-view/>
     </transition>
   </div>
 
@@ -12,6 +18,12 @@
 <script>
   export default {
     name: 'app',
+
+    data () {
+      return {
+        hideOverflow: false
+      }
+    },
 
     beforeCreate () {
       this.$store.dispatch('LOAD_COURSES')
@@ -46,6 +58,11 @@
     color: #2c3e50;
   }
 
+  // Scrollbars cause a jump on router transition otherwise
+  .hideOverflow {
+    overflow: hidden;
+  }
+
   .framed {
     border: lightgrey 1px solid;
     border-radius: 0.3rem;
@@ -60,4 +77,7 @@
     /* white-space: pre; */
   }
 
+  .animated #app {
+    overflow: hidden !important;
+  }
 </style>
