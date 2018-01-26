@@ -1,176 +1,98 @@
-import axiosData from '../axios-firebase-data'
-import axiosAuth from '../axios-firebase-auth'
-import router from '../../router'
-import { firebase } from  'firebase/database'
-import { db } from '../firebase-setup'
+import { db, auth } from '../firebase-setup'
 import { firebaseAction } from 'vuexfire'
 import User from '../../models/User'
-
-// TODO: Refactor. Separate state and localstorage
+import store from '../index'
 
 const usersRef = db.ref('users')
 
+auth.onAuthStateChanged(user => {
+  store.dispatch('ON_AUTH_STATE_CHANGED', user)
+})
+
 const state = {
-  // Bound with VXF
+  // Bound with vuexfire
   users: [],
 
   // Local
-  idToken: null,
-  userId: null,
-  user: null
+  currentUser: null
 }
 
 const mutations = {
-  DO_AUTH_USER (state, userData) {
-    state.idToken = userData.token
-    state.userId = userData.userId
+  DO_LOGIN_USER (state, authUser = auth.currentUser) {
+    if (!authUser || store.getters.users.length === 0) {
+      console.log('User not ready for login')
+      return
+    }
+
+    const user = state.users.find(user => user.uid === authUser.uid)
+    if (user) {
+      state.currentUser = user
+      console.log (`Logging in user ${user.displayName}`)
+    } else {
+      console.error(`Could not find user with key ${authUser.uid} in db`)
+    }
   },
-  DO_STORE_USER_DETAILS (state, user) {
-    state.user = user
-  },
-  DO_CLEAR_AUTH_DATA (state) {
-    state.idToken = null
-    state.userId = null
-  },
-  DO_CLEAR_USER_DATA (state) {
-    state.user = null
+
+  DO_LOGOUT_USER (state) {
+    state.currentUser = null
   }
 }
 
 const actions = {
 
   REGISTER_USER ({commit, dispatch}, formData) {
-
-    // Adjust data from form
-    formData.returnSecureToken = true
-    // name?!
-    console.log('data', formData)
-
-    // TODO: use vuefire / firebase directly
-    axiosAuth.post('/signupNewUser', formData)
-      .then(response => {
-        console.log('got auth response', response)
-
-        // User registered in auth, now store in db as well
-        // We can safely push new user as we checked for uniqueness in vuelidate
-        const user = new User(response.data.localId, formData.email, formData.name)
-        usersRef.push(user)
-
-        // ... and log in
-        commit('DO_AUTH_USER', {
-          token: response.data.idToken,
-          userId: response.data.localId
-        })
+    const {email, password} = formData
+    auth.createUserWithEmailAndPassword(email, password)
+      .then(authUser => {
+        usersRef.push(new User(authUser.uid, authUser.email, formData.displayName))
+        // If the new account was created, the user is signed in automatically
+        console.log('New user created in auth as well as db')
       })
       .catch(error => console.error(error))
   },
 
-  LOGIN_USER ({commit, dispatch}, authData) {
-    axiosAuth.post('/verifyPassword', {
-      email: authData.email,
-      password: authData.password,
-      returnSecureToken: true
-    })
-      .then(response => {
-        commit('DO_AUTH_USER', {
-          token: response.data.idToken,
-          userId: response.data.localId
-        })
+  LOGIN_USER ({commit, dispatch}, formData) {
+    const {email, password} = formData
+    auth.signInWithEmailAndPassword(email, password)
+      .catch(error => alert(error.message))
+    // onAuthStateChanged will fire
+  },
 
-        dispatch('FETCH_USER_DETAILS')
-
-        const expirationDate = new Date(new Date().getTime() +
-          response.data.expiresIn * 1000)
-        localStorage.setItem('token', response.data.idToken)
-        localStorage.setItem('expirationDate', expirationDate.toDateString())
-        localStorage.setItem('userId', response.data.localId)
-        dispatch('SET_LOGOUT_TIMER', response.data.expiresIn)
-      })
+  LOGOUT_USER ({commit}) {
+    auth.signOut()
+      .then(() => console.log('logged out'))
       .catch(error => console.error(error))
+    // onAuthStateChanged will fire
   },
 
-  TRY_AUTO_LOGIN ({commit, dispatch}) {
-    const token = localStorage.getItem('token')
-    if (!token) return
-
-    // TODO: This should not be strings
-    const expires = localStorage.getItem('expirationDate') || ''
-    if (new Date().toDateString() >= expires) {
-      return
+  // Login state managed by firebase, but we load additional data from database
+  // Also fired after page refresh and firebase initialization phase finished
+  ON_AUTH_STATE_CHANGED ({commit}, authUser) {
+    console.log('ON_AUTH_STATE_CHANGED', authUser)
+    if (authUser) {
+      commit('DO_LOGIN_USER', authUser)
+    } else {
+      commit('DO_LOGOUT_USER')
     }
+  },
 
-    const userId = localStorage.getItem('userId')
-    commit('DO_AUTH_USER', {
-      token,
-      userId
+  // vuexfire bindings
+
+  VXF_SET_USERS_REF: firebaseAction(({commit, bindFirebaseRef}) => {
+    bindFirebaseRef('users', usersRef, {
+      readyCallback: () => {
+        // Fire manually as this usually happens after authStateChanged
+        commit('DO_LOGIN_USER')
+      }
     })
-    dispatch('FETCH_USER_DETAILS')
-  },
-
-  LOGOUT ({commit}) {
-    commit('DO_CLEAR_AUTH_DATA')
-    commit('DO_CLEAR_USER_DATA')
-
-    localStorage.removeItem('token')
-    localStorage.removeItem('expirationDate')
-    localStorage.removeItem('userId')
-
-    router.push('/')
-  },
-
-  // STORE_USER ({commit, state}, userData) {
-  //   if (!state.idToken) {
-  //     return
-  //   }
-  //   axiosData.post('/users.json' + '?auth=' + state.idToken, userData)
-  //     .then(res => console.log(res))
-  //     .catch(err => console.error(err))
-  // },
-
-  // Get additional user data from firebase db
-  FETCH_USER_DETAILS ({commit, state}) {
-    if (!state.idToken) {
-      return
-    }
-
-    // TODO: first user might not be the active user...
-    axiosData.get('/users.json' + '?auth=' + state.idToken)
-      .then(res => {
-        const data = res.data
-        const users: any[] = []
-        for (let key in data) {
-          const user = data[key]
-          user.id = key
-          users.push(user)
-        }
-        commit('DO_STORE_USER_DETAILS', users[0])
-      })
-      .catch(err => console.error(err))
-  },
-
-  SET_LOGOUT_TIMER ({commit, dispatch}, expirationTime) {
-    setTimeout(() => dispatch('LOGOUT'),
-      expirationTime * 1000)
-  },
-
-  // VXF bindings
-
-  VXF_SET_USERS_REF: firebaseAction(({bindFirebaseRef}) => {
-    bindFirebaseRef('users', usersRef)
   })
 }
 
 const getters = {
-  user (state) {
-    return state.user
-  },
+  currentUser: state => state.currentUser,
+  users: state => state.users,
   emailStillAvailable (state) {
-    return email => !state.users.some(user => user.email === email) // TODO or usersRef?
-    // return axios.get('/users.json?orderBy="email"&equalTo="' + val + '"').then(response => {
-    //   return Object.keys(response.data).length === 0
-  },
-  isAuthenticated (state) {
-    return state.idToken !== null
+    return email => !state.users.some(user => user.email === email)
   }
 }
 

@@ -4,14 +4,14 @@
     <div class="signup-form">
       <form @submit.prevent="onSubmit">
 
-        <div class="input" :class="{invalid: $v.name.$error}">
+        <div class="input" :class="{invalid: $v.displayName.$error}">
           <label for="email">Name</label>
           <input
             type="text"
-            id="name"
+            id="displayName"
             autocomplete="name"
-            @blur="$v.name.$touch()"
-            v-model="name">
+            @blur="$v.displayName.$touch()"
+            v-model="displayName">
         </div>
 
         <div class="input" :class="{invalid: $v.email.$error}">
@@ -69,7 +69,7 @@
 
     data () {
       return {
-        name: '',
+        displayName: '',
         email: '',
         password: '',
         confirmPassword: ''
@@ -79,7 +79,7 @@
     methods: {
       onSubmit: function () {
         const formData = {
-          name: this.name,
+          displayName: this.displayName,
           email: this.email,
           password: this.password
         }
@@ -90,9 +90,10 @@
     },
 
     validations: {
-      name: {
+      displayName: {
         required,
-        alphaNum
+        alphaNum,
+        minLength: minLength(6)
       },
 
       email: {

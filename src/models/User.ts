@@ -1,6 +1,15 @@
 export default class User {
 
-  // id is the internal id, e. g. created by firebase
-  constructor (public id: string, public email: string, public name: string) { }
+  // uid is the internal id, e. g. created by firebase
+  constructor (public uid: string,
+               public email: string,
+               public displayName: string,
+               public role: Role = Role.STUDENT,
+               public score: number = 0) { }
+}
 
+enum Role {
+  STUDENT = 'student',
+  TEACHER = 'teacher',
+  ADMIN = 'admin'
 }

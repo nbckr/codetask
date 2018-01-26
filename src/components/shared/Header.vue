@@ -19,9 +19,9 @@
 
       <el-menu-item index="1" :route="{ name: 'welcome' }">CodeTask</el-menu-item>
       <el-menu-item index="2" :route="{ name: 'dashboard' }">Meine Kurse</el-menu-item>
-      <el-submenu index="3" v-if="user">
+      <el-submenu index="3" v-if="currentUser">
         <template slot="title">
-          <img src="http://via.placeholder.com/128x128" id="user-img" /> {{ user.email }}
+          <img src="http://via.placeholder.com/128x128" id="user-img" /> {{ currentUser.displayName }}
         </template>
         <el-menu-item index="3-1">Mein Profil</el-menu-item>
         <el-menu-item index="3-2">Einstellungen</el-menu-item>
@@ -46,14 +46,14 @@
       handleSelect (key, keyPath) {},
 
       logout () {
-        this.$store.dispatch('LOGOUT')
+        this.$store.dispatch('LOGOUT_USER')
       }
     },
 
     computed: {
       ...mapGetters([
-        'isAuthenticated',
-        'user'
+        'currentUser',
+        'users'
       ])
     }
   }
