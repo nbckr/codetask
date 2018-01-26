@@ -1,56 +1,122 @@
 <template>
-  <div id="signin">
-    <div class="signin-form">
+  <div id="signup">
+
+    <div class="signup-form">
       <form @submit.prevent="onSubmit">
-        <div class="input">
+
+        <div class="input" :class="{invalid: $v.name.$error}">
+          <label for="email">Name</label>
+          <input
+            type="text"
+            id="name"
+            autocomplete="name"
+            @blur="$v.name.$touch()"
+            v-model="name">
+        </div>
+
+        <div class="input" :class="{invalid: $v.email.$error}">
           <label for="email">Mail</label>
           <input
             type="email"
             id="email"
+            autocomplete="email"
+            @blur="$v.email.$touch()"
             v-model="email">
+          <p v-if="!$v.email.email">Please provide a valid email address</p>
         </div>
-        <div class="input">
+
+        <div class="input" :class="{invalid: $v.password.$error}">
           <label for="password">Password</label>
           <input
             type="password"
             id="password"
+            autocomplete="password"
+            @blur="$v.password.$touch()"
             v-model="password">
         </div>
-        <div class="submit">
-          <button type="submit">Submit</button>
+
+        <div class="input" :class="{invalid: $v.confirmPassword.$error}">
+          <label for="confirm-password">Confirm Password</label>
+          <input
+            type="password"
+            id="confirm-password"
+            autocomplete="password"
+            v-model="confirmPassword">
         </div>
+
+        <div class="submit">
+          <button type="submit" :disabled="$v.$invalid">Submit</button>
+        </div>
+
       </form>
+
+      <div style="font-size: x-small; white-space: pre; display: none">
+        {{ $v }}
+      </div>
+
     </div>
+
+
+
   </div>
 </template>
 
 <script>
+  import { alphaNum, required, email, minLength, sameAs } from 'vuelidate/lib/validators'
+  // import axios from '@/store/axios-firebase-data'
+
   export default {
+
     data () {
       return {
+        name: '',
         email: '',
-        password: ''
+        password: '',
+        confirmPassword: ''
       }
     },
+
     methods: {
-      onSubmit () {
+      onSubmit: function () {
         const formData = {
+          name: this.name,
           email: this.email,
           password: this.password
         }
+        this.$store.dispatch('REGISTER_USER', formData)
+          .then(this.$router.push({name: 'dashboard'}))
+      }
+    },
 
-        this.$store.dispatch('LOGIN_USER', {
-          email: formData.email,
-          password: formData.password,
-          returnSecureToken: true
-        })
+    validations: {
+      name: {
+        required,
+        alphaNum
+      },
+
+      email: {
+        required,
+        email,
+        unique: (val, pvm) => {
+          if (val === '') return true
+          return pvm.$store.getters.emailStillAvailable(val)
+        }
+      },
+
+      password: {
+        required,
+        minLength: minLength(6)
+      },
+
+      confirmPassword: {
+        sameAs: sameAs('password')
       }
     }
   }
 </script>
 
 <style scoped>
-  .signin-form {
+  .signup-form {
     width: 400px;
     margin: 30px auto;
     border: 1px solid #eee;
@@ -68,6 +134,10 @@
     margin-bottom: 6px;
   }
 
+  .input.inline label {
+    display: inline;
+  }
+
   .input input {
     font: inherit;
     width: 100%;
@@ -76,10 +146,37 @@
     border: 1px solid #ccc;
   }
 
+  .input.inline input {
+    width: auto;
+  }
+
   .input input:focus {
     outline: none;
     border: 1px solid #521751;
     background-color: #eee;
+  }
+
+  .input select {
+    border: 1px solid #ccc;
+    font: inherit;
+  }
+
+  .hobbies button {
+    border: 1px solid #521751;
+    background: #521751;
+    color: white;
+    padding: 6px;
+    font: inherit;
+    cursor: pointer;
+  }
+
+  .hobbies button:hover,
+  .hobbies button:active {
+    background-color: #8d4288;
+  }
+
+  .hobbies input {
+    width: 90%;
   }
 
   .submit button {
@@ -105,4 +202,12 @@
     cursor: not-allowed;
   }
 
+  .input.invalid input {
+    border: 1px solid red;
+    background-color: #ffc9aa;
+  }
+
+  .input.invalid label {
+    color: red;
+  }
 </style>

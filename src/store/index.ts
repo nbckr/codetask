@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import { firebaseMutations } from 'vuexfire'
 
 import courses from './modules/courses'
 import users from './modules/users'
@@ -12,5 +13,9 @@ export default new Vuex.Store({
   modules: {
     courses,
     users
+  },
+
+  mutations: {
+    ...firebaseMutations
   }
 })

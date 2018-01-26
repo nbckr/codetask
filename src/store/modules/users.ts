@@ -1,10 +1,20 @@
 import axiosData from '../axios-firebase-data'
 import axiosAuth from '../axios-firebase-auth'
 import router from '../../router'
+import { firebase } from  'firebase/database'
+import db from '../vuexfire-db'
+import { firebaseAction } from 'vuexfire'
+import User from '../../models/User'
 
 // TODO: Refactor. Separate state and localstorage
 
+const usersRef = db.ref('users')
+
 const state = {
+  // Bound with VXF
+  users: [],
+
+  // Local
   idToken: null,
   userId: null,
   user: null
@@ -29,17 +39,29 @@ const mutations = {
 
 const actions = {
   REGISTER_USER ({commit, dispatch}, authData) {
-    axiosAuth.post('/signupNewUser', {
-      email: authData.email,
-      password: authData.password,
-      returnSecureToken: true
-    })
+
+    // Adjust data from form
+    authData.returnSecureToken = true
+    // name?!
+    console.log('data', authData)
+
+    // TODO: use vuefire / firebase directly
+    axiosAuth.post('/signupNewUser', authData)
       .then(response => {
+        console.log('got auth response', response)
+
+        // no direct mutations, but use VFX // dispatch('STORE_USER', authData)
+
+        // User registered in auth, now store in db as well
+        // We can safely push new user as we checked for uniqueness in vuelidate
+        const user = new User(response.data.localId, authData.email, authData.name)
+        usersRef.push(user)
+
+        // ... and log in
         commit('DO_AUTH_USER', {
           token: response.data.idToken,
           userId: response.data.localId
         })
-        dispatch('STORE_USER', authData)
       })
       .catch(error => console.error(error))
   },
@@ -130,12 +152,23 @@ const actions = {
   SET_LOGOUT_TIMER ({commit, dispatch}, expirationTime) {
     setTimeout(() => dispatch('LOGOUT'),
       expirationTime * 1000)
-  }
+  },
+
+  // VXF bindings
+
+  VXF_SET_USERS_REF: firebaseAction(({bindFirebaseRef}) => {
+    bindFirebaseRef('users', usersRef)
+  })
 }
 
 const getters = {
   user (state) {
     return state.user
+  },
+  emailStillAvailable (state) {
+    return email => !state.users.some(user => user.email === email) // TODO or usersRef?
+    // return axios.get('/users.json?orderBy="email"&equalTo="' + val + '"').then(response => {
+    //   return Object.keys(response.data).length === 0
   },
   isAuthenticated (state) {
     return state.idToken !== null

@@ -4,8 +4,8 @@ import Router from 'vue-router'
 // Landing page
 import WelcomePage from '@/components/welcome/WelcomePage'
 import AppShell from '@/components/shared/AppShell'
-import LoginPanel from '../components/welcome/LoginPanel'
 import RegisterPanel from '../components/welcome/RegisterPanel'
+import LoginPanel from '../components/welcome/LoginPanel'
 import BannerPanel from '../components/welcome/BannerPanel'
 
 // Dashboard
@@ -38,12 +38,12 @@ export default new Router({
         {
           path: 'register',
           name: 'register',
-          component: LoginPanel
+          component: RegisterPanel
         },
         {
           path: 'login',
           name: 'login',
-          component: RegisterPanel
+          component: LoginPanel
         }
       ]
     },

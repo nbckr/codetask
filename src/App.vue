@@ -29,6 +29,8 @@
       this.$store.dispatch('LOAD_COURSES')
       this.$store.dispatch('LOAD_SOLUTIONS')
       this.$store.dispatch('TRY_AUTO_LOGIN')
+
+      this.$store.dispatch('VXF_SET_USERS_REF')
     }
   }
 </script>
