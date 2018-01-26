@@ -22,6 +22,8 @@ import './stylesheets/htwg-theme.scss'
 // Needed for classes like 'hidden-sm-and-down'
 import 'element-ui/lib/theme-chalk/display.css'
 
+import 'element-ui/lib/theme-chalk/notification.css' // TODO: Remove?
+
 // vue-awesome icons
 import 'vue-awesome/icons/tasks'
 import 'vue-awesome/icons/terminal'

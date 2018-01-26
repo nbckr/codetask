@@ -44,6 +44,11 @@
           password: formData.password,
           returnSecureToken: true
         })
+          .catch(error => this.$notify({
+            title: 'Warning',
+            message: error.message,
+            type: 'warning'
+          }))
       }
     }
   }

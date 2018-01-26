@@ -53,8 +53,8 @@ const actions = {
 
   LOGIN_USER ({commit, dispatch}, formData) {
     const {email, password} = formData
-    auth.signInWithEmailAndPassword(email, password)
-      .catch(error => alert(error.message))
+    return auth.signInWithEmailAndPassword(email, password)
+      //.catch(error => reje)
     // onAuthStateChanged will fire
   },
 
