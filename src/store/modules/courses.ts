@@ -22,7 +22,12 @@ const mutations = { }
 
 const actions = {
   // TODO: User implicit, currentUser
-  ENROLL_TO_COURSE: ({commit}, {user, course}) => {
+  ENROLL_TO_COURSE: ({commit, getters}, {course}) => {
+
+    if (getters.progress.some(c => c.id === course.id)) {
+      console.error('Already enrolled')
+      return
+    }
 
     // Create empty progress
     const emptyProgress = new CourseProgress(course.id)
@@ -31,17 +36,22 @@ const actions = {
       chapterProgress.tasks = chapter.tasks.map(task => new TaskProgress(task.id, chapter.id))
       return chapterProgress
     })
-    console.log('empty:', emptyProgress)
+    // console.log('empty:', emptyProgress)
     progressRef.push(emptyProgress)
   },
 
-  UPDATE_TASK_PROGRESS: ({commit, getters}, task: Task) => {
+  // Set current task (determined by app state, e. g. route) as solved
+  CURRENT_TASK_SOLVED: ({commit, getters}) => {
     console.log('Update task progress')
+    const courseId = getters.activeCourse.id
+    const chapterId = getters.activeChapter.id
+    const taskId = getters.activeTask.id
     const courseProgress = getters.progress
-      .find(courseProgress => getters.activeCourse.id === courseProgress.id)
+      .find(courseProgress => courseId === courseProgress.id)
 
-    console.log('>>>>>>>>>', courseProgress)
-    courseProgress.updateRecursively(getters.activeChapter.id, task.id)
+    const refKey = courseProgress['.key']
+    updateCourseProgress(courseProgress, chapterId, taskId)
+    progressRef.child(refKey).set(courseProgress)
   },
 
   BIND_VUEXFIRE_REFS: firebaseAction(({commit, bindFirebaseRef}) => {
@@ -104,6 +114,19 @@ const getters = {
     task => task.tag === 'code-task'),
   activeVideoTasks: (state, getters) => getters.activeChapter.tasks.filter(
     task => task.tag === 'video-task')
+}
+
+// Clone ref, remove key so it can be added again, and deeply update percentages
+function updateCourseProgress (courseProgress, chapterId: number, taskId: string): void {
+  // create a copy of the item
+  // TODO ? const newCourseProgress = {...courseProgress}
+  delete courseProgress['.key']
+
+  courseProgress.chapters
+    .find(chapter => chapter.id === chapterId)
+    .tasks
+    .find(task => task.id === taskId)
+    .solved = true
 }
 
 export default {

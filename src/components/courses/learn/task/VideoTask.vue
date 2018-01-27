@@ -25,7 +25,7 @@
     methods: {
       onVideoEnded () {
         console.log('Video ended')
-        this.$store.dispatch('UPDATE_TASK_PROGRESS', this.activeTask)
+        this.$store.dispatch('CURRENT_TASK_SOLVED')
       }
     }
   }
