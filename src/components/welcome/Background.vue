@@ -24,7 +24,7 @@
 
     <div class="htwg-bubble"></div>
 
-    <img src="/static/img/htwg/htwg-in-logo.png" id="htwg-in-logo" class="hidden-xs-only"/>
+    <img src="/static/img/htwg/htwg-in-logo-nodots.png" id="htwg-in-logo" class="hidden-xs-only"/>
   </div>
 
 </template>
@@ -72,10 +72,10 @@
   }
 
   #htwg-in-logo {
-    width: 30rem;
+    width: 18rem;
     position: absolute;
-    top: 30px;
-    right: -75px;
+    top: 3.2rem;
+    right: 4.2rem;
   }
 
 </style>
