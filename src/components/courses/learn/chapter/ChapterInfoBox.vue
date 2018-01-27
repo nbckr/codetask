@@ -45,7 +45,6 @@
 
     computed: {
       ...mapGetters([
-        'activeCourse',
         'activeChapter',
         'activeKoanTasks',
         'activeCodeTasks',

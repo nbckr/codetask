@@ -1,22 +1,57 @@
 <template>
   <div>
-    <h1>Neue Kurse hochladen</h1>
+    <h1>Neuen Kurs hochladen</h1>
 
-    <input type="text" v-model="course.title">
-    <p>{{ course }}</p>
+    <form @submit.prevent="submit">
+      <el-row :gutter="40">
 
-    <el-upload
-      ref="upload"
-      accept="application/json"
-      action="#"
-      :multiple="false"
-      :show-file-list="true"
-      :on-change="onCourseFileChange"
-      :auto-upload="false">
+        <el-col :xs="24" :md="12">
+          <el-row class="form-row">
+            <el-upload
+              ref="upload"
+              id="file"
+              accept="application/json"
+              action="#"
+              :multiple="false"
+              :show-file-list="true"
+              :on-change="onCourseFileChange"
+              :auto-upload="false">
 
-      <el-button size="small" type="primary">Datei auswählen</el-button>
-      <div class="el-upload__tip" slot="tip">CodeTask-Kurs im JSON-Format</div>
-    </el-upload>
+              <el-button>Datei hochladen</el-button>
+              <div class="el-upload__tip" slot="tip">CodeTask-Kurs im JSON-Format</div>
+            </el-upload>
+          </el-row>
+
+          <!-- el-input will compile to input, so the label will find its input element after compilation -->
+          <el-row class="form-row">
+            <label for="title">Titel</label>
+            <el-input id="title" placeholder="Titel deines neuen Kurses" v-model="course.title" :maxlength="42"/>
+          </el-row>
+
+          <el-row class="form-row">
+            <label for="description">Beschreibung</label>
+            <el-input
+              id="description"
+              type="textarea"
+              :autosize="{ minRows: 2, maxRows: 10}"
+              :maxlength="1000"
+              placeholder="Eine kurze Beschreibung des Kursinhalts"
+              v-model="additional.description"
+            >
+            </el-input>
+          </el-row>
+        </el-col>
+
+      </el-row>
+      <el-col>
+        <el-row type="flex" justify="end">
+          <el-button @click="submit" :disabled="false" type="primary">Kurs anlegen</el-button>
+        </el-row>
+      </el-col>
+
+    </form>
+
+    <p style="white-space: pre; display: none">{{ course }}</p>
 
   </div>
 </template>
@@ -25,7 +60,10 @@
   export default {
     data () {
       return {
-        course: {}
+        course: {},
+
+        // Additional attributes that extend the original data model
+        additional: {}
       }
     },
 
@@ -38,7 +76,7 @@
 
         // new file automatically bound to value, but to also update visual file-list
         if (this.$refs.upload.uploadFiles.length > 1) {
-          this.$refs.upload.uploadFiles = [ this.$refs.upload.uploadFiles[1] ]
+          this.$refs.upload.uploadFiles = [this.$refs.upload.uploadFiles[1]]
         }
 
         this.uploadCourse(file)
@@ -57,10 +95,29 @@
 
       removeCourse: function (e) {
         this.course = {}
+      },
+
+      submit (e) {
+        // TODO: new Course(), add to db, show success
+        console.log(e)
+        const course = {...this.course, ...this.additional}
+        console.log(course)
+        this.course = {}
+        this.additional = {}
       }
     }
   }
 </script>
 
 <style scoped>
+  label {
+    display: inline-block;
+    width: 11rem;
+  }
+
+  .form-row {
+    display: flex;
+    align-items: center;
+    margin: 1rem 0;
+  }
 </style>

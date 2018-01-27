@@ -64,14 +64,18 @@
     width: 100%; // Managed by Element rows / cols
     background-color: white;
     border-bottom: $htwg-color-teal solid 0.6rem;
+    transition: padding 0.3s ease-out;
 
-    padding: 0.4rem;
+    padding: 1rem;
     margin-top: 0;
 
     @include sm {
-      padding: 2rem;
+      padding: 3rem;
       margin-top: 1.6rem;
     }
   }
 
+  /deep/ h1 {
+    margin-top: 0;
+  }
 </style>
