@@ -1,8 +1,8 @@
 <template>
 
-  <el-collapse v-model="collapsedName" accordion>
+  <el-collapse v-if="currentUser" v-model="collapsedName" accordion>
 
-    <el-collapse-item v-for="(course, i) in courses" :name="i" :key="i">
+    <el-collapse-item v-for="(course, i) in enrolledCourses" :name="i" :key="i">
 
       <!-- Course title and overall percentage -->
       <template slot="title">
@@ -38,7 +38,7 @@
 </template>
 
 <script>
-  import { mapState } from 'vuex'
+  import { mapGetters } from 'vuex'
 
   export default {
     data () {
@@ -47,9 +47,16 @@
       }
     },
 
-    computed: mapState({
-      courses: state => state.courses.courses
-    })
+    computed: {
+      ...mapGetters([
+        'courses',
+        'currentUser'
+      ]),
+      enrolledCourses: (vm) => {
+        console.log(typeof vm.currentUser, vm.currentUser)
+        return vm.courses.filter(course => vm.currentUser.enrollments.includes(course.id))
+      }
+    }
   }
 </script>
 
