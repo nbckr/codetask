@@ -1,49 +1,62 @@
-import axios from '../axios-firebase-data'
 import router from '../../router'
 import Course from '../../models/Course'
-import ChapterProgress from '../../models/ChapterProgress'
+import { CourseProgress, ChapterProgress, TaskProgress } from '../../models/UserProgress'
+import { db } from '../firebase-setup'
+import { firebaseAction } from 'vuexfire'
+
+const coursesRef = db.ref('courses')
+const progressRef = db.ref('progress/lYHNisOXfVfesV8TQ48BI8dqo7t2') // TODO 'progess/<user>'
 
 interface CoursesState {
   courses: Course[]
-  solutions: ChapterProgress[]
+  progress: CourseProgress[]
 }
 
 const state: CoursesState = {
   courses: [],
-  solutions: []
+  progress: []
 }
 
 const mutations = {
-  SET_COURSES: (state, courses: Course[]) => {
-    console.log('Setting courses')
-    state.courses = courses
-  },
-
-  SET_SOLUTIONS: (state, solutions) => {
-    console.log('Setting solutions')
-    state.solutions = solutions
-  }
+//  SET_COURSES: (state, courses: Course[]) => {
+//    console.log('Setting courses')
+//    state.courses = courses
+//  },
+//
+//  SET_PROGRESS: (state, solutions) => {
+//    console.log('Setting solutions')
+//    state.solutions = solutions
+//  }
 }
 
 const actions = {
-  LOAD_COURSES: ({commit}) => {
-    axios.get('/courses.json')
-      .then((response) => {
-        console.log('axios response', response)
-        commit('SET_COURSES', response.data)
-      })
-      .catch((error) => {
-        console.error(error)
-      })
+  ENROLL_TO_COURSE: ({commit}, {user, course}) => {
+
+    console.log(user, course)
+
+    // Create empty progress
+    const emptyProgress = new CourseProgress(course.id)
+    emptyProgress.chapters = course.chapters.map(chapter => {
+      const chapterProgress = new ChapterProgress(chapter.id)
+      chapterProgress.tasks = chapter.tasks.map(task => new TaskProgress(task.id))
+      return chapterProgress
+    })
+    progressRef.push(emptyProgress)
+
+    // proress -> user -> add
+    return null
   },
 
-  LOAD_SOLUTIONS: ({commit}) => {
-    // TODO: This is mock data and wrong format
-    commit('SET_SOLUTIONS', [{'courseId': 2, 'chapterId': 10, 'taskSolutions': [{'taskId': 'video1', 'taskState': {'status': 'watched'}, 'checked': true}, {'taskId': 'koan1', 'taskState': {'mySolutions': []}, 'checked': false}, {'taskId': 'video2', 'taskState': {'status': 'not watched'}, 'checked': false}, {'taskId': 'koan2', 'taskState': {'mySolutions': ['"Svens Account"']}, 'checked': true}, {'taskId': 'code1', 'taskState': {'myCode': 'class Bank(name: String, code: String) {\n  var safeCode = code\n}\n\nclass AdvancedBank(name: String, code: String) {\n  //todo\n}'}, 'checked': false}, {'taskId': 'video3', 'taskState': {'status': 'not watched'}, 'checked': false}, {'taskId': 'video4', 'taskState': {'status': 'not watched'}, 'checked': false}, {'taskId': 'koan3', 'taskState': {'mySolutions': []}, 'checked': false}, {'taskId': 'video5', 'taskState': {'status': 'not watched'}, 'checked': false}, {'taskId': 'code2', 'taskState': {'myCode': 'object TestObject {\n  //todo\n}\n\nTestObject.i should be(0)\nTestObject.increment\nTestObject.i should be(1)'}, 'checked': false}, {'taskId': 'video6', 'taskState': {'status': 'not watched'}, 'checked': false}, {'taskId': 'video7', 'taskState': {'status': 'not watched'}, 'checked': false}, {'taskId': 'code3', 'taskState': {'myCode': 'class Vect3(val x: Double, val y: Double, val z: Double) {\n  def +(v: Vect3) = Vect3(x + v.x, y + v.y, z + v.z)\n  def -(v: Vect3) = Vect3(x - v.x, y - v.y, z - v.z)\n  def unary_-() = Vect3(-x, -y, -z)\n  def apply(index: Int): Double = index match {\n    case 0 => x\n    case 1 => y\n    case 2 => z\n  }\n\n  def print(): String = "(" + x + ", " + y + ", " + z + ")"\n}\n\nobject Vect3 {\n  //todo\n}'}, 'checked': false}]}][0].taskSolutions)
-  }
+  BIND_VUEXFIRE_REFS: firebaseAction(({commit, bindFirebaseRef}) => {
+    console.log('VXF Bind event')
+    bindFirebaseRef('courses', coursesRef, { readyCallback: () => console.log('courses bound') })
+    bindFirebaseRef('progress', progressRef, { readyCallback: () => console.log('progress bound') })
+  })
 }
 
 const getters = {
+  courses: state => state.courses,
+  progress: state => state.progress,
 
   /* currently active course, chapter and task derived from route */
 

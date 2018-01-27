@@ -26,11 +26,11 @@
     },
 
     beforeCreate () {
-      this.$store.dispatch('LOAD_COURSES')
-      this.$store.dispatch('LOAD_SOLUTIONS')
+      // this.$store.dispatch('LOAD_COURSES')
+      // this.$store.dispatch('LOAD_SOLUTIONS')
 
       // Wire up vuex state with firebase db
-      this.$store.dispatch('VXF_SET_USERS_REF')
+      this.$store.dispatch('BIND_VUEXFIRE_REFS')
     }
   }
 </script>

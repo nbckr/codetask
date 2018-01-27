@@ -76,9 +76,7 @@ const actions = {
     }
   },
 
-  // vuexfire bindings
-
-  VXF_SET_USERS_REF: firebaseAction(({commit, bindFirebaseRef}) => {
+  BIND_VUEXFIRE_REFS: firebaseAction(({commit, bindFirebaseRef}) => {
     bindFirebaseRef('users', usersRef, {
       readyCallback: () => {
         // Fire manually as this usually happens after authStateChanged
@@ -90,6 +88,7 @@ const actions = {
 
 const getters = {
   currentUser: state => state.currentUser,
+  currentUserSettings: (state, getters) => getters.currentUser.settings,
   users: state => state.users,
   emailStillAvailable (state) {
     return email => !state.users.some(user => user.email === email)

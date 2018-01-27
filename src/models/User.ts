@@ -5,8 +5,7 @@ export default class User {
                public displayName: string,
                public role: Role = Role.STUDENT,
                public score: number = 0,
-               public settings: Settings = new Settings(),
-               public enrollments: number[] = []) { }
+               public settings: Settings = new Settings()) { }
 }
 
 enum Role {
