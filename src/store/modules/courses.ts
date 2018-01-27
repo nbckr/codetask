@@ -3,6 +3,7 @@ import Course from '../../models/Course'
 import { CourseProgress, ChapterProgress, TaskProgress } from '../../models/UserProgress'
 import { db } from '../firebase-setup'
 import { firebaseAction } from 'vuexfire'
+import Task from '../../models/Task'
 
 const coursesRef = db.ref('courses')
 const progressRef = db.ref('progress/lYHNisOXfVfesV8TQ48BI8dqo7t2') // TODO 'progess/<user>'
@@ -17,34 +18,30 @@ const state: CoursesState = {
   progress: []
 }
 
-const mutations = {
-//  SET_COURSES: (state, courses: Course[]) => {
-//    console.log('Setting courses')
-//    state.courses = courses
-//  },
-//
-//  SET_PROGRESS: (state, solutions) => {
-//    console.log('Setting solutions')
-//    state.solutions = solutions
-//  }
-}
+const mutations = { }
 
 const actions = {
+  // TODO: User implicit, currentUser
   ENROLL_TO_COURSE: ({commit}, {user, course}) => {
-
-    console.log(user, course)
 
     // Create empty progress
     const emptyProgress = new CourseProgress(course.id)
     emptyProgress.chapters = course.chapters.map(chapter => {
       const chapterProgress = new ChapterProgress(chapter.id)
-      chapterProgress.tasks = chapter.tasks.map(task => new TaskProgress(task.id))
+      chapterProgress.tasks = chapter.tasks.map(task => new TaskProgress(task.id, chapter.id))
       return chapterProgress
     })
+    console.log('empty:', emptyProgress)
     progressRef.push(emptyProgress)
+  },
 
-    // proress -> user -> add
-    return null
+  UPDATE_TASK_PROGRESS: ({commit, getters}, task: Task) => {
+    console.log('Update task progress')
+    const courseProgress = getters.progress
+      .find(courseProgress => getters.activeCourse.id === courseProgress.id)
+
+    console.log('>>>>>>>>>', courseProgress)
+    courseProgress.updateRecursively(getters.activeChapter.id, task.id)
   },
 
   BIND_VUEXFIRE_REFS: firebaseAction(({commit, bindFirebaseRef}) => {
@@ -86,6 +83,15 @@ const getters = {
 
     return chapter
       .tasks[Number.parseInt(task) - 1] // Compensate 0-indexing
+  },
+
+  /* Progress */
+
+  activeCourseProgress: (state, getters) => {
+    const course = getters.activeCourse
+    if (!course) console.error('No active course')
+
+    return state.progress.find(courseProgress => course.id === courseProgress.id)
   },
 
   /* current chapter's tasks filtered by varios criteria */

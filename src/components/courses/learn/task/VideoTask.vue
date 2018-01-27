@@ -1,10 +1,10 @@
 <template>
 
-    <youtube
+  <youtube
     :video-id="activeTask.data.url"
     player-width="100%"
     :player-vars="{ autoplay: currentUserSettings.autoplay }"
-    @ended=""
+    @ended="onVideoEnded"
   />
 
 </template>
@@ -20,6 +20,13 @@
         // TODO: 0 / 1
         'currentUserSettings'
       ])
+    },
+
+    methods: {
+      onVideoEnded () {
+        console.log('Video ended')
+        this.$store.dispatch('UPDATE_TASK_PROGRESS', this.activeTask)
+      }
     }
   }
 </script>

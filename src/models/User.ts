@@ -4,7 +4,6 @@ export default class User {
                public email: string,
                public displayName: string,
                public role: Role = Role.STUDENT,
-               public score: number = 0,
                public settings: Settings = new Settings()) { }
 }
 
