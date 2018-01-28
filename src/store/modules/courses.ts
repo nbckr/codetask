@@ -50,7 +50,7 @@ const actions = {
       .find(courseProgress => courseId === courseProgress.id)
 
     const refKey = courseProgress['.key']
-    updateCourseProgress(courseProgress, chapterId, taskId)
+    deepUpdateCourseProgress(courseProgress, chapterId, taskId)
     progressRef.child(refKey).set(courseProgress)
   },
 
@@ -116,17 +116,44 @@ const getters = {
     task => task.tag === 'video-task')
 }
 
-// Clone ref, remove key so it can be added again, and deeply update percentages
-function updateCourseProgress (courseProgress, chapterId: number, taskId: string): void {
-  // create a copy of the item
-  // TODO ? const newCourseProgress = {...courseProgress}
+// set task as soled, propagate change up to chapter and course percentage
+function deepUpdateCourseProgress (courseProgress, chapterId: number, taskId: string): void {
+  // Remove key so object can be added to db again
   delete courseProgress['.key']
 
-  courseProgress.chapters
+  const chapterProgress = courseProgress.chapters
     .find(chapter => chapter.id === chapterId)
+  chapterProgress
     .tasks
     .find(task => task.id === taskId)
     .solved = true
+
+  updateChapterPercentage(chapterProgress)
+  updateCoursePercentage(courseProgress)
+}
+
+function updateChapterPercentage (chapterProgress) {
+  const numberOfTasks = chapterProgress.tasks.length
+  const finishedTasks = chapterProgress.tasks.filter(task => task.solved).length
+
+  if (!numberOfTasks || !finishedTasks) {
+    chapterProgress.percentage = 0
+  } else {
+    chapterProgress.percentage = Math.ceil(finishedTasks * 100 / numberOfTasks)
+  }
+}
+
+function updateCoursePercentage (courseProgress) {
+  const numberOfChapters = courseProgress.chapters.length
+  const percentageAccumulated = courseProgress.chapters
+    .map(chapter => chapter.percentage)
+    .reduce((previous, current) => current += previous)
+
+  if (!numberOfChapters || !percentageAccumulated) {
+    courseProgress.percentage = 0
+  } else {
+    courseProgress.percentage = Math.ceil(percentageAccumulated / numberOfChapters)
+  }
 }
 
 export default {
