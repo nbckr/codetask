@@ -4,7 +4,7 @@
 
     <el-steps
       class="hidden-md-and-down"
-      :active="currentTask.id - 1"
+      :active="activeStep"
       process-status="process"
       finish-status="success"
       :align-center="true">
@@ -38,8 +38,15 @@
         'currentTask'
       ]),
 
+      activeStep: (vm) => {
+        return vm.currentTask
+          ? vm.currentTask.id - 1
+          : null
+      },
+
       percentage: (vm) => {
-        const taskIndex = vm.currentTask.id // Compensate 0-indexing
+        // TODO: Use percentage from store
+        const taskIndex = 2 // vm.currentTask.id // Compensate 0-indexing
         const numberOfTasks = vm.tasks.length
         if (!taskIndex || !numberOfTasks) {
           return 0
@@ -60,7 +67,7 @@
     padding: 1.2rem;
   }
 
-  >>> .el-progress-bar__inner {
+  > > > .el-progress-bar__inner {
     background-color: #67c23a; /* To match el-steps */
     transition: width 1s, background-color 1s;
   }

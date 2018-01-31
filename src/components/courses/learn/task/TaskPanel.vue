@@ -42,11 +42,14 @@
 
   export default {
     computed: {
-      isCourseStart: (vm) => !vm.$route.params.task || !vm.$route.params.task === 1,
+      isCourseStart: (vm) => !vm.currentTask,
 
       isCourseEnd: (vm) => false,
 
-      nextIsDisabled: () => this.currentTaskProgress && !this.currentTaskProgress.solved,
+      nextIsDisabled: (vm) => {
+        if (vm.isCourseStart) return false
+        return !vm.currentTaskProgress.solved
+      },
 
       ...mapGetters([
         'currentTask',

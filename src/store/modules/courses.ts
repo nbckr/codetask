@@ -55,7 +55,7 @@ const actions = {
 
     progressRef
       .child(courseProgress['.key'])
-      .update({ [taskSolvedPath]: 'true', 'chapters/0/title': 'xxx' })
+      .update({ [taskSolvedPath]: true })
   },
 
   BIND_VUEXFIRE_REFS: firebaseAction(({commit, bindFirebaseRef}) => {
@@ -71,11 +71,11 @@ const getters = {
 
   /* currently active course, chapter and task derived from route */
 
-  currentCourse: state => {
+  currentCourse: (state, getters) => {
     const {course} = router.app.$route.params
     if (!course || state.courses.length === 0) return
 
-    return state
+    return getters
       .courses
       .find(c => c.id === Number.parseInt(course))
   },

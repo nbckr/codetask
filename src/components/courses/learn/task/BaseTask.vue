@@ -2,11 +2,6 @@
   <section>
 
     <div class="framed">
-
-      ---
-      <p v-if="currentTaskProgress">{{ currentTaskProgress }}</p>
-      ---
-
       <p>{{ currentTask.data.description.trim() }}</p>
     </div>
 
