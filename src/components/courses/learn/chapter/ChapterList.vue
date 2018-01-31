@@ -4,13 +4,13 @@
     <el-menu
       default-active="2"
       :router="true"
-      :default-active="`${activeChapter ? activeChapter.id : ''}`">
+      :default-active="`${activeChapter ? activeChapter.index : ''}`">
 
       <el-menu-item
         v-for="chapter in activeCourse.chapters"
-        :route="{ name: 'chapter', params: { chapter: chapter.id } }"
-        :key="`${chapter.id}`"
-        :index="`${chapter.id}`">
+        :route="{ name: 'chapter', params: { chapter: chapter.index } }"
+        :key="`${chapter.index}`"
+        :index="`${chapter.index}`">
         <a>
           <i class="el-icon-arrow-right"></i>
           <span>{{ chapter.title }}</span>

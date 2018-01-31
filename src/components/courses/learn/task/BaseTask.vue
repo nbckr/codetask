@@ -2,6 +2,12 @@
   <section>
 
     <div class="framed">
+
+      ---
+      <p>{{ activeCourseProgress.chapters
+        .find(chapter => chapter.index === Number.parseInt(activeChapter.index) - 1).tasks }}</p>
+      ---
+
       <p>{{ activeTask.data.description.trim() }}</p>
     </div>
 
@@ -30,7 +36,9 @@
 
     computed: {
       ...mapGetters([
-        'activeTask'
+        'activeTask',
+        'activeChapter',
+        'activeCourseProgress'
       ])
     }
   }

@@ -2,6 +2,7 @@ import { db, auth } from '../firebase-setup'
 import { firebaseAction } from 'vuexfire'
 import User from '../../models/User'
 import store from '../index'
+import Task from '../../models/Task'
 
 const usersRef = db.ref('users')
 
@@ -27,7 +28,7 @@ const mutations = {
     const user = state.users.find(user => user.uid === authUser.uid)
     if (user) {
       state.currentUser = user
-      console.log (`Logging in user ${user.displayName}`)
+      console.log(`Logging in user ${user.displayName}`)
     } else {
       console.error(`Could not find user with key ${authUser.uid} in db`)
     }
@@ -54,7 +55,7 @@ const actions = {
   LOGIN_USER ({commit, dispatch}, formData) {
     const {email, password} = formData
     return auth.signInWithEmailAndPassword(email, password)
-      //.catch(error => reje)
+    //.catch(error => reje)
     // onAuthStateChanged will fire
   },
 
@@ -75,6 +76,10 @@ const actions = {
       commit('DO_LOGOUT_USER')
     }
   },
+
+  // CURRENT_TASK_SOLVED: ({commit}, task: Task) => {
+  //   console.log('Update task from users')
+  // },
 
   BIND_VUEXFIRE_REFS: firebaseAction(({commit, bindFirebaseRef}) => {
     bindFirebaseRef('users', usersRef, {

@@ -8,12 +8,12 @@ import Task from '../../models/Task'
 const coursesRef = db.ref('courses')
 const progressRef = db.ref('progress/lYHNisOXfVfesV8TQ48BI8dqo7t2') // TODO 'progess/<user>'
 
-interface CoursesState {
-  courses: Course[]
-  progress: CourseProgress[]
-}
+// interface CoursesState {
+//   courses: Course[]
+//   progress: CourseProgress[]
+// }
 
-const state: CoursesState = {
+const state = {
   courses: [],
   progress: []
 }
@@ -31,9 +31,9 @@ const actions = {
 
     // Create empty progress
     const emptyProgress = new CourseProgress(course.id)
-    emptyProgress.chapters = course.chapters.map(chapter => {
-      const chapterProgress = new ChapterProgress(chapter.id)
-      chapterProgress.tasks = chapter.tasks.map(task => new TaskProgress(task.id, chapter.id))
+    emptyProgress.chapters = course.chapters.map((chapter, index) => {
+      const chapterProgress = new ChapterProgress(index)
+      chapterProgress.tasks = chapter.tasks.map((task, index) => new TaskProgress(index))
       return chapterProgress
     })
     // console.log('empty:', emptyProgress)
@@ -43,15 +43,20 @@ const actions = {
   // Set current task (determined by app state, e. g. route) as solved
   CURRENT_TASK_SOLVED: ({commit, getters}) => {
     console.log('Update task progress')
+    // Grab ref to current course
     const courseId = getters.activeCourse.id
-    const chapterId = getters.activeChapter.id
-    const taskId = getters.activeTask.id
     const courseProgress = getters.progress
-      .find(courseProgress => courseId === courseProgress.id)
+      .find(courseProgress => courseProgress.id === courseId)
 
-    const refKey = courseProgress['.key']
-    deepUpdateCourseProgress(courseProgress, chapterId, taskId)
-    progressRef.child(refKey).set(courseProgress)
+    // Define and alter path to 'solved' attribute of current task
+    const chapterIndex = getters.activeChapter.index
+    const taskIndex = getters.activeTask.index
+    const taskSolvedPath = `chapters/${chapterIndex}/tasks/${taskIndex}/solved`
+
+    console.log(taskSolvedPath)
+    progressRef
+      .child(courseProgress['.key'])
+      .update({ taskSolvedPath: true })
   },
 
   BIND_VUEXFIRE_REFS: firebaseAction(({commit, bindFirebaseRef}) => {
@@ -82,8 +87,7 @@ const getters = {
     if (!course || !chapter) return
 
     return course
-      .chapters
-      .find(c => c.id === Number.parseInt(chapter))
+      .chapters[Number.parseInt(chapter) - 1]
   },
 
   activeTask: (state, getters) => {
@@ -104,7 +108,7 @@ const getters = {
     return state.progress.find(courseProgress => course.id === courseProgress.id)
   },
 
-  /* current chapter's tasks filtered by varios criteria */
+  /* current chapter's tasks filtered by various criteria */
 
   checkedTasks: (state, getters) => getters.activeChapter.tasks.filter(
     task => task.tag.checked),
@@ -116,7 +120,7 @@ const getters = {
     task => task.tag === 'video-task')
 }
 
-// set task as soled, propagate change up to chapter and course percentage
+// set task as solved, propagate change up to chapter and course percentage
 function deepUpdateCourseProgress (courseProgress, chapterId: number, taskId: string): void {
   // Remove key so object can be added to db again
   delete courseProgress['.key']

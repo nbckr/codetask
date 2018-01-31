@@ -20,7 +20,7 @@
           <li v-for="chapter in course.chapters">
             <router-link
               tag="el-col"
-              :to="{name: 'chapter', params: { course: course.id, chapter: chapter.id }}"
+              :to="{name: 'chapter', params: { course: course.id, chapter: chapter.index + 1 }}"
               :span="10">
               <a>{{ chapter.title }}</a>
             </router-link>
@@ -32,6 +32,8 @@
       </el-row>
 
     </el-collapse-item>
+
+    <button @click="test">TEST Anmelden</button>
 
   </el-collapse>
 
@@ -50,11 +52,18 @@
     computed: {
       ...mapGetters([
         'courses',
+        'progress',
         'currentUser'
       ]),
       enrolledCourses: (vm) => {
         console.log(typeof vm.currentUser, vm.currentUser)
-        return vm.courses.filter(course => vm.currentUser.enrollments.includes(course.id))
+        return vm.courses.filter(course => vm.progress.some(courseProgress => course.id === courseProgress.id))
+      }
+    },
+
+    methods: {
+      test () {
+        this.$store.dispatch('ENROLL_TO_COURSE', { user: this.currentUser, course: this.courses[0] })
       }
     }
   }
