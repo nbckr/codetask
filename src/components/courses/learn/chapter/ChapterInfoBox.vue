@@ -6,25 +6,26 @@
         <icon name="clock-o" label="Dauer"/>
         Dauer: ~ {{ duration }} min
       </li>
+
       <li>
         <icon name="list-ul" label="Aufgaben"/>
         Aufgaben: {{ activeChapter.tasks.length }}
-        <ul>
-          <li v-if="activeKoanTasks.length > 0">
-            <icon name="tasks"/>
-            {{ activeKoanTasks.length }} Koan-Aufgaben
-          </li>
-          <li v-if="activeVideoTasks.length > 0">
-            <icon name="film"/>
-            {{ activeVideoTasks.length }} Video-Aufgaben
-          </li>
-          <li v-if="activeCodeTasks.length > 0">
-            <icon name="terminal"/>
-            {{ activeCodeTasks.length }} Code-Aufgaben
-          </li>
-
-        </ul>
       </li>
+      <ul class="indented">
+        <li v-if="activeKoanTasks.length > 0">
+          <icon name="tasks"/>
+          {{ activeKoanTasks.length }} Koan-Aufgaben
+        </li>
+        <li v-if="activeVideoTasks.length > 0">
+          <icon name="film"/>
+          {{ activeVideoTasks.length }} Video-Aufgaben
+        </li>
+        <li v-if="activeCodeTasks.length > 0">
+          <icon name="terminal"/>
+          {{ activeCodeTasks.length }} Code-Aufgaben
+        </li>
+      </ul>
+
       <li>
         <icon name="percent" label="Fortschritt" class="fa-success"/>
         Fortschritt: {{ checkedTasks.length }} / {{ activeChapter.tasks.length }}
@@ -75,17 +76,18 @@
     margin: 0;
   }
 
-  li > ul {
+  .indented {
     margin-left: 1.5rem;
   }
 
   li {
+    display: flex;
     list-style: none;
     padding: 0.3rem 0.5rem;
   }
 
   .fa-icon {
-    margin-right: 0.5rem;
+    margin-right: 0.7rem;
 
     width: auto;
     height: 1.2em;
