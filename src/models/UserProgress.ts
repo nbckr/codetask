@@ -16,11 +16,11 @@ export class ChapterProgress {
   tasks: TaskProgress[]
   percentage: number = 0
 
-  constructor (public index: number) { }
+  constructor (public id: number) { }
 }
 
 export class TaskProgress {
   solved: boolean = false
 
-  constructor (public index: number) { }
+  constructor (public id: number) { }
 }

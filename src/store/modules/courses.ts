@@ -31,9 +31,9 @@ const actions = {
 
     // Create empty progress
     const emptyProgress = new CourseProgress(course.id)
-    emptyProgress.chapters = course.chapters.map((chapter, index) => {
-      const chapterProgress = new ChapterProgress(index)
-      chapterProgress.tasks = chapter.tasks.map((task, index) => new TaskProgress(index))
+    emptyProgress.chapters = course.chapters.map(chapter => {
+      const chapterProgress = new ChapterProgress(chapter.id)
+      chapterProgress.tasks = chapter.tasks.map(task => new TaskProgress(task.id))
       return chapterProgress
     })
     // console.log('empty:', emptyProgress)
@@ -49,14 +49,14 @@ const actions = {
       .find(courseProgress => courseProgress.id === courseId)
 
     // Define and alter path to 'solved' attribute of current task
-    const chapterIndex = getters.activeChapter.index
-    const taskIndex = getters.activeTask.index
+    const chapterIndex = getters.activeChapter.id - 1
+    const taskIndex = getters.activeTask.id - 1
     const taskSolvedPath = `chapters/${chapterIndex}/tasks/${taskIndex}/solved`
 
     console.log(taskSolvedPath)
     progressRef
       .child(courseProgress['.key'])
-      .update({ taskSolvedPath: true })
+      .update({ [taskSolvedPath]: 'true', 'chapters/0/title': 'xxx' })
   },
 
   BIND_VUEXFIRE_REFS: firebaseAction(({commit, bindFirebaseRef}) => {
@@ -87,7 +87,8 @@ const getters = {
     if (!course || !chapter) return
 
     return course
-      .chapters[Number.parseInt(chapter) - 1]
+      //.chapters[Number.parseInt(chapter) - 1]
+      .chapters.find(c => c.id === Number.parseInt(chapter))
   },
 
   activeTask: (state, getters) => {
@@ -96,7 +97,8 @@ const getters = {
     if (!task || !chapter) return
 
     return chapter
-      .tasks[Number.parseInt(task) - 1] // Compensate 0-indexing
+      // .tasks[Number.parseInt(task) - 1] // Compensate 0-indexing
+      .tasks.find(t => t.id === Number.parseInt(task))
   },
 
   /* Progress */

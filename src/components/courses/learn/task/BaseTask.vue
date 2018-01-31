@@ -5,7 +5,8 @@
 
       ---
       <p>{{ activeCourseProgress.chapters
-        .find(chapter => chapter.index === Number.parseInt(activeChapter.index) - 1).tasks }}</p>
+        .find(chapter => chapter.id === Number.parseInt(activeChapter.id)).tasks
+        .find(task => task.id === Number.parseInt(activeTask.id)) }}</p>
       ---
 
       <p>{{ activeTask.data.description.trim() }}</p>

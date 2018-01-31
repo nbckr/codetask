@@ -20,7 +20,7 @@
           <li v-for="chapter in course.chapters">
             <router-link
               tag="el-col"
-              :to="{name: 'chapter', params: { course: course.id, chapter: chapter.index + 1 }}"
+              :to="{name: 'chapter', params: { course: course.id, chapter: chapter.id }}"
               :span="10">
               <a>{{ chapter.title }}</a>
             </router-link>
