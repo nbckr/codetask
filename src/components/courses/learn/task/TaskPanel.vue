@@ -21,16 +21,25 @@
       </el-col>
 
       <el-col :xs="6" :sm="3" :md="4">
+        <!-- Go to next unsolved task-->
         <el-button
-          v-if="!isCourseEnd"
+          v-if="isCourseStart"
           type="primary" plain
           :disabled="nextIsDisabled"
-          @click="checkInputAndGoToNextTask">
+          @click="goToNextUnsolved">
+          <span class="hidden-sm-and-down">Weiter zu Aufgabe {{ currentHighestSolvedTask.id + 1 }} </span>
+          <i class="el-icon-arrow-right"></i>
+        </el-button>
+        <!-- Go to first task-->
+        <el-button
+          v-else-if="!isCourseEnd"
+          type="primary" plain
+          :disabled="nextIsDisabled"
+          @click="goToNext">
           <span class="hidden-sm-and-down">Weiter </span>
           <i class="el-icon-arrow-right"></i>
         </el-button>
       </el-col>
-
     </el-row>
 
   </div>
@@ -54,7 +63,8 @@
       ...mapGetters([
         'currentTask',
         'currentCourseProgress',
-        'currentTaskProgress'
+        'currentTaskProgress',
+        'currentHighestSolvedTask'
       ])
     },
 
@@ -67,13 +77,19 @@
         }
       },
 
-      checkInputAndGoToNextTask () {
+      goToNext () {
         // TODO: Check solutions
         // TODO: Check if go to ChapterEnd
 
         const task = this.currentTask ? this.currentTask.id + 1 : 1
         this.$router.push({
           name: 'task', params: {task}
+        })
+      },
+
+      goToNextUnsolved () {
+        this.$router.push({
+          name: 'task', params: {task: this.currentHighestSolvedTask.id + 1}
         })
       }
     }

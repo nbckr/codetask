@@ -153,6 +153,13 @@ const getters = {
 
   currentSolvedTasks: (state, getters) => getters.currentChapterProgress.tasks.filter(
     task => task.solved),
+  currentHighestSolvedTask: (state, getters) => {
+    const solvedTasks = getters.currentSolvedTasks
+    return solvedTasks.length === 0
+      ? { id: 0 }
+      : solvedTasks[solvedTasks.length - 1]
+  },
+
   currentKoanTasks: (state, getters) => getters.currentChapter.tasks.filter(
     task => task.tag === 'koan-task'),
   currentCodeTasks: (state, getters) => getters.currentChapter.tasks.filter(
