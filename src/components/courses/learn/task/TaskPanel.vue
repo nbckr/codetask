@@ -3,7 +3,7 @@
   <div>
 
     <div id="router-window">
-      <transition leave-active-class="animated slideOutLeft" enter-active-class="animated slideInRight" mode="out-in">
+      <transition leave-active-class="animated slideOutLeft" enter-active-class="animated slideInRight" mode="out-in" duration="500">
         <router-view :key="$route.params.task"/>
       </transition>
     </div>

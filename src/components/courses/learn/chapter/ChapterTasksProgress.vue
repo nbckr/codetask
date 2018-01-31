@@ -19,8 +19,8 @@
 
     <el-progress
       class="hidden-lg-and-up"
-      :percentage="percentage"
-      :status="percentage === 100 ? 'success' : ''"
+      :percentage="currentChapterPercentage"
+      :status="currentChapterPercentage === 100 ? 'success' : ''"
     />
 
   </aside>
@@ -35,30 +35,20 @@
 
     computed: {
       ...mapGetters([
-        'currentTask'
+        'currentTask',
+        'currentChapterPercentage'
       ]),
 
       activeStep: (vm) => {
         return vm.currentTask
           ? vm.currentTask.id - 1
           : null
-      },
-
-      percentage: (vm) => {
-        // TODO: Use percentage from store
-        const taskIndex = 2 // vm.currentTask.id // Compensate 0-indexing
-        const numberOfTasks = vm.tasks.length
-        if (!taskIndex || !numberOfTasks) {
-          return 0
-        } else {
-          return Math.ceil(taskIndex * 100 / numberOfTasks)
-        }
       }
     }
   }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
   .el-steps {
     padding: 1.2rem 0 0 0;
   }
@@ -67,7 +57,7 @@
     padding: 1.2rem;
   }
 
-  > > > .el-progress-bar__inner {
+  /deep/ .el-progress-bar__inner {
     background-color: #67c23a; /* To match el-steps */
     transition: width 1s, background-color 1s;
   }
