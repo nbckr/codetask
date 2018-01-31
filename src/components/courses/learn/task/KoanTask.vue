@@ -2,7 +2,7 @@
   <div>
     <!-- Inputs to be inserted into the codemirror component at initialization time-->
     <input
-      v-for="(solution, index) in activeTask.data.solutions"
+      v-for="(solution, index) in currentTask.data.solutions"
       v-autowidth="autowidthOptions"
       :id="`input-${index}`"
       class="code-input"
@@ -13,7 +13,7 @@
     />
 
     <codemirror
-      :value="activeTask.data.code"
+      :value="currentTask.data.code"
       :options="codemirrorOptions"
       @ready="onCmReady"
     />
@@ -59,10 +59,10 @@
 
         // Change editor value to code without placeholders
         // Note: This implementation doesn't support multiple placeholders in one line
-        cm.setValue(this.activeTask.data.code.replace(regex, ''))
+        cm.setValue(this.currentTask.data.code.replace(regex, ''))
 
         // Manually move the <input> DOM nodes into editor, making use of CodeMirror's bookmark feature
-        this.activeTask.data.code.split('\n').forEach((line, index) => {
+        this.currentTask.data.code.split('\n').forEach((line, index) => {
           let match
           while ((match = regex.exec(line))) {
             const pos = {line: index, ch: match.index}
@@ -81,21 +81,21 @@
 
     computed: {
       allSolutionsCorrect () {
-        if (this.activeTask.data.solutions.length !== this.userInputs.length) {
+        if (this.currentTask.data.solutions.length !== this.userInputs.length) {
           return false
         }
 
-        return this.activeTask.data.solutions.every(
+        return this.currentTask.data.solutions.every(
           (solution, index) => this.userInputs[index].trim() === solution.trim())
       },
 
       userInputsCorrect () {
         // TODO: Problem with array sizes; better solution might be vuelidate
-        return this.activeTask.data.solutions.map((input, index) => input === this.userInputs[index])
+        return this.currentTask.data.solutions.map((input, index) => input === this.userInputs[index])
       }
     },
 
-    props: ['activeTask']
+    props: ['currentTask']
   }
 </script>
 

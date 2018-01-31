@@ -4,7 +4,7 @@
 
     <el-steps
       class="hidden-md-and-down"
-      :active="activeTaskIndex"
+      :active="currentTask.id - 1"
       process-status="process"
       finish-status="success"
       :align-center="true">
@@ -28,14 +28,18 @@
 </template>
 
 <script>
+  import { mapGetters } from 'vuex'
+
   export default {
     props: ['tasks'],
 
     computed: {
-      activeTaskIndex: (vm) => Number.parseInt(vm.$route.params.task) - 1,
+      ...mapGetters([
+        'currentTask'
+      ]),
 
       percentage: (vm) => {
-        const taskIndex = vm.activeTaskIndex + 1 // Compensate 0-indexing
+        const taskIndex = vm.currentTask.id // Compensate 0-indexing
         const numberOfTasks = vm.tasks.length
         if (!taskIndex || !numberOfTasks) {
           return 0

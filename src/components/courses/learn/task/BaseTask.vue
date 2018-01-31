@@ -4,18 +4,18 @@
     <div class="framed">
 
       ---
-      <p v-if="activeTaskProgress">{{ activeTaskProgress }}</p>
+      <p v-if="currentTaskProgress">{{ currentTaskProgress }}</p>
       ---
 
-      <p>{{ activeTask.data.description.trim() }}</p>
+      <p>{{ currentTask.data.description.trim() }}</p>
     </div>
 
     <component
-      :is="activeTask.tag"
-      :active-task="activeTask"
+      :is="currentTask.tag"
+      :current-task="currentTask"
     />
 
-    <p style="font-size: x-small">Cheat mode: <i v-for="s in activeTask.data.solutions">{{ s }} | </i></p>
+    <p style="font-size: x-small">Cheat mode: <i v-for="s in currentTask.data.solutions">{{ s }} | </i></p>
 
   </section>
 </template>
@@ -35,10 +35,10 @@
 
     computed: {
       ...mapGetters([
-        'activeTask',
-        'activeChapter',
-        'activeCourseProgress',
-        'activeTaskProgress'
+        'currentTask',
+        'currentChapter',
+        'currentCourseProgress',
+        'currentTaskProgress'
       ])
     }
   }

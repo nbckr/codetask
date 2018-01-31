@@ -1,7 +1,7 @@
 <template>
 
   <codemirror
-    :value="activeTask.data.code"
+    :value="currentTask.data.code"
     :options="codemirrorOptions"
   />
 
@@ -38,7 +38,7 @@
       codemirror
     },
 
-    props: ['activeTask']
+    props: ['currentTask']
   }
 </script>
 

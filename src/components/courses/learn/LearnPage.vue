@@ -1,7 +1,7 @@
 <template>
 
-  <!-- As soon as activeCourse and currentUser is true, it is save to render child components -->
-  <el-container v-if="activeCourse && currentUser">
+  <!-- As soon as currentCourse and currentUser is true, it is save to render child components -->
+  <el-container v-if="currentCourse && currentUser">
 
     <el-aside class="hidden-sm-and-down">
       <chapter-list/>
@@ -37,8 +37,8 @@
 
     computed: {
       ...mapGetters([
-        'activeCourse',
-        'activeChapter',
+        'currentCourse',
+        'currentChapter',
         'currentUser'
       ])
     },

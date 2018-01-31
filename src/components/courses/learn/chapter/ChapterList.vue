@@ -4,10 +4,10 @@
     <el-menu
       default-active="2"
       :router="true"
-      :default-active="`${activeChapter ? activeChapter.id : ''}`">
+      :default-active="`${currentChapter ? currentChapter.id : ''}`">
 
       <el-menu-item
-        v-for="chapter in activeCourse.chapters"
+        v-for="chapter in currentCourse.chapters"
         :route="{ name: 'chapter', params: { chapter: chapter.id } }"
         :key="`${chapter.id}`"
         :index="`${chapter.id}`">
@@ -28,8 +28,8 @@
   export default {
     computed: {
       ...mapGetters([
-        'activeCourse',
-        'activeChapter'
+        'currentCourse',
+        'currentChapter'
       ])
     }
   }

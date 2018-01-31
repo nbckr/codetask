@@ -4,12 +4,12 @@
 
     <el-breadcrumb separator-class="el-icon-arrow-right">
       <el-breadcrumb-item :to="{ name: 'dashboard' }">Meine Kurse</el-breadcrumb-item>
-      <el-breadcrumb-item :to="{ name: 'course', params: { course: activeCourse.id } }">{{ activeCourse.title }}
+      <el-breadcrumb-item :to="{ name: 'course', params: { course: currentCourse.id } }">{{ currentCourse.title }}
       </el-breadcrumb-item>
       <el-breadcrumb-item>
-        <el-select :value="activeChapter.title" size="mini" :placeholder="activeChapter.title">
+        <el-select :value="currentChapter.title" size="mini" :placeholder="currentChapter.title">
           <el-option
-            v-for="chapter in activeCourse.chapters"
+            v-for="chapter in currentCourse.chapters"
             :key="chapter.id"
             :label="chapter.title"
             :value="chapter.title">
@@ -28,8 +28,8 @@
   export default {
     computed: {
       ...mapGetters([
-        'activeCourse',
-        'activeChapter'
+        'currentCourse',
+        'currentChapter'
       ])
     }
   }

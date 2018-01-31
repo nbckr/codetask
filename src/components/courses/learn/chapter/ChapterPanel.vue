@@ -1,7 +1,7 @@
 <template>
   <div id="chapter-wrapper">
 
-    <h1>{{ activeChapter.title }}</h1>
+    <h1>{{ currentChapter.title }}</h1>
 
     <!-- Small devices get a chapter picker to replace the nav aside (on LearnPage) -->
     <small-chapter-picker
@@ -9,7 +9,7 @@
     />
 
     <chapter-tasks-progress
-      :tasks="activeChapter.tasks"
+      :tasks="currentChapter.tasks"
     />
 
     <task-panel/>
@@ -32,7 +32,7 @@
 
     computed: {
       ...mapGetters([
-        'activeChapter'
+        'currentChapter'
       ])
     }
   }

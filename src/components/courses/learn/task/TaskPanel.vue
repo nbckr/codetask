@@ -24,7 +24,7 @@
         <el-button
           v-if="!isCourseEnd"
           type="primary" plain
-          :disabled="!activeTaskProgress.solved"
+          :disabled="nextIsDisabled"
           @click="checkInputAndGoToNextTask">
           <span class="hidden-sm-and-down">Weiter </span>
           <i class="el-icon-arrow-right"></i>
@@ -46,21 +46,21 @@
 
       isCourseEnd: (vm) => false,
 
-      nextIsDisabled: () => false,
+      nextIsDisabled: () => this.currentTaskProgress && !this.currentTaskProgress.solved,
 
       ...mapGetters([
-        'activeTask',
-        'activeCourseProgress',
-        'activeTaskProgress'
+        'currentTask',
+        'currentCourseProgress',
+        'currentTaskProgress'
       ])
     },
 
     methods: {
       goToLastTask () {
-        if (this.activeTask.id === 1) {
+        if (this.currentTask.id === 1) {
           this.$router.push({name: 'chapter'})
         } else {
-          this.$router.push({name: 'task', params: {task: this.activeTask.id - 1}})
+          this.$router.push({name: 'task', params: {task: this.currentTask.id - 1}})
         }
       },
 
@@ -68,7 +68,7 @@
         // TODO: Check solutions
         // TODO: Check if go to ChapterEnd
 
-        const task = this.activeTask ? this.activeTask.id + 1 : 1
+        const task = this.currentTask ? this.currentTask.id + 1 : 1
         this.$router.push({
           name: 'task', params: {task}
         })

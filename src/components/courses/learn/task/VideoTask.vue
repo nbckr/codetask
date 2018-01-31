@@ -1,7 +1,7 @@
 <template>
 
   <youtube
-    :video-id="activeTask.data.url"
+    :video-id="currentTask.data.url"
     player-width="100%"
     :player-vars="{ autoplay: currentUserSettings.autoplay }"
     @ended="onVideoEnded"
@@ -13,7 +13,7 @@
   import { mapGetters } from 'vuex'
 
   export default {
-    props: ['activeTask'],
+    props: ['currentTask'],
 
     data () {
       return {

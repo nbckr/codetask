@@ -8,12 +8,12 @@ import Task from '../../models/Task'
 const coursesRef = db.ref('courses')
 const progressRef = db.ref('progress/lYHNisOXfVfesV8TQ48BI8dqo7t2') // TODO 'progess/<user>'
 
-// interface CoursesState {
-//   courses: Course[]
-//   progress: CourseProgress[]
-// }
+interface CoursesState {
+  courses: Course[]
+  progress: CourseProgress[]
+}
 
-const state = {
+const state: CoursesState = {
   courses: [],
   progress: []
 }
@@ -44,13 +44,13 @@ const actions = {
   CURRENT_TASK_SOLVED: ({commit, getters}) => {
     console.log('Update task progress')
     // Grab ref to current course
-    const courseId = getters.activeCourse.id
+    const courseId = getters.currentCourse.id
     const courseProgress = getters.progress
       .find(courseProgress => courseProgress.id === courseId)
 
     // Define and alter path to 'solved' attribute of current task
-    const chapterIndex = getters.activeChapter.id - 1
-    const taskIndex = getters.activeTask.id - 1
+    const chapterIndex = getters.currentChapter.id - 1
+    const taskIndex = getters.currentTask.id - 1
     const taskSolvedPath = `chapters/${chapterIndex}/tasks/${taskIndex}/solved`
 
     progressRef
@@ -71,7 +71,7 @@ const getters = {
 
   /* currently active course, chapter and task derived from route */
 
-  activeCourse: state => {
+  currentCourse: state => {
     const {course} = router.app.$route.params
     if (!course || state.courses.length === 0) return
 
@@ -80,18 +80,18 @@ const getters = {
       .find(c => c.id === Number.parseInt(course))
   },
 
-  activeChapter: (state, getters) => {
+  currentChapter: (state, getters) => {
     const {chapter} = router.app.$route.params
-    const course = getters.activeCourse
+    const course = getters.currentCourse
     if (!course || !chapter) return
 
     return course
       .chapters.find(c => c.id === Number.parseInt(chapter))
   },
 
-  activeTask: (state, getters) => {
+  currentTask: (state, getters) => {
     const {task} = router.app.$route.params
-    const chapter = getters.activeChapter
+    const chapter = getters.currentChapter
     if (!task || !chapter) return
 
     return chapter
@@ -100,24 +100,24 @@ const getters = {
 
   /* Progress */
 
-  activeCourseProgress: (state, getters) => {
-    const course = getters.activeCourse
+  currentCourseProgress: (state, getters) => {
+    const course = getters.currentCourse
     if (!course) return
 
     return getters.progress.find(courseProgress => course.id === courseProgress.id)
   },
 
-  activeChapterProgress: (state, getters) => {
-    const courseProgress = getters.activeCourseProgress
-    const chapter = getters.activeChapter
+  currentChapterProgress: (state, getters) => {
+    const courseProgress = getters.currentCourseProgress
+    const chapter = getters.currentChapter
     if (!chapter || !courseProgress) return
 
     return courseProgress.chapters.find(chapterProgress => chapter.id === chapterProgress.id)
   },
 
-  activeTaskProgress: (state, getters) => {
-    const chapterProgress = getters.activeChapterProgress
-    const task = getters.activeTask
+  currentTaskProgress: (state, getters) => {
+    const chapterProgress = getters.currentChapterProgress
+    const task = getters.currentTask
     if (!task || !chapterProgress) return
 
     return chapterProgress.tasks.find(taskProgress => task.id === taskProgress.id)
@@ -125,13 +125,13 @@ const getters = {
 
   /* current chapter's tasks filtered by various criteria */
 
-  checkedTasks: (state, getters) => getters.activeChapter.tasks.filter(
-    task => task.tag.checked),
-  activeKoanTasks: (state, getters) => getters.activeChapter.tasks.filter(
+  currentSolvedTasks: (state, getters) => getters.currentChapterProgress.tasks.filter(
+    task => task.solved),
+  currentKoanTasks: (state, getters) => getters.currentChapter.tasks.filter(
     task => task.tag === 'koan-task'),
-  activeCodeTasks: (state, getters) => getters.activeChapter.tasks.filter(
+  currentCodeTasks: (state, getters) => getters.currentChapter.tasks.filter(
     task => task.tag === 'code-task'),
-  activeVideoTasks: (state, getters) => getters.activeChapter.tasks.filter(
+  currentVideoTasks: (state, getters) => getters.currentChapter.tasks.filter(
     task => task.tag === 'video-task')
 }
 
