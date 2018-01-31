@@ -102,9 +102,25 @@ const getters = {
 
   activeCourseProgress: (state, getters) => {
     const course = getters.activeCourse
-    if (!course) console.error('No active course')
+    if (!course) return
 
-    return state.progress.find(courseProgress => course.id === courseProgress.id)
+    return getters.progress.find(courseProgress => course.id === courseProgress.id)
+  },
+
+  activeChapterProgress: (state, getters) => {
+    const courseProgress = getters.activeCourseProgress
+    const chapter = getters.activeChapter
+    if (!chapter || !courseProgress) return
+
+    return courseProgress.chapters.find(chapterProgress => chapter.id === chapterProgress.id)
+  },
+
+  activeTaskProgress: (state, getters) => {
+    const chapterProgress = getters.activeChapterProgress
+    const task = getters.activeTask
+    if (!task || !chapterProgress) return
+
+    return chapterProgress.tasks.find(taskProgress => task.id === taskProgress.id)
   },
 
   /* current chapter's tasks filtered by various criteria */

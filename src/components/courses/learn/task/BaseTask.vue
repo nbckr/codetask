@@ -4,9 +4,7 @@
     <div class="framed">
 
       ---
-      <p v-if="activeCourseProgress">{{ activeCourseProgress.chapters
-        .find(chapter => chapter.id === Number.parseInt(activeChapter.id)).tasks
-        .find(task => task.id === Number.parseInt(activeTask.id)) }}</p>
+      <p v-if="activeTaskProgress">{{ activeTaskProgress }}</p>
       ---
 
       <p>{{ activeTask.data.description.trim() }}</p>
@@ -39,7 +37,8 @@
       ...mapGetters([
         'activeTask',
         'activeChapter',
-        'activeCourseProgress'
+        'activeCourseProgress',
+        'activeTaskProgress'
       ])
     }
   }

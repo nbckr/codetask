@@ -24,7 +24,7 @@
         <el-button
           v-if="!isCourseEnd"
           type="primary" plain
-          :disabled="nextIsDisabled"
+          :disabled="!activeTaskProgress.solved"
           @click="checkInputAndGoToNextTask">
           <span class="hidden-sm-and-down">Weiter </span>
           <i class="el-icon-arrow-right"></i>
@@ -38,6 +38,8 @@
 </template>
 
 <script>
+  import { mapGetters } from 'vuex'
+
   export default {
     computed: {
       isCourseStart: (vm) => !vm.$route.params.task || !vm.$route.params.task === 1,
@@ -46,17 +48,19 @@
 
       nextIsDisabled: () => false,
 
-      // TODO: taskIndexAsNumber is duplicate from BaseTask, navigation should get refactored anyhow
-      taskIndexAsNumber: (vm) => Number.parseInt(vm.$route.params.task)
+      ...mapGetters([
+        'activeTask',
+        'activeCourseProgress',
+        'activeTaskProgress'
+      ])
     },
 
     methods: {
       goToLastTask () {
-        // If first task, go to chapter overview
-        if (this.taskIndexAsNumber === 1) {
+        if (this.activeTask.id === 1) {
           this.$router.push({name: 'chapter'})
         } else {
-          this.$router.push({name: 'task', params: {task: this.taskIndexAsNumber - 1}})
+          this.$router.push({name: 'task', params: {task: this.activeTask.id - 1}})
         }
       },
 
@@ -64,7 +68,7 @@
         // TODO: Check solutions
         // TODO: Check if go to ChapterEnd
 
-        const task = this.taskIndexAsNumber ? this.taskIndexAsNumber + 1 : 1
+        const task = this.activeTask ? this.activeTask.id + 1 : 1
         this.$router.push({
           name: 'task', params: {task}
         })
@@ -77,12 +81,12 @@
 
   section {
     border: yellow 2px solid;
-    // background-color: white;
-   // display: inline-block;
+  / / background-color: white;
+  / / display: inline-block;
     padding: 1.6rem;
   }
-+
 
+  +
   .el-button {
     width: 100%;
   }
