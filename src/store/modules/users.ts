@@ -45,7 +45,8 @@ const actions = {
     const {email, password} = formData
     auth.createUserWithEmailAndPassword(email, password)
       .then(authUser => {
-        usersRef.push(new User(authUser.uid, authUser.email, formData.displayName))
+        usersRef.push(
+          new User(authUser.uid, authUser.email, formData.displayName))
         // If the new account was created, the user is signed in automatically
         console.log('New user created in auth as well as db')
       })
@@ -77,9 +78,12 @@ const actions = {
     }
   },
 
-  // CURRENT_TASK_SOLVED: ({commit}, task: Task) => {
-  //   console.log('Update task from users')
-  // },
+  // The job here is mostly done in courses.ts, only update scoreValue here
+  CURRENT_TASK_SOLVED: ({commit, getters}, scoreValue) => {
+    const userRef = usersRef.child(getters.currentUser['.key'])
+    const score = getters.currentUser.score + scoreValue
+    userRef.update({ score })
+  },
 
   BIND_VUEXFIRE_REFS: firebaseAction(({commit, bindFirebaseRef}) => {
     bindFirebaseRef('users', usersRef, {

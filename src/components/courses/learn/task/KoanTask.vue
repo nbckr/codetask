@@ -9,6 +9,7 @@
       :class="{success: userInputsCorrect[index] }"
       :autofocus="index === 0"
       v-model="userInputs[index]"
+      @input="onInput"
     />
 
     <codemirror
@@ -41,8 +42,9 @@
         autowidthOptions: {
           minWidth: '2.5rem',
           maxWidth: '20rem',
-          comfortZone: 2
-        }
+          comfortZone: 9
+        },
+        scoreValue: 1
       }
     },
 
@@ -67,6 +69,13 @@
             cm.setBookmark(pos, {widget: inputNodes.shift()})
           }
         })
+      },
+
+      onInput () {
+        if (this.allSolutionsCorrect) {
+          console.log('koan solved')
+          this.$store.dispatch('CURRENT_TASK_SOLVED', this.scoreValue)
+        }
       }
     },
 
@@ -90,24 +99,24 @@
   }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 
-  >>> .CodeMirror {
+  /deep/ .CodeMirror {
     padding: 1rem;
     font-family: monospace;
     line-height: 2rem !important;
     cursor: default !important;
   }
 
-  >>> .CodeMirror-linenumbers {
+  /deep/ .CodeMirror-linenumbers {
     width: 1.5rem;
   }
 
-  >>> .CodeMirror-linenumber {
+  /deep/ .CodeMirror-linenumber {
     text-align: center;
   }
 
-  >>> input {
+  /deep/ input {
     /* transition: width 0.15s; */
 
     /* From Monokai Syntax CSS theme */
@@ -126,14 +135,14 @@
     cursor: text;
   }
 
-  >>> input:focus {
+  /deep/ input:focus {
     outline: none;
     background-color: rgba(254, 130, 85, 0.75);
     border-color: #9ecaed;
     box-shadow: 0 0 10px #9ecaed;
   }
 
-  >>> input.success {
+  /deep/ input.success {
     background-color: rgba(111, 240, 111, 0.75) !important;
   }
 

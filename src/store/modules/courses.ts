@@ -53,7 +53,6 @@ const actions = {
     const taskIndex = getters.activeTask.id - 1
     const taskSolvedPath = `chapters/${chapterIndex}/tasks/${taskIndex}/solved`
 
-    console.log(taskSolvedPath)
     progressRef
       .child(courseProgress['.key'])
       .update({ [taskSolvedPath]: 'true', 'chapters/0/title': 'xxx' })
@@ -87,7 +86,6 @@ const getters = {
     if (!course || !chapter) return
 
     return course
-      //.chapters[Number.parseInt(chapter) - 1]
       .chapters.find(c => c.id === Number.parseInt(chapter))
   },
 
@@ -97,7 +95,6 @@ const getters = {
     if (!task || !chapter) return
 
     return chapter
-      // .tasks[Number.parseInt(task) - 1] // Compensate 0-indexing
       .tasks.find(t => t.id === Number.parseInt(task))
   },
 

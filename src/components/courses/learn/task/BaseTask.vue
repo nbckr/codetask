@@ -4,7 +4,7 @@
     <div class="framed">
 
       ---
-      <p>{{ activeCourseProgress.chapters
+      <p v-if="activeCourseProgress">{{ activeCourseProgress.chapters
         .find(chapter => chapter.id === Number.parseInt(activeChapter.id)).tasks
         .find(task => task.id === Number.parseInt(activeTask.id)) }}</p>
       ---

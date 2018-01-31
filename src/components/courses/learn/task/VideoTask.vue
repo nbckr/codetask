@@ -15,17 +15,21 @@
   export default {
     props: ['activeTask'],
 
+    data () {
+      return {
+        scoreValue: 1
+      }
+    },
+
     computed: {
       ...mapGetters([
-        // TODO: 0 / 1
         'currentUserSettings'
       ])
     },
 
     methods: {
       onVideoEnded () {
-        console.log('Video ended')
-        this.$store.dispatch('CURRENT_TASK_SOLVED')
+        this.$store.dispatch('CURRENT_TASK_SOLVED', this.scoreValue)
       }
     }
   }

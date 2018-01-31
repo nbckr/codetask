@@ -8,6 +8,7 @@
 </template>
 
 <script>
+  /* NOTE: Because of lacking backend support, this task type is currently disabled */
   import { codemirror } from 'vue-codemirror'
   import 'codemirror/lib/codemirror.css'
   import 'codemirror/theme/monokai.css' // Theme
@@ -22,7 +23,14 @@
           lineNumbers: true,
           mode: 'text/x-scala',
           theme: 'monokai'
-        }
+        },
+        scoreValue: 1
+      }
+    },
+
+    methods: {
+      onSolved () {
+        this.$store.dispatch('CURRENT_TASK_SOLVED', this.scoreValue)
       }
     },
 
@@ -35,8 +43,6 @@
 </script>
 
 <style>
-  /* TODO: Duplicated code */
-
   .CodeMirror {
     padding: 1rem;
     line-height: 1.2rem !important;
