@@ -7,6 +7,7 @@
       :id="`input-${index}`"
       class="code-input"
       :class="{success: userInputsCorrect[index] }"
+      :readonly="userInputsCorrect[index]"
       :autofocus="index === 0"
       v-model="userInputs[index]"
       @input="onInput"

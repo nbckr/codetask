@@ -39,11 +39,12 @@
           password: this.password
         }
 
-        this.$store.dispatch('LOGIN_USER', {
+        this.$store.dispatch('AUTH_LOGIN_USER', {
           email: formData.email,
           password: formData.password,
           returnSecureToken: true
         })
+          .then(() => this.$router.push({name: 'dashboard'}))
           .catch(error => this.$notify({
             title: 'Warning',
             message: error.message,

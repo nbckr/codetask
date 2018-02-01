@@ -21,7 +21,11 @@
       <el-menu-item index="2" :route="{ name: 'dashboard' }">Meine Kurse</el-menu-item>
       <el-submenu index="3" v-if="currentUser">
         <template slot="title">
-          <img src="http://via.placeholder.com/128x128" id="user-img" /> {{ currentUser.displayName }}
+          <img src="http://via.placeholder.com/128x128" id="user-img" />
+          {{ currentUser.displayName }}
+          <el-tag
+            size="small"
+          >{{ currentUser.score }}</el-tag>
         </template>
         <el-menu-item index="3-1">Mein Profil</el-menu-item>
         <el-menu-item index="3-2">Einstellungen</el-menu-item>
@@ -46,7 +50,8 @@
       handleSelect (key, keyPath) {},
 
       logout () {
-        this.$store.dispatch('LOGOUT_USER')
+        this.$store.dispatch('AUTH_LOGOUT_USER')
+        this.$router.push({name: 'welcome'})
       }
     },
 
@@ -59,8 +64,7 @@
   }
 </script>
 
-<style scoped>
-
+<style scoped lang="scss">
   a {
     color: white;
     text-decoration: none;
@@ -101,6 +105,19 @@
 
   .el-menu {
     background-color: #334152 !important;
+  }
+
+  .el-tag {
+    // Recreate how it normally looks, doesn't work in  el-menu somehow
+    display: inline-flex;
+    align-items: center;
+    background-color: rgba(0, 155, 145, 0.75);
+    font-size: 12px;
+    height: 24px;
+    padding: 0 8px;
+    /* line-height: 22px; */
+    color: white;
+    font-weight: bold;
   }
 
 </style>

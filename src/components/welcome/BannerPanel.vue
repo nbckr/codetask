@@ -34,8 +34,8 @@
 <style scoped lang="scss">
 
   #banner {
-    display: inline-block;
-    padding: 1.6rem;
+    // display: inline-block;
+    // padding: 1.6rem;
     // box-shadow: 5px 5px;
 
     text-align: center;

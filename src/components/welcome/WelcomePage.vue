@@ -41,6 +41,8 @@
 
   #welcome-box {
     background-color: rgba(255, 255, 255, 0.95);
+    padding: 1.6rem;
+    width: 25rem;
   }
 
   .before-background {
