@@ -20,6 +20,7 @@
     <!-- Show loading circle until app is ready -->
     <div
       v-loading.fullscreen.lock="!this.$store.state.firebaseReady"
+      element-loading-background="#334152"
     />
   </div>
 

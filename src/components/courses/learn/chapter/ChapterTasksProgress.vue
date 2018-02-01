@@ -21,6 +21,7 @@
       class="hidden-lg-and-up"
       :percentage="currentChapterPercentage"
       :status="currentChapterPercentage === 100 ? 'success' : ''"
+      :class="{'animated pulse': currentTaskProgress.solved }"
     />
 
   </aside>
@@ -36,6 +37,7 @@
     computed: {
       ...mapGetters([
         'currentTask',
+        'currentTaskProgress',
         'currentChapterPercentage'
       ]),
 
@@ -49,6 +51,10 @@
 </script>
 
 <style scoped lang="scss">
+  aside {
+    overflow: hidden;
+  }
+
   .el-steps {
     padding: 1.2rem 0 0 0;
   }
