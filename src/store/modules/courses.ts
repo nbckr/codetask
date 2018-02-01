@@ -6,16 +6,18 @@ import { firebaseAction } from 'vuexfire'
 import Task from '../../models/Task'
 
 const coursesRef = db.ref('courses')
-const progressRef = db.ref('progress/lYHNisOXfVfesV8TQ48BI8dqo7t2') // TODO 'progess/<user>'
+let progressRef
 
 interface CoursesState {
   courses: Course[]
-  progress: CourseProgress[]
+  progress: CourseProgress[],
+  dataRefsReady: number
 }
 
 const state: CoursesState = {
   courses: [],
-  progress: []
+  progress: [],
+  dataRefsReady: 0
 }
 
 const mutations = { }
@@ -57,10 +59,25 @@ const actions = {
       .update({ [taskSolvedPath]: true })
   },
 
-  BIND_VUEXFIRE_REFS: firebaseAction(({commit, bindFirebaseRef}) => {
-    console.log('VXF Bind event')
-    bindFirebaseRef('courses', coursesRef, { readyCallback: () => console.log('courses bound') })
-    bindFirebaseRef('progress', progressRef, { readyCallback: () => console.log('progress bound') })
+  BIND_VUEXFIRE_COURSES_REF: firebaseAction(({commit, bindFirebaseRef}) => {
+    console.log('VXF courses bind event')
+    return new Promise((resolve) => {
+      bindFirebaseRef('courses', coursesRef, {
+        readyCallback: () => resolve()
+      })
+    })
+  }),
+
+  BIND_VUEXFIRE_PROGRESS_REF: firebaseAction(({commit, bindFirebaseRef, rootGetters}) => {
+    console.log('VXF progress bind event')
+    const user = rootGetters.currentUser
+    progressRef = db.ref(`progress/${user['.key']}`)
+
+    return new Promise((resolve) => {
+      bindFirebaseRef('progress', progressRef, {
+        readyCallback: () => resolve()
+      })
+    })
   })
 }
 

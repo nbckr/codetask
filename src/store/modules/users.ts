@@ -85,12 +85,17 @@ const actions = {
     userRef.update({ score })
   },
 
-  BIND_VUEXFIRE_REFS: firebaseAction(({commit, bindFirebaseRef}) => {
-    bindFirebaseRef('users', usersRef, {
-      readyCallback: () => {
-        // Fire manually as this usually happens after authStateChanged
-        commit('DO_LOGIN_USER')
-      }
+  BIND_VUEXFIRE_USER_REF: firebaseAction(({commit, dispatch, bindFirebaseRef}) => {
+    console.log('VXF user bind event')
+
+    return new Promise((resolve) => {
+      bindFirebaseRef('users', usersRef, {
+        readyCallback: () => {
+          // Fire manually as this usually happens after authStateChanged
+          commit('DO_LOGIN_USER')
+          resolve()
+        }
+      })
     })
   })
 }

@@ -1,6 +1,6 @@
 <template>
 
-  <div id="app" :class=" {hideOverflow }">
+  <div v-if="firebaseReady" id="app" :class=" {hideOverflow }">
     <transition
       enter-active-class="animated fadeInUp"
       leave-active-class="animated slideOutUp"
@@ -21,16 +21,17 @@
 
     data () {
       return {
+        firebaseReady: false,
         hideOverflow: false
       }
     },
 
     beforeCreate () {
-      // this.$store.dispatch('LOAD_COURSES')
-      // this.$store.dispatch('LOAD_SOLUTIONS')
-
       // Wire up vuex state with firebase db
-      this.$store.dispatch('BIND_VUEXFIRE_REFS')
+      this.$store.dispatch('BIND_VUEXFIRE_USER_REF')
+        .then(() => this.$store.dispatch('BIND_VUEXFIRE_COURSES_REF'))
+        .then(() => this.$store.dispatch('BIND_VUEXFIRE_PROGRESS_REF'))
+        .then(() => { this.firebaseReady = true })
     }
   }
 </script>
