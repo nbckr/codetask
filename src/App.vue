@@ -1,6 +1,9 @@
 <template>
 
-  <div v-if="firebaseReady" id="app" :class=" {hideOverflow }">
+  <div
+    id="app"
+    :class=" {hideOverflow }"
+  >
     <transition
       enter-active-class="animated fadeInUp"
       leave-active-class="animated slideOutUp"
@@ -9,8 +12,15 @@
       @after-enter="hideOverflow = false"
     >
       <!-- Either show landing page or the actual app -->
-      <router-view/>
+      <router-view
+        v-if="this.$store.state.firebaseReady"
+      />
     </transition>
+
+    <!-- Show loading circle until app is ready -->
+    <div
+      v-loading.fullscreen.lock="!this.$store.state.firebaseReady"
+    />
   </div>
 
 </template>
@@ -21,17 +31,13 @@
 
     data () {
       return {
-        firebaseReady: false,
         hideOverflow: false
       }
     },
 
     beforeCreate () {
       // Wire up vuex state with firebase db
-      this.$store.dispatch('BIND_VUEXFIRE_USER_REF')
-        .then(() => this.$store.dispatch('BIND_VUEXFIRE_COURSES_REF'))
-        .then(() => this.$store.dispatch('BIND_VUEXFIRE_PROGRESS_REF'))
-        .then(() => { this.firebaseReady = true })
+      this.$store.dispatch('BIND_FIREBASE_REFS')
     }
   }
 </script>

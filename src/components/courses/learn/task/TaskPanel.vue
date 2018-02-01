@@ -21,7 +21,7 @@
       </el-col>
 
       <el-col :xs="6" :sm="3" :md="4">
-        <!-- Go to next unsolved task-->
+        <!-- Go to next unsolved task from StartPage-->
         <el-button
           v-if="isCourseStart"
           type="primary" plain
@@ -30,12 +30,14 @@
           <span class="hidden-sm-and-down">Weiter zu Aufgabe {{ currentHighestSolvedTask.id + 1 }} </span>
           <i class="el-icon-arrow-right"></i>
         </el-button>
-        <!-- Go to first task-->
+        <!-- Go to next task -->
         <el-button
           v-else-if="!isCourseEnd"
           type="primary" plain
           :disabled="nextIsDisabled"
-          @click="goToNext">
+          :class="{'animated pulse': currentTaskProgress.solved }"
+          @click="goToNext"
+        >
           <span class="hidden-sm-and-down">Weiter </span>
           <i class="el-icon-arrow-right"></i>
         </el-button>

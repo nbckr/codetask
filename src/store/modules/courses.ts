@@ -71,6 +71,7 @@ const actions = {
   BIND_VUEXFIRE_PROGRESS_REF: firebaseAction(({commit, bindFirebaseRef, rootGetters}) => {
     console.log('VXF progress bind event')
     const user = rootGetters.currentUser
+    if (!user) return
     progressRef = db.ref(`progress/${user['.key']}`)
 
     return new Promise((resolve) => {
