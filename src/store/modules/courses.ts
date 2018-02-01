@@ -59,7 +59,7 @@ const actions = {
       .update({ [taskSolvedPath]: true })
   },
 
-  BIND_VUEXFIRE_COURSES_REF: firebaseAction(({commit, bindFirebaseRef}) => {
+  VUEXFIRE_BIND_COURSES_REF: firebaseAction(({commit, bindFirebaseRef}) => {
     console.log('VXF courses bind event')
     return new Promise((resolve) => {
       bindFirebaseRef('courses', coursesRef, {
@@ -68,7 +68,7 @@ const actions = {
     })
   }),
 
-  BIND_VUEXFIRE_PROGRESS_REF: firebaseAction(({commit, bindFirebaseRef, rootGetters}) => {
+  VUEXFIRE_BIND_PROGRESS_REF: firebaseAction(({commit, rootGetters, bindFirebaseRef}) => {
     console.log('VXF progress bind event')
     const user = rootGetters.currentUser
     if (!user) return

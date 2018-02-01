@@ -23,9 +23,10 @@ export default new Vuex.Store({
 
   actions: {
     BIND_FIREBASE_REFS: ({commit, dispatch}) => {
-      dispatch('BIND_VUEXFIRE_USER_REF')
-        .then(() => dispatch('BIND_VUEXFIRE_COURSES_REF'))
-        .then(() => dispatch('BIND_VUEXFIRE_PROGRESS_REF'))
+      dispatch('VUEXFIRE_BIND_USERS_REF')
+        .then(() => dispatch('VUEXFIRE_BIND_CURRENT_USER_REF'))
+        .then(() => dispatch('VUEXFIRE_BIND_COURSES_REF'))
+        .then(() => dispatch('VUEXFIRE_BIND_PROGRESS_REF'))
         .then(() => { commit('SET_FIREBASE_READY') })
     }
   },

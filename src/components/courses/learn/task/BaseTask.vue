@@ -31,6 +31,7 @@
     computed: {
       ...mapGetters([
         'currentTask',
+        'currentUser',
         'currentChapter',
         'currentCourseProgress',
         'currentTaskProgress'

@@ -5,6 +5,7 @@ import store from '../index'
 import Task from '../../models/Task'
 
 const usersRef = db.ref('users')
+let currentUserRef
 
 auth.onAuthStateChanged(user => {
   store.dispatch('ON_AUTH_STATE_CHANGED', user)
@@ -19,24 +20,7 @@ const state = {
 }
 
 const mutations = {
-  DO_LOGIN_USER (state, authUser = auth.currentUser) {
-    if (!authUser || store.getters.users.length === 0) {
-      console.log('User not ready for login')
-      return
-    }
-
-    const user = state.users.find(user => user.uid === authUser.uid)
-    if (user) {
-      state.currentUser = user
-      console.log(`Logging in user ${user.displayName}`)
-    } else {
-      console.error(`Could not find user with key ${authUser.uid} in db`)
-    }
-  },
-
-  DO_LOGOUT_USER (state) {
-    state.currentUser = null
-  }
+  UNSET_CURRENT_USER: (state) => state.currentUser = null
 }
 
 const actions = {
@@ -53,14 +37,13 @@ const actions = {
       .catch(error => console.error(error))
   },
 
-  LOGIN_USER ({commit, dispatch}, formData) {
+  AUTH_LOGIN_USER ({commit, dispatch}, formData) {
     const {email, password} = formData
     return auth.signInWithEmailAndPassword(email, password)
-    //.catch(error => reje)
     // onAuthStateChanged will fire
   },
 
-  LOGOUT_USER ({commit}) {
+  AUTH_LOGOUT_USER ({commit}) {
     auth.signOut()
       .then(() => console.log('logged out'))
       .catch(error => console.error(error))
@@ -69,34 +52,54 @@ const actions = {
 
   // Login state managed by firebase, but we load additional data from database
   // Also fired after page refresh and firebase initialization phase finished
-  ON_AUTH_STATE_CHANGED ({commit}, authUser) {
+  ON_AUTH_STATE_CHANGED ({commit, dispatch}, authUser) {
     console.log('ON_AUTH_STATE_CHANGED', authUser)
     if (authUser) {
-      commit('DO_LOGIN_USER', authUser)
+      dispatch('VUEXFIRE_BIND_CURRENT_USER_REF', authUser)
     } else {
-      commit('DO_LOGOUT_USER')
+      commit('UNSET_CURRENT_USER')
+      dispatch('VUEXFIRE_UNBIND_CURRENT_USER_REF')
     }
   },
 
-  // The job here is mostly done in courses.ts, only update scoreValue here
+    // The job here is mostly done in courses.ts, only update scoreValue here
   CURRENT_TASK_SOLVED: ({commit, getters}, scoreValue) => {
     const userRef = usersRef.child(getters.currentUser['.key'])
     const score = getters.currentUser.score + scoreValue
     userRef.update({ score })
   },
 
-  BIND_VUEXFIRE_USER_REF: firebaseAction(({commit, dispatch, bindFirebaseRef}) => {
+  VUEXFIRE_BIND_USERS_REF: firebaseAction(({commit, dispatch, bindFirebaseRef}) => {
     console.log('VXF user bind event')
 
     return new Promise((resolve) => {
       bindFirebaseRef('users', usersRef, {
         readyCallback: () => {
-          // Fire manually as this usually happens after authStateChanged
-          commit('DO_LOGIN_USER')
           resolve()
         }
       })
     })
+  }),
+
+  VUEXFIRE_BIND_CURRENT_USER_REF: firebaseAction(
+    ({getters, bindFirebaseRef}, authUser = auth.currentUser) => {
+      if (!authUser || getters.users.length === 0) {
+        console.log('User not ready for login')
+        return
+      }
+
+      return new Promise((resolve) => {
+        const user = getters.users.find(user => user.uid === authUser.uid)
+        currentUserRef = db.ref(`users/${ user['.key'] }`)
+        bindFirebaseRef('currentUser', currentUserRef, {
+          readyCallback: () => resolve()
+        })
+        console.log(`Logging in user ${user.displayName}`)
+      })
+    }),
+
+  VUEXFIRE_UNBIND_CURRENT_USER_REF: firebaseAction(({getters, unbindFirebaseRef}, authUser = auth.currentUser) => {
+    unbindFirebaseRef('currentUser')
   })
 }
 
