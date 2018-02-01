@@ -21,7 +21,7 @@
       class="hidden-lg-and-up"
       :percentage="currentChapterPercentage"
       :status="currentChapterPercentage === 100 ? 'success' : ''"
-      :class="{'animated pulse': currentTaskProgress.solved }"
+      :class="{'animated pulse': currentTaskProgress && currentTaskProgress.solved }"
     />
 
   </aside>
@@ -36,15 +36,17 @@
 
     computed: {
       ...mapGetters([
-        'currentTask',
+        'currentHighestSolvedTask',
         'currentTaskProgress',
         'currentChapterPercentage'
       ]),
 
-      activeStep: (vm) => {
-        return vm.currentTask
-          ? vm.currentTask.id - 1
-          : null
+      activeStep (vm) {
+        if (vm.currentTaskProgress) {
+          return vm.currentTaskProgress.id - 1
+        } else {
+          return vm.currentHighestSolvedTask.id // 0-indexed, so last solved highlights first unsolved
+        }
       }
     }
   }

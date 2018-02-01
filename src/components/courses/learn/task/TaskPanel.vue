@@ -12,35 +12,39 @@
 
     <el-row type="flex" justify="space-between">
 
-      <el-col :xs="6" :sm="3" :md="2">
-        <el-button
-          v-if="!isCourseStart"
-          @click="goToLastTask">
-          <i class="el-icon-arrow-left"></i>
-        </el-button>
+      <el-col :span="12">
+        <el-row type="flex" class="row-bg" justify="start">
+          <el-button
+            v-if="!isCourseStart"
+            @click="goToLastTask">
+            <i class="el-icon-arrow-left"></i>
+          </el-button>
+        </el-row>
       </el-col>
 
-      <el-col :xs="6" :sm="3" :md="4">
-        <!-- Go to next unsolved task from StartPage-->
-        <el-button
-          v-if="isCourseStart"
-          type="primary" plain
-          :disabled="nextIsDisabled"
-          @click="goToNextUnsolved">
-          <span class="hidden-sm-and-down">Weiter zu Aufgabe {{ currentHighestSolvedTask.id + 1 }} </span>
-          <i class="el-icon-arrow-right"></i>
-        </el-button>
-        <!-- Go to next task -->
-        <el-button
-          v-else-if="!isCourseEnd"
-          type="primary" plain
-          :disabled="nextIsDisabled"
-          :class="{'animated pulse': currentTaskProgress.solved }"
-          @click="goToNext"
-        >
-          <span class="hidden-sm-and-down">Weiter </span>
-          <i class="el-icon-arrow-right"></i>
-        </el-button>
+      <el-col :span="12">
+        <el-row type="flex" justify="end">
+          <!-- Go to next unsolved task from StartPage-->
+          <el-button
+            v-if="isCourseStart"
+            type="primary" plain
+            :disabled="nextIsDisabled"
+            @click="goToNextUnsolved">
+            <span class="hidden-sm-and-down">Weiter zu Aufgabe {{ currentHighestSolvedTask.id + 1 }} </span>
+            <i class="el-icon-arrow-right"></i>
+          </el-button>
+          <!-- Go to next task -->
+          <el-button
+            v-else-if="!isCourseEnd"
+            type="primary" plain
+            :disabled="nextIsDisabled"
+            :class="{'animated pulse': currentTaskProgress.solved }"
+            @click="goToNext"
+          >
+            <span class="hidden-sm-and-down">Weiter </span>
+            <i class="el-icon-arrow-right"></i>
+          </el-button>
+        </el-row>
       </el-col>
     </el-row>
 
@@ -98,12 +102,12 @@
   }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 
   section {
     border: yellow 2px solid;
-  / / background-color: white;
-  / / display: inline-block;
+    // background-color: white;
+    // display: inline-block;
     padding: 1.6rem;
   }
 
@@ -114,6 +118,6 @@
 
   #router-window {
     height: 550px;
-    overflow: scroll;
+    // overflow: scroll;
   }
 </style>
