@@ -33,6 +33,16 @@
         </el-button>
       </el-row>
 
+      <el-row
+        type="flex"
+        justify="center">
+        <router-link
+          :to="{name: 'register'}"
+          tag="p"
+          ><a>... oder neues Konto anlegen</a>
+        </router-link>
+      </el-row>
+
     </form>
   </div>
 </template>
@@ -68,7 +78,7 @@
   }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
   label {
     display: inline-block;
     width: 9rem;
@@ -78,5 +88,14 @@
     display: flex;
     align-items: center;
     margin: 1rem 0;
+  }
+
+  a {
+    color: black;
+    text-decoration: none;
+
+  &:hover {
+     text-decoration: underline;
+   }
   }
 </style>

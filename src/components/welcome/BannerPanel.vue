@@ -8,19 +8,13 @@
       Learn Scala with ease
     </p>
     <br>
-    <router-link
-      :to="{ name: 'dashboard' }">
-      <el-button
-        type="primary">
-        Start Learning Now
-      </el-button>
-    </router-link>
 
+    <!-- If not logged in already, should automatically send to login -->
     <router-link
       :to="{ name: 'login' }">
       <el-button
         type="primary">
-        Login
+        Jetzt lernen
       </el-button>
     </router-link>
   </div>

@@ -30,8 +30,11 @@
           v-model="email"
           placeholder="E-Mail-Adresse eintragen"
         />
-        <p v-if="!$v.email.email">Please provide a valid email address</p>
       </el-row>
+      <register-panel-alert
+        v-if="!$v.email.email"
+        message="Bitte gib eine gültige E-Mail-Adresse ein"
+      />
 
       <el-row
         class="form-row"
@@ -71,9 +74,19 @@
           native-type="submit"
           type="primary"
           :disabled="$v.$invalid"
-        >Konto anlegen</el-button>
+        >Konto anlegen
+        </el-button>
       </el-row>
 
+      <el-row
+        type="flex"
+        justify="center">
+        <router-link
+          :to="{name: 'login'}"
+          tag="p"
+        ><a>... oder einloggen</a>
+        </router-link>
+      </el-row>
     </form>
 
     <div style="font-size: x-small; white-space: pre; display: none">
@@ -85,8 +98,15 @@
 
 <script>
   import { alphaNum, required, email, minLength, sameAs } from 'vuelidate/lib/validators'
+  import ElCollapseTransition from 'element-ui/src/transitions/collapse-transition'
+  import RegisterPanelAlert from './RegisterPanelAlert'
 
   export default {
+
+    components: {
+      ElCollapseTransition,
+      RegisterPanelAlert
+    },
 
     data () {
       return {
@@ -138,7 +158,7 @@
   }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
   label {
     display: inline-block;
     width: 12rem;
@@ -157,5 +177,14 @@
 
   .input.invalid label {
     color: red;
+  }
+
+  a {
+    color: black;
+    text-decoration: none;
+
+    &:hover {
+      text-decoration: underline;
+    }
   }
 </style>
