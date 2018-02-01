@@ -53,11 +53,11 @@
 
   .htwg-letter {
     position: absolute;
-    transition: transform 7s ease-in;
+    transition: transform 0.2s ease-out;
     z-index: 80;
 
     &:hover {
-      transform: scale(3);
+      transform: scale(1.08);
     }
   }
 
