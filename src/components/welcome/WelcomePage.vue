@@ -2,13 +2,24 @@
   <el-container id="wrapper">
 
     <div id="welcome-box" class="before-background">
+      <router-link :to="{name: 'welcome'}">
+        <img
+          id="logo"
+          src="https://code.google.com/images/developers.png"
+          alt="CodeTask Logo"
+          :class="{small: this.$route.name !== 'welcome'}"
+        >
+      </router-link>
+
       <el-collapse-transition>
         <!-- Show banner, login or register panel -->
-        <router-view/>
+        <keep-alive>
+          <router-view/>
+        </keep-alive>
       </el-collapse-transition>
     </div>
 
-    <background />
+    <background/>
 
   </el-container>
 </template>
@@ -24,6 +35,16 @@
 </script>
 
 <style scoped lang="scss">
+  #logo {
+    display: block;
+    margin: 0 auto;
+    height: 11rem;
+    transition: height 0.4s ease-out;
+
+    &.small {
+      height: 4rem;
+    }
+  }
 
   #wrapper {
     position: relative;

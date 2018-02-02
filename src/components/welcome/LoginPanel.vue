@@ -19,7 +19,7 @@
           type="password"
           id="password"
           v-model="password"
-          placeholder="Passwort wählen"
+          placeholder="Passwort eintragen"
         />
       </el-row>
 
