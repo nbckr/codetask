@@ -2,14 +2,14 @@
 
   <el-collapse v-if="currentUser" v-model="collapsedName" accordion>
 
-    <el-collapse-item v-for="(course, i) in enrolledCourses" :name="i" :key="i">
+    <el-collapse-item v-for="(course, i) in progress" :name="i" :key="i">
 
       <!-- Course title and overall percentage -->
       <template slot="title">
         <el-row type="flex" align="middle">
           <el-col :span="10"><p>{{ course.title }}</p></el-col>
           <el-col :span="10">
-            <el-progress :percentage="70" :stroke-width="10"/>
+            <el-progress :percentage="coursePercentage(course)" :stroke-width="10"/>
           </el-col>
         </el-row>
       </template>
@@ -25,7 +25,7 @@
               <a>{{ chapter.title }}</a>
             </router-link>
             <el-col :span="10">
-              <el-progress :percentage="15"/>
+              <el-progress :percentage="chapterPercentage(chapter)"/>
             </el-col>
           </li>
         </ul>
@@ -41,6 +41,7 @@
 
 <script>
   import { mapGetters } from 'vuex'
+  import CourseMixin from '@/mixins/CourseMixin'
 
   export default {
     data () {
@@ -54,18 +55,18 @@
         'courses',
         'progress',
         'currentUser'
-      ]),
-      enrolledCourses: (vm) => {
-        console.log(typeof vm.currentUser, vm.currentUser)
-        return vm.courses.filter(course => vm.progress.some(courseProgress => course.id === courseProgress.id))
-      }
+      ])
     },
 
     methods: {
       test () {
-        this.$store.dispatch('ENROLL_TO_COURSE', { user: this.currentUser, course: this.courses[0] })
+        this.$store.dispatch('ENROLL_TO_COURSE', {user: this.currentUser, course: this.courses[0]})
       }
-    }
+    },
+
+    mixins: [
+      CourseMixin
+    ]
   }
 </script>
 

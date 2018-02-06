@@ -2,21 +2,18 @@
 
 export class UserProgress {
   courses: CourseProgress[]
-  score: 0
 }
 
 export class CourseProgress {
   chapters: ChapterProgress[]
-  percentage: number = 0
 
-  constructor (public id: number) { }
+  constructor (public id: number, public title: string) { }
 }
 
 export class ChapterProgress {
   tasks: TaskProgress[]
-  percentage: number = 0
 
-  constructor (public id: number) { }
+  constructor (public id: number, public title: string) { }
 }
 
 export class TaskProgress {

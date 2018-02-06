@@ -32,9 +32,9 @@ const actions = {
     }
 
     // Create empty progress
-    const emptyProgress = new CourseProgress(course.id)
+    const emptyProgress = new CourseProgress(course.id, course.title)
     emptyProgress.chapters = course.chapters.map(chapter => {
-      const chapterProgress = new ChapterProgress(chapter.id)
+      const chapterProgress = new ChapterProgress(chapter.id, chapter.title)
       chapterProgress.tasks = chapter.tasks.map(task => new TaskProgress(task.id))
       return chapterProgress
     })
@@ -148,7 +148,6 @@ const getters = {
 // TODO    const percentageAccumulated = courseProgress.chapters
 // TODO      .map(chapter => chapter.percentage)
 // TODO      .reduce((previous, current) => current += previous)
-// TODO
 // TODO    if (!numberOfChapters || !percentageAccumulated) {
 // TODO      return 0
 // TODO    } else {
