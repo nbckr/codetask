@@ -7,6 +7,7 @@ import AppShell from '@/components/shared/AppShell'
 import RegisterPanel from '../components/welcome/RegisterPanel'
 import LoginPanel from '../components/welcome/LoginPanel'
 import BannerPanel from '../components/welcome/BannerPanel'
+import AdminPage from '../components/admin/AdminPage'
 
 // Dashboard
 import DashboardPage from '@/components/courses/dashboard/DashboardPage'
@@ -66,6 +67,11 @@ export default new Router({
           exact: true
         },
 
+        // TODO
+        {
+          path: 'admin',
+          component: AdminPage
+        },
         // ------------------------------------------------------------ Learning
         {
           path: 'courses/learn/:course',
