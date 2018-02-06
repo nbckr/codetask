@@ -9,26 +9,26 @@
 
       <li>
         <icon name="list-ul" label="Aufgaben"/>
-        Aufgaben: {{ activeChapter.tasks.length }}
+        Aufgaben: {{ currentChapter.tasks.length }}
       </li>
       <ul class="indented">
-        <li v-if="activeKoanTasks.length > 0">
+        <li v-if="currentKoanTasks.length > 0">
           <icon name="tasks"/>
-          {{ activeKoanTasks.length }} Koan-Aufgaben
+          {{ currentKoanTasks.length }} Koan-Aufgaben
         </li>
-        <li v-if="activeVideoTasks.length > 0">
+        <li v-if="currentVideoTasks.length > 0">
           <icon name="film"/>
-          {{ activeVideoTasks.length }} Video-Aufgaben
+          {{ currentVideoTasks.length }} Video-Aufgaben
         </li>
-        <li v-if="activeCodeTasks.length > 0">
+        <li v-if="currentCodeTasks.length > 0">
           <icon name="terminal"/>
-          {{ activeCodeTasks.length }} Code-Aufgaben
+          {{ currentCodeTasks.length }} Code-Aufgaben
         </li>
       </ul>
 
       <li>
         <icon name="percent" label="Fortschritt" class="fa-success"/>
-        Fortschritt: {{ checkedTasks.length }} / {{ activeChapter.tasks.length }}
+        Fortschritt: {{ currentSolvedTasks.length }} / {{ currentChapter.tasks.length }}
       </li>
     </ul>
   </aside>
@@ -46,11 +46,11 @@
 
     computed: {
       ...mapGetters([
-        'activeChapter',
-        'activeKoanTasks',
-        'activeCodeTasks',
-        'activeVideoTasks',
-        'checkedTasks'
+        'currentChapter',
+        'currentKoanTasks',
+        'currentCodeTasks',
+        'currentVideoTasks',
+        'currentSolvedTasks'
       ]),
 
       /* estimate duration of course depending on tasks and their types */
@@ -58,8 +58,8 @@
         const koanDuration = 3
         const codeDuration = 5
         const videoDuration = 10
-        return vm.activeKoanTasks.length * koanDuration + vm.activeCodeTasks.length * codeDuration +
-          vm.activeVideoTasks.length * videoDuration
+        return vm.currentKoanTasks.length * koanDuration + vm.currentCodeTasks.length * codeDuration +
+          vm.currentVideoTasks.length * videoDuration
       }
     }
   }
