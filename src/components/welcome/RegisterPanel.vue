@@ -2,6 +2,7 @@
   <div class="register-form">
     <form @submit.prevent="onSubmit">
 
+      <!----------------------------------------------------- Name -->
       <el-row
         class="form-row"
         :class="{invalid: $v.displayName.$error}"
@@ -12,11 +13,21 @@
           id="displayName"
           autocomplete="name"
           @blur="$v.displayName.$touch()"
-          v-model="displayName"
+          :value="displayName"
+          @change.native="updateField('displayName', $event.target.value)"
           placeholder="Benutzername eintragen"
         />
       </el-row>
+      <register-panel-alert
+        v-if="!$v.displayName.minLength"
+        message="Benutzername muss mindestens 6 Zeichen lang sein"
+      />
+      <register-panel-alert
+        v-if="!$v.displayName.alphaNum"
+        message="Benutzername darf keine Sonderzeichen enthalten"
+      />
 
+      <!----------------------------------------------------- E-Mail -->
       <el-row
         class="form-row"
         :class="{invalid: $v.email.$error}"
@@ -26,8 +37,8 @@
           type="email"
           id="email"
           autocomplete="email"
-          @blur="$v.email.$touch()"
-          v-model="email"
+          :value="email"
+          @change.native="updateField('email', $event.target.value)"
           placeholder="E-Mail-Adresse eintragen"
         />
       </el-row>
@@ -35,7 +46,12 @@
         v-if="!$v.email.email"
         message="Bitte gib eine gültige E-Mail-Adresse ein"
       />
+      <register-panel-alert
+        v-if="!$v.email.unique"
+        message="Für diese E-Mail-Adresse existiert bereits ein Konto"
+      />
 
+      <!----------------------------------------------------- Password -->
       <el-row
         class="form-row"
         :class="{invalid: $v.password.$error}"
@@ -45,12 +61,17 @@
           type="password"
           id="password"
           autocomplete="password"
-          @blur="$v.password.$touch()"
-          v-model="password"
+          :value="password"
+          @change.native="updateField('password', $event.target.value)"
           placeholder="Passwort wählen"
         />
       </el-row>
+      <register-panel-alert
+        v-if="!$v.password.minLength"
+        message="Benutzername muss mindestens 6 Zeichen lang sein"
+      />
 
+      <!----------------------------------------------------- Confirm password -->
       <el-row
         class="form-row"
         :class="{invalid: $v.confirmPassword.$error}"
@@ -60,11 +81,17 @@
           type="password"
           id="confirm-password"
           autocomplete="password"
-          v-model="confirmPassword"
+          :value="confirmPassword"
+          @change.native="updateField('confirmPassword', $event.target.value)"
           placeholder="Passwort wiederholen"
         />
       </el-row>
+      <register-panel-alert
+        v-if="!$v.confirmPassword.sameAs"
+        message="Passwort stimmt nicht überein"
+      />
 
+      <!----------------------------------------------------- Submit -->
       <el-row
         class="form-row"
         type="flex"
@@ -89,7 +116,7 @@
       </el-row>
     </form>
 
-    <div style="font-size: x-small; white-space: pre; display: none">
+    <div style="font-size: x-small; white-space: pre; display: none;">
       {{ $v }}
     </div>
 
@@ -127,6 +154,11 @@
         this.$store.dispatch('REGISTER_USER', formData)
           .then(this.$router.push({name: 'dashboard'}))
           .catch(err => console.error(err))
+      },
+
+      updateField: function (field, value) {
+        this[field] = value
+        this.$v[field].$touch()
       }
     },
 
@@ -170,14 +202,7 @@
     margin: 1rem 0;
   }
 
-  .input.invalid input {
-    border: 1px solid red;
-    background-color: #ffc9aa;
-  }
-
-  .input.invalid label {
-    color: red;
-  }
+  // TODO: Styling for invalid inputs
 
   a {
     color: black;

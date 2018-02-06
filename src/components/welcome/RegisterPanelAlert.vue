@@ -1,7 +1,7 @@
 <template>
   <el-alert
     :title="message"
-    type="warning"
+    type="error"
     :closable="false"
   />
 </template>
