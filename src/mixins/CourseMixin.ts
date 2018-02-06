@@ -22,6 +22,10 @@ export default {
       } else {
         return Math.ceil(finishedTasks * 100 / numberOfTasks)
       }
+    },
+
+    numberOfChaptersInCourse: function (course) {
+      return course.chapters.length
     }
   }
 }

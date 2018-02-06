@@ -64,6 +64,7 @@
     width: 100%; // Managed by Element rows / cols
     background-color: white;
     border-bottom: $htwg-color-teal solid 0.6rem;
+    margin-bottom: 1.6rem;
     transition: padding 0.3s ease-out;
 
     padding: 1rem;
