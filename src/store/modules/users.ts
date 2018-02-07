@@ -105,7 +105,10 @@ const actions = {
 
 const getters = {
   currentUser: state => state.currentUser,
-  currentUserSettings: (state, getters) => getters.currentUser.settings,
+  currentUserSettings: (state, getters) => {
+    if (getters.currentUser)
+      return getters.currentUser.settings
+  },
   users: state => state.users,
   emailStillAvailable (state) {
     return email => !state.users.some(user => user.email === email)

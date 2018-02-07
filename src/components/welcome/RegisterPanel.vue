@@ -87,7 +87,7 @@
         />
       </el-row>
       <register-panel-alert
-        v-if="!$v.confirmPassword.sameAs"
+        v-if="confirmPassword && !$v.confirmPassword.sameAs"
         message="Passwort stimmt nicht überein"
       />
 

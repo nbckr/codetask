@@ -1,6 +1,10 @@
 import router from '../../router'
 import Course from '../../models/Course'
-import { CourseProgress, ChapterProgress, TaskProgress } from '../../models/UserProgress'
+import {
+  CourseProgress,
+  ChapterProgress,
+  TaskProgress
+} from '../../models/UserProgress'
 import { db } from '../firebase-setup'
 import { firebaseAction } from 'vuexfire'
 import Task from '../../models/Task'
@@ -20,7 +24,7 @@ const state: CoursesState = {
   dataRefsReady: 0
 }
 
-const mutations = { }
+const mutations = {}
 
 const actions = {
   // TODO: User implicit, currentUser
@@ -35,7 +39,8 @@ const actions = {
     const emptyProgress = new CourseProgress(course.id, course.title)
     emptyProgress.chapters = course.chapters.map(chapter => {
       const chapterProgress = new ChapterProgress(chapter.id, chapter.title)
-      chapterProgress.tasks = chapter.tasks.map(task => new TaskProgress(task.id))
+      chapterProgress.tasks = chapter.tasks.map(
+        task => new TaskProgress(task.id))
       return chapterProgress
     })
     progressRef.push(emptyProgress)
@@ -46,7 +51,7 @@ const actions = {
     coursesRef.push(course)
   },
 
-    // Set current task (determined by app state, e. g. route) as solved
+  // Set current task (determined by app state, e. g. route) as solved
   CURRENT_TASK_SOLVED: ({commit, getters}) => {
     console.log('Update task progress')
     // Grab ref to current course
@@ -61,7 +66,7 @@ const actions = {
 
     progressRef
       .child(courseProgress['.key'])
-      .update({ [taskSolvedPath]: true })
+      .update({[taskSolvedPath]: true})
   },
 
   VUEXFIRE_BIND_COURSES_REF: firebaseAction(({commit, bindFirebaseRef}) => {
@@ -73,18 +78,19 @@ const actions = {
     })
   }),
 
-  VUEXFIRE_BIND_PROGRESS_REF: firebaseAction(({commit, rootGetters, bindFirebaseRef}) => {
-    console.log('VXF progress bind event')
-    const user = rootGetters.currentUser
-    if (!user) return
-    progressRef = db.ref(`progress/${user['.key']}`)
+  VUEXFIRE_BIND_PROGRESS_REF: firebaseAction(
+    ({commit, rootGetters, bindFirebaseRef}) => {
+      console.log('VXF progress bind event')
+      const user = rootGetters.currentUser
+      if (!user) return
+      progressRef = db.ref(`progress/${user['.key']}`)
 
-    return new Promise((resolve) => {
-      bindFirebaseRef('progress', progressRef, {
-        readyCallback: () => resolve()
+      return new Promise((resolve) => {
+        bindFirebaseRef('progress', progressRef, {
+          readyCallback: () => resolve()
+        })
       })
     })
-  })
 }
 
 const getters = {
@@ -126,7 +132,8 @@ const getters = {
     const course = getters.currentCourse
     if (!course) return
 
-    return getters.progress.find(courseProgress => course.id === courseProgress.id)
+    return getters.progress.find(
+      courseProgress => course.id === courseProgress.id)
   },
 
   currentChapterProgress: (state, getters) => {
@@ -134,7 +141,8 @@ const getters = {
     const chapter = getters.currentChapter
     if (!chapter || !courseProgress) return
 
-    return courseProgress.chapters.find(chapterProgress => chapter.id === chapterProgress.id)
+    return courseProgress.chapters.find(
+      chapterProgress => chapter.id === chapterProgress.id)
   },
 
   currentTaskProgress: (state, getters) => {
@@ -142,7 +150,8 @@ const getters = {
     const task = getters.currentTask
     if (!task || !chapterProgress) return
 
-    return chapterProgress.tasks.find(taskProgress => task.id === taskProgress.id)
+    return chapterProgress.tasks.find(
+      taskProgress => task.id === taskProgress.id)
   },
 
   // Current course's percentage
@@ -161,6 +170,9 @@ const getters = {
   },
 
   currentChapterPercentage: (state, getters) => {
+    if (!getters.currentChapterProgress || !getters.currentSolvedTasks)
+      return
+
     const numberOfTasks = getters.currentChapterProgress.tasks.length
     const finishedTasks = getters.currentSolvedTasks.length
 
@@ -173,21 +185,32 @@ const getters = {
 
   // current chapter's tasks filtered by various criteria
 
-  currentSolvedTasks: (state, getters) => getters.currentChapterProgress.tasks.filter(
-    task => task.solved),
+  currentSolvedTasks: (state, getters) => {
+    if (getters.currentChapterProgress)
+      return getters.currentChapterProgress.tasks.filter(task => task.solved)
+  },
+
   currentHighestSolvedTask: (state, getters) => {
+    if (!getters.currentSolvedTasks)
+      return
     const solvedTasks = getters.currentSolvedTasks
     return solvedTasks.length === 0
-      ? { id: 0 }
+      ? {id: 0}
       : solvedTasks[solvedTasks.length - 1]
   },
 
-  currentKoanTasks: (state, getters) => getters.currentChapter.tasks.filter(
-    task => task.tag === 'koan-task'),
-  currentCodeTasks: (state, getters) => getters.currentChapter.tasks.filter(
-    task => task.tag === 'code-task'),
-  currentVideoTasks: (state, getters) => getters.currentChapter.tasks.filter(
-    task => task.tag === 'video-task')
+  currentKoanTasks: (state, getters) => {
+    if (getters.currentChapter)
+      return getters.currentChapter.tasks.filter(task => task.tag === 'koan-task')
+  },
+  currentCodeTasks: (state, getters) => {
+    if (getters.currentChapter)
+      return getters.currentChapter.tasks.filter(task => task.tag === 'code-task')
+  },
+  currentVideoTasks: (state, getters) => {
+    if (getters.currentChapter)
+      return getters.currentChapter.tasks.filter(task => task.tag === 'video-task')
+  }
 }
 
 export default {
