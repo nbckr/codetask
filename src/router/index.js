@@ -15,6 +15,7 @@ import DashboardPage from '@/components/courses/dashboard/DashboardPage'
 // Learning
 import LearnPage from '@/components/courses/learn/LearnPage'
 import ChapterStart from '@/components/courses/learn/chapter/ChapterStart'
+import ChapterEnd from '@/components/courses/learn/chapter/ChapterEnd'
 import ChapterPanel from '@/components/courses/learn/chapter/ChapterPanel'
 import CourseStart from '@/components/courses/learn/CourseStart'
 import BaseTask from '@/components/courses/learn/task/BaseTask'
@@ -88,13 +89,18 @@ export default new Router({
               children: [
                 {
                   path: '',
-                  name: 'chapter',
+                  name: 'chapter-start',
                   component: ChapterStart
                 },
                 {
                   path: 'tasks/:task',
                   component: BaseTask,
                   name: 'task'
+                },
+                {
+                  path: 'finished',
+                  name: 'chapter-end',
+                  component: ChapterEnd
                 }
               ]
             }

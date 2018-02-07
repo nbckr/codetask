@@ -12,7 +12,7 @@
       :tasks="currentChapter.tasks"
     />
 
-    <task-panel/>
+    <task-panel id="task-panel"/>
 
   </div>
 </template>
@@ -61,5 +61,10 @@
     text-align: center;
     background-color: lightgrey;
     color: white;
+  }
+
+  #task-panel {
+    background-color: #fff;
+    padding: 1.6rem;
   }
 </style>

@@ -15,7 +15,7 @@
       <el-col :span="12">
         <el-row type="flex" class="row-bg" justify="start">
           <el-button
-            v-if="!isCourseStart"
+            v-if="!isChapterStart"
             @click="goToLastTask">
             <i class="el-icon-arrow-left"></i>
           </el-button>
@@ -24,18 +24,19 @@
 
       <el-col :span="12">
         <el-row type="flex" justify="end">
-          <!-- Go to next unsolved task from StartPage-->
+          <!-- ChapterStart-->
           <el-button
-            v-if="isCourseStart"
+            v-if="isChapterStart"
             type="primary" plain
             :disabled="nextIsDisabled"
             @click="goToNextUnsolved">
             <span class="hidden-sm-and-down">Weiter zu Aufgabe {{ currentHighestSolvedTask.id + 1 }} </span>
             <i class="el-icon-arrow-right"></i>
           </el-button>
-          <!-- Go to next task -->
+
+          <!-- Regular task -->
           <el-button
-            v-else-if="!isCourseEnd"
+            v-else-if="!isChapterEnd"
             type="primary" plain
             :disabled="nextIsDisabled"
             :class="{'animated pulse': currentTaskProgress.solved }"
@@ -43,6 +44,16 @@
           >
             <span class="hidden-sm-and-down">Weiter </span>
             <i class="el-icon-arrow-right"></i>
+          </el-button>
+
+          <!-- ChapterEnd -->
+          <el-button
+            v-else-if="isChapterEnd"
+            type="primary" plain
+            @click="$router.push({name: 'dashboard'})"
+          >
+            <span class="hidden-sm-and-down">Zurück zum Dashboard</span>
+            <i class="el-icon-arrow-up"></i>
           </el-button>
         </el-row>
       </el-col>
@@ -57,17 +68,19 @@
 
   export default {
     computed: {
-      isCourseStart: (vm) => !vm.currentTask,
-
-      isCourseEnd: (vm) => false,
+      isFirstTask: (vm) => vm.currentTask && vm.currentTask.id === 1,
+      isLastTask: (vm) => vm.currentTask && vm.currentTask.id === vm.currentChapter.tasks.length,
+      isChapterStart: (vm) => vm.$route.name === 'chapter-start',
+      isChapterEnd: (vm) => vm.$route.name === 'chapter-end',
 
       nextIsDisabled: (vm) => {
-        if (vm.isCourseStart) return false
+        if (vm.isChapterStart) return false
         return !vm.currentTaskProgress.solved
       },
 
       ...mapGetters([
         'currentTask',
+        'currentChapter',
         'currentCourseProgress',
         'currentTaskProgress',
         'currentHighestSolvedTask'
@@ -76,21 +89,23 @@
 
     methods: {
       goToLastTask () {
-        if (this.currentTask.id === 1) {
-          this.$router.push({name: 'chapter'})
+        if (this.isFirstTask) {
+          this.$router.push({name: 'chapter-start'})
         } else {
-          this.$router.push({name: 'task', params: {task: this.currentTask.id - 1}})
+          const task = this.isChapterEnd ? this.currentChapter.tasks.length : this.currentTask.id - 1
+          this.$router.push({name: 'task', params: {task}})
         }
       },
 
       goToNext () {
-        // TODO: Check solutions
-        // TODO: Check if go to ChapterEnd
-
-        const task = this.currentTask ? this.currentTask.id + 1 : 1
-        this.$router.push({
-          name: 'task', params: {task}
-        })
+        if (this.isLastTask) {
+          this.$router.push({name: 'chapter-end'})
+        } else {
+          const task = this.isChapterStart ? 1 : this.currentTask.id + 1
+          this.$router.push({
+            name: 'task', params: {task}
+          })
+        }
       },
 
       goToNextUnsolved () {

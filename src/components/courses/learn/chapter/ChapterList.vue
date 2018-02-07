@@ -8,7 +8,7 @@
 
       <el-menu-item
         v-for="chapter in currentCourse.chapters"
-        :route="{ name: 'chapter', params: { chapter: chapter.id } }"
+        :route="{ name: 'chapter-start', params: { chapter: chapter.id } }"
         :key="`${chapter.id}`"
         :index="`${chapter.id}`">
         <a>

@@ -7,7 +7,7 @@
       <chapter-list/>
     </el-aside>
 
-    <!--<app-chapter-panel>-->
+    <!--<chapter-panel>-->
     <el-main>
       <router-view/>
     </el-main>
