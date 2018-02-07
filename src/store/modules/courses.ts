@@ -41,7 +41,12 @@ const actions = {
     progressRef.push(emptyProgress)
   },
 
-  // Set current task (determined by app state, e. g. route) as solved
+  ADD_NEW_COURSE: ({commit, getters}, course) => {
+    console.log('Add course action...', course)
+    coursesRef.push(course)
+  },
+
+    // Set current task (determined by app state, e. g. route) as solved
   CURRENT_TASK_SOLVED: ({commit, getters}) => {
     console.log('Update task progress')
     // Grab ref to current course

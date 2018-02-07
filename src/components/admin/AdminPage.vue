@@ -2,7 +2,7 @@
   <div>
     <h1>Neuen Kurs hochladen</h1>
 
-    <form @submit.prevent="submit">
+    <form @submit.prevent="onSubmit">
       <el-row :gutter="40">
 
         <el-col :xs="24" :md="12">
@@ -45,7 +45,7 @@
       </el-row>
       <el-col>
         <el-row type="flex" justify="end">
-          <el-button @click="submit" :disabled="false" type="primary">Kurs anlegen</el-button>
+          <el-button @click="onSubmit" :disabled="false" type="primary">Kurs anlegen</el-button>
         </el-row>
       </el-col>
 
@@ -97,13 +97,37 @@
         this.course = {}
       },
 
-      submit (e) {
-        // TODO: new Course(), add to db, show success
-        console.log(e)
+      onSubmit (e) {
         const course = {...this.course, ...this.additional}
-        console.log(course)
-        this.course = {}
-        this.additional = {}
+        this.transformCourse(course)
+
+        this.$store.dispatch('ADD_NEW_COURSE', course)
+          .then(() => {
+            this.$notify({
+              title: 'Kurs angelegt',
+              message: `Der Kurs "${course.title}" wurde erfolgreich angelegt.`,
+              type: 'success'
+            })
+            this.$refs.upload.clearFiles()
+            this.course = {}
+            this.additional = {}
+          })
+      },
+
+      // Adjustments to the old data model
+      transformCourse (course) {
+        course.chapters.forEach(chapter => {
+          chapter.tasks = chapter.tasks
+          // NOTE: Filtering code-tasks because of currently broken backend functionality
+            .filter(task => task.tag !== 'code-task')
+            // Numeric indices starting at 1 instead of task-specific strings
+            .map((task, index) => {
+              task.id = index + 1
+              return task
+            })
+        })
+        // Use unique ids
+        course.id = Date.now()
       }
     }
   }

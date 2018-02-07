@@ -1,8 +1,8 @@
 import Chapter from './Chapter'
 
 export default interface Course {
-  id: number // TODO: Use whatever firebase uses
+  id: number
   title: string
+  description: string
   chapters: Chapter[]
-  nothing: string
 }
