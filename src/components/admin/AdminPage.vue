@@ -5,6 +5,7 @@
     <form @submit.prevent="onSubmit">
       <el-row :gutter="40">
 
+        <!----------------------------------------------------- File Upload -->
         <el-col :xs="24" :md="12">
           <el-row class="form-row">
             <el-upload
@@ -15,7 +16,8 @@
               :multiple="false"
               :show-file-list="true"
               :on-change="onCourseFileChange"
-              :auto-upload="false">
+              :auto-upload="false"
+            >
 
               <el-button>Datei hochladen</el-button>
               <div class="el-upload__tip" slot="tip">CodeTask-Kurs im JSON-Format</div>
@@ -23,9 +25,16 @@
           </el-row>
 
           <!-- el-input will compile to input, so the label will find its input element after compilation -->
+          <!----------------------------------------------------- Title and description -->
           <el-row class="form-row">
             <label for="title">Titel</label>
-            <el-input id="title" placeholder="Titel deines neuen Kurses" v-model="course.title" :maxlength="42"/>
+            <el-input
+              id="title"
+              placeholder="Titel deines neuen Kurses"
+              :maxlength="42"
+              v-model="course.title"
+              @input="$v.course.title.$touch()"
+            />
           </el-row>
 
           <el-row class="form-row">
@@ -43,9 +52,18 @@
         </el-col>
 
       </el-row>
+
+      <!----------------------------------------------------- Submit -->
       <el-col>
         <el-row type="flex" justify="end">
-          <el-button @click="onSubmit" :disabled="false" type="primary">Kurs anlegen</el-button>
+          <el-button
+            @click="onSubmit"
+            :disabled="$v.$invalid || this.$refs.upload.uploadFiles.length === 0"
+            native-type="submit"
+            type="primary"
+          >
+            Kurs anlegen
+          </el-button>
         </el-row>
       </el-col>
 
@@ -53,10 +71,17 @@
 
     <p style="white-space: pre; display: none">{{ course }}</p>
 
+    <div style="font-size: x-small; white-space: pre; display: none;">
+      {{ course.title }}
+      {{ $v }}
+    </div>
+
   </div>
 </template>
 
 <script>
+  import { required, minLength, maxLength } from 'vuelidate/lib/validators'
+
   export default {
     data () {
       return {
@@ -128,6 +153,23 @@
         })
         // Use unique ids
         course.id = Date.now()
+      }
+    },
+
+    validations: {
+      course: {
+        title: {
+          required,
+          minLength: minLength(6),
+          maxLength: maxLength(42)
+        }
+      },
+      additional: {
+        description: {
+          required,
+          minLength: minLength(15),
+          maxLength: maxLength(150)
+        }
       }
     }
   }
