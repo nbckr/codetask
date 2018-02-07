@@ -1,16 +1,22 @@
 <template>
 
   <div>
-    <h2>Neue Kurse kennenlernen</h2>
+    <h2>Neue Kurse entdecken</h2>
 
-      <transition-group name="list" tag="div" id="enroll">
-        <enroll-panel-course
+    <div id="enroll-wrapper" v-if="unenrolledCourses.length > 0">
+      <transition-group name="course-box" tag="div" id="enroll">
+      <enroll-panel-course
           v-for="course in unenrolledCourses"
           :key="course.id"
           :course="course"
-          class="list-item"
+          class="course-box-item"
         />
       </transition-group>
+    </div>
+
+    <div v-else>
+      <p>Keine weiteren Kurse verfügbar.</p>
+    </div>
 
   </div>
 
@@ -40,17 +46,19 @@
 
 <style scoped>
 
-  .list-item {
-    transition: all 1s;
+  .course-box-item {
+    /* transition: all 1s;*/
     display: inline-block;
-    margin-right: 10px;
   }
-  .list-enter, .list-complete-leave-to
-    /* .list-complete-leave-active below version 2.1.8 */ {
+  .course-box-move {
+    transition: transform 1s;
+  }
+  .course-box-enter, .course-box-leave-active {
+    transition: transform 1s, opacity 1s;
     opacity: 0;
-    transform: translateY(30px);
+    transform: translateY(-30px);
   }
-  .list-leave-active {
+  .course-box-leave-active {
     position: absolute;
   }
 </style>
