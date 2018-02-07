@@ -2,17 +2,20 @@
 
   <el-card class="box-card">
     <div slot="header" class="clearfix">
-      <span>{{ course.title }}</span>
+      <h4>{{ course.title }}</h4>
       <el-button style="float: right; padding: 3px 0" type="text" @click="enroll(course)">Einschreiben</el-button>
     </div>
 
-    <p>{{ numberOfChaptersInCourse(course) }} Kapitel</p>
-    <p style="white-space: pre; display: none">{{ course }}</p>
+    <el-tag type="info" size="mini">{{ numberOfChaptersInCourse(course) }} Kapitel</el-tag>
 
     <el-rate
       disabled
       text-color="#ff9900"
     />
+
+    <p>{{ course.description }}</p>
+
+    <p style="white-space: pre; display: none">{{ course }}</p>
   </el-card>
 
 </template>
@@ -53,5 +56,14 @@
     width: 23rem;
     display: inline-block;
     margin: 0.8rem;
+  }
+
+  h4 {
+    /* font-weight: bold; */
+    display: inline;
+  }
+
+  .el-rate {
+    float: right;
   }
 </style>
