@@ -75,8 +75,7 @@
       onInput () {
         if (this.allSolutionsCorrect) {
           console.log('koan solved')
-          this.$emit('task-solved')
-          this.$store.dispatch('CURRENT_TASK_SOLVED', this.scoreValue)
+          this.$emit('task-solved', this.scoreValue)
         }
       }
     },

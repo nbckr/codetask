@@ -30,8 +30,7 @@
 
     methods: {
       onSolved () {
-        this.$emit('task-solved')
-        this.$store.dispatch('CURRENT_TASK_SOLVED', this.scoreValue)
+        this.$emit('task-solved', this.scoreValue)
       }
     },
 
