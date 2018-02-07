@@ -4,7 +4,11 @@
 
     <div id="router-window">
       <transition leave-active-class="animated slideOutLeft" enter-active-class="animated slideInRight" mode="out-in" duration="500">
-        <router-view :key="$route.params.task"/>
+        <!-- BaseTask -->
+        <router-view
+          :key="$route.params.task"
+          @task-solved="onTaskSolved"
+        />
       </transition>
     </div>
 
@@ -83,7 +87,8 @@
         'currentChapter',
         'currentCourseProgress',
         'currentTaskProgress',
-        'currentHighestSolvedTask'
+        'currentHighestSolvedTask',
+        'currentUserSettings'
       ])
     },
 
@@ -112,6 +117,12 @@
         this.$router.push({
           name: 'task', params: {task: this.currentHighestSolvedTask.id + 1}
         })
+      },
+
+      onTaskSolved () {
+        if (this.currentUserSettings.autoNext) {
+          this.goToNext()
+        }
       }
     }
   }

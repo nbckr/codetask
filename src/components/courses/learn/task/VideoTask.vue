@@ -3,7 +3,7 @@
   <youtube
     :video-id="currentTask.data.url"
     player-width="100%"
-    :player-vars="{ autoplay: currentUserSettings.autoplay }"
+    :player-vars="{ autoplay: currentUserSettings.autoPlay }"
     @ended="onVideoEnded"
   />
 
@@ -29,6 +29,7 @@
 
     methods: {
       onVideoEnded () {
+        this.$emit('task-solved')
         this.$store.dispatch('CURRENT_TASK_SOLVED', this.scoreValue)
       }
     }

@@ -8,6 +8,7 @@
     <component
       :is="currentTask.tag"
       :current-task="currentTask"
+      @task-solved="$emit('task-solved')"
     />
 
     <p style="font-size: x-small">Cheat mode: <i v-for="s in currentTask.data.solutions">{{ s }} | </i></p>
