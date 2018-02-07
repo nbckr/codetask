@@ -1,41 +1,43 @@
 <template>
 
-  <el-collapse v-if="currentUser" v-model="collapsedName" accordion>
+  <div>
+    <h2>Meine Kurse</h2>
 
-    <el-collapse-item v-for="(course, i) in progress" :name="i" :key="i">
+    <el-collapse v-if="currentUser" v-model="collapsedName" accordion>
 
-      <!-- Course title and overall percentage -->
-      <template slot="title">
-        <el-row type="flex" align="middle">
-          <el-col :span="10"><p>{{ course.title }}</p></el-col>
-          <el-col :span="10">
-            <el-progress :percentage="coursePercentage(course)" :stroke-width="10"/>
-          </el-col>
-        </el-row>
-      </template>
+      <el-collapse-item v-for="(course, i) in progress" :name="i" :key="i">
 
-      <!-- Chapter details per selected course -->
-      <el-row>
-        <ul>
-          <li v-for="chapter in course.chapters">
-            <router-link
-              tag="el-col"
-              :to="{name: 'chapter', params: { course: course.id, chapter: chapter.id }}"
-              :span="10">
-              <a>{{ chapter.title }}</a>
-            </router-link>
+        <!-- Course title and overall percentage -->
+        <template slot="title">
+          <el-row type="flex" align="middle">
+            <el-col :span="10"><p>{{ course.title }}</p></el-col>
             <el-col :span="10">
-              <el-progress :percentage="chapterPercentage(chapter)"/>
+              <el-progress :percentage="coursePercentage(course)" :stroke-width="10"/>
             </el-col>
-          </li>
-        </ul>
-      </el-row>
+          </el-row>
+        </template>
 
-    </el-collapse-item>
+        <!-- Chapter details per selected course -->
+        <el-row>
+          <ul>
+            <li v-for="chapter in course.chapters">
+              <router-link
+                tag="el-col"
+                :to="{name: 'chapter', params: { course: course.id, chapter: chapter.id }}"
+                :span="10">
+                <a>{{ chapter.title }}</a>
+              </router-link>
+              <el-col :span="10">
+                <el-progress :percentage="chapterPercentage(chapter)"/>
+              </el-col>
+            </li>
+          </ul>
+        </el-row>
 
-    <button @click="test">TEST Anmelden</button>
+      </el-collapse-item>
 
-  </el-collapse>
+    </el-collapse>
+  </div>
 
 </template>
 
@@ -56,12 +58,6 @@
         'progress',
         'currentUser'
       ])
-    },
-
-    methods: {
-      test () {
-        this.$store.dispatch('ENROLL_TO_COURSE', {user: this.currentUser, course: this.courses[0]})
-      }
     },
 
     mixins: [

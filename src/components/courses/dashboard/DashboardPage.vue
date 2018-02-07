@@ -1,20 +1,21 @@
 <template>
   <div id="dashboard-wrapper">
     <h1>Dashboard</h1>
-    Willkommen bei CodeTask!
-
-    <h2>Meine Kurse</h2>
+    <p>Willkommen bei CodeTask!</p>
 
     <course-list/>
+    <enroll-panel />
   </div>
 </template>
 
 <script>
   import CourseList from './CourseList'
+  import EnrollPanel from './EnrollPanel'
 
   export default {
     components: {
-      CourseList
+      CourseList,
+      EnrollPanel
     }
   }
 </script>
