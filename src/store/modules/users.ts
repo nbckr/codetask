@@ -99,7 +99,8 @@ const actions = {
     }),
 
   VUEXFIRE_UNBIND_CURRENT_USER_REF: firebaseAction(({getters, unbindFirebaseRef}, authUser = auth.currentUser) => {
-    unbindFirebaseRef('currentUser')
+    if (currentUserRef)
+      unbindFirebaseRef('currentUser')
   })
 }
 
