@@ -6,3 +6,14 @@ $htwg-color-dark-blue: #334152;
 // Grid dimensions
 $grid-dot-size: 0.2rem;
 $grid-dot-space: 8rem;
+
+// Swiss 721 font-face
+@font-face { font-family: 'swiss-heavy';
+  src: url('/static/fonts/heavy.woff2')  format('woff2')
+}
+@font-face { font-family: 'swiss-light';
+  src: url('/static/fonts/light.woff2')  format('woff2')
+}
+
+// Font alternatives to Swiss 721
+$font-stack: '"Helvetica Neue", Helvetica, Arial, sans-serif';

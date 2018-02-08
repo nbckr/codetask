@@ -38,13 +38,6 @@
     color: #555;
   }
 
-  h2 {
-    font-size: 4rem;
-    // font-family: 'Teko', sans-serif;
-    // text-shadow: 3px 3px #777;
-    margin: 0;
-  }
-
   .subtitle {
     font-size: 1.7rem;
     margin: 0;

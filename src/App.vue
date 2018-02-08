@@ -58,14 +58,22 @@
     linear-gradient($htwg-color-soft-blue ($grid-dot-space - $grid-dot-size), transparent 1%) center,
     $htwg-color-dark-blue;
     background-size: $grid-dot-space $grid-dot-space;
+
+    font-family: swiss-light, $font-stack;
+    line-height: 1.6rem;
+
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    color: #2c3e50;
+
+    b, h1, h2, h3, h4, h5, h6 {
+      font-family: swiss-heavy, $font-stack;
+      font-weight: normal;
+    }
   }
 
   #app {
     height: 100%;
-    font-family: 'Avenir', Helvetica, Arial, sans-serif;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    color: #2c3e50;
   }
 
   // Scrollbars cause a jump on router transition otherwise
