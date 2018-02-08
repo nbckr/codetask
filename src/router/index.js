@@ -53,9 +53,10 @@ export default new Router({
     // Everything else is the actual app, thus authentication is needed
     {
       path: '/app',
+      name: 'app',
       component: AppShell,
       meta: {
-        requiresAuth: false // TODO
+        requiresAuth: true
       },
       children: [
         // ----------------------------------------------------------- Dashboard

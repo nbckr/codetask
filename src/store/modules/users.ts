@@ -3,6 +3,7 @@ import { firebaseAction } from 'vuexfire'
 import User from '../../models/User'
 import store from '../index'
 import Task from '../../models/Task'
+import router from '../../router'
 
 const usersRef = db.ref('users')
 let currentUserRef
@@ -40,7 +41,8 @@ const actions = {
   AUTH_LOGIN_USER ({commit, dispatch}, formData) {
     const {email, password} = formData
     return auth.signInWithEmailAndPassword(email, password)
-    // onAuthStateChanged will fire
+
+    // onAuthStateChanged will fire, log in happens async, so function returns too early
   },
 
   AUTH_LOGOUT_USER ({commit}) {
@@ -56,6 +58,14 @@ const actions = {
     console.log('ON_AUTH_STATE_CHANGED', authUser)
     if (authUser) {
       dispatch('VUEXFIRE_BIND_CURRENT_USER_REF', authUser)
+        .then(() => {
+          console.log(`Logging in user ${authUser.email}`)
+
+          // Redirect if currently on welcome page (as opposed to refresh inside app)
+          if (!router.currentRoute.matched.some(match => match.name === 'app')) {
+            router.push({name: 'dashboard'})
+          }
+        })
     } else {
       commit('UNSET_CURRENT_USER')
       dispatch('VUEXFIRE_UNBIND_CURRENT_USER_REF')
@@ -94,7 +104,6 @@ const actions = {
         bindFirebaseRef('currentUser', currentUserRef, {
           readyCallback: () => resolve()
         })
-        console.log(`Logging in user ${user.displayName}`)
       })
     }),
 

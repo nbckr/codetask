@@ -152,7 +152,6 @@
           password: this.password
         }
         this.$store.dispatch('REGISTER_USER', formData)
-          .then(this.$router.push({name: 'dashboard'}))
           .catch(err => console.error(err))
       },
 

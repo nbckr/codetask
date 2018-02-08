@@ -49,12 +49,31 @@ Vue.use(Vuelidate)
 // Setup global navigation guard
 router.beforeEach((to, from, next) => {
   const requiresAuth = to.matched.some(record => record.meta.requiresAuth)
-  console.log('beforeEach', requiresAuth)
+  console.log('beforeEachGuard', requiresAuth, from.path, to.path)
 
-  if (requiresAuth && !store.getters.isAuthenticated) {
-    next('/')
-  } else {
-    next()
+  // See https://forum.vuejs.org/t/1404
+  function proceed () {
+    if (requiresAuth && !store.getters.currentUser) {
+      next('/login')
+    } else {
+      next()
+    }
+  }
+
+  // we must wait for the store to be initialized
+  if (!store.state.firebaseReady) {
+    console.log('[router] waiting for store to be initialized...')
+    store.watch(
+      (state) => state.firebaseReady,
+      (value) => {
+        console.log('[router] ok store initialization state changed', value)
+        if (value)
+          proceed()
+      }
+    )
+  }
+  else {
+    proceed()
   }
 })
 

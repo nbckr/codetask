@@ -67,7 +67,6 @@
           password: formData.password,
           returnSecureToken: true
         })
-          .then(() => this.$router.push({name: 'dashboard'}))
           .catch(error => this.$notify({
             title: 'Warning',
             message: error.message,

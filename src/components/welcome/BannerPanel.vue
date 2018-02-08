@@ -13,7 +13,7 @@
 
     <!-- If not logged in already, should automatically send to login -->
     <router-link
-      :to="{ name: 'login' }">
+      :to="{ name: 'dashboard' }">
       <el-button
         type="primary">
         Jetzt lernen

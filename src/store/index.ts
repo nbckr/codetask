@@ -27,7 +27,10 @@ export default new Vuex.Store({
         .then(() => dispatch('VUEXFIRE_BIND_CURRENT_USER_REF'))
         .then(() => dispatch('VUEXFIRE_BIND_COURSES_REF'))
         .then(() => dispatch('VUEXFIRE_BIND_PROGRESS_REF'))
-        .then(() => { commit('SET_FIREBASE_READY') })
+        .then(() => {
+          commit('SET_FIREBASE_READY')
+          console.log('%c Firebase connections all set up ', 'background: #222; color: #bada55');
+        })
     }
   },
 
