@@ -54,6 +54,7 @@
 
   .box-card {
     width: 23rem;
+    min-height: 15rem;
     display: inline-block;
     margin: 0.8rem;
   }
