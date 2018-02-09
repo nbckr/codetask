@@ -65,10 +65,10 @@
     background-color: white;
     border-bottom: $htwg-color-teal solid 0.6rem;
     margin-bottom: 1.6rem;
-    transition: padding 0.3s ease-out;
+    transition: padding 0.3s ease-out, margin 0.3s ease-out;
 
     padding: 1rem;
-    margin-top: 0;
+    margin-top: 0.75rem;
 
     @include sm {
       padding: 3rem;
