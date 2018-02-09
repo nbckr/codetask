@@ -7,7 +7,6 @@ import {
 } from '../../models/UserProgress'
 import { db } from '../firebase-setup'
 import { firebaseAction } from 'vuexfire'
-import Task from '../../models/Task'
 
 const coursesRef = db.ref('courses')
 let progressRef
@@ -46,9 +45,12 @@ const actions = {
     progressRef.push(emptyProgress)
   },
 
-  ADD_NEW_COURSE: ({commit, getters}, course) => {
-    console.log('Add course action...', course)
+  ADD_NEW_COURSE: (context, course) => {
     coursesRef.push(course)
+  },
+
+  REMOVE_COURSE: (context, course) => {
+    return progressRef.child(course['.key']).remove()
   },
 
   // Set current task (determined by app state, e. g. route) as solved

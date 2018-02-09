@@ -25,10 +25,10 @@
         <user-score-tag :score="currentUser.score" />
       </template>
 
-      <el-menu-item index="submenu-profile" route="profile">Mein Profil</el-menu-item>
-      <el-menu-item index="submenu-settings" route="settings">Einstellungen</el-menu-item>
-      <el-menu-item index="submenu-leaderboard" route="leaderboard">Bestenliste</el-menu-item>
-      <el-menu-item index="submenu-admin" route="admin">Kurse und Nutzer verwalten</el-menu-item>
+      <el-menu-item index="submenu-profile" :route="{name: 'profile'}">Mein Profil</el-menu-item>
+      <el-menu-item index="submenu-settings" :route="{name: 'settings'}">Einstellungen</el-menu-item>
+      <el-menu-item index="submenu-leaderboard" :route="{name: 'leaderboard'}">Bestenliste</el-menu-item>
+      <el-menu-item index="submenu-admin" :route="{name: 'admin'}">Kurse und Nutzer verwalten</el-menu-item>
       <el-menu-item index="submenu-logout" @click="logout">Ausloggen</el-menu-item>
     </el-submenu>
 
@@ -57,6 +57,7 @@
 
       logout () {
         this.$store.dispatch('AUTH_LOGOUT_USER')
+          .then(this.$router.push({name: 'welcome'}))
       }
     },
 
