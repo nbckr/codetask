@@ -11,7 +11,7 @@
     active-text-color="#009b91"
   >
 
-    <el-menu-item index="title" :route="{ name: 'welcome' }">
+    <el-menu-item index="title" :route="{ name: 'dashboard' }">
       <template slot="title">
         <img src="http://via.placeholder.com/256x128" id="app-title"/>
       </template>
