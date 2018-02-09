@@ -15,22 +15,25 @@ export default new Vuex.Store({
   },
 
   mutations: {
-    SET_FIREBASE_READY (state) {
-      state.firebaseReady = true
-    },
-    ...firebaseMutations
+    ...firebaseMutations,
+    SET_FIREBASE_READY (state, value) {
+      state.firebaseReady = value
+    }
   },
 
   actions: {
     BIND_FIREBASE_REFS: ({commit, dispatch}) => {
       dispatch('VUEXFIRE_BIND_USERS_REF')
-        .then(() => dispatch('VUEXFIRE_BIND_CURRENT_USER_REF'))
         .then(() => dispatch('VUEXFIRE_BIND_COURSES_REF'))
+        .then(() => dispatch('VUEXFIRE_BIND_CURRENT_USER_REF'))
         .then(() => dispatch('VUEXFIRE_BIND_PROGRESS_REF'))
         .then(() => {
-          commit('SET_FIREBASE_READY')
           console.log('%c Firebase connections all set up ', 'background: #222; color: #bada55');
+          commit('SET_FIREBASE_READY', true)
+          return new Promise (resolve => resolve)
         })
+        .catch(() => console.error('Some Firebase connections are not ready yet'))
+
     }
   },
 

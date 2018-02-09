@@ -72,7 +72,7 @@ const actions = {
   },
 
   VUEXFIRE_BIND_COURSES_REF: firebaseAction(({commit, bindFirebaseRef}) => {
-    console.log('VXF courses bind event')
+    console.log('VUEXFIRE_BIND_COURSES_REF')
     return new Promise((resolve) => {
       bindFirebaseRef('courses', coursesRef, {
         readyCallback: () => resolve()
@@ -82,9 +82,12 @@ const actions = {
 
   VUEXFIRE_BIND_PROGRESS_REF: firebaseAction(
     ({commit, rootGetters, bindFirebaseRef}) => {
-      console.log('VXF progress bind event')
+      console.log('VUEXFIRE_BIND_PROGRESS_REF')
       const user = rootGetters.currentUser
-      if (!user) return
+      if (!user) {
+        console.log('User not ready, can\'t bind progress')
+        return new Promise((resolve, reject) => resolve())
+      }
       progressRef = db.ref(`progress/${user['.key']}`)
 
       return new Promise((resolve) => {

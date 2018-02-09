@@ -57,12 +57,18 @@ const actions = {
   ON_AUTH_STATE_CHANGED ({commit, dispatch}, authUser) {
     console.log('ON_AUTH_STATE_CHANGED', authUser)
     if (authUser) {
-      dispatch('VUEXFIRE_BIND_CURRENT_USER_REF', authUser)
+      // dispatch('VUEXFIRE_BIND_CURRENT_USER_REF')
+
+      // Set firebase ready flag to false
+      commit('SET_FIREBASE_READY', false)
+
+      dispatch('BIND_FIREBASE_REFS')
         .then(() => {
           console.log(`Logging in user ${authUser.email}`)
 
           // Redirect if currently on welcome page (as opposed to refresh inside app)
           if (!router.currentRoute.matched.some(match => match.name === 'app')) {
+            console.log('Go to dashboard')
             router.push({name: 'dashboard'})
           }
         })
@@ -80,7 +86,7 @@ const actions = {
   },
 
   VUEXFIRE_BIND_USERS_REF: firebaseAction(({commit, dispatch, bindFirebaseRef}) => {
-    console.log('VXF user bind event')
+    console.log('VUEXFIRE_BIND_USERS_REF')
 
     return new Promise((resolve) => {
       bindFirebaseRef('users', usersRef, {
@@ -92,10 +98,12 @@ const actions = {
   }),
 
   VUEXFIRE_BIND_CURRENT_USER_REF: firebaseAction(
-    ({getters, bindFirebaseRef}, authUser = auth.currentUser) => {
+    ({getters, bindFirebaseRef}) => {
+      console.log('VUEXFIRE_BIND_CURRENT_USER_REF')
+      const authUser = auth.currentUser
       if (!authUser || getters.users.length === 0) {
         console.log('User not ready for login')
-        return
+        return new Promise((resolve, reject) => resolve())
       }
 
       return new Promise((resolve) => {
@@ -107,7 +115,7 @@ const actions = {
       })
     }),
 
-  VUEXFIRE_UNBIND_CURRENT_USER_REF: firebaseAction(({getters, unbindFirebaseRef}, authUser = auth.currentUser) => {
+  VUEXFIRE_UNBIND_CURRENT_USER_REF: firebaseAction(({unbindFirebaseRef}) => {
     if (currentUserRef)
       unbindFirebaseRef('currentUser')
   })
