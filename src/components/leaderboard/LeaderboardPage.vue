@@ -2,9 +2,9 @@
   <div>
     <h1>Bestenliste</h1>
     <ul>
-      <li v-for="user in users.slice(0, 10)">
+      <li v-for="user in bestUsers">
         {{ user.displayName }}
-        <user-score-tag :score="user.score" />
+        <user-score-tag :score="user.score"/>
       </li>
     </ul>
   </div>
@@ -18,7 +18,14 @@
     computed: {
       ...mapGetters([
         'users'
-      ])
+      ]),
+
+      bestUsers: (vm) => {
+        const usersCopy = [...vm.users]
+        return usersCopy
+          .sort((a, b) => b.score - a.score)
+          .slice(0, 5)
+      }
     },
 
     components: {
