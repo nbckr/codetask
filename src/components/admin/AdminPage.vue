@@ -131,7 +131,8 @@
             this.$notify({
               title: 'Kurs angelegt',
               message: `Der Kurs "${course.title}" wurde erfolgreich angelegt.`,
-              type: 'success'
+              type: 'success',
+              offset: 61
             })
             this.$refs.upload.clearFiles()
             this.course = {}

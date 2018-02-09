@@ -68,9 +68,10 @@
           returnSecureToken: true
         })
           .catch(error => this.$notify({
-            title: 'Warning',
+            title: 'Anmeldung fehlgeschlagen',
             message: error.message,
-            type: 'warning'
+            type: 'warning',
+            offset: 180
           }))
       }
     }

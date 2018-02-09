@@ -12,7 +12,6 @@
           type="text"
           id="displayName"
           autocomplete="name"
-          @blur="$v.displayName.$touch()"
           :value="displayName"
           @change.native="updateField('displayName', $event.target.value)"
           placeholder="Benutzername eintragen"
@@ -82,7 +81,7 @@
           id="confirm-password"
           autocomplete="password"
           :value="confirmPassword"
-          @change.native="updateField('confirmPassword', $event.target.value)"
+          @input.native="updateField('confirmPassword', $event.target.value)"
           placeholder="Passwort wiederholen"
         />
       </el-row>
@@ -152,7 +151,12 @@
           password: this.password
         }
         this.$store.dispatch('REGISTER_USER', formData)
-          .catch(err => console.error(err))
+          .catch(error => this.$notify({
+            title: 'Registrierung fehlgeschlagen',
+            message: error.message,
+            type: 'warning',
+            offset: 180
+          }))
       },
 
       updateField: function (field, value) {
