@@ -50,10 +50,12 @@ Vue.use(Vuelidate)
 router.beforeEach((to, from, next) => {
   const requiresAuth = to.matched.some(record => record.meta.requiresAuth)
   console.log('beforeEachGuard', requiresAuth, from.path, to.path)
+  if (!requiresAuth)
+    next()
 
   // See https://forum.vuejs.org/t/1404
   function proceed () {
-    if (requiresAuth && !store.getters.currentUser) {
+    if (!store.getters.currentUser) {
       next('/login')
     } else {
       next()
@@ -61,12 +63,12 @@ router.beforeEach((to, from, next) => {
   }
 
   // we must wait for the store to be initialized
-  if (!store.state.firebaseReady) {
-    console.log('[router] waiting for store to be initialized...')
+  if (!store.state.firebaseSpecificReady) {
+    console.log('[firebase/guard] waiting for SPECIFIC')
     store.watch(
-      (state) => state.firebaseReady,
+      (state) => state.firebaseSpecificReady,
       (value) => {
-        console.log('[router] ok store initialization state changed', value)
+        console.log('[firebase/guard] SPECIFIC okay', value)
         if (value)
           proceed()
       }

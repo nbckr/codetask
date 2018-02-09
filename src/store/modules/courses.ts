@@ -86,16 +86,22 @@ const actions = {
       const user = rootGetters.currentUser
       if (!user) {
         console.log('User not ready, can\'t bind progress')
-        return new Promise((resolve, reject) => resolve())
+        return new Promise((resolve, reject) => reject())
       }
       progressRef = db.ref(`progress/${user['.key']}`)
 
+      console.log('Binding progress ref...')
       return new Promise((resolve) => {
         bindFirebaseRef('progress', progressRef, {
           readyCallback: () => resolve()
         })
       })
-    })
+    }),
+
+  VUEXFIRE_UNBIND_PROGRESS_REF: firebaseAction(({unbindFirebaseRef}) => {
+    if (progressRef)
+      unbindFirebaseRef('progress')
+  })
 }
 
 const getters = {

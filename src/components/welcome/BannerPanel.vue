@@ -11,9 +11,9 @@
     </p>
     <br>
 
-    <!-- If not logged in already, should automatically send to login -->
+    <!-- If already logged in, router would redirect from this page to dashboard automatically -->
     <router-link
-      :to="{ name: 'dashboard' }">
+      :to="{ name: 'login' }">
       <el-button
         type="primary">
         Jetzt lernen

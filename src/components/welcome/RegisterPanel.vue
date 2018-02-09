@@ -67,7 +67,7 @@
       </el-row>
       <register-panel-alert
         v-if="!$v.password.minLength"
-        message="Benutzername muss mindestens 6 Zeichen lang sein"
+        message="Passwort muss mindestens 6 Zeichen lang sein"
       />
 
       <!----------------------------------------------------- Confirm password -->
@@ -100,6 +100,7 @@
           native-type="submit"
           type="primary"
           :disabled="$v.$invalid"
+          :loading="isLoading"
         >Konto anlegen
         </el-button>
       </el-row>
@@ -139,12 +140,14 @@
         displayName: '',
         email: '',
         password: '',
-        confirmPassword: ''
+        confirmPassword: '',
+        isLoading: false
       }
     },
 
     methods: {
       onSubmit: function () {
+        this.isLoading = true
         const formData = {
           displayName: this.displayName,
           email: this.email,
@@ -157,6 +160,10 @@
             type: 'warning',
             offset: 180
           }))
+          .finally(() => {
+            console.log('finally')
+            this.isLoading = false
+          })
       },
 
       updateField: function (field, value) {
