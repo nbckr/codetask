@@ -73,7 +73,7 @@
         })
           .then(() => this.$store.dispatch('REMOVE_COURSE', course))
           .then(() => {
-            console.log(this)
+            this.collapsedName = ''
             this.$notify({
               title: 'Kurs verlassen',
               message: `Du hast den Kurs "${course.title}" verlassen.`,
