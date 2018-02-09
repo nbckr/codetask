@@ -1,45 +1,45 @@
 <template>
 
-    <el-menu
-      :default-active="activeIndex"
-      class="el-menu-demo"
-      mode="horizontal"
-      :router="true"
-      @select="onMenuSelect"
-      background-color="#334152"
-      text-color="white"
-      active-text-color="#009b91"
-    >
+  <el-menu
+    :default-active="activeIndex"
+    class="el-menu-demo"
+    mode="horizontal"
+    :router="true"
+    @select="onMenuSelect"
+    background-color="#334152"
+    text-color="white"
+    active-text-color="#009b91"
+  >
 
-      <el-menu-item index="title" :route="{ name: 'welcome' }">
-        <template slot="title">
-          <img src="http://via.placeholder.com/256x128" id="app-title"/>
-        </template>
-      </el-menu-item>
+    <el-menu-item index="title" :route="{ name: 'welcome' }">
+      <template slot="title">
+        <img src="http://via.placeholder.com/256x128" id="app-title"/>
+      </template>
+    </el-menu-item>
 
-      <el-submenu index="user-menu" id="user-menu" v-if="currentUser">
-        <template slot="title">
-          <img src="http://via.placeholder.com/128x128" id="user-img" />
-          {{ currentUser.displayName }}
+    <el-submenu index="user-menu" id="user-menu" v-if="currentUser">
+      <template slot="title">
+        <img src="http://via.placeholder.com/128x128" id="user-img"/>
+        {{ currentUser.displayName }}
 
-          <el-tag size="small">
-            {{ currentUser.score }}
-          </el-tag>
-        </template>
+        <user-score-tag :score="currentUser.score" />
+      </template>
 
-        <el-menu-item index="submenu-profile">Mein Profil</el-menu-item>
-        <el-menu-item index="submenu-settings">Einstellungen</el-menu-item>
-        <el-menu-item index="submenu-admin">Kurse und Nutzer verwalten</el-menu-item>
-        <el-menu-item index="submenu-logout" @click="logout">Ausloggen</el-menu-item>
-      </el-submenu>
+      <el-menu-item index="submenu-profile" route="profile">Mein Profil</el-menu-item>
+      <el-menu-item index="submenu-settings" route="settings">Einstellungen</el-menu-item>
+      <el-menu-item index="submenu-leaderboard" route="leaderboard">Bestenliste</el-menu-item>
+      <el-menu-item index="submenu-admin" route="admin">Kurse und Nutzer verwalten</el-menu-item>
+      <el-menu-item index="submenu-logout" @click="logout">Ausloggen</el-menu-item>
+    </el-submenu>
 
-      <el-menu-item index="dashboard" id="dashboard" :route="{ name: 'dashboard' }">Dashboard</el-menu-item>
+    <el-menu-item index="dashboard" id="dashboard" :route="{ name: 'dashboard' }">Dashboard</el-menu-item>
 
-    </el-menu>
+  </el-menu>
 
 </template>
 
 <script>
+  import UserScoreTag from '@/components/shared/UserScoreTag'
   import { mapGetters } from 'vuex'
 
   export default {
@@ -65,7 +65,9 @@
         'currentUser',
         'users'
       ])
-    }
+    },
+
+    components: { UserScoreTag }
   }
 </script>
 
@@ -116,7 +118,7 @@
   }
 
   header {
-    background-color: green !important;
+    // TODO: min-width 450px
   }
 
 </style>
