@@ -1,0 +1,815 @@
+{
+  "id": 11,
+  "title": "Art of Programming II",
+  "chapters": [
+    {
+      "id": 7,
+      "title": "Loops",
+      "tasks": [
+        {
+          "id": "video1",
+          "tag": "video-task",
+          "data": {
+            "description": "The while loop",
+            "url": "nIGiaEf1hW8"
+          }
+        },
+        {
+          "id": "koan1",
+          "tag": "koan-task",
+          "data": {
+            "description": " While loop:\n    Instead of using recursion or higher order methods, scala gives you the ability to write a loop\n    which you can use to iterate over something. The while loop is a lesser used form of loop. \n    This is because in scala the while loop is a statement not an expression. It does return Unit but \n    you want to avoid the Type Unit in Scala.",
+            "code": "var i = 0\nvar sum = 0\nwhile (i < 10) {\n  sum += 1\n  i += 1\n}\nsum should be(__)",
+            "mode": "scala",
+            "solutions": [
+              "10"
+            ]
+          }
+        },
+        {
+          "id": "video2",
+          "tag": "video-task",
+          "data": {
+            "description": "The do-while Loop",
+            "url": "h3SIkYx8Ljw"
+          }
+        },
+        {
+          "id": "koan2",
+          "tag": "koan-task",
+          "data": {
+            "description": " Do while loop:\n    The do while loop is similar to the while loop. The only distinction from the while loop is that \n    the loop will execute once at minimum because of the trailing conditional. The do while loop is the\n    least used form of loop.",
+            "code": "var i = 0\nvar sum = 0\ndo {\n  sum += 1\n  i += 1\n} while (i < 10)\nsum should be(__)",
+            "mode": "scala",
+            "solutions": [
+              "10"
+            ]
+          }
+        },
+        {
+          "id": "video3",
+          "tag": "video-task",
+          "data": {
+            "description": "Ranges",
+            "url": "lfKCoV-O2SA"
+          }
+        },
+        {
+          "id": "koan3",
+          "tag": "koan-task",
+          "data": {
+            "description": " Ranges: \n    Commonly used forms of loops create a variable which will be incremented/decremented till it surpasses\n    a certain bar, limit or something else. For this general occuring event, scala introduced something called \n    range. Ranges are collections and thereby offer all the rich methods of the scala collection. Ranges can be\n    iterated and used in loops.\n    \n    Try writing down the right types of the first 5 statements and the actual values of the last two.",
+            "code": "(0 to 9).isInstanceOf[scala.collection.immutable.Range.Inclusive] should be(__)\n(0 until 9).isInstanceOf[scala.collection.immutable.Range] should be(__)\nArray(1, 2, 3).indices.isInstanceOf[scala.collection.immutable.Range] should be(__)\n('a' to 'z').isInstanceOf[scala.collection.immutable.NumericRange.Inclusive[Char]] should be(__)\n(1.0 to 2.0 by 0.5).isInstanceOf[scala.collection.immutable.NumericRange[Double]] should be(__)\n\n(3 to 1).toString should be(__)\n(3 to 1 by -1).toString should be(__)",
+            "mode": "scala",
+            "solutions": [
+              "true",
+              "true",
+              "true",
+              "true",
+              "true",
+              "\"Range()\"",
+              "\"Range(3, 2, 1)\""
+            ]
+          }
+        },
+        {
+          "id": "video4",
+          "tag": "video-task",
+          "data": {
+            "description": "The for loop",
+            "url": "NNG6Bl8pLMQ"
+          }
+        },
+        {
+          "id": "code1",
+          "tag": "code-task",
+          "data": {
+            "description": " Exercise: (Simple for loop)\n    Write a simple for loop that sums up each element of the provided array.",
+            "mode": "scala",
+            "code": "val a = Array(1, 2, 3, 4, 5)\n\ndef sum(a:Array[Int]):Int = {\n  //todo\n}"
+          }
+        },
+        {
+          "id": "video5",
+          "tag": "video-task",
+          "data": {
+            "description": "Loop examples - Evaluate Polynoms",
+            "url": "6v3y9jH0wHw"
+          }
+        },
+        {
+          "id": "koan4",
+          "tag": "koan-task",
+          "data": {
+            "description": " For loop: \n    The main form of loop is the for loop. They are less error prone then while loops within doing the same work.\n    For loops can be structured with using Ranges as seen in the example below. Moreover the example below shows\n    how to simplify and gain more readability when using the right functions for the job.\n    \n    Note: Polynom = coeff(0)x^2+coeff(1)x^1+coeff(2)x^0.",
+            "code": "val a = Array(3.0, 2.0, -5.0)\ndef evalPolynomBad(coeffs: Array[Double], x: Double): Double = {\n  var sum = 0.0\n  for (i <- coeffs.indices) {\n    sum += coeffs(i) * Math.pow(x, coeffs.length - 1 - i)\n  }\n  sum\n}\nevalPolynomBad(a, 1.0) should be(__)\n\ndef evalPolynomBetter(coeffs: Array[Double], x: Double): Double = {\n  var sum = 0.0\n  var power = 1.0\n  for (c <- coeffs.reverse) {\n    sum += c * power\n    power *= x\n  }\n  sum\n}\nevalPolynomBetter(a, 2.0) should be(__)",
+            "mode": "scala",
+            "solutions": [
+              "0.0",
+              "11.0"
+            ]
+          }
+        },
+        {
+          "id": "video6",
+          "tag": "video-task",
+          "data": {
+            "description": "Yield",
+            "url": "zFHCdFV3ok4"
+          }
+        },
+        {
+          "id": "koan5",
+          "tag": "koan-task",
+          "data": {
+            "description": " Yield:\n    Till this point we used for loops as statements not expressions. For this exact moment Scala introduced \n    the keyword yield. In previous examples we had to write several var declarations to make things work.\n    To prevent the use of var we can now easily add the keyword yield which will give us something back.",
+            "code": "val response = for (i <- 1 to 10) yield i\nresponse should be(__)\n\nval a = Array(3.0, 2.0, -5.0)\ndef evalPolyBest(coeffs: Array[Double], x: Double): Double = {\n  (for (i <- coeffs.indices) yield {\n    coeffs(i) * Math.pow(x, coeffs.length - 1 - i)\n  }).sum\n}\nevalPolyBest(a, 3.0) should be(__)",
+            "mode": "scala",
+            "solutions": [
+              "Vector(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)",
+              "28.0"
+            ]
+          }
+        },
+        {
+          "id": "video7",
+          "tag": "video-task",
+          "data": {
+            "description": "If guards",
+            "url": "hEfwLier84U"
+          }
+        },
+        {
+          "id": "koan6",
+          "tag": "koan-task",
+          "data": {
+            "description": " Yield If Guards:\n    In addition to conditionals seen in the chapter about conditionals you can use if guards in loops. \n    This could be done especially when applying the yield to the for loop.\n    \n    Note: Keep in mind how often the passed function is evaluated.",
+            "code": "val wrongResponse = for (i <- 1 to 10) yield { if (i % 2 == 0) i * i }\nwrongResponse should be(__)\n\nval rightResponse = for (i <- 1 to 10; if i % 2 == 0) yield i * i\nrightResponse should be(__)",
+            "mode": "scala",
+            "solutions": [
+              "Vector((), 4, (), 16, (), 36, (), 64, (), 100)",
+              "Vector(4, 16, 36, 64, 100)"
+            ]
+          }
+        },
+        {
+          "id": "video8",
+          "tag": "video-task",
+          "data": {
+            "description": "Multiple Generators",
+            "url": "WseHLd1cxIs"
+          }
+        },
+        {
+          "id": "koan7",
+          "tag": "koan-task",
+          "data": {
+            "description": " Multiple generators: \n    Multiple generators could be described as a nested loop. With adding additional ranges into the \n    for loop you gain the ability to create or run multidimensional collections.",
+            "code": "val response = for (i <- 1 to 2; j <- 1 to 2) yield (i, j)\nresponse should be(__)\n\nval responseWithProduct = for (i <- 1 to 2; j <- 1 to 2) yield (i, j, i * j)\nresponseWithProduct should be(__)",
+            "mode": "scala",
+            "solutions": [
+              "Vector((1, 1), (1, 2), (2, 1), (2, 2))",
+              "Vector((1, 1, 1), (1, 2, 2), (2, 1, 2), (2, 2, 4))"
+            ]
+          }
+        },
+        {
+          "id": "video9",
+          "tag": "video-task",
+          "data": {
+            "description": "Patterns in for Loops",
+            "url": "K7K9E7uw-lg"
+          }
+        },
+        {
+          "id": "code2",
+          "tag": "code-task",
+          "data": {
+            "description": " Exercise: (Pattern matching with yield)\n    Write a statement which uses Pattern matching, for loop and yield to concatenate the elements of a given two tuple with the \n    String (\"_\"). The result should an array with the concatenated names.",
+            "mode": "scala",
+            "code": "val lst = List((\"Max\", \"Mustermann\"), (\"Hans\", \"Werner\"), (\"Klaus\", \"Mann\"))\n\ndef combineNames( list:List[(String, String)]):List[String] = {\n//todo\n}"
+          }
+        },
+        {
+          "id": "video10",
+          "tag": "video-task",
+          "data": {
+            "description": "Variable declarations",
+            "url": "PqoUrkvhqIo"
+          }
+        },
+        {
+          "id": "koan8",
+          "tag": "koan-task",
+          "data": {
+            "description": " Variable declaration in for loops:\n    Another benefit for the for loop construct is that you can declare variables into the loop header. This benefits the readability\n    and maintainability of the codebase.",
+            "code": "val grid = for (x <- 0 to 2; y <- 2 to 0 by -1) yield (x, y)\ngrid should be(__)\n\nval findMax = for ((x, y) <- grid; winner = scala.math.max(x, y)) yield (winner)\nfindMax should be(__)",
+            "mode": "scala",
+            "solutions": [
+              "Vector((0, 2), (0, 1), (0, 0), (1, 2), (1, 1), (1, 0), (2, 2), (2, 1), (2, 0))",
+              "Vector(2, 1, 0, 2, 1, 1, 2, 2, 2)"
+            ]
+          }
+        },
+        {
+          "id": "video11",
+          "tag": "video-task",
+          "data": {
+            "description": "For comprehension",
+            "url": "r86DvO_wsZ0"
+          }
+        },
+        {
+          "id": "koan9",
+          "tag": "koan-task",
+          "data": {
+            "description": " For Comprehension:\n    The for loop as we know isn't a real for loop in a sense that we know from other languages.\n    In Scala the for loop is internally constructed with higher order methods like map, filter, reduce and foreach. \n    The idea behind the loop is to offer an easy way to write a loop without using the mentioned methods directly. This\n    has the benefit of constructing loops without having to write lambda literals or clumpsy syntax. On the second hand it does provide\n    a more readable codebase.",
+            "code": "for (i <- 1 to 10) println(i)\n(1 to 10).foreach(i => println(i))\n\n(for (i <- 1 to 10) yield i * i) should be(__)\n(1 to 10).map(i => i * i) should be(__)\n\n(for (i <- 1 to 10; if i % 2 == 0) yield i * i) should be(__)\n(1 to 10).filter(_ % 2 == 0).map(i => i * i) should be(__)",
+            "mode": "scala",
+            "solutions": [
+              "Vector(1, 4, 9, 16, 25, 36, 49, 64, 81, 100)",
+              "Vector(1, 4, 9, 16, 25, 36, 49, 64, 81, 100)",
+              "Vector(4, 16, 36, 64, 100)",
+              "Vector(4, 16, 36, 64, 100)"
+            ]
+          }
+        },
+        {
+          "id": "video12",
+          "tag": "video-task",
+          "data": {
+            "description": "Multidimensional for loops",
+            "url": "3OgZ1hMEYTg"
+          }
+        },
+        {
+          "id": "koan10",
+          "tag": "koan-task",
+          "data": {
+            "description": " Multidimensial loop: \n    Besides mutliple generators you can also construct loops with explicit nesting of for loops as seen in the example \n    below.",
+            "code": "val response = for (i <- 1 to 3) yield {\n  for (j <- 1 to 3) yield i * j\n}\n\nresponse should be(__)",
+            "mode": "scala",
+            "solutions": [
+              "Vector(Vector(1, 2, 3), Vector(2, 4, 6), Vector(3, 6, 9))"
+            ]
+          }
+        },
+        {
+          "id": "video13",
+          "tag": "video-task",
+          "data": {
+            "description": "Parallel for loops",
+            "url": "in1pyU-kb-Y"
+          }
+        },
+        {
+          "id": "koan11",
+          "tag": "koan-task",
+          "data": {
+            "description": " Parallel for loops:\n    Due to default technologie standards these days every computer has at least two cores. To make use of these ressources,\n    programs have to be written for parallel or concurrent execution. In Scala this is easily archived by calling the method\n    par on collections.\n    Try to figure out the type of the first statement and afterwards the result of the for loop which is run in parallel.",
+            "code": "(1 to 10).par.isInstanceOf[scala.collection.parallel.immutable.ParRange] should be(__)\n\nvar i = 0\nfor (j <- (1 to 1000000000).par) i += 1\ni == 1000000000 should be(__)",
+            "mode": "scala",
+            "solutions": [
+              "true",
+              "false"
+            ]
+          }
+        },
+        {
+          "id": "video14",
+          "tag": "video-task",
+          "data": {
+            "description": "Views",
+            "url": "4h6F-I0Zs0M"
+          }
+        },
+        {
+          "id": "koan12",
+          "tag": "koan-task",
+          "data": {
+            "description": " Views:\n    Views are an performance enhancement feature given by Scala. Each time higher order methods like map, filter or reduce are called scala will create\n    a completly new collection. If you do this multiple times you will consume a lot of memory each time. The view concept encapsulates the collection with\n    a wrapper type which is less memory consuming than creating new collections.\n    Try to figure out the type of the following statements.",
+            "code": "val numbers = Array.fill(100)(Math.random)\nnumbers.isInstanceOf[Array[Double]] should be(__)\nnumbers.map(x => x * x).filter(_ < 0.25).isInstanceOf[Array[Double]] should be(__)\nnumbers.view.map(x => x * x).filter(_ < 0.25).isInstanceOf[scala.collection.SeqView[Double, Array[Double]]] should be(__)",
+            "mode": "scala",
+            "solutions": [
+              "true",
+              "true",
+              "true"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": 8,
+      "title": "Textfiles - IO",
+      "tasks": [
+        {
+          "id": "video1",
+          "tag": "video-task",
+          "data": {
+            "description": "Files and I_O Redirection",
+            "url": "XOb0EKxL6j4"
+          }
+        },
+        {
+          "id": "video2",
+          "tag": "video-task",
+          "data": {
+            "description": "Reading Files with scala.io.Source",
+            "url": "OG8ZxUGFOTU"
+          }
+        },
+        {
+          "id": "koan1",
+          "tag": "koan-task",
+          "data": {
+            "description": " Reading files from the os with Source:\n    Like any other language Scala also handles file operations on the operating system. The syntax is exactly the\n    same as in Java.\n    \n    Note: Don't forget to close the file descriptor after handling the operation, otherwise there won't be any\n    file descriptors left to handle file operations.\n    \n    \n    The content of the file in this example looks like this (two lines with integers):\n    5\n    4\n    Try to write down the types of the first 4 statments and afterwards the values of the remaining\n    statements.",
+            "code": "import io.Source\nval source = Source.fromFile(\"numbers.txt\")\nsource.isInstanceOf[scala.io.BufferedSource] should be(__)\nval lines = source.getLines\nlines.isInstanceOf[Iterator[String]] should be(__)\n\nlines.next.toInt should be(__)\nlines.hasNext should be(__)\nlines.next.toInt should be(__)\nlines.hasNext should be(__)\n\nsource.close",
+            "mode": "scala",
+            "solutions": [
+              "true",
+              "true",
+              "5",
+              "true",
+              "4",
+              "false"
+            ]
+          }
+        },
+        {
+          "id": "code1",
+          "tag": "code-task",
+          "data": {
+            "description": " Exercise: (Reading a file)\n    Write the statements to read a file with integers line by line and add them up in the end. The file named \"fiveNums.txt\" contains empty lines. Try to use \n    higher order methods to get the result.\n  \n    The content of the file in this example looks like this (7 lines with or withouth integers)\n    5\n    \n    4\n  \n    3\n    2\n    1\n    ",
+            "mode": "scala",
+            "code": "import scala.io.Source\nvar sum = 0\n//todo"
+          }
+        },
+        {
+          "id": "video3",
+          "tag": "video-task",
+          "data": {
+            "description": "Files and Exceptions",
+            "url": "lRZmHllsEEo"
+          }
+        },
+        {
+          "id": "video4",
+          "tag": "video-task",
+          "data": {
+            "description": "Web Sources",
+            "url": "-cIlryPXKk0"
+          }
+        },
+        {
+          "id": "video5",
+          "tag": "video-task",
+          "data": {
+            "description": "Java Scanner",
+            "url": "d4ykGQSc--4"
+          }
+        },
+        {
+          "id": "koan2",
+          "tag": "koan-task",
+          "data": {
+            "description": " Java Scanner:\n    Due to the fact that Scala runs on the Java Virtual Machine you could use every java object or class. This feature\n    comes in handy when reading from files. The method we covered earlier by using scala.io.Source is good for reading anything\n    from a file. If we want to read a set of specific types we could use the java.io.Scanner class, which provides us with\n    methods for each datatype primitive as we could see in the example. \n    \n    The content of the file in this example looks like this (2 lines):\n    5\n    4 test    \n    ",
+            "code": "import java.io.File\nimport java.util.Scanner\n\nval scanner = new Scanner(new File(\"numbersAndText.txt\"))\nscanner.nextInt should be(__)\nscanner.hasNextInt should be(__)\nval (intElement, stringElement) = (scanner.nextInt, scanner.next)\n(intElement, stringElement) should be(__)\nscanner.close",
+            "mode": "scala",
+            "solutions": [
+              "5",
+              "true",
+              "4, \"test\""
+            ]
+          }
+        },
+        {
+          "id": "video6",
+          "tag": "video-task",
+          "data": {
+            "description": " Writing Files",
+            "url": "qigG0IzjaFU"
+          }
+        },
+        {
+          "id": "koan3",
+          "tag": "koan-task",
+          "data": {
+            "description": " Writing to files:\n    In some cases you have to write to files on your local system, e.g. Databases, Texteditors and so on. In this case \n    Scala depends on java classes (FileWriter, PrintWriter,...) to archive this goals.",
+            "code": "{\n  import java.io.PrintWriter\n\n  val pw = new PrintWriter(\"file.txt\")\n  pw.println(\"first Line\")\n  pw.println(\"second Line\")\n  for (i <- Array(1, 2, 3, 4)) pw.println(i)\n  pw.close\n}\n\n{\n  import java.io.FileWriter\n  import java.io.PrintWriter\n  val pw = new PrintWriter(new FileWriter(\"file.txt\", true))\n  pw.println(\"More lines\")\n  pw.close\n}",
+            "mode": "scala",
+            "solutions": []
+          }
+        },
+        {
+          "id": "video7",
+          "tag": "video-task",
+          "data": {
+            "description": "Formatted Output",
+            "url": "tfBp2mdE1QA"
+          }
+        },
+        {
+          "id": "koan4",
+          "tag": "koan-task",
+          "data": {
+            "description": " Formatted Output:\n    When printing Strings in Scala you can format them to your liking by using a method called printf or \n    string interpolation as we have seen in some previous chapters.",
+            "code": "val num = 42\nf\"This number is an Int: $num\" should be(__)\nval float = 4.2\nf\"This number is a float: $float%2.2f\" should be(__)\nf\"This number is delimited: $float%2f\" should be(__)\nf\"This number is delimited after the period: $float%5.2f\" should be(__)\nf\"This number is displayed in scientific notation: $float%5.2e\" should be(__)\nf\"This number is displayed in either floating or scientific notation depending on the parameter: $float%g\" should be(__)\nf\"This number is converted to hex: $num%x\" should be(__)\n\"The hex representation of the number 15 is %x\".format(15) should be(__)",
+            "mode": "scala",
+            "solutions": [
+              "\"This number is an Int: 42\"",
+              "\"This number is a float: 4,20\"",
+              "\"This number is delimited: 4,200000\"",
+              "\"This number is delimited after the period:  4,20\"",
+              "\"This number is displayed in scientific notation: 4,20e+00\"",
+              "\"This number is displayed in either floating or scientific notation depending on the parameter: 4,20000\"",
+              "\"This number is converted to hex: 2a\"",
+              "\"The hex representation of the number 15 is f\""
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": 9,
+      "title": "Case Classes",
+      "tasks": [
+        {
+          "id": "video1",
+          "tag": "video-task",
+          "data": {
+            "description": "Case classes",
+            "url": "V6WHvBerbDw"
+          }
+        },
+        {
+          "id": "video2",
+          "tag": "video-task",
+          "data": {
+            "description": "Creating case classes",
+            "url": "4HCFckV5OQ4"
+          }
+        },
+        {
+          "id": "video3",
+          "tag": "video-task",
+          "data": {
+            "description": "Using case classes",
+            "url": "oY-vp_vJ3bQ"
+          }
+        },
+        {
+          "id": "koan1",
+          "tag": "koan-task",
+          "data": {
+            "description": " Case classes (Problemset): \n    The addition of case classes give the ability to enrich tuples with logic and meaning. We already\n    mentioned case classes in some chapters but didn't took a closer look.\n    \n    In the example below you see what could happen when you don't use case classes. \n        \n    Aliasing tuples does not prevent missusage by the user. The user could incorrectly\n    use an alias for the wrong function. From the compiler view perspective each alias is just a \n    three tuple. The alias is just a nice way to make the code more readable.",
+            "code": "type Point = (Double, Double, Double)\ntype Color = (Double, Double, Double)\n\ndef distance(p1: Point, p2: Point): Double = {\n  val dx = p1._1 - p2._1\n  val dy = p1._2 - p2._2\n  val dz = p1._3 - p2._3\n  math.sqrt(dx * dx + dy * dy + dz * dz)\n}\n\nval p1: Point = (1.0, 1.0, 4.0)\nval p2: Point = (2.0, 3.0, 2.0)\nval distanceBetweenPoints = distance(p1, p2)\n\nval c1: Color = (2.0, 3.0, 2.0)\nval nonsenseDistanceBetweenColorAndPoints = distance(p1, c1)\n\ndistanceBetweenPoints == nonsenseDistanceBetweenColorAndPoints should be(__)",
+            "mode": "scala",
+            "solutions": [
+              "true"
+            ]
+          }
+        },
+        {
+          "id": "koan2",
+          "tag": "koan-task",
+          "data": {
+            "description": " Case classes (Solution):\n    To prevent the clumpsy way of handling tuples without logic Scala introduces the concept\n    of case classes with the corresponding keyword.\n    \n    In the example below the function distance is now limited to Point3D. If you would try to\n    invoke this function with a case class called Color this would cause in a compile error.",
+            "code": "case class Point3D(x: Double, y: Double, z: Double)\n\ndef distance(p1: Point3D, p2: Point3D): Double = {\n  val dx = p1.x - p2.x\n  val dy = p1.y - p2.y\n  val dz = p1.z - p2.z\n  math.sqrt(dx * dx + dy * dy + dz * dz)\n}\n\nval p1 = Point3D(1.0, 1.0, 4.0)\nval p2 = Point3D(2.0, 3.0, 2.0)\n\ndistance(p1, p2) should be(__)",
+            "mode": "scala",
+            "solutions": [
+              "3"
+            ]
+          }
+        },
+        {
+          "id": "video4",
+          "tag": "video-task",
+          "data": {
+            "description": "Named and Default Arguments",
+            "url": "TUw9GYpi7bA"
+          }
+        },
+        {
+          "id": "koan3",
+          "tag": "koan-task",
+          "data": {
+            "description": " Named and default arguments:\n    This feature is like many others in Scala purely for readability. Named and default arguments\n    add a nice way of calling functions/methods in a way that you don't need to remember which parameter needs to\n    be at the first position and so on. You can easily name them accordingly to the methods arguments. You can\n    even resort them to you own liking. Another function they add are default arguments. Default arguments set a\n    default value to a specific argument that we could miss when invoking a function/method. We could see this example \n    in the last two statements.\n    \n    Note: You may argue that you still have to take a look into the documentation to find out what the names\n    are, yes thats right but if you review your code it's viewer friendlier then without them.",
+            "code": "def evalQuad(a: Int, b: Int, c: Int, x: Int): Int = a * x * x + b * x + c\nevalQuad(2, 4, 5, 2) should be(__)\nevalQuad(a = 2, x = 4, b = 5, c = 2) should be(__)\nevalQuad(2, 4, x = 5, c = 2) should be(__)\n\ndef evalQuadWithDefaults(a: Int = 0, b: Int = 0, c: Int, x: Int): Int = a * x * x + b * x + c\nevalQuadWithDefaults(c = 3, x = 2) should be(__)",
+            "mode": "scala",
+            "solutions": [
+              "21",
+              "54",
+              "72",
+              "3"
+            ]
+          }
+        },
+        {
+          "id": "video5",
+          "tag": "video-task",
+          "data": {
+            "description": "The copy Method",
+            "url": "fyx51Z9ejrU"
+          }
+        },
+        {
+          "id": "koan4",
+          "tag": "koan-task",
+          "data": {
+            "description": " Copy method:\n    Since case classes are immutable you cannot reassign values to a case class (you can make\n    case classes mutable with the keyword var infront of every argument. This style is not recommended!\n    For this case classes provide a copy method which create a new instance of the \n    case class. \n    \n    Note: There is a way of creating a new case class instance by manually setting the \n    values from an existing instance (s. statement #3). This process is a bad practice and shouldn't be used.\n    Instead you could apply the statement #6. This will change only the value x on the fly.",
+            "code": "case class Point3D(x: Double, y: Double, z: Double)\n\nval p = Point3D(1.0, 2.0, 3.0)\nval q = Point3D(1 + p.x, p.y, p.z)\n\nval a = p.copy()\na == p should be(__)\n\nval b = p.copy(x = p.x + 1)\nb == q should be(__)",
+            "mode": "scala",
+            "solutions": [
+              "true",
+              "true"
+            ]
+          }
+        },
+        {
+          "id": "video6",
+          "tag": "video-task",
+          "data": {
+            "description": "Case class patterns",
+            "url": "b_cEmkzGlro"
+          }
+        },
+        {
+          "id": "video7",
+          "tag": "video-task",
+          "data": {
+            "description": "Mutable case classes",
+            "url": "RbtQ0WyuJ2M"
+          }
+        },
+        {
+          "id": "koan5",
+          "tag": "koan-task",
+          "data": {
+            "description": " Case class pattern matching:\n    The most useful case when using case classes is pattern matching. You can apply the known techniques\n    from the pattern matching with tuples (using wildcards, using named elements for later use and so on).",
+            "code": "case class Point3D(x: Double, y: Double, z: Double)\nval points = Array.fill(2)(Point3D(math.random, math.random, math.random))\nfor (Point3D(x, y, z) <- points) yield math.sqrt(x * x + y * y + z * z)\n\ncase class Student(name: String, age: Int)\nval students = List(Student(\"Tim\", 22), Student(\"Hans\", 22), Student(\"Jens\", 28))\nval ageMultiplied = for (Student(_, age) <- students) yield age * 5\nageMultiplied should be(__)\nval nameConcatenated = for (Student(n, 22) <- students) yield \"Student:\" + n\nnameConcatenated should be(__)\n\ncase class StudentWithSchoolclasses(name: String, age: Int, classes: List[String] {})\nval studentsWithClasses = List(StudentWithSchoolclasses(\"Tim\", 22, List(\"sport\", \"english\")), StudentWithSchoolclasses(\"Hans\", 22, List(\"biology\", \"german\")), StudentWithSchoolclasses(\"Jens\", 28, List(\"german\")))\nval studentsWithOneClass = for (StudentWithSchoolclasses(n, _, List(a)) <- studentsWithClasses) yield (n, List(a))\nstudentsWithOneClass should be(__)",
+            "mode": "scala",
+            "solutions": [
+              "List(110, 110, 140)",
+              "List(\"Student:Tim\", \"Student:Hans\")",
+              "List((\"Jens\", List(\"german\")))"
+            ]
+          }
+        },
+        {
+          "id": "video8",
+          "tag": "video-task",
+          "data": {
+            "description": "Zipped type",
+            "url": "F4L8QMiJypM"
+          }
+        },
+        {
+          "id": "koan6",
+          "tag": "koan-task",
+          "data": {
+            "description": " Zipped Type:\n    The zipped type is another performance enhancement feature of Scala in case of instance creation.\n    The example below shows this performance boost quite clearly. From the chapter about\n    collection methods we noticed a method zip which takes two collections and create a single one\n    of them. Similiar to the view method several objects/tuples are getting instantiated and afterwards\n    thrown away (see statement #3 and #4). \n    By using the zipped method (s. statement #5) Scala creates a instance of the class\n    scala.runtime.Tuple2Zipped on which you can invoke methods like foreach, map, filter and so on. Invoking in this\n    style the instantiation of several objects/tuples must not be made.",
+            "code": "val a = List(1, 2, 3)\nval b = List(\"a\", \"b\", \"c\")\n\na.zip(b) should be(__)\na.zip(b).map(t => t._2 * t._1)\n\nval response = (a, b).zipped.map((integer, string) => string * integer)\nresponse should be(__)",
+            "mode": "scala",
+            "solutions": [
+              "List((1, \"a\"), (2, \"b\"), (3, \"c\"))",
+              "List(\"a\", \"bb\", \"ccc\")"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": 10,
+      "title": "Basic Object Orientation",
+      "tasks": [
+        {
+          "id": "video1",
+          "tag": "video-task",
+          "data": {
+            "description": "Basics of Object-Orientation",
+            "url": "ILk_WBYsqec"
+          }
+        },
+        {
+          "id": "koan1",
+          "tag": "koan-task",
+          "data": {
+            "description": " Object Orientation:\n    Object Orientation is nothing new. Over the chapters we have used Object Orientation without even knowing.\n  \n    An easy example is: \n  \n    val a = 5.  Even this simple statement creates an object. The Class is Int and we can now call methods\n              on top of a by invoking them with a dot. \n    a.toString() \n      \n    In Scala every value is an object. An Object has data and a set of functionality associated with it. Objects\n    encapsulate those two elements. Scala is one of a few languages who combine functional and object orientated concepts.",
+            "code": "class RationalNumber(val numerator: Int, val denominator: Int) {\n  override def toString(): String = numerator + \"/\" + denominator\n  def multiply(r: RationalNumber): RationalNumber = {\n    new RationalNumber(numerator * r.numerator, denominator * r.denominator)\n  }\n  def *(r:RationalNumber):RationalNumber = this.multiply(r)\n}\nval r1 = new RationalNumber(2, 3)\nr1.toString should be(__)\n\nval r2 = new RationalNumber(1, 2)\nr1.multiply(r2).toString should be(__)\n(r1 multiply r2).toString should be(__)\n(r1 * r2).toString should be(__)",
+            "mode": "scala",
+            "solutions": [
+              "\"2/3\"",
+              "\"2/6\"",
+              "\"2/6\"",
+              "\"2/6\""
+            ]
+          }
+        },
+        {
+          "id": "video2",
+          "tag": "video-task",
+          "data": {
+            "description": "Visibility and Separating Interface from Implementation",
+            "url": "-GPTgSBB2E0"
+          }
+        },
+        {
+          "id": "koan2",
+          "tag": "koan-task",
+          "data": {
+            "description": " Visibility and Separating Interface from Implementation:\n    Classes encapsulate data and methods from the outside world. In the example\n    below you can see how to setup the class that only the parameter name is directly\n    accessable. In the second example the parameter from the class is assigned to \n    a datamember of the class which is stored during object creation. The data from the variable\n    code and tresorCode isn't accesable at all time (encapsulated).",
+            "code": "class Account(val name: String, private val balance: Int)\nval a = new Account(\"Svens Account\", 20)\na.name should be(__)",
+            "mode": "scala",
+            "solutions": [
+              "\"Svens Account\""
+            ]
+          }
+        },
+        {
+          "id": "code1",
+          "tag": "code-task",
+          "data": {
+            "description": " Exercises: (Class implementation)\n    Scenario: A programmer has implemented a class Bank with a bank name and a code for the safe.\n    Sadly the code of the safe has been assigned to a member of the class which was not private. Right there we\n    have got an encapsulation problem. Plenty of other programmers are now using this implementation of the class. \n    Is there a possibility to manage the access to this class member without breaking the code for other programmers\n    who use this class?   \n    \n    Try to figure out a way to limit or be able to handle the access to this member. Try using an additional\n    variable named mSafeCode to manage the access.",
+            "mode": "scala",
+            "code": "class Bank(name: String, code: String) {\n  var safeCode = code\n}\n\nclass AdvancedBank(name: String, code: String) {\n  //todo\n}"
+          }
+        },
+        {
+          "id": "video3",
+          "tag": "video-task",
+          "data": {
+            "description": "Operator/method overloading",
+            "url": "ChyIF--50MA"
+          }
+        },
+        {
+          "id": "video4",
+          "tag": "video-task",
+          "data": {
+            "description": "Operator/method overloading",
+            "url": "4rbmndJrjI8"
+          }
+        },
+        {
+          "id": "koan3",
+          "tag": "koan-task",
+          "data": {
+            "description": " Operator overloading and special methods:\n    In Scala you can not only overload methods you can even overload operators like +-/*% and so on.\n    This comes in very handy when implementing a custom type/class. You can define basic operations like in the\n    example below an addition or subtraction of vectors. In Java this feature isn't given. You could only archive\n    this by writing methods, but it wouldn't be easy to read (or not that easy as in Scala).\n    \n    Special methods like apply, update, unary and so on are nice features in Scala which let you handle certain features\n    without writing unecessary boiler plate code. See example below.",
+            "code": "class Vect3(val x: Double, val y: Double, val z: Double) {\n  def +(v: Vect3) = new Vect3(x + v.x, y + v.y, z + v.z)\n  def -(v: Vect3) = new Vect3(x - v.x, y - v.y, z - v.z)\n  def unary_-() = new Vect3(-x, -y, -z)\n  def apply(index: Int): Double = index match {\n    case 0 => x\n    case 1 => y\n    case 2 => z\n  }\n\n  def print(): String = \"(\" + x + \", \" + y + \", \" + z + \")\"\n}\n\nval v1 = new Vect3(1, 2, 3)\nval v2 = new Vect3(3, 2, 1)\n\nval addResult = v1 + v2\naddResult.print should be(__)\nval subResult = v1 - v2\nsubResult.print should be(__)\nval inversionResult = -v1\ninversionResult.print() should be(__)\n\nv1(1) should be(__)\n\nclass MutableVect3(var x: Double, var y: Double, var z: Double) {\n  def apply(index: Int): Double = index match {\n    case 0 => x\n    case 1 => y\n    case 2 => z\n  }\n\n  def update(index: Int, value: Double): Unit = index match {\n    case 0 => x = value\n    case 1 => y = value\n    case 2 => z = value\n  }\n}\n\nval v3 = new MutableVect3(1, 2, 3)\nv3(0) = 14.0\nv3(0) should be(__)",
+            "mode": "scala",
+            "solutions": [
+              "\"(4.0, 4.0, 4.0)\"",
+              "\"(-2.0, 0.0, 2.0)\"",
+              "\"(-1.0, -2.0, -3.0)\"",
+              "2.0",
+              "14.0"
+            ]
+          }
+        },
+        {
+          "id": "video5",
+          "tag": "video-task",
+          "data": {
+            "description": "Object declarations",
+            "url": "Ljf6VnunEPU"
+          }
+        },
+        {
+          "id": "code2",
+          "tag": "code-task",
+          "data": {
+            "description": " Exercise: (Object implementation)\n    Write an object (named TestObject) which increments a member variable by 1. The starting value of the \n    member variable should be 0.",
+            "mode": "scala",
+            "code": "object TestObject {\n  //todo\n}\n\nTestObject.i should be(0)\nTestObject.increment\nTestObject.i should be(1)"
+          }
+        },
+        {
+          "id": "video6",
+          "tag": "video-task",
+          "data": {
+            "description": "Scala object Declarations: Applications ",
+            "url": "0sE8cH4NRsA"
+          }
+        },
+        {
+          "id": "video7",
+          "tag": "video-task",
+          "data": {
+            "description": "Scala object Declarations: Companion Objects",
+            "url": "X4aiuETZsZs"
+          }
+        },
+        {
+          "id": "code3",
+          "tag": "code-task",
+          "data": {
+            "description": " Exercise: (Companion Object)\n    The provided class has an error. The Error is produced by returning a Vect3(...) instance without the keyword\n    new. \n    Try to fix this error by using a companion object with the necessary method.\n    Tip: Array(1, 2, 3) == Array.apply(1,2,3), both result in a new Array with the elements 1,2,3.",
+            "mode": "scala",
+            "code": "class Vect3(val x: Double, val y: Double, val z: Double) {\n  def +(v: Vect3) = Vect3(x + v.x, y + v.y, z + v.z)\n  def -(v: Vect3) = Vect3(x - v.x, y - v.y, z - v.z)\n  def unary_-() = Vect3(-x, -y, -z)\n  def apply(index: Int): Double = index match {\n    case 0 => x\n    case 1 => y\n    case 2 => z\n  }\n\n  def print(): String = \"(\" + x + \", \" + y + \", \" + z + \")\"\n}\n\nobject Vect3 {\n  //todo\n}"
+          }
+        }
+      ]
+    },
+    {
+      "id": 12,
+      "title": "Advanced Collections",
+      "tasks": [
+        {
+          "id": "video1",
+          "tag": "video-task",
+          "data": {
+            "description": "Buffer Collection",
+            "url": "aQbMRUmsBNY"
+          }
+        },
+        {
+          "id": "koan1",
+          "tag": "koan-task",
+          "data": {
+            "description": " Buffer: \n    The idea of a buffer is very similar to arrays. They have a specific order and you can\n    get elements by indexing.\n        \n    The Buffer is a Sequence which is mutable. There are different subclasses of Buffer e.g.\n    ListBuffer, ArrayBuffer and so on.    \n    \n    With buffers you can get rid of var statements by writing val buffers.\n    This is because the reference doesn't have to change it will be the mutable object that \n    has to change.\n    \n    Note: Buffers do only have a mutable implementation!",
+            "code": "import scala.collection.mutable\nimport scala.collection.mutable.ArrayBuffer\n\nval buf = mutable.Buffer(1, 2, 3, 4)\n\nbuf.map(_ * 2)\nbuf should be(__)\n\nbuf += 42\nbuf should be(__)\n\n15 +=: buf\nbuf should be(__)\n\nbuf(2) = 101\nbuf should be(__)\n\nbuf.remove(0)\nbuf should be(__)\n\nbuf.insert(1, 4)\nbuf should be(__)\n\nbuf.insertAll(1, List(42, 42, 42))\nbuf should be(__)",
+            "mode": "scala",
+            "solutions": [
+              "ArrayBuffer(1, 2, 3, 4)",
+              "ArrayBuffer(1, 2, 3, 4, 42)",
+              "ArrayBuffer(15, 1, 2, 3, 4, 42)",
+              "ArrayBuffer(15, 1, 101, 3, 4, 42)",
+              "ArrayBuffer(1, 101, 3, 4, 42)",
+              "ArrayBuffer(1, 4, 101, 3, 4, 42)",
+              "ArrayBuffer(1, 42, 42, 42, 4, 101, 3, 4, 42)"
+            ]
+          }
+        },
+        {
+          "id": "video2",
+          "tag": "video-task",
+          "data": {
+            "description": "Map Collection",
+            "url": "6v-_jnN807A"
+          }
+        },
+        {
+          "id": "koan2",
+          "tag": "koan-task",
+          "data": {
+            "description": " Maps:\n    Maps are quite different from other collections. They have parametric polymorphism but they\n    are parametric on two different types.  \n    Maps associate a key with a value. It takes tuples as elements. Setting up a map is usually \n    constructed with -> notation to create tuples. By default maps are immutable but you can \n    enforce mutability if needed.\n    The benefit of using a map is to lookup elements very efficient without iterating over each one. \n    Instead of referencing elements in an array with an index you can use a key to get the \n    right element. \n    \n    Maps are unordered. Maps even offer pattern matching which make the code more readable",
+            "code": "\"one\" -> 1 should be(__)\n\nval fullTypeName = Map((\"one\", 1), (\"two\", 2), (\"three\", 3))\nfullTypeName.isInstanceOf[scala.collection.immutable.Map[java.lang.String, Int]] should be(__)\n\nval m1 = fullTypeName\nval m2 = Map(\"one\" -> 1, \"two\" -> 2, \"three\" -> 3)\nm1 == m2 should be(__)\n\nm2(\"one\") should be(__)\nm2 + (\"four\" -> 4) should be(__)\nm2 should be(__)\n\ncase class Student(name: String, grade: Int)\nval students = Seq(Student(\"Mark\", 90), Student(\"John\", 80), Student(\"Jane\", 95))\nstudents.find(_.name == \"John\") should be(__)\n\nval studentMap = students.map(s => s.name -> s).toMap\nstudentMap(\"Mark\") should be(__)\n\ntry {\n  studentMap(\"Ted\")\n} catch {\n  case e: java.util.NoSuchElementException => println(\"this will crash\")\n}\n\nstudentMap.get(\"Ted\") should be(__)",
+            "mode": "scala",
+            "solutions": [
+              "(\"one\", 1)",
+              "true",
+              "true",
+              "1",
+              "Map(\"one\" -> 1, \"two\" -> 2, \"three\" -> 3, \"four\" -> 4)",
+              "Map(\"one\" -> 1, \"two\" -> 2, \"three\" -> 3)",
+              "Some(Student(\"John\", 80))",
+              "Student(\"Mark\", 90)",
+              "None"
+            ]
+          }
+        },
+        {
+          "id": "video3",
+          "tag": "video-task",
+          "data": {
+            "description": "Set Collection",
+            "url": "HO4r3qtka3s"
+          }
+        },
+        {
+          "id": "koan3",
+          "tag": "koan-task",
+          "data": {
+            "description": " Sets\n    Sets are derived from the mathematical term of Set. Which is a collection of\n    elements where duplicates are not allowed and order doesn't matter.\n    Sets can be immutable and mutable, by default the set is immutable.",
+            "code": "val set = Set(1, 2, 3)\nset.isInstanceOf[scala.collection.immutable.Set[Int]] should be(__)\n\nset + 1 should be(__)\nset - 1 should be(__)\n\nset(3) should be(__)\nset(14) should be(__)\n\nimport collection.mutable\nval mutableSet = mutable.Set(1, 2, 3)\n\nmutableSet(78) should be(__)\nmutableSet += 78\nmutableSet(78) should be(__)\nmutableSet(12) = true\nmutableSet(12) should be(__)\n\nval mutableMappedSet = mutable.Set(1, 2, 3).map(_ * 2)\nmutableMappedSet should be(__)\n\nList(1, 1, 1, 1, 2, 42, 84).toSet should be(__)\n\nval unionSet = Set(1, 2, 3) union Set(3, 4, 5)\nunionSet should be(__)\n\nval intersectSet = Set(1, 2, 3) intersect Set(2, 3, 4)\nintersectSet should be(__)\n\n\"one\" -> 1 should be(__)\n\nval fullTypeName = Map((\"one\", 1), (\"two\", 2), (\"three\", 3))\nfullTypeName.isInstanceOf[scala.collection.immutable.Map[java.lang.String, Int]] should be(__)\n\nval m1 = fullTypeName\nval m2 = Map(\"one\" -> 1, \"two\" -> 2, \"three\" -> 3)\nm1 == m2 should be(__)\n\nm2(\"one\") should be(__)\nm2 + (\"four\" -> 4) should be(__)\nm2 should be(__)\n\ncase class Student(name: String, grade: Int)\nval students = Seq(Student(\"Mark\", 90), Student(\"John\", 80), Student(\"Jane\", 95))\nstudents.find(_.name == \"John\") should be(__)\n\nval studentMap = students.map(s => s.name -> s).toMap\nstudentMap(\"Mark\") should be(__)\n\ntry {\n  studentMap(\"Ted\")\n} catch {\n  case e: java.util.NoSuchElementException => println(\"this will crash\")\n}\n\nstudentMap.get(\"Ted\") should be(__)",
+            "mode": "scala",
+            "solutions": [
+              "true",
+              "Set(1, 2, 3)",
+              "Set(2, 3)",
+              "true",
+              "false",
+              "false",
+              "true",
+              "true",
+              "Set(2, 4, 6)",
+              "Set(1, 2, 42, 84)",
+              "Set(5, 1, 2, 3, 4)",
+              "Set(2, 3)",
+              "(\"one\", 1)",
+              "true",
+              "true",
+              "1",
+              "Map(\"one\" -> 1, \"two\" -> 2, \"three\" -> 3, \"four\" -> 4)",
+              "Map(\"one\" -> 1, \"two\" -> 2, \"three\" -> 3)",
+              "Some(Student(\"John\", 80))",
+              "Student(\"Mark\", 90)",
+              "None"
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,127 @@
+{
+  "id": 3,
+  "title": "Just Another Scala Course",
+  "chapters": [
+    {
+      "id": 1,
+      "title": "title",
+      "tasks": [
+        {
+          "id": "koan1",
+          "tag": "koan-task",
+          "data": {
+            "description": "Sets sind Collections die jedes Element maximal einmal beinhalten.\n Damit stellen Sets Mengen dar.",
+            "code": "val M = Set(1, 2, 3)",
+            "mode": "scala",
+            "solutions": []
+          }
+        },
+        {
+          "id": "koan2",
+          "tag": "koan-task",
+          "data": {
+            "description": "Sets haben eine Methode <b>contains</b> die überprüft ob ein Element im Set enthalten ist.\n Ist das Element enthalten so wird <b>true</b> zurückgegeben.\n Falls das Element nicht enthalten is wird <b>false</b> zurückgegeben.",
+            "code": "val M = Set(1, 2, 3, 4)\nM.contains(3) should be(__)",
+            "mode": "scala",
+            "solutions": [
+              "true"
+            ]
+          }
+        },
+        {
+          "id": "koan3",
+          "tag": "koan-task",
+          "data": {
+            "description": "Die Mathematische Aussagen:<br>\n M = {4, 5, 6} <br>\n 4 &isin; M <br>\n 2 &notin; M <br>\n können in Scala folgenderweise ausgedrückt werden.",
+            "code": "val M = Set(4, 5, 6)\nM.contains(4) should be(__)\nM.contains(2) should be(__)",
+            "mode": "scala",
+            "solutions": [
+              "true",
+              "false"
+            ]
+          }
+        },
+        {
+          "id": "koan4",
+          "tag": "koan-task",
+          "data": {
+            "description": "Sets können mit dem <b>==</b> Operator überprüft werden.\n Die Reihenfolge der Elemente Spielt keine Rolle. Mathematisch: M1 = M2.",
+            "code": "Set(1, 2, 3) == Set(3, 2, 1) should be(__)\nSet(1, 5) == Set(1, 5, 7) should be(__)",
+            "mode": "scala",
+            "solutions": [
+              "true",
+              "false"
+            ]
+          }
+        },
+        {
+          "id": "koan5",
+          "tag": "koan-task",
+          "data": {
+            "description": "Ob Sets nicht gleich sind kann mit dem <b>!=</b> Operator überprüft werden.\n Mathematisch: M1 &ne; M2.",
+            "code": "Set(4, 5, 6) != Set(1, 2, 3) should be(__)",
+            "mode": "scala",
+            "solutions": [
+              "true"
+            ]
+          }
+        },
+        {
+          "id": "koan6",
+          "tag": "koan-task",
+          "data": {
+            "description": "Die Kardinalität m = |M| entspricht der Anzahl von Elementen in einem Set bzw. einer Menge.\n Die Anzahl der Elemente in einem Set kann über die <b>size</b> Methode ausgegeben werden.",
+            "code": "Set().size should equal(__)\nSet(1, 2, 3).size should equal(__)",
+            "mode": "scala",
+            "solutions": [
+              "0",
+              "3"
+            ]
+          }
+        },
+        {
+          "id": "koan7",
+          "tag": "koan-task",
+          "data": {
+            "description": "Eine Teilmenge M1 &sube; M2 kann mit der <b>subsetOf</b> festgestellt werden,\n die einen Boolean Wert zurückgibt",
+            "code": "val M1 = Set(1, 2)\nval M2 = Set(1, 2, 3, 4)\n\nM1.subsetOf(M2) should be(__)",
+            "mode": "scala",
+            "solutions": [
+              "true"
+            ]
+          }
+        },
+        {
+          "id": "koan8",
+          "tag": "koan-task",
+          "data": {
+            "description": "Um festzustellen ob es sich um eine Echte Teilmenge handelt,\n muss gelten M1 &isnot; M2",
+            "code": "val M1 = Set(1, 2)\nval M2 = Set(1, 2, 3, 4)\n\nM1.subsetOf(M2) should be(__)\nM1 != M2 should be(__)",
+            "mode": "scala",
+            "solutions": [
+              "true",
+              "true"
+            ]
+          }
+        },
+        {
+          "id": "koan9",
+          "tag": "koan-task",
+          "data": {
+            "description": "Scala bietet die Möglichkeit Sets mit Methoden zu verknüpfen.<br>\n <table>\n <tr><th>Mathematisch</th><th>Scala</th><th>Beschreibung</th></tr>\n <tr><td>M1 &cup; M2</td><td>M1 ++ M2</td><td>Vereinigung</td></tr>\n <tr><td>M1 &cap; M2</td><td>M1 & M2</td><td>Schnitt</td></tr>\n <tr><td>M1 \\ M2</td><td>M1 &~ M2</td><td>Differenz</td></tr>\n </table>\n       ",
+            "code": "Set(1, 2, 3) ++ Set(4, 5, 6) == Set(1, 2, 3, 4, 5, 6) should be(__)\nSet(1, 2) ++ Set(1, 5) == Set(1, 2, 5) should be(__)\n\n//Set(1, 2, 3) & Set(1, 2, 4) == Set(1, 2) should be(__)\n//Set(5) & Set(7, 8) == Set() should be(__)\n//Set(1, 2, 3, 4) &~ Set(3, 4) == Set(1, 2) should be(__)\n//Set(1, 2) &~ Set(1, 2) == Set() should be(__)",
+            "mode": "scala",
+            "solutions": [
+              "true",
+              "true",
+              "true",
+              "true",
+              "true",
+              "true"
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}
