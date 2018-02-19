@@ -5,7 +5,7 @@
       <router-link :to="{name: 'welcome'}">
         <img
           id="logo"
-          src="https://code.google.com/images/developers.png"
+          src="/static/img/codetask/logo-dark-icon-square.svg"
           alt="CodeTask Logo"
           :class="{small: this.$route.name !== 'welcome'}"
         >
@@ -37,12 +37,13 @@
 <style scoped lang="scss">
   #logo {
     display: block;
-    margin: 0 auto;
-    height: 11rem;
     transition: height 0.4s ease-out;
+    height: 8rem;
+    margin: 0 auto 0.8rem;
 
     &.small {
       height: 4rem;
+      margin: 0 auto 1.4rem;
     }
   }
 

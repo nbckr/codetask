@@ -64,7 +64,7 @@
 
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    color: #2c3e50;
+    color: #13181F;
 
     b, h1, h2, h3, h4, h5, h6 {
       font-family: swiss-heavy, $font-stack;

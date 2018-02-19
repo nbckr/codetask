@@ -13,7 +13,7 @@
 
     <el-menu-item index="title" :route="{ name: 'dashboard' }">
       <template slot="title">
-        <img src="http://via.placeholder.com/256x128" id="app-title"/>
+        <img src="/static/img/codetask/logo-white-full.svg" id="app-title"/>
       </template>
     </el-menu-item>
 

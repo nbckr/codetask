@@ -46,8 +46,14 @@
         </el-row>
 
       </el-collapse-item>
-
     </el-collapse>
+
+    <img
+      id="pen"
+      src="/static/img/codetask/pen-horizontal-xxl.svg"
+      aria-hidden="true"
+    >
+
   </div>
 
 </template>
@@ -111,5 +117,11 @@
 
   p {
     margin: 0;
+  }
+
+  #pen {
+    margin: 0 auto;
+    display: block;
+    padding: 1.6rem;
   }
 </style>

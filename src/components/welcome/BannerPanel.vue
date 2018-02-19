@@ -1,15 +1,19 @@
 <template>
 
   <div id="banner">
-    <h2>CodeTask</h2>
+
+    <img
+      id="title"
+      src="/static/img/codetask/logo-dark-title.svg"
+      alt="CodeTask Title"
+    >
+
     <h3 class="subtitle">
       Learn Scala with ease
     </h3>
     <p>
-      Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod
-      tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.
+      Du noch viel Scala lernen musst, junger Padawan.
     </p>
-    <br>
 
     <!-- If already logged in, router would redirect from this page to dashboard automatically -->
     <router-link
@@ -24,23 +28,41 @@
 </template>
 
 <script>
-  export default {}
+  export default {
+    created () {
+      // console.log('update')
+      // this.$forceUpdate()
+    }
+  }
 </script>
 
 <style scoped lang="scss">
 
   #banner {
+    // display: flex;
+    // align-content: center;
     // display: inline-block;
     // padding: 1.6rem;
     // box-shadow: 5px 5px;
 
     text-align: center;
-    color: #555;
+
+    p {
+      // text-overflow: ellipsis;
+      // display: inline;
+    }
+    // white-space: unset;
+    // color: #555;
+  }
+
+  #title {
+    height: 2rem;
   }
 
   .subtitle {
     font-size: 1.7rem;
-    margin: 0;
+    margin-bottom: 0.6rem;
+    // margin: 0;
   }
 
 </style>
