@@ -15,17 +15,29 @@
       </el-col>
     </el-row>
 
+    <div class="comments">
+      <vue-disqus
+        shortname="codetask"
+        :identifier="currentCourse.title"
+        url="https://codetask.disqus.com"
+      />
+    </div>
+
   </div>
+
+
 
 </template>
 
 <script>
+  import VueDisqus from 'vue-disqus/VueDisqus.vue'
   import ChapterInfoBox from './ChapterInfoBox'
   import { mapGetters } from 'vuex'
 
   export default {
     components: {
-      ChapterInfoBox
+      ChapterInfoBox,
+      VueDisqus
     },
 
     computed: {
