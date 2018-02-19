@@ -1,7 +1,6 @@
 <template>
   <div id="dashboard-wrapper">
     <h1>Dashboard</h1>
-    <p>Willkommen bei CodeTask!</p>
 
     <course-list/>
     <enroll-panel />

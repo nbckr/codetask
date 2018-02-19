@@ -7,7 +7,6 @@ import AppShell from '@/components/shared/AppShell'
 import RegisterPanel from '../components/welcome/RegisterPanel'
 import LoginPanel from '../components/welcome/LoginPanel'
 import BannerPanel from '../components/welcome/BannerPanel'
-import AdminPage from '../components/admin/AdminPage'
 
 // Dashboard
 import DashboardPage from '@/components/courses/dashboard/DashboardPage'
@@ -19,6 +18,12 @@ import ChapterEnd from '@/components/courses/learn/chapter/ChapterEnd'
 import ChapterPanel from '@/components/courses/learn/chapter/ChapterPanel'
 import CourseStart from '@/components/courses/learn/CourseStart'
 import BaseTask from '@/components/courses/learn/task/BaseTask'
+
+// Etc
+import AdminPage from '../components/admin/AdminPage'
+import SettingsPage from '../components/settings/SettingsPage'
+import ProfilePage from '../components/profile/ProfilePage'
+import LeaderboardPage from '../components/leaderboard/LeaderboardPage'
 
 Vue.use(Router)
 
@@ -53,26 +58,20 @@ export default new Router({
     // Everything else is the actual app, thus authentication is needed
     {
       path: '/app',
+      name: 'app',
       component: AppShell,
       meta: {
-        requiresAuth: false // TODO
+        requiresAuth: true
       },
       children: [
         // ----------------------------------------------------------- Dashboard
         {
           path: 'dashboard',
-          // path: 'courses/learn',
-          // alias: 'courses/learn/dashboard',
           component: DashboardPage,
           name: 'dashboard',
           exact: true
         },
 
-        // TODO
-        {
-          path: 'admin',
-          component: AdminPage
-        },
         // ------------------------------------------------------------ Learning
         {
           path: 'courses/learn/:course',
@@ -105,6 +104,31 @@ export default new Router({
               ]
             }
           ]
+        },
+
+        // ----------------------------------------------------------------- Etc
+        {
+          path: 'admin',
+          component: AdminPage,
+          name: 'admin'
+        },
+
+        {
+          path: 'settings',
+          component: SettingsPage,
+          name: 'settings'
+        },
+
+        {
+          path: 'profile',
+          component: ProfilePage,
+          name: 'profile'
+        },
+
+        {
+          path: 'leaderboard',
+          component: LeaderboardPage,
+          name: 'leaderboard'
         }
       ]
     },

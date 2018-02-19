@@ -1,6 +1,6 @@
-# codetask-2018
+# codetask
 
-> A complete rewrite of the Polymer-based CodeTask application
+> A complete rewrite of the Play & Polymer-based CodeTask application
 
 ## Build Setup
 

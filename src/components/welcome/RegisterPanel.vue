@@ -12,7 +12,6 @@
           type="text"
           id="displayName"
           autocomplete="name"
-          @blur="$v.displayName.$touch()"
           :value="displayName"
           @change.native="updateField('displayName', $event.target.value)"
           placeholder="Benutzername eintragen"
@@ -68,7 +67,7 @@
       </el-row>
       <register-panel-alert
         v-if="!$v.password.minLength"
-        message="Benutzername muss mindestens 6 Zeichen lang sein"
+        message="Passwort muss mindestens 6 Zeichen lang sein"
       />
 
       <!----------------------------------------------------- Confirm password -->
@@ -82,7 +81,7 @@
           id="confirm-password"
           autocomplete="password"
           :value="confirmPassword"
-          @change.native="updateField('confirmPassword', $event.target.value)"
+          @input.native="updateField('confirmPassword', $event.target.value)"
           placeholder="Passwort wiederholen"
         />
       </el-row>
@@ -101,6 +100,7 @@
           native-type="submit"
           type="primary"
           :disabled="$v.$invalid"
+          :loading="isLoading"
         >Konto anlegen
         </el-button>
       </el-row>
@@ -140,20 +140,30 @@
         displayName: '',
         email: '',
         password: '',
-        confirmPassword: ''
+        confirmPassword: '',
+        isLoading: false
       }
     },
 
     methods: {
       onSubmit: function () {
+        this.isLoading = true
         const formData = {
           displayName: this.displayName,
           email: this.email,
           password: this.password
         }
         this.$store.dispatch('REGISTER_USER', formData)
-          .then(this.$router.push({name: 'dashboard'}))
-          .catch(err => console.error(err))
+          .catch(error => this.$notify({
+            title: 'Registrierung fehlgeschlagen',
+            message: error.message,
+            type: 'warning',
+            offset: 180
+          }))
+          .finally(() => {
+            console.log('finally')
+            this.isLoading = false
+          })
       },
 
       updateField: function (field, value) {

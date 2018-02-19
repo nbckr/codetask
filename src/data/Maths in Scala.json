@@ -1,0 +1,132 @@
+{
+  "id": 5,
+  "title": "Maths in Scala",
+  "chapters": [
+    {
+      "id": 1,
+      "title": "Complex Numbers",
+      "tasks": [
+        {
+          "id": "koan1",
+          "tag": "koan-task",
+          "data": {
+            "description": "The Scala library Spire provides a type for complex numbers. They consist of a real and an imaginary part. ",
+            "code": "val ci1 = Complex(2, 1)\nci1.real should be(__)\nci1.imag should be(__)",
+            "mode": "scala",
+            "solutions": [
+              "2",
+              "1"
+            ]
+          }
+        },
+        {
+          "id": "koan2",
+          "tag": "koan-task",
+          "data": {
+            "description": "Complex numbers have a textual representation using the constant i like (3 + 4i)",
+            "code": "val ci1 = Complex(5, 6)\nci1.toString() should be(__)",
+            "mode": "scala",
+            "solutions": [
+              "\"(5 + 6i)\""
+            ]
+          }
+        },
+        {
+          "id": "koan3",
+          "tag": "koan-task",
+          "data": {
+            "description": "Complex numbers can be created from their textual representation",
+            "code": "val i = Complex.i[Double] \nComplex(0,1) === i should be(__)",
+            "mode": "scala",
+            "solutions": [
+              "true"
+            ]
+          }
+        },
+        {
+          "id": "koan4",
+          "tag": "koan-task",
+          "data": {
+            "description": "Complex numbers can be created from a textual representation, for convenience you should then define i as local variable",
+            "code": "val c1=(9.0 -2.5*Complex.i[Double])\nc1.real should be(__)\n\nval i = Complex.i[Double] \nval c2 = (9.0 - 2.5*i)\nc2.imag should be(__)",
+            "mode": "scala",
+            "solutions": [
+              "9.0",
+              "-2.5"
+            ]
+          }
+        },
+        {
+          "id": "koan5",
+          "tag": "koan-task",
+          "data": {
+            "description": "Complex numbers can be added and subtracted",
+            "code": "val ci1 = Complex(2, 1)\nval ci2 = Complex(3, 5) \nval ci3 = ci1 + ci2\nci3.real should be(__)\nci3.imag should be(__)\n\n(ci2 - ci1).real should be(__)",
+            "mode": "scala",
+            "solutions": [
+              "5",
+              "6",
+              "1"
+            ]
+          }
+        },
+        {
+          "id": "koan6",
+          "tag": "koan-task",
+          "data": {
+            "description": "The real and the imaginary part can each be of type Int or Double (or even other number types)",
+            "code": "val cd1 = Complex(2.0, 1.0)\nval cd2 = Complex(3.3, 4.6)\nval cd3 = cd1 + cd2\ncd3.toString should be (__)",
+            "mode": "scala",
+            "solutions": [
+              "\"(5.3 + 5.6i)\""
+            ]
+          }
+        },
+        {
+          "id": "koan7",
+          "tag": "koan-task",
+          "data": {
+            "description": "Complex numbers have equivalence",
+            "code": "val ci1 = Complex(2, 1)\nval ci2 = Complex(3, 5)\nci1 === ci2 should be(__)\nci1 =!= ci2 should be(__)",
+            "mode": "scala",
+            "solutions": [
+              "false",
+              "true"
+            ]
+          }
+        },
+        {
+          "id": "koan8",
+          "tag": "koan-task",
+          "data": {
+            "description": "Trigonometric functions can operate on complex numbers",
+            "code": "val cd1 = Complex(2.0, 0.0)\ncd1.sin.imag should be(__)",
+            "mode": "scala",
+            "solutions": [
+              "0"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "title": "Vector Spaces",
+      "tasks": [
+        {
+          "id": "koan1",
+          "tag": "koan-task",
+          "data": {
+            "description": "The Scala library Spire provides a type for Vector. It allows operations like addition and scalar product",
+            "code": "val v1 = Vector(1,5,3) + Vector(2,1,-5) \nv1 should be(__)\n\n\t    val v2= 4.0 *: Vector(1.0,5.0,3.0) \n\t    v2 should be(__)",
+            "mode": "scala",
+            "solutions": [
+              "Vector(3, 6, -2)",
+              "Vector(4.0, 20.0, 12.0)"
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}

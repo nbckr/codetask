@@ -1,57 +1,63 @@
 <template>
 
-    <!--
-    <router-link :to="{name: 'dashboard'}">
-      <h1>CodeTask</h1>
-    </router-link>
-    <p v-if="isAuthenticated">hey</p>
--->
-    <el-menu
-      :default-active="activeIndex"
-      class="el-menu-demo"
-      mode="horizontal"
-      :router="true"
-      @select="handleSelect"
-      background-color="#545c64"
-      text-color="#fff"
-      active-text-color="#ffd04b"
-    >
+  <el-menu
+    :default-active="activeIndex"
+    class="el-menu-demo"
+    mode="horizontal"
+    :router="true"
+    @select="onMenuSelect"
+    background-color="#334152"
+    text-color="white"
+    active-text-color="#009b91"
+  >
 
-      <el-menu-item index="1" :route="{ name: 'welcome' }">CodeTask</el-menu-item>
-      <el-menu-item index="2" :route="{ name: 'dashboard' }">Meine Kurse</el-menu-item>
-      <el-submenu index="3" v-if="currentUser">
-        <template slot="title">
-          <img src="http://via.placeholder.com/128x128" id="user-img" />
-          {{ currentUser.displayName }}
-          <el-tag
-            size="small"
-          >{{ currentUser.score }}</el-tag>
-        </template>
-        <el-menu-item index="3-1">Mein Profil</el-menu-item>
-        <el-menu-item index="3-2">Einstellungen</el-menu-item>
-        <el-menu-item index="3-3" @click="logout">Ausloggen</el-menu-item>
-      </el-submenu>
-    </el-menu>
+    <el-menu-item index="title" :route="{ name: 'dashboard' }">
+      <template slot="title">
+        <img src="/static/img/codetask/logo-white-full.svg" id="app-title"/>
+      </template>
+    </el-menu-item>
+
+    <el-submenu index="user-menu" id="user-menu" v-if="currentUser">
+      <template slot="title">
+        <img src="http://via.placeholder.com/128x128" id="user-img"/>
+        {{ currentUser.displayName }}
+
+        <user-score-tag :score="currentUser.score" />
+      </template>
+
+      <el-menu-item index="submenu-profile" :route="{name: 'profile'}">Mein Profil</el-menu-item>
+      <el-menu-item index="submenu-settings" :route="{name: 'settings'}">Einstellungen</el-menu-item>
+      <el-menu-item index="submenu-leaderboard" :route="{name: 'leaderboard'}">Bestenliste</el-menu-item>
+      <el-menu-item index="submenu-admin" :route="{name: 'admin'}">Kurse und Nutzer verwalten</el-menu-item>
+      <el-menu-item index="submenu-logout" @click="logout">Ausloggen</el-menu-item>
+    </el-submenu>
+
+    <el-menu-item index="dashboard" id="dashboard" :route="{ name: 'dashboard' }">Dashboard</el-menu-item>
+
+  </el-menu>
 
 </template>
 
 <script>
+  import UserScoreTag from '@/components/shared/UserScoreTag'
   import { mapGetters } from 'vuex'
 
   export default {
 
     data () {
       return {
-        activeIndex: '1'
+        activeIndex: 'dashboard'
       }
     },
 
     methods: {
-      handleSelect (key, keyPath) {},
+      onMenuSelect (key, keyPath) {
+        this.activeIndex = keyPath[0]
+      },
 
       logout () {
         this.$store.dispatch('AUTH_LOGOUT_USER')
-        this.$router.push({name: 'welcome'})
+          .then(this.$router.push({name: 'welcome'}))
       }
     },
 
@@ -60,7 +66,9 @@
         'currentUser',
         'users'
       ])
-    }
+    },
+
+    components: { UserScoreTag }
   }
 </script>
 
@@ -74,19 +82,6 @@
     text-decoration: underline;
   }
 
-  div {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    border: orangered 5px dotted;
-    margin: 0;
-    height: 56px;
-    padding: 0 16px 0 24px;
-    background-color: #35495E;
-    color: #ffffff;
-  }
-
   div span {
     display: block;
     position: relative;
@@ -98,13 +93,16 @@
     padding-top: 16px;
   }
 
-  #user-img {
-    border-radius: 50%;
+  #user-menu, #dashboard {
+    float: right
+  }
+
+  img {
     height: 70%;
   }
 
-  .el-menu {
-    background-color: #334152 !important;
+  #user-img {
+    border-radius: 50%;
   }
 
   .el-tag {
@@ -118,6 +116,10 @@
     /* line-height: 22px; */
     color: white;
     font-weight: bold;
+  }
+
+  header {
+    // TODO: min-width 450px
   }
 
 </style>

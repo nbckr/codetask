@@ -29,7 +29,10 @@
         justify="center">
         <el-button
           native-type="submit"
-          type="primary">Anmelden
+          type="primary"
+          :loading="isLoading"
+        >
+          Anmelden
         </el-button>
       </el-row>
 
@@ -39,7 +42,7 @@
         <router-link
           :to="{name: 'register'}"
           tag="p"
-          ><a>... oder neues Konto anlegen</a>
+        ><a>... oder neues Konto anlegen</a>
         </router-link>
       </el-row>
 
@@ -52,7 +55,8 @@
     data () {
       return {
         email: '',
-        password: ''
+        password: '',
+        isLoading: false
       }
     },
     methods: {
@@ -62,17 +66,23 @@
           password: this.password
         }
 
+        this.isLoading = true
         this.$store.dispatch('AUTH_LOGIN_USER', {
           email: formData.email,
           password: formData.password,
           returnSecureToken: true
         })
-          .then(() => this.$router.push({name: 'dashboard'}))
-          .catch(error => this.$notify({
-            title: 'Warning',
-            message: error.message,
-            type: 'warning'
-          }))
+          .catch(error => {
+            this.$notify({
+              title: 'Anmeldung fehlgeschlagen',
+              message: error.message,
+              type: 'warning',
+              offset: 180
+            })
+            // This is a little hacky, but there is no finally() method
+            // and module gets unloaded anyhow when login was successful
+            this.isLoading = false
+          })
       }
     }
   }
@@ -94,8 +104,8 @@
     color: black;
     text-decoration: none;
 
-  &:hover {
-     text-decoration: underline;
-   }
+    &:hover {
+      text-decoration: underline;
+    }
   }
 </style>

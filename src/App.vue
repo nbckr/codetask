@@ -13,13 +13,13 @@
     >
       <!-- Either show landing page or the actual app -->
       <router-view
-        v-if="this.$store.state.firebaseReady"
+        v-if="this.$store.state.firebaseGeneralReady"
       />
     </transition>
 
     <!-- Show loading circle until app is ready -->
     <div
-      v-loading.fullscreen.lock="!this.$store.state.firebaseReady"
+      v-loading.fullscreen.lock="!this.$store.state.firebaseGeneralReady"
       element-loading-background="#334152"
     />
   </div>
@@ -38,7 +38,7 @@
 
     beforeCreate () {
       // Wire up vuex state with firebase db
-      this.$store.dispatch('BIND_FIREBASE_REFS')
+      this.$store.dispatch('BIND_FIREBASE_GENERAL_REFS')
     }
   }
 </script>
@@ -64,11 +64,11 @@
 
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    color: #2c3e50;
+    color: #13181F;
 
     b, h1, h2, h3, h4, h5, h6 {
       font-family: swiss-heavy, $font-stack;
-      font-weight: normal;
+      font-weight: normal !important;
     }
   }
 

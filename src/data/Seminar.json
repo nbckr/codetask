@@ -1,0 +1,1313 @@
+{
+  "id": 6,
+  "title": "Seminar",
+  "chapters": [
+    {
+      "id": 1,
+      "title": "Parallel Collections",
+      "tasks": [
+        {
+          "id": "koan1",
+          "tag": "koan-task",
+          "data": {
+            "description": "A sequential collection can be converted to its parallel counterpart (same name with the prefix \\\"Par\\\") using the par method.",
+            "code": "val seqVec = Vector(1, 2, 3)\nseqVec.par should be(__)",
+            "mode": "scala",
+            "solutions": [
+              "ParVector(1, 2, 3)"
+            ]
+          }
+        },
+        {
+          "id": "koan2",
+          "tag": "koan-task",
+          "data": {
+            "description": "Some sequential collections do not have a direct parallel counterpart, so they will be copied into a similar parallel data structure.",
+            "code": "val seqList = List(1, 2, 3)\nseqList.par should be(__)",
+            "mode": "scala",
+            "solutions": [
+              "ParVector(1, 2, 3)"
+            ]
+          }
+        },
+        {
+          "id": "koan3",
+          "tag": "koan-task",
+          "data": {
+            "description": "The seq method converts a parallel collection to its sequential counterpart",
+            "code": "List(1, 2, 3).par.seq should be(__)",
+            "mode": "scala",
+            "solutions": [
+              "Vector(1, 2, 3)"
+            ]
+          }
+        },
+        {
+          "id": "koan4",
+          "tag": "koan-task",
+          "data": {
+            "description": "Parallel collections can be used the same way as sequential collections are used",
+            "code": "val seqVec = Vector(1, 2, 3)\nval parVec = ParVector(1, 2, 3)\n\nseqVec.filter(_ > 1).toSeq == parVec.filter(_ > 1).toSeq should be(__)\n\nseqVec.map(_ * 2) should be(__)\nparVec.map(_ * 2) should be(__)",
+            "mode": "scala",
+            "solutions": [
+              "true",
+              "Vector(2, 4, 6)",
+              "ParVector(2, 4, 6)"
+            ]
+          }
+        },
+        {
+          "id": "koan5",
+          "tag": "koan-task",
+          "data": {
+            "description": "Be careful when using functions with side effects! You will run into race conditions and the result will no longer be deterministic.",
+            "code": "// 1 + 2 + 3 + ... + 10000 = 50005000\n\nval seqRange = 1 to 10000\nvar seqSum = 0\nseqRange.foreach(seqSum += _)\n\nval parRange = seqRange.par\nvar parSum = 0\nparRange.foreach(parSum += _)\n\nseqSum should be(__)\nparSum == seqSum should be(__)",
+            "mode": "scala",
+            "solutions": [
+              "50005000",
+              "false"
+            ]
+          }
+        },
+        {
+          "id": "koan6",
+          "tag": "koan-task",
+          "data": {
+            "description": "Also, the order in which operations are executed may vary when using parallel collections. So, non-associative operations, like subtractions, will most likely be executed wrong.",
+            "code": "// 0 - 1 - 2 - 3 - ... - 10000 = -50005000\n\nval seqRange = 0 to 10000\nval seqSub = seqRange.reduce(_ - _)\n\nval parRange = seqRange.par\nval parSub = parRange.reduce(_ - _)\n\nseqSub should be(__)\nparSub == seqSub should be(__)",
+            "mode": "scala",
+            "solutions": [
+              "-50005000",
+              "false"
+            ]
+          }
+        },
+        {
+          "id": "koan7",
+          "tag": "koan-task",
+          "data": {
+            "description": "However, non-commutative operations are fine. The combiners of the parallel collection will preserve the order.",
+            "code": "val seqStrVec = Vector(\"abcdef\", \"ghi\", \"jklmno\", \"pqrstuvwx\", \"yz\")\nval seqStr = seqStrVec.reduce(_ ++ _)\n\nval parStrVec = seqStrVec.par\nval parStr = parStrVec.reduce(_ ++ _)\n\nparStr should be(__)\nparStr == seqStr should be(__)",
+            "mode": "scala",
+            "solutions": [
+              "\"abcdefghijklmnopqrstuvwxyz\"",
+              "true"
+            ]
+          }
+        },
+        {
+          "id": "koan8",
+          "tag": "koan-task",
+          "data": {
+            "description": "When instantiating your own ForkJoinTaskSupport for a parallel collection, you can set the parallelization level for yourself.",
+            "code": "val parRange = (0 to 10000).par\n\nvar sumOne = 0\nparRange.tasksupport = new ForkJoinTaskSupport(new ForkJoinPool(8))\nparRange.foreach(sumOne += _)\n\nvar sumTwo = 0\nparRange.tasksupport = new ForkJoinTaskSupport(new ForkJoinPool(1))\nparRange.foreach(sumTwo += _)\n\nsumOne == 50005000 should be(__)\nsumTwo == 50005000 should be(__)",
+            "mode": "scala",
+            "solutions": [
+              "false",
+              "true"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "title": "Futures and Promises",
+      "tasks": [
+        {
+          "id": "koan1",
+          "tag": "koan-task",
+          "data": {
+            "description": "a callback registered with \\\"onSuccess\\\" is called when the future completes successfully",
+            "code": "val future: Future[String] = Future {\n  \"future result\"\n}\n\nfuture onSuccess {\n  case result => result should be(__)\n}\n\nAwait.ready(future, 1 seconds)",
+            "mode": "scala",
+            "solutions": [
+              "\"future result\""
+            ]
+          }
+        },
+        {
+          "id": "koan2",
+          "tag": "koan-task",
+          "data": {
+            "description": "exceptions can be handled by registering a callback with \\\"onFailure\\\"",
+            "code": "val future: Future[String] = Future {\n  throw new Exception(\"an exception\")\n}\n\nfuture onFailure {\n  case ex => ex.getMessage should be(__)\n}\n\nAwait.ready(future, 1 seconds)",
+            "mode": "scala",
+            "solutions": [
+              "\"an exception\""
+            ]
+          }
+        },
+        {
+          "id": "koan3",
+          "tag": "koan-task",
+          "data": {
+            "description": "both cases can be handled with \\\"onComplete\\\"",
+            "code": "val future: Future[String] = Future {\n  \"not failing\"\n}\n\nfuture onComplete {\n  case Success(result) => result should be(__)\n  case Failure(_) => println(\"try to get this printed to the console\")\n}\n\nAwait.ready(future, 1 seconds)",
+            "mode": "scala",
+            "solutions": [
+              "\"not failing\""
+            ]
+          }
+        },
+        {
+          "id": "koan4",
+          "tag": "koan-task",
+          "data": {
+            "description": "futures are executed asynchronously",
+            "code": "var someBoolean = false\n\nval future: Future[Boolean] = Future {\n  Thread.sleep(500)\n  true\n}\n\nfuture onSuccess {\n  case result => someBoolean = result\n}\n\nfuture.isCompleted should be(__)\nsomeBoolean should be(__)\n\nThread.sleep(1000)\n\nfuture.isCompleted should be(__)\nsomeBoolean should be(__)",
+            "mode": "scala",
+            "solutions": [
+              "false",
+              "false",
+              "true",
+              "true"
+            ]
+          }
+        },
+        {
+          "id": "koan5",
+          "tag": "koan-task",
+          "data": {
+            "description": "for comprehension work with futures",
+            "code": "val future1 = Future {\n  1\n}\n\nval future2 = Future {\n  2\n}\n\nval future3 = for {\n  x <- future1\n  y <- future2\n} yield {\n  x + y\n}\n\nfuture3 onSuccess {\n  case number => number should be(__)\n}\n\nAwait.ready(future3, 1 seconds)",
+            "mode": "scala",
+            "solutions": [
+              "3"
+            ]
+          }
+        },
+        {
+          "id": "koan6",
+          "tag": "koan-task",
+          "data": {
+            "description": "promises provide another way to create futures",
+            "code": "val promise = Promise[Int]()\nval future = promise.future\n\nfuture onSuccess {\n  case number => number should be(__)\n}\n\npromise success (42)\n\nAwait.ready(future, 1 seconds)",
+            "mode": "scala",
+            "solutions": [
+              "42"
+            ]
+          }
+        },
+        {
+          "id": "koan7",
+          "tag": "koan-task",
+          "data": {
+            "description": "a promise can be failed with \\\"failure\\\"",
+            "code": "val promise = Promise[Int]()\nval future = promise.future\n\n\nfuture recover {\n  case ex => ex.getMessage should be(__); 42\n} onSuccess {\n  case number => number should be(__)\n}\n\npromise failure (new Exception(\"promise failed\"))\n\nAwait.ready(future, 1 seconds)",
+            "mode": "scala",
+            "solutions": [
+              "\"promise failed\"",
+              "42"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "title": "Actors",
+      "tasks": [
+        {
+          "id": "koan1",
+          "tag": "koan-task",
+          "data": {
+            "description": "First you create an actor system.",
+            "code": "val system = ActorSystem(\"ExampleActorSystem\")\n\nsystem.name should be(__)\nsystem.terminate()",
+            "mode": "scala",
+            "solutions": [
+              "\"ExampleActorSystem\""
+            ]
+          }
+        },
+        {
+          "id": "koan2",
+          "tag": "koan-task",
+          "data": {
+            "description": "You can create actors using the system. What do you get back?",
+            "code": "class ExampleActor extends Actor {\n\n  override def receive = {\n    case _ => //Do something\n  }\n\n}\n\nval system = ActorSystem(\"ExampleActorSystem\")\nval actor = system.actorOf(Props(new ExampleActor), \"ExampleActor\")\n\nactor.isInstanceOf[Actor] should be(__)\nactor.isInstanceOf[ExampleActor] should be(__)\nactor.isInstanceOf[ActorRef] should be(__)\nactor.isInstanceOf[ActorPath] should be(__)\n\nsystem.terminate()",
+            "mode": "scala",
+            "solutions": [
+              "false",
+              "false",
+              "true",
+              "false"
+            ]
+          }
+        },
+        {
+          "id": "koan3",
+          "tag": "koan-task",
+          "data": {
+            "description": "You can ask an actor to send a message back",
+            "code": "class ExampleActor extends Actor {\n\n  override def receive = {\n    case message: String => sender.tell(message, self)\n    case _ => sender ! \"?\"\n  }\n\n}\n\nval system = ActorSystem(\"ExampleActorSystem\")\nval actor = system.actorOf(Props(new ExampleActor), \"ExampleActor\")\nimplicit val timeout = Timeout(5 seconds)\n\nval future1: Future[Any] = actor ? \"Hello\"\nval future2: Future[Any] = actor ? 42\n\nfuture1 onSuccess {\n  case result => result should be(__)\n}\n\nfuture2 onSuccess {\n  case result => result should be(__)\n}\n\nAwait.result(future1, 1 seconds)\nAwait.result(future2, 1 seconds)\nsystem.terminate()",
+            "mode": "scala",
+            "solutions": [
+              "\"Hello\"",
+              "\"?\""
+            ]
+          }
+        },
+        {
+          "id": "koan4",
+          "tag": "koan-task",
+          "data": {
+            "description": "You can use case objects or case classes",
+            "code": "case class TextMessage(text: String)\n\ncase object GiveMeAnAnswerMessage\n\nclass ExampleActor extends Actor {\n\n  override def receive = {\n    case message: TextMessage => sender.tell(message.text, self)\n    case GiveMeAnAnswerMessage => sender ! 42\n  }\n\n}\n\nval system = ActorSystem(\"ExampleActorSystem\")\nval actor = system.actorOf(Props(new ExampleActor), \"ExampleActor\")\nimplicit val timeout = Timeout(5 seconds)\n\nval future1: Future[Any] = actor ? TextMessage(\"Hello\")\nval future2: Future[Any] = actor ? GiveMeAnAnswerMessage\n\nfuture1 onSuccess {\n  case result => result should be(__)\n}\n\nfuture2 onSuccess {\n  case result => result should be(__)\n}\n\nAwait.result(future1, 1 seconds)\nAwait.result(future2, 1 seconds)\nsystem.terminate()",
+            "mode": "scala",
+            "solutions": [
+              "\"Hello\"",
+              "42"
+            ]
+          }
+        },
+        {
+          "id": "koan5",
+          "tag": "koan-task",
+          "data": {
+            "description": "You can pass parameters to the actors constructor",
+            "code": "case object AskNameMessage\n\nclass ExampleActor(private val name: String) extends Actor {\n\n  override def receive = {\n    case AskNameMessage => sender.tell(name, self)\n  }\n\n}\n\nval system = ActorSystem(\"ExampleActorSystem\")\nval actor = system.actorOf(Props(new ExampleActor(\"Max\")), \"MaxTheExampleActor\")\nimplicit val timeout = Timeout(5 seconds)\n\nval future: Future[Any] = actor ? AskNameMessage\n\nfuture onSuccess {\n  case result => result should be(__)\n}\n\nAwait.result(future, 1 seconds)\nsystem.terminate()",
+            "mode": "scala",
+            "solutions": [
+              "\"Max\""
+            ]
+          }
+        },
+        {
+          "id": "koan6",
+          "tag": "koan-task",
+          "data": {
+            "description": "Actors can have a state",
+            "code": "class NumberActor extends Actor {\n\n  var number: Int = 0\n\n\n  override def receive = {\n    case n: Int =>\n      number += n\n      sender ! number\n    case _ =>\n      sender ! 42\n  }\n\n}\n\nval system = ActorSystem(\"NumberActorSystem\")\nval actor = system.actorOf(Props(new NumberActor), \"NumberActor\")\nimplicit val timeout = Timeout(5 seconds)\n\nval future1: Future[Any] = actor ? 5\nfuture1 onSuccess {\n  case result => result should be(__)\n}\n\nAwait.result(future1, 1 seconds)\n\nval future2: Future[Any] = actor ? \"6\"\nval future3: Future[Any] = actor ? 6\n\nfuture2 onSuccess {\n  case result => result should be(__)\n}\n\nfuture3 onSuccess {\n  case result => result should be(__)\n}\n\nAwait.result(future2, 5 seconds)\nAwait.result(future3, 5 seconds)\n\nsystem.terminate()",
+            "mode": "scala",
+            "solutions": [
+              "5",
+              "42",
+              "11"
+            ]
+          }
+        },
+        {
+          "id": "koan7",
+          "tag": "koan-task",
+          "data": {
+            "description": "Actors can create other actors. That actors are the childs of the creating actor.",
+            "code": "case object HelloMessage\n\nclass ParentActor extends Actor {\n\n  var n: Int = 0\n\n  override def receive = {\n    case HelloMessage =>\n      //new is not recommended here\n      val child = context.actorOf(Props(new ChildActor), \"child\" + n)\n      n += 1\n      child.tell(HelloMessage, sender)\n  }\n\n}\n\nclass ChildActor extends Actor {\n\n  override def receive = {\n    case HelloMessage => sender.tell(\"Hello\", self)\n      context.stop(self)\n  }\n\n}\n\nval system = ActorSystem(\"HierarchyActorSystem\")\nval actor = system.actorOf(Props(new ParentActor), \"Parent\")\nimplicit val timeout = Timeout(5 seconds)\n\nval future1: Future[Any] = actor ? HelloMessage\n\nfuture1 onSuccess {\n  case result => result should be(__)\n}\n\nsystem.terminate()",
+            "mode": "scala",
+            "solutions": [
+              "\"Hello\""
+            ]
+          }
+        },
+        {
+          "id": "koan8",
+          "tag": "koan-task",
+          "data": {
+            "description": "Actors have paths",
+            "code": "case object SendPathMessage\ncase object SendPathOfChildMessage\n\nclass ParentActor extends Actor {\n  implicit val timeout = Timeout(5 seconds)\n\n  //new is not recommended here\n  val child = context.actorOf(Props(new ChildActor), \"child\")\n\n  override def receive = {\n    case SendPathMessage => sender ! self.path.toString\n    case SendPathOfChildMessage =>\n      val future: Future[Any] = child ? SendPathMessage\n      sender ! future\n  }\n\n}\n\nclass ChildActor extends Actor {\n\n  override def receive = {\n    case SendPathMessage => sender ! self.path.toString\n  }\n\n}\n\nval system = ActorSystem(\"ActorSystem\")\nval actor = system.actorOf(Props(new ParentActor), \"Parent\")\nimplicit val timeout = Timeout(5 seconds)\n\nactor.path.toString should be(__)\n\nval future1: Future[Any] = actor ? SendPathMessage\nval future2: Future[Any] = actor ? SendPathOfChildMessage\n\nfuture1 onSuccess {\n  case result => result should be(__)\n}\n\nfuture2 onSuccess {\n  case result: Future[Any] => result.onSuccess {\n    case result => result should be(__)\n  }\n}\n\nactor.path.isInstanceOf[ActorPath] should be(__)\n\nAwait.result(future1, 1 seconds)\nAwait.result(future2, 5 seconds)\n\nsystem.terminate()",
+            "mode": "scala",
+            "solutions": [
+              "\"akka://ActorSystem/user/Parent\"",
+              "\"akka://ActorSystem/user/Parent\"",
+              "\"akka://ActorSystem/user/Parent/child\"",
+              "true"
+            ]
+          }
+        },
+        {
+          "id": "koan9",
+          "tag": "koan-task",
+          "data": {
+            "description": "You can select actors using a path",
+            "code": "case class TextMessage(text: String)\n\n\nclass ExampleParentActor extends Actor {\n\n  val child = context.actorOf(Props(new ChildActor), \"ExampleChild\")\n\n  override def receive = {\n    case _ => //Do noting\n  }\n\n}\n\nclass ChildActor extends Actor {\n\n  override def receive = {\n    case message: TextMessage => sender.tell(message.text, self)\n  }\n\n}\n\nval system = ActorSystem(\"ExampleActorSystem\")\nsystem.actorOf(Props(new ExampleParentActor), \"ExampleParentActor\")\nimplicit val timeout = Timeout(5 seconds)\n\nval selectedActor = system.actorSelection(\"akka://ExampleActorSystem/user/ExampleParentActor/ExampleChild\")\n\nval future: Future[Any] = selectedActor ? TextMessage(\"Hello\")\n\nfuture onSuccess {\n  case result => result should be(__)\n}\n\nAwait.result(future, 1 seconds)\nsystem.terminate()",
+            "mode": "scala",
+            "solutions": [
+              "\"Hello\""
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "title": "Streams",
+      "tasks": [
+        {
+          "id": "koan1",
+          "tag": "koan-task",
+          "data": {
+            "description": "1. Create a empty Stream.",
+            "code": "answer1 should be(__)",
+            "mode": "scala",
+            "solutions": [
+              "Stream.empty"
+            ]
+          }
+        },
+        {
+          "id": "koan2",
+          "tag": "koan-task",
+          "data": {
+            "description": "2. Create an Int-Stream with 1, 2, 3. Use only right associative.",
+            "code": "answer2 should be(__)",
+            "mode": "scala",
+            "solutions": [
+              "1 #:: 2 #:: 3 #:: Stream.empty"
+            ]
+          }
+        },
+        {
+          "id": "koan3",
+          "tag": "koan-task",
+          "data": {
+            "description": "3. Create an Int-Stream range start: 100, end: 250 and step range 10.",
+            "code": "answer3 should be(__)",
+            "mode": "scala",
+            "solutions": [
+              "Stream.range(100, 250, 10)"
+            ]
+          }
+        },
+        {
+          "id": "koan4",
+          "tag": "koan-task",
+          "data": {
+            "description": "4. Concatenate of two Streams",
+            "code": "val stream1 = 1 #:: 2 #:: 3 #:: Stream.empty\nval stream2 = 4 #:: 5 #:: 6 #:: Stream.empty\n\nval answer4 = stream1 append stream2\n\nanswer4.force should be(__)",
+            "mode": "scala",
+            "solutions": [
+              "Stream(1, 2, 3, 4, 5, 6)"
+            ]
+          }
+        },
+        {
+          "id": "koan5",
+          "tag": "koan-task",
+          "data": {
+            "description": "5. Get whole Stream",
+            "code": "val stream = 1 #:: 2 #:: 3 #:: Stream.empty\n\nanswer5 should be(__)",
+            "mode": "scala",
+            "solutions": [
+              "stream.force"
+            ]
+          }
+        },
+        {
+          "id": "koan6",
+          "tag": "koan-task",
+          "data": {
+            "description": "6. Get second entity of Stream",
+            "code": "val stream = 1 #:: 2 #:: 3 #:: Stream.empty\n\nanswer6 should be(__)",
+            "mode": "scala",
+            "solutions": [
+              "stream(1)"
+            ]
+          }
+        },
+        {
+          "id": "koan7",
+          "tag": "koan-task",
+          "data": {
+            "description": "7. Get head of Stream",
+            "code": "val stream = 1 #:: 2 #:: 3 #:: Stream.empty\n\nanswer7 should be(__)",
+            "mode": "scala",
+            "solutions": [
+              "stream.head"
+            ]
+          }
+        },
+        {
+          "id": "koan8",
+          "tag": "koan-task",
+          "data": {
+            "description": "8. Get tail of Stream",
+            "code": "val stream = 1 #:: 2 #:: 3 #:: Stream.empty\n\nanswer8.toStream should be(__)",
+            "mode": "scala",
+            "solutions": [
+              "stream.tail"
+            ]
+          }
+        },
+        {
+          "id": "koan9",
+          "tag": "koan-task",
+          "data": {
+            "description": "9. What's the result of head",
+            "code": "val stream = 1 #:: 2 #:: 3 #:: Stream.empty\nanswer9 = stream.head\n\nanswer9 should be(__)",
+            "mode": "scala",
+            "solutions": [
+              "1"
+            ]
+          }
+        },
+        {
+          "id": "koan10",
+          "tag": "koan-task",
+          "data": {
+            "description": "10. What's the result of tail, as string",
+            "code": "val stream = 1 #:: 2 #:: 3 #:: Stream.empty\nanswer10 = stream.tail.toString()\n\nanswer10 should be(__)",
+            "mode": "scala",
+            "solutions": [
+              "\"Stream(2, ?)\""
+            ]
+          }
+        },
+        {
+          "id": "koan11",
+          "tag": "koan-task",
+          "data": {
+            "description": "11. What's the result of tail after force(), as string",
+            "code": "val stream = 1 #:: 2 #:: 3 #:: Stream.empty\nstream.force\nanswer11 = stream.tail.toString()\n\nanswer11 should be(__)",
+            "mode": "scala",
+            "solutions": [
+              "\"Stream(2, 3)\""
+            ]
+          }
+        },
+        {
+          "id": "koan12",
+          "tag": "koan-task",
+          "data": {
+            "description": "12: There is an exception thrown, \\\"yes\\\" or \\\"no\\\"?",
+            "code": "try {\n  val listExc = 1 :: 2 :: 3 :: (throw new Exception(\"END OF LIST!\")) :: List.empty\n  answer12 = \"no\"\n} catch {\n  case _: Exception =>\n    answer12 = \"yes\"\n}\n\nanswer12 should be(__)",
+            "mode": "scala",
+            "solutions": [
+              "\"yes\""
+            ]
+          }
+        },
+        {
+          "id": "koan13",
+          "tag": "koan-task",
+          "data": {
+            "description": "13: There is an exception thrown, \\\"yes\\\" or \\\"no\\\"?",
+            "code": "try {\n  val streamExc = 1 #:: 2 #:: 3 #:: (throw new Exception(\"END OF Stream!\")) #:: Stream.empty\n  answer13 = \"no\"\n} catch {\n  case _: Exception =>\n    answer13 = \"yes\"\n}\n\nanswer13 should be(__)",
+            "mode": "scala",
+            "solutions": [
+              "\"no\""
+            ]
+          }
+        },
+        {
+          "id": "koan14",
+          "tag": "koan-task",
+          "data": {
+            "description": "14: There is an exception thrown, \\\"yes\\\" or \\\"no\\\"?",
+            "code": "try {\n  val streamExc = 1 #:: 2 #:: 3 #:: (throw new Exception(\"END OF Stream!\")) #:: Stream.empty\n  streamExc.take(3).force\n  answer14 = \"no\"\n} catch {\n  case _: Exception =>\n    answer14 = \"yes\"\n}\n\nanswer14 should be(__)",
+            "mode": "scala",
+            "solutions": [
+              "\"no\""
+            ]
+          }
+        },
+        {
+          "id": "koan15",
+          "tag": "koan-task",
+          "data": {
+            "description": "15: There is an exception thrown, \\\"yes\\\" or \\\"no\\\"?",
+            "code": "try {\n  val streamExc = 1 #:: 2 #:: 3 #:: (throw new Exception(\"END OF Stream!\")) #:: Stream.empty\n  streamExc.take(4).force\n  answer15 = \"no\"\n} catch {\n  case _: Exception =>\n    answer15 = \"yes\"\n}\n\nanswer15 should be(__)",
+            "mode": "scala",
+            "solutions": [
+              "\"yes\""
+            ]
+          }
+        },
+        {
+          "id": "koan16",
+          "tag": "koan-task",
+          "data": {
+            "description": "16: This is a lazy operation, \\\"yes\\\" or \\\"no\\\"?",
+            "code": "val stream = (1 to 1000).toStream\nstream.filter(_ < 200)\n\nanswer16 should be(__)",
+            "mode": "scala",
+            "solutions": [
+              "\"yes\""
+            ]
+          }
+        },
+        {
+          "id": "koan17",
+          "tag": "koan-task",
+          "data": {
+            "description": "17: This is a lazy operation, \\\"yes\\\" or \\\"no\\\"?",
+            "code": "val stream = (1 to 1000).toStream\nstream.filter(_ > 200)\n\nanswer17 should be(__)",
+            "mode": "scala",
+            "solutions": [
+              "\"yes\""
+            ]
+          }
+        },
+        {
+          "id": "koan18",
+          "tag": "koan-task",
+          "data": {
+            "description": "18: This is a lazy operation, \\\"yes\\\" or \\\"no\\\"?",
+            "code": "val stream = (1 to 1000).toStream\nstream.map {\n  _ * 2\n}\n\nanswer18 should be(__)",
+            "mode": "scala",
+            "solutions": [
+              "\"yes\""
+            ]
+          }
+        },
+        {
+          "id": "koan19",
+          "tag": "koan-task",
+          "data": {
+            "description": "19: This is a lazy operation, \\\"yes\\\" or \\\"no\\\"?",
+            "code": "val stream = (1 to 1000).toStream\nstream.sum\n\nanswer19 should be(__)",
+            "mode": "scala",
+            "solutions": [
+              "\"no\""
+            ]
+          }
+        },
+        {
+          "id": "koan20",
+          "tag": "koan-task",
+          "data": {
+            "description": "20: This is a lazy operation, \\\"yes\\\" or \\\"no\\\"?",
+            "code": "val stream = (1 to 1000).toStream\nstream.size\n\nanswer20 should be(__)",
+            "mode": "scala",
+            "solutions": [
+              "\"no\""
+            ]
+          }
+        },
+        {
+          "id": "koan21",
+          "tag": "koan-task",
+          "data": {
+            "description": "21: This is a lazy operation, \\\"yes\\\" or \\\"no\\\"?",
+            "code": "val stream = (1 to 1000).toStream\nstream.find(_ == 400)\n\nanswer21 should be(__)",
+            "mode": "scala",
+            "solutions": [
+              "\"no\""
+            ]
+          }
+        },
+        {
+          "id": "koan22",
+          "tag": "koan-task",
+          "data": {
+            "description": "22: This is a lazy operation, \\\"yes\\\" or \\\"no\\\"?",
+            "code": "val stream = (1 to 1000).toStream\nstream.max\n\nanswer22 should be(__)",
+            "mode": "scala",
+            "solutions": [
+              "\"no\""
+            ]
+          }
+        },
+        {
+          "id": "koan23",
+          "tag": "koan-task",
+          "data": {
+            "description": "23: This is a lazy operation, \\\"yes\\\" or \\\"no\\\"?",
+            "code": "val stream = (1 to 1000).toStream\nstream.foldLeft(0)((b, a) => b + a)\n\nanswer23 should be(__)",
+            "mode": "scala",
+            "solutions": [
+              "\"no\""
+            ]
+          }
+        },
+        {
+          "id": "koan24",
+          "tag": "koan-task",
+          "data": {
+            "description": "24: This is a lazy operation, \\\"yes\\\" or \\\"no\\\"?",
+            "code": "val stream = (1 to 1000).toStream\nstream.exists(_ == 1400)\n\nanswer24 should be(__)",
+            "mode": "scala",
+            "solutions": [
+              "\"no\""
+            ]
+          }
+        },
+        {
+          "id": "koan25",
+          "tag": "koan-task",
+          "data": {
+            "description": "25. Is the memory consumption low, \\\"yes\\\" or \\\"no\\\"?",
+            "code": "def printSteps(s: String, i: Int, iter: Iterator[Int]): Unit = {\n  // Stop after 200,000\n  if (i < 200001) {\n    if (i % 50000 == 0) println(s + i)\n    printSteps(s, iter.next(), iter)\n  }\n}\n\nval stream10: Stream[Int] = {\n  def loop(v: Int): Stream[Int] = {\n    v #:: loop(v + 1)\n  }\n  loop(0)\n}\n\nval it1 = stream10.iterator\nprintSteps(\"Iterator1: \", it1.next(), it1)\n\nanswer25 should be(__)",
+            "mode": "scala",
+            "solutions": [
+              "\"no\""
+            ]
+          }
+        },
+        {
+          "id": "koan26",
+          "tag": "koan-task",
+          "data": {
+            "description": "26. Is the memery consumption low, \\\"yes\\\" or \\\"no\\\"?",
+            "code": "def printSteps(s: String, i: Int, iter: Iterator[Int]): Unit = {\n  // Stop after 200,000\n  if (i < 200001) {\n    if (i % 50000 == 0) println(s + i)\n    printSteps(s, iter.next(), iter)\n  }\n}\n\ndef stream20: Stream[Int] = {\n  def loop(v: Int): Stream[Int] = v #:: loop(v + 1)\n  loop(0)\n}\n\nval it2 = stream20.iterator\nprintSteps(\"Iterator2: \", it2.next(), it2)\n\nanswer26 should be(__)",
+            "mode": "scala",
+            "solutions": [
+              "\"yes\""
+            ]
+          }
+        },
+        {
+          "id": "koan27",
+          "tag": "koan-task",
+          "data": {
+            "description": "27. How often is \\\"Random: ...\\\" called when \\\"randStream(3)\\\" is evaluated?",
+            "code": "def makeRand: Stream[Int] = {\n  Stream.cons(\n  {\n    val temp = util.Random.nextInt(1000)\n    println(s\"Random: $temp\")\n    temp\n  }, {\n    makeRand\n  }\n  )\n}\nval randStream = makeRand\n\nrandStream(3)\n\nanswer27 should be(__)",
+            "mode": "scala",
+            "solutions": [
+              "3"
+            ]
+          }
+        },
+        {
+          "id": "koan28",
+          "tag": "koan-task",
+          "data": {
+            "description": "28. How often is \\\"Random: ...\\\" called when \\\"randStream(1)\\\" is evaluated?",
+            "code": "def makeRand: Stream[Int] = {\n  Stream.cons(\n  {\n    val temp = util.Random.nextInt(1000)\n    println(s\"Random: $temp\")\n    temp\n  }, {\n    makeRand\n  }\n  )\n}\nval randStream = makeRand\n\nrandStream(3)\nrandStream(1)\n\nanswer28 should be(__)",
+            "mode": "scala",
+            "solutions": [
+              "0"
+            ]
+          }
+        },
+        {
+          "id": "koan29",
+          "tag": "koan-task",
+          "data": {
+            "description": "29. How often is \\\"Random: ...\\\" called when \\\"randStream(7)\\\" is evaluated?",
+            "code": "def makeRand: Stream[Int] = {\n  Stream.cons(\n  {\n    val temp = util.Random.nextInt(1000)\n    println(s\"Random: $temp\")\n    temp\n  }, {\n    makeRand\n  }\n  )\n}\nval randStream = makeRand\n\nrandStream(3)\nrandStream(7)\n\nanswer29 should be(__)",
+            "mode": "scala",
+            "solutions": [
+              "4"
+            ]
+          }
+        },
+        {
+          "id": "koan30",
+          "tag": "koan-task",
+          "data": {
+            "description": "30. How often is \\\"Random: ...\\\" called in total?",
+            "code": "def makeRand: Stream[Int] = {\n  Stream.cons(\n  {\n    val temp = util.Random.nextInt(1000)\n    println(s\"Random: $temp\")\n    temp\n  }, {\n    makeRand\n  }\n  )\n}\nval randStream = makeRand\n\nrandStream(7)\n\nanswer30 should be(__)",
+            "mode": "scala",
+            "solutions": [
+              "8"
+            ]
+          }
+        },
+        {
+          "id": "koan31",
+          "tag": "koan-task",
+          "data": {
+            "description": "31. How often is \\\"Random: ...\\\" called in total?",
+            "code": "def makeRand: Stream[Int] = {\n  Stream.cons(\n  {\n    val temp = util.Random.nextInt(1000)\n    println(s\"Random: $temp\")\n    temp\n  }, {\n    makeRand\n  }\n  )\n}\nval randStream = makeRand\n\nanswer31 should be(__)",
+            "mode": "scala",
+            "solutions": [
+              "1"
+            ]
+          }
+        },
+        {
+          "id": "koan32",
+          "tag": "koan-task",
+          "data": {
+            "description": "32. This forces evaluation , \\\"yes\\\" or \\\"no\\\"?",
+            "code": "val stream = 1 #:: 2 #:: 3 #:: Stream.empty\nval sb = new StringBuilder\n\nstream.addString(sb)\n\nanswer32 should be(__)",
+            "mode": "scala",
+            "solutions": [
+              "\"no\""
+            ]
+          }
+        },
+        {
+          "id": "koan33",
+          "tag": "koan-task",
+          "data": {
+            "description": "33. This forces evaluation , \\\"yes\\\" or \\\"no\\\"?",
+            "code": "val stream = 1 #:: 2 #:: 3 #:: Stream.empty\n\nstream.toString()\n\nanswer33 should be(__)",
+            "mode": "scala",
+            "solutions": [
+              "\"no\""
+            ]
+          }
+        },
+        {
+          "id": "koan34",
+          "tag": "koan-task",
+          "data": {
+            "description": "34. This forces evaluation , \\\"yes\\\" or \\\"no\\\"?",
+            "code": "val stream = 1 #:: 2 #:: 3 #:: Stream.empty\n\nstream.mkString\n\nanswer34 should be(__)",
+            "mode": "scala",
+            "solutions": [
+              "\"yes\""
+            ]
+          }
+        },
+        {
+          "id": "koan35",
+          "tag": "koan-task",
+          "data": {
+            "description": "35. Create an infinite Int-Stream with 5.",
+            "code": "answer35 should be(__)",
+            "mode": "scala",
+            "solutions": [
+              "\"Stream.continually(5)\""
+            ]
+          }
+        },
+        {
+          "id": "koan36",
+          "tag": "koan-task",
+          "data": {
+            "description": "36. Create an infinite Int-Stream, start with 10 inc 1.",
+            "code": "answer36 should be(__)",
+            "mode": "scala",
+            "solutions": [
+              "\"Stream.from(10)\""
+            ]
+          }
+        },
+        {
+          "id": "koan37",
+          "tag": "koan-task",
+          "data": {
+            "description": "37. Create an infinite Int-Stream start with 100 and step range 10.",
+            "code": "answer37 should be(__)",
+            "mode": "scala",
+            "solutions": [
+              "\"Stream.from(100, 10)\""
+            ]
+          }
+        },
+        {
+          "id": "koan38",
+          "tag": "koan-task",
+          "data": {
+            "description": "38. Create an Int-Stream with 1, 2, 3. Use cons.",
+            "code": "val answer38 = Stream.cons(1, Stream.cons(2, Stream.cons(3, Stream.empty)))\n\nanswer38.force should be(__)",
+            "mode": "scala",
+            "solutions": [
+              "Stream(1, 2, 3)"
+            ]
+          }
+        },
+        {
+          "id": "koan39",
+          "tag": "koan-task",
+          "data": {
+            "description": "39. Create an Int-Stream with 1, 2, 3. Use brackets \\\"(...)\\\" with ConsWrapper function.",
+            "code": "val answer39 = 1 #:: (2 #:: (3 #:: Stream.empty))\n\nanswer39.force should be(__)",
+            "mode": "scala",
+            "solutions": [
+              "Stream(1, 2, 3)"
+            ]
+          }
+        },
+        {
+          "id": "koan40",
+          "tag": "koan-task",
+          "data": {
+            "description": "40. This is an infinite Int-Stream cycle with 1, 2, 3, \\\"yes\\\" or \\\"no\\\"?",
+            "code": "\"var s: Stream[Int] = 1 #:: 2 #:: 3 #:: s\"\n\nanswer40 should be(__)",
+            "mode": "scala",
+            "solutions": [
+              "\"yes\""
+            ]
+          }
+        },
+        {
+          "id": "koan41",
+          "tag": "koan-task",
+          "data": {
+            "description": "41. Use Pattern-Matching to get Streams which start with 3, 5. Is this correct \\\"yes\\\" or \\\"no\\\"?",
+            "code": "val stream = 3 #:: 5 #:: 7 #:: Stream.empty\n\nstream match {\n  case _ =>\n    answer41 = \"no\"\n  case 3 #:: 5 #:: _ =>\n    answer41 = \"yes\"\n}\n\nanswer41 should be(__)",
+            "mode": "scala",
+            "solutions": [
+              "\"no\""
+            ]
+          }
+        },
+        {
+          "id": "koan42",
+          "tag": "koan-task",
+          "data": {
+            "description": "42. Use Pattern-Matching to get Streams which start with 3, 5. Is this correct \\\"yes\\\" or \\\"no\\\"?",
+            "code": "val stream = 3 #:: 5 #:: 7 #:: Stream.empty\n\nstream match {\n  case 3 #:: 5 #:: _ =>\n    answer42 = \"yes\"\n  case _ =>\n    answer42 = \"no\"\n\n}\n\nanswer42 should be(__)",
+            "mode": "scala",
+            "solutions": [
+              "\"yes\""
+            ]
+          }
+        },
+        {
+          "id": "koan43",
+          "tag": "koan-task",
+          "data": {
+            "description": "43. Use Pattern-Matching to get Streams which start with 3, 5. Is this correct \\\"yes\\\" or \\\"no\\\"?",
+            "code": "val stream = 3 #:: 5 #:: 7 #:: Stream.empty\n\nstream match {\n  case 1 #:: 5 #:: _ =>\n    answer43 = \"yes\"\n  case _ =>\n    answer43 = \"no\"\n\n}\n\nanswer43 should be(__)",
+            "mode": "scala",
+            "solutions": [
+              "\"no\""
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "title": "Monadic Structures",
+      "tasks": [
+        {
+          "id": "koan1",
+          "tag": "koan-task",
+          "data": {
+            "description": "map() is an important function when it comes to monads. This koan should recall your map() knowledge.",
+            "code": "val list = List(1, 2, 3)\nlist.map(_ * 2) should be (__)",
+            "mode": "scala",
+            "solutions": [
+              "List(2, 4, 6)"
+            ]
+          }
+        },
+        {
+          "id": "koan2",
+          "tag": "koan-task",
+          "data": {
+            "description": "flatMap() is the other important function for a monadic structure. This koan should recall your flatMap() knowledge.",
+            "code": "val list = List(List(1, 2), List(3, 4))\nlist.flatMap(i => i) should be (__)",
+            "mode": "scala",
+            "solutions": [
+              "List(1, 2, 3, 4)"
+            ]
+          }
+        },
+        {
+          "id": "koan3",
+          "tag": "koan-task",
+          "data": {
+            "description": "Now let's move on to a for-comprehension with depth 1",
+            "code": "val first = List(1, 2)\nval second = List(3, 4)\n\nval l1 = for{\n  f <- first\n  s <- second } yield f * s\n\nval l2 = first.map(f =>\n  second.map(s => f*s))\n\nval l3 = first.flatMap(f =>\n  second.map(s => f*s))\n\n(l1 == l2) should be (__)\n(l1 == l3) should be (__)\nl1 should be (__)\nl2 should be (__)",
+            "mode": "scala",
+            "solutions": [
+              "false",
+              "true",
+              "List(3, 4, 6, 8)",
+              "List(List(3, 4), List(6, 8))"
+            ]
+          }
+        },
+        {
+          "id": "koan4",
+          "tag": "koan-task",
+          "data": {
+            "description": "Finally a For-Comprehension with depth 2",
+            "code": "val first = List(1, 2)\nval second = List(3, 4)\nval third = List(5, 6)\n\nval l1 = for{\n  f <- first\n  s <- second\n  t <- third } yield f * s * t\n\nval l2 = first.flatMap(f =>\n  second.flatMap(s =>\n    third.map(t => f * s * t)))\n\nval l3 = first.flatMap(f =>\n  second.map(s =>\n    third.map(t => f * s * t)))\n\n(l1 == l2) should be (__)\n(l1 == l3) should be (__)",
+            "mode": "scala",
+            "solutions": [
+              "true",
+              "false"
+            ]
+          }
+        },
+        {
+          "id": "koan5",
+          "tag": "koan-task",
+          "data": {
+            "description": "This koan shows a pitfall that occurs with Some(null). Don't use Some(null)!",
+            "code": "val n1 = Option(null)\nval n2 = Some(null) // Try to avoid this case!\n\n(n1 == n2) should be (__)\nn1 should be (__)\nn2 should be (__)\nn2.map(n => an [NullPointerException] should be __",
+            "mode": "scala",
+            "solutions": [
+              "false",
+              "None",
+              "Some(null)",
+              "thrownBy(n.toString))"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "title": "Algebraic Structures",
+      "tasks": [
+        {
+          "id": "koan1",
+          "tag": "koan-task",
+          "data": {
+            "description": "A rational number is precise",
+            "code": "val n1 = Rational(1,3)\nval n2 = 1/3\nn1 == n2 should be (__)",
+            "mode": "scala",
+            "solutions": [
+              "false"
+            ]
+          }
+        },
+        {
+          "id": "koan2",
+          "tag": "koan-task",
+          "data": {
+            "description": "A rational number is simplified at compile-time ",
+            "code": "val n3 = Rational(8,18)\nval n4 = n3.toString\n\n  //  n4 should be(__)",
+            "mode": "scala",
+            "solutions": [
+              "r\"4/9\""
+            ]
+          }
+        },
+        {
+          "id": "koan3",
+          "tag": "koan-task",
+          "data": {
+            "description": "binary",
+            "code": "//    val n5 = x2\"10111\"\n//    n5.equals(23) should be (__)\n//\n//    val n6 = x16\"17\"\n//    n6.equals(23) should be (__)\n//  ",
+            "mode": "scala",
+            "solutions": [
+              "true",
+              "true"
+            ]
+          }
+        },
+        {
+          "id": "koan4",
+          "tag": "koan-task",
+          "data": {
+            "description": "distributive law",
+            "code": "3 * (2 + 4) == 3*2 + 3*4 should be (__)\n\n5 * (1 - 2) should be (__)",
+            "mode": "scala",
+            "solutions": [
+              "true",
+              "5*1 - 5*2"
+            ]
+          }
+        },
+        {
+          "id": "koan5",
+          "tag": "koan-task",
+          "data": {
+            "description": "commutative law",
+            "code": "3 - 2 == 2 - 3 should be (__)\n\n4 + 3 should be(__)",
+            "mode": "scala",
+            "solutions": [
+              "false",
+              "3 + 4"
+            ]
+          }
+        },
+        {
+          "id": "koan6",
+          "tag": "koan-task",
+          "data": {
+            "description": "associative law",
+            "code": "3 * (2 * 7) == (3 * 2) * 7 should be (__)\n\n2 + (3 + 6) should be (__)",
+            "mode": "scala",
+            "solutions": [
+              "true",
+              "(2 + 3) + 6"
+            ]
+          }
+        },
+        {
+          "id": "koan7",
+          "tag": "koan-task",
+          "data": {
+            "description": "inverse & neutral element",
+            "code": "implicit object OwnStructure extends Group[Int]{\n  def op(x: Int, y: Int): Int = x + y\n  def inverse(x: Int): Int = -x\n  def id: Int = 0\n\n}\n\n\nOwnStructure.op(4,OwnStructure.id) should be (__)\n\nOwnStructure.inverse(5) should be(__)\n\nOwnStructure.op(4, OwnStructure.inverse(4)) should be (__)",
+            "mode": "scala",
+            "solutions": [
+              "4",
+              "-5",
+              "OwnStructure.id"
+            ]
+          }
+        },
+        {
+          "id": "koan8",
+          "tag": "koan-task",
+          "data": {
+            "description": "TimeMonoid",
+            "code": "case class Time(val hours: Int, val minutes: Int) {\n}\n\nimplicit object TimeStructure extends Ring[Time] {\n  def plus(x: Time, y: Time): Time = format(new Time(x.hours + y.hours, x.minutes + y.minutes))\n\n  def one: Time = new Time(12,0)\n\n  def negate(x: Time) = new Time(-x.hours, -x.minutes)\n\n  def times(x: Time, y: Time): Time = format(new Time(x.hours * y.hours, x.minutes * y.minutes))\n\n  def zero: Time = new Time(0, 0)\n\n  def format(x: Time): Time = new Time((x.hours + (x.minutes / 60)) % 12, x.minutes % 60)\n}\n\n\nval time = TimeStructure.plus(new Time(11, 50), new Time(4, 20))\ntime.hours should be(__)\ntime.minutes should be(__)\n\nval time2 = Time(2,30) + Time(3,30)\ntime2.hours should be(__)\ntime2.minutes should be(__)",
+            "mode": "scala",
+            "solutions": [
+              "4",
+              "10",
+              "6",
+              "0"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": 7,
+      "title": "Akka Microservices and Akka Streams",
+      "tasks": [
+        {
+          "id": "koan1",
+          "tag": "koan-task",
+          "data": {
+            "description": "This is a simple HTTP microservice writen with akka. Whats your response when you call 127.0.0.1:9000/ping ?",
+            "code": "val ipAddress = \"127.0.0.1\"\nval port = 9000\n\nimplicit val system = ActorSystem()\nimplicit val materializer = ActorMaterializer()\n\ndef routes = {\n  path(\"ping\") {\n    get {\n      complete(StatusCodes.OK, \"Pong\")\n    }\n  } ~\n    get {\n      complete(\n        HttpEntity(ContentTypes.`text/html(UTF-8)`, \"<h1>Im a simple Microservice ...</h1>\")\n      )\n    }\n}\n\nHttp().bindAndHandle(routes, ipAddress, port)\n\nrequestResult should be (__)",
+            "mode": "scala",
+            "solutions": [
+              "\"Pong\""
+            ]
+          }
+        },
+        {
+          "id": "koan2",
+          "tag": "koan-task",
+          "data": {
+            "description": "This is an complete Akka Stream. What do you get from the Sink output ?",
+            "code": "implicit val system = ActorSystem()\nimplicit val materializer = ActorMaterializer()\n\nvar output = 0\n\nval future = Source(1 to 2).map(_ * 2).runForeach( number => output += number)\n\nAwait.result(future, 100 millis)  // Wait for end of stream\n\noutput should be (__)",
+            "mode": "scala",
+            "solutions": [
+              "6"
+            ]
+          }
+        },
+        {
+          "id": "koan3",
+          "tag": "koan-task",
+          "data": {
+            "description": "This is also complete Akka Stream. What do you get from the Sink output ?",
+            "code": "implicit val system = ActorSystem()\nimplicit val materializer = ActorMaterializer()\n\nval future = Source(1 to 4).map(_ * 2).runWith(Sink.fold(0)(_ + _))\n\nval result = Await.result(future, 100 millis)  // Wait for end of stream\n\nresult should be (__)",
+            "mode": "scala",
+            "solutions": [
+              "20"
+            ]
+          }
+        },
+        {
+          "id": "koan4",
+          "tag": "koan-task",
+          "data": {
+            "description": "A Akka Stream can split into his single parts Source/Flow/Sink. What is the result ?",
+            "code": "implicit val system = ActorSystem()\nimplicit val materializer = ActorMaterializer()\n\nvar result = 0\n\nval source = Source(1 to 5)\nval flow = Flow[Int].map(number => number + 2)\nval sink = Sink.foreach[Int](number => result += number)\n\nval future = source.via(flow).runWith(sink)\n\nAwait.result(future, 100 millis)  // Wait for end of stream\n\nresult should be (__)",
+            "mode": "scala",
+            "solutions": [
+              "25"
+            ]
+          }
+        },
+        {
+          "id": "koan5",
+          "tag": "koan-task",
+          "data": {
+            "description": "A long Akka Stream. What is the result ?",
+            "code": "implicit val system = ActorSystem()\nimplicit val materializer = ActorMaterializer()\n\n\nval future = Source.single(3)\n  .map(_ * 2).map(_ + 3).map(_ - 24).map(_ + 10).map(_ + 26).map(_ - 7).map(_ * 3)\n  .runWith(Sink.head)\n\nval result = Await.result(future, 100 millis)  // Wait for end of stream\n\nresult should be (__)",
+            "mode": "scala",
+            "solutions": [
+              "42"
+            ]
+          }
+        },
+        {
+          "id": "koan6",
+          "tag": "koan-task",
+          "data": {
+            "description": "Another tricky Akka Stream. What is the result ?",
+            "code": "implicit val system = ActorSystem()\nimplicit val materializer = ActorMaterializer()\n\nvar result = 0\nval sink = Sink.foreach[Int](number => result += number)\n\nval future = Source.empty.runWith(sink)\n\nAwait.result(future, 100 millis)  // Wait for end of stream\n\nresult should be (__)",
+            "mode": "scala",
+            "solutions": [
+              "0"
+            ]
+          }
+        },
+        {
+          "id": "koan7",
+          "tag": "koan-task",
+          "data": {
+            "description": "Combination of split and defined Akka Streams. What is the result ?",
+            "code": "implicit val system = ActorSystem()\nimplicit val materializer = ActorMaterializer()\n\nvar list = List(1, 2, 3)\n\nval source = Source(list)\nval sink = Sink.ignore\n\nval future = source.via(Flow[Int].map(_ * 2)).map(_ / 2).runWith(sink)\n\nAwait.result(future, 100 millis)  // Wait for end of stream\n\nlist should be (__)",
+            "mode": "scala",
+            "solutions": [
+              "List(1, 2, 3)"
+            ]
+          }
+        },
+        {
+          "id": "koan8",
+          "tag": "koan-task",
+          "data": {
+            "description": "This is also a Akka Microservice. Whats your response when you call 127.0.0.1:9000/div2/8 ?",
+            "code": "val ipAddress = \"127.0.0.1\"\nval port = 8080\n\nimplicit val system = ActorSystem()\nimplicit val materializer = ActorMaterializer()\n\ndef routes = {\n  path(\"mul2\" / IntNumber) { number =>\n    get {\n      complete{\n        \"Multiply result: \" + Source.single(number).map(_ * 2).runWith(Sink.head)\n      }\n    }\n  } ~\n    path(\"div2\" / IntNumber) { number =>\n      get {\n        complete(\n          \"Divide result: \" + Source.single(number).map(_ / 2).runWith(Sink.head)\n        )\n      }\n    }\n}\n\nHttp().bindAndHandle(routes, ipAddress, port)\n\nrequestResultForDiv2 should be (__)",
+            "mode": "scala",
+            "solutions": [
+              "\"Success(4)\""
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": 8,
+      "title": "Slick",
+      "tasks": [
+        {
+          "id": "koan1",
+          "tag": "koan-task",
+          "data": {
+            "description": "Creating the schema",
+            "code": "val action = (departments.schema ++ employees.schema).create\nval createFuture = db.run(action)\nAwait.ready(createFuture, Duration.Inf)\n\nval future = db.run(MTable.getTables)\nval tables: Vector[MTable] = Await.result(future, Duration.Inf)\n\ntables.length should be(__)\ntables.count(_.name.name.equalsIgnoreCase(\"departments\")) should be(__)\ntables.count(_.name.name.equalsIgnoreCase(\"employees\")) should be(__)\ntables.count(_.name.name.equalsIgnoreCase(\"address\")) should be(__)",
+            "mode": "scala",
+            "solutions": [
+              "2",
+              "1",
+              "1",
+              "0"
+            ]
+          }
+        },
+        {
+          "id": "koan2",
+          "tag": "koan-task",
+          "data": {
+            "description": "Inserting data to database",
+            "code": "val insert = DBIO.seq(\n  departments += Department(1, \"Hardware\"),\n  departments += Department(2, \"Software\"),\n  departments += Department(3, \"Personal\"),\n\n  employees ++= Seq(\n    Employee(1, \"Tim\", \"Cook\", Some(26), 1),\n    Employee(2, \"Sergey\", \"Brin\", Some(45), 2),\n    Employee(3, \"Foo\", \"Bar\", None, 2)\n  )\n)\nAwait.ready(db.run(insert), Duration.Inf)\n\nval future = db.run(employees.result)\nval result: Seq[Employee] = Await.result(future, Duration.Inf)\nresult.length should be(__)",
+            "mode": "scala",
+            "solutions": [
+              "3"
+            ]
+          }
+        },
+        {
+          "id": "koan3",
+          "tag": "koan-task",
+          "data": {
+            "description": "Inserting data with omitting some columns",
+            "code": "val empInsert = employees.map(e => (e.firstname, e.lastname))\nval action = empInsert +=(\"Erich\", \"Gamma\")\nAwait.ready(db.run(action), Duration.Inf)\n\nval query = employees.filter(_.lastname === \"Gamma\")\nval future = db.run(query.result)\nval result: Seq[Employee] = Await.result(future, Duration.Inf)\nval employee = result.head\n\nemployee.firstname should be(__)\nemployee.age should be(__)\nemployee.departmentId should be(__)",
+            "mode": "scala",
+            "solutions": [
+              "\"Erich\"",
+              "None",
+              "1"
+            ]
+          }
+        },
+        {
+          "id": "koan4",
+          "tag": "koan-task",
+          "data": {
+            "description": "Query with the Scala collections like API",
+            "code": "val query = employees.filter(_.age > 30).map(_.lastname)\nval future = db.run(query.result)\nval result: Seq[String] = Await.result(future, Duration.Inf)\n\nresult.length should be(__)\nresult.head should be(__)\n\n// get select statement and remove \" characters\nval sqlStatement = query.result.statements.head.replace(\"\\\"\", \"\")\nsqlStatement.toLowerCase() should be(__)",
+            "mode": "scala",
+            "solutions": [
+              "1",
+              "\"Brin\"",
+              "\"select last_name from employees where age > 30\""
+            ]
+          }
+        },
+        {
+          "id": "koan5",
+          "tag": "koan-task",
+          "data": {
+            "description": "Query with the Scala for-expression",
+            "code": "val query = for {\n  e <- employees if e.age > 30\n} yield e.lastname\nval future = db.run(query.result)\nval result: Seq[String] = Await.result(future, Duration.Inf)\n\nresult.length should be(__)\nresult.head should be(__)\n\n// get select statement and remove \" characters\nval sqlStatement = query.result.statements.head.replace(\"\\\"\", \"\")\nsqlStatement.toLowerCase() should be(__)",
+            "mode": "scala",
+            "solutions": [
+              "1",
+              "\"Brin\"",
+              "\"select last_name from employees where age > 30\""
+            ]
+          }
+        },
+        {
+          "id": "koan6",
+          "tag": "koan-task",
+          "data": {
+            "description": "Monadic inner join. This type of joins will be generated as explicit join in SQL.",
+            "code": "val query = for {\n  e <- employees\n  d <- e.department\n} yield (e.lastname, d.name)\n\nval future = db.run(query.result)\nval result: Seq[(String, String)] = Await.result(future, Duration.Inf)\n\nresult.length should be(__)",
+            "mode": "scala",
+            "solutions": [
+              "4"
+            ]
+          }
+        },
+        {
+          "id": "koan7",
+          "tag": "koan-task",
+          "data": {
+            "description": "Applicative left outer join. This type of joins will be generated as implicit join in SQL.",
+            "code": "val query = for {\n  (d, e) <- departments joinLeft employees on (_.id === _.departmentId)\n} yield (d.name, e.map(_.lastname))\n\nval future = db.run(query.result)\nval result: Seq[(String, Option[String])] = Await.result(future, Duration.Inf)\n\nresult.length should be(__)",
+            "mode": "scala",
+            "solutions": [
+              "5"
+            ]
+          }
+        },
+        {
+          "id": "koan8",
+          "tag": "koan-task",
+          "data": {
+            "description": "Unions: Two queries can be concatenated with the '++' (or 'unionAll') and 'union' operators",
+            "code": "val q1 = employees.filter(_.age > 30)\nval q2 = employees.filter(_.age < 20)\n\nval unionQuery = q1 union q2\n\nval future = db.run(unionQuery.result)\nval result: Seq[Employee] = Await.result(future, Duration.Inf)\n\nresult.length should be(__)",
+            "mode": "scala",
+            "solutions": [
+              "1"
+            ]
+          }
+        },
+        {
+          "id": "koan9",
+          "tag": "koan-task",
+          "data": {
+            "description": "Aggregation functions",
+            "code": "val query = employees\n  .filter(_.age >= 18)\n  .map(_.age)\n  .min\n\nval future = db.run(query.result)\nval result: Option[Int] = Await.result(future, Duration.Inf)\n\nresult should be(__)",
+            "mode": "scala",
+            "solutions": [
+              "Some(26)"
+            ]
+          }
+        },
+        {
+          "id": "koan10",
+          "tag": "koan-task",
+          "data": {
+            "description": "Complex query with join, group by and order by",
+            "code": "val joinQuery = for {\n  e <- employees\n  d <- e.department\n} yield (d, e)\n\nval query = joinQuery.groupBy(_._1.name).map {\n  case (name, j) => (name, j.map(_._2.age).max)\n}.sortBy(_._2.desc) // order by age\n\nval future = db.run(query.result)\nval result: Seq[(String, Option[Int])] = Await.result(future, Duration.Inf)\n\nresult.length should be(__)\nresult.head._1 should be(__)\nresult.head._2 should be(__)",
+            "mode": "scala",
+            "solutions": [
+              "2",
+              "\"Software\"",
+              "Some(45)"
+            ]
+          }
+        },
+        {
+          "id": "koan11",
+          "tag": "koan-task",
+          "data": {
+            "description": "Update data with the 'update' method",
+            "code": "val query = employees.filter(_.lastname === \"Gamma\").map(_.age)\nval update = query.update(Some(30))\nAwait.ready(db.run(update), Duration.Inf)\n\nval future = db.run(query.result)\nval result: Seq[Option[Int]] = Await.result(future, Duration.Inf)\n\nresult.head should be(__)",
+            "mode": "scala",
+            "solutions": [
+              "Some(30)"
+            ]
+          }
+        },
+        {
+          "id": "koan12",
+          "tag": "koan-task",
+          "data": {
+            "description": "Delete data with the 'delete' method",
+            "code": "val query = employees.filter(_.lastname === \"Gamma\")\nval delete = query.delete\nAwait.ready(db.run(delete), Duration.Inf)\n\nval future = db.run(query.result)\nval result: Seq[Employee] = Await.result(future, Duration.Inf)\n\nresult.length should be(__)",
+            "mode": "scala",
+            "solutions": [
+              "0"
+            ]
+          }
+        },
+        {
+          "id": "koan13",
+          "tag": "koan-task",
+          "data": {
+            "description": "To force the use of a transaction, append the method transactionally to an action",
+            "code": "try {\n  val actions = DBIO.seq(\n    departments += Department(4, \"New department\"),\n    departments += Department(5, null)\n  )\n  val f1 = db.run(actions.transactionally)\n  Await.ready(f1, Duration.Inf)\n} catch {\n  case e: Throwable =>\n}\n\nval future = db.run(departments.result)\nval result: Seq[Department] = Await.result(future, Duration.Inf)\n\nresult.length should be(__)",
+            "mode": "scala",
+            "solutions": [
+              "3"
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -121,7 +121,7 @@
 
       onTaskSolved () {
         if (this.currentUserSettings.autoNext) {
-          this.goToNext()
+          setTimeout(this.goToNext, 1000)
         }
       }
     }

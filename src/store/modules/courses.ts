@@ -7,7 +7,6 @@ import {
 } from '../../models/UserProgress'
 import { db } from '../firebase-setup'
 import { firebaseAction } from 'vuexfire'
-import Task from '../../models/Task'
 
 const coursesRef = db.ref('courses')
 let progressRef
@@ -46,9 +45,12 @@ const actions = {
     progressRef.push(emptyProgress)
   },
 
-  ADD_NEW_COURSE: ({commit, getters}, course) => {
-    console.log('Add course action...', course)
+  ADD_NEW_COURSE: (context, course) => {
     coursesRef.push(course)
+  },
+
+  REMOVE_COURSE: (context, course) => {
+    return progressRef.child(course['.key']).remove()
   },
 
   // Set current task (determined by app state, e. g. route) as solved
@@ -70,7 +72,7 @@ const actions = {
   },
 
   VUEXFIRE_BIND_COURSES_REF: firebaseAction(({commit, bindFirebaseRef}) => {
-    console.log('VXF courses bind event')
+    console.log('VUEXFIRE_BIND_COURSES_REF')
     return new Promise((resolve) => {
       bindFirebaseRef('courses', coursesRef, {
         readyCallback: () => resolve()
@@ -80,17 +82,26 @@ const actions = {
 
   VUEXFIRE_BIND_PROGRESS_REF: firebaseAction(
     ({commit, rootGetters, bindFirebaseRef}) => {
-      console.log('VXF progress bind event')
+      console.log('VUEXFIRE_BIND_PROGRESS_REF')
       const user = rootGetters.currentUser
-      if (!user) return
+      if (!user) {
+        console.log('User not ready, can\'t bind progress')
+        return new Promise((resolve, reject) => reject())
+      }
       progressRef = db.ref(`progress/${user['.key']}`)
 
+      console.log('Binding progress ref...')
       return new Promise((resolve) => {
         bindFirebaseRef('progress', progressRef, {
           readyCallback: () => resolve()
         })
       })
-    })
+    }),
+
+  VUEXFIRE_UNBIND_PROGRESS_REF: firebaseAction(({unbindFirebaseRef}) => {
+    if (progressRef)
+      unbindFirebaseRef('progress')
+  })
 }
 
 const getters = {

@@ -1,0 +1,1377 @@
+{
+  "id": 7,
+  "title": "Exercises Part I",
+  "chapters": [
+    {
+      "id": 1,
+      "title": "Asserts",
+      "tasks": [
+        {
+          "id": "koan1",
+          "tag": "koan-task",
+          "data": {
+            "description": "asserts can take a boolean argument",
+            "code": "assert(true) // enter true here",
+            "mode": "scala",
+            "solutions": []
+          }
+        },
+        {
+          "id": "koan2",
+          "tag": "koan-task",
+          "data": {
+            "description": "asserts can include a message",
+            "code": "assert(true, \"This should have the value true\")",
+            "mode": "scala",
+            "solutions": []
+          }
+        },
+        {
+          "id": "koan3",
+          "tag": "koan-task",
+          "data": {
+            "description": "true and false values can be compared with should matchers",
+            "code": "true should be(__) // be true",
+            "mode": "scala",
+            "solutions": [
+              "true"
+            ]
+          }
+        },
+        {
+          "id": "koan4",
+          "tag": "koan-task",
+          "data": {
+            "description": "booleans in asserts can test equality",
+            "code": "val v1 = 4\nval v2 = 4\nassert(v1 === __)",
+            "mode": "scala",
+            "solutions": [
+              "v2"
+            ]
+          }
+        },
+        {
+          "id": "koan5",
+          "tag": "koan-task",
+          "data": {
+            "description": "sometimes we expect you to fill in the values",
+            "code": "assert(1 + 1 == __)",
+            "mode": "scala",
+            "solutions": [
+              "2"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "title": "Val and Var",
+      "tasks": [
+        {
+          "id": "koan1",
+          "tag": "koan-task",
+          "data": {
+            "description": "vars may be reassigned",
+            "code": "var a = 5\na should be(__)\n\na = 7\na should be(__)",
+            "mode": "scala",
+            "solutions": [
+              "5",
+              "7"
+            ]
+          }
+        },
+        {
+          "id": "koan2",
+          "tag": "koan-task",
+          "data": {
+            "description": "vals may not be reassigned",
+            "code": "val a = 5\na should be(__)\n\n// What happens if you uncomment these lines? compilation problem as a is immutable (reassignment to val)\n// a = 7\n// a should be (__)",
+            "mode": "scala",
+            "solutions": [
+              "5",
+              "5"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "title": "Literal Boolean",
+      "tasks": [
+        {
+          "id": "koan1",
+          "tag": "koan-task",
+          "data": {
+            "description": "Boolean literals are either true or false, using the true or false keyword",
+            "code": "val a = true\nval b = false\nval c = 1 > 2\nval d = 1 < 2\nval e = a == c\nval f = b == d\na should be(__)\nb should be(__)\nc should be(__)\nd should be(__)\ne should be(__)\nf should be(__)",
+            "mode": "scala",
+            "solutions": [
+              "true",
+              "false",
+              "false",
+              "true",
+              "false",
+              "false"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "title": "Literal Numbers",
+      "tasks": [
+        {
+          "id": "koan1",
+          "tag": "koan-task",
+          "data": {
+            "description": "Integer Literals are 32-bit and can be created from decimal, hexadecimal",
+            "code": "val a = 2\nval b = 31\nval c = 0x30F\nval e = 0\nval f = -2\nval g = -31\nval h = -0x30F\na should be(__)\nb should be(__)\nc should be(__) //Hint: 30F = 783\ne should be(__)\nf should be(__)\ng should be(__)\nh should be(__) //Hint: 30F = 783",
+            "mode": "scala",
+            "solutions": [
+              "2",
+              "31",
+              "783",
+              "0",
+              "-2",
+              "-31",
+              "-783"
+            ]
+          }
+        },
+        {
+          "id": "koan2",
+          "tag": "koan-task",
+          "data": {
+            "description": "Long Literals are 64 bit, are specified by appending an L or l at the end;\n   l is rarely used since it looks like a 1",
+            "code": "val a = 2L\nval b = 31L\nval c = 0x30FL\nval e = 0L\nval f = -2l\nval g = -31L\nval h = -0x30FL\n\na should be(__)\nb should be(__)\nc should be(__) //Hint: 30F = 783\ne should be(__)\nf should be(__)\ng should be(__)\nh should be(__) //Hint: 30F = 783",
+            "mode": "scala",
+            "solutions": [
+              "2L",
+              "31L",
+              "783L",
+              "0L",
+              "-2L",
+              "-31L",
+              "-783L"
+            ]
+          }
+        },
+        {
+          "id": "koan3",
+          "tag": "koan-task",
+          "data": {
+            "description": "Float and Double Literals are IEEE 754 for specific,\n   Float are 32-bit length, Doubles are 64-bit.\n   Floats can be coerced using a f or F suffix, and\n   Doubles can be coerced using a d or D suffix.\n   Exponent are specified using e or E.",
+            "code": "val a = 3.0\nval b = 3.00\nval c = 2.73\nval d = 3f\nval e = 3.22d\nval f = 93e-9\nval g = 93E-9\nval h = 0.0\nval i = 9.23E-9D\n\na should be(__)\nb should be(__)\nc should be(__)\nd should be(__)\ne should be(__)\nf should be(__)\ng should be(__)\nh should be(__)\ni should be(__)",
+            "mode": "scala",
+            "solutions": [
+              "3.0",
+              "3.0",
+              "2.73",
+              "3.0",
+              "3.22d",
+              "93e-9",
+              "93e-9",
+              "0",
+              "9.23e-9d"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "title": "Literal Strings",
+      "tasks": [
+        {
+          "id": "koan1",
+          "tag": "koan-task",
+          "data": {
+            "description": "Character Literals are quoted with single quotes",
+            "code": "val a = 'a'\nval b = 'B'\n\na.toString should be(__)\nb.toString should be(__)",
+            "mode": "scala",
+            "solutions": [
+              "\"a\"",
+              "\"B\""
+            ]
+          }
+        },
+        {
+          "id": "koan2",
+          "tag": "koan-task",
+          "data": {
+            "description": "Character Literals can use hexadecimal Unicode",
+            "code": "val c = '\\u0061' //unicode for a\n\nc.toString should be(__)",
+            "mode": "scala",
+            "solutions": [
+              "\"a\""
+            ]
+          }
+        },
+        {
+          "id": "koan3",
+          "tag": "koan-task",
+          "data": {
+            "description": "Character Literals can use octal as well",
+            "code": "val d = '\\141' //octal for a\n\nd.toString should be(__)",
+            "mode": "scala",
+            "solutions": [
+              "\"a\""
+            ]
+          }
+        },
+        {
+          "id": "koan4",
+          "tag": "koan-task",
+          "data": {
+            "description": "Character Literals can use escape sequences",
+            "code": "val e = '\\\"'\nval f = '\\\\'\n\ne.toString should be(__)\nf.toString should be(__)",
+            "mode": "scala",
+            "solutions": [
+              "\"\\\"\"",
+              "\"\\\\\""
+            ]
+          }
+        },
+        {
+          "id": "koan5",
+          "tag": "koan-task",
+          "data": {
+            "description": "One-Line String Literals are surrounded by quotation marks.",
+            "code": "val a = \"To be or not to be\"\na should be(__)",
+            "mode": "scala",
+            "solutions": [
+              "\"To be or not to be\""
+            ]
+          }
+        },
+        {
+          "id": "koan6",
+          "tag": "koan-task",
+          "data": {
+            "description": "String Literals can contain escape sequences.",
+            "code": "val a = \"An \\141pple \\141 d\\141y keeps the doctor \\141w\\141y\"\na should be(__)",
+            "mode": "scala",
+            "solutions": [
+              "\"An apple a day keeps the doctor away\""
+            ]
+          }
+        },
+        {
+          "id": "koan7",
+          "tag": "koan-task",
+          "data": {
+            "description": "Multiline String literals\n\tare surrounded\n\tby three quotation marks",
+            "code": "val a = \"\"\"An apple a day\nkeeps the doctor away\"\"\"\na.split('\\n').size should be(__).size determines the number of lines",
+            "mode": "scala",
+            "solutions": [
+              "2) //a.split('\\n'"
+            ]
+          }
+        },
+        {
+          "id": "koan8",
+          "tag": "koan-task",
+          "data": {
+            "description": "Use stripMargin to prettify multi-line strings",
+            "code": "/*\n\t  * Multiline String literals can use | to specify the starting position\n\t  * of subsequent lines, then use stripMargin to remove the surplus indentation.\n\t  */\n\n val a = \"\"\"An apple a day\n            |keeps the doctor away\"\"\"\n a.stripMargin.split('\\n')(1).charAt(0) should be(__)\n\n/*\n\t  * a.stripMargin.split('\\n')(1).charAt(0)\n * gets the first character of the second line\n\t  */",
+            "mode": "scala",
+            "solutions": [
+              "'k'"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "title": "Infix, Prefix and Postfix-Operators",
+      "tasks": [
+        {
+          "id": "koan1",
+          "tag": "koan-task",
+          "data": {
+            "description": "Simple: Infix Operators are available if an object\n  has a method that takes one parameter.",
+            "code": "val g: Int = 3\n(g + 4) should be(__) // + is an infix operator\n g.+(4) should be(__) // same result but not using the infix operator",
+            "mode": "scala",
+            "solutions": [
+              "7",
+              "7"
+            ]
+          }
+        },
+        {
+          "id": "koan2",
+          "tag": "koan-task",
+          "data": {
+            "description": "Infix Operators do NOT work if an object\n  has a method that takes two parameters.",
+            "code": "val g: String = \"Check out the big brains on Brad!\"\ng indexOf 'o' should be(__) can be used as an infix operator\n//g indexOf 'o', 4 should be (__) cannot be used an infix operator\ng.indexOf('o', 7) should be(__) must use standard java/scala calls",
+            "mode": "scala",
+            "solutions": [
+              "6) //indexOf(Char",
+              "6) //indexOf(Char, Int",
+              "25) //indexOf(Char, Int"
+            ]
+          }
+        },
+        {
+          "id": "koan3",
+          "tag": "koan-task",
+          "data": {
+            "description": "Postfix operators work if an object\n  has a method that takes no parameters.",
+            "code": "val g: Int = 31\n(g toHexString) should be(__) //toHexString takes no params therefore can be called\n//as a postfix operator. Hint: The answer is 1f",
+            "mode": "scala",
+            "solutions": [
+              "\"1f\""
+            ]
+          }
+        },
+        {
+          "id": "koan4",
+          "tag": "koan-task",
+          "data": {
+            "description": "Prefix operators work if an object\n  has a method name that starts with unary_ .",
+            "code": "val g: Int = 31\n(-g) should be(__)",
+            "mode": "scala",
+            "solutions": [
+              "-31"
+            ]
+          }
+        },
+        {
+          "id": "koan5",
+          "tag": "koan-task",
+          "data": {
+            "description": "Here we create our own prefix operator for our own class.\n   The only identifiers that can be used as prefix operators\n   are +, -, !, and ~",
+            "code": "class Stereo {\n  def unary_+ = \"on\"\n\n  def unary_- = \"off\"\n}\n\nval stereo = new Stereo\n(+stereo) should be(__)\n(-stereo) should be(__)",
+            "mode": "scala",
+            "solutions": [
+              "\"on\"",
+              "\"off\""
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": 7,
+      "title": "Formatting",
+      "tasks": [
+        {
+          "id": "koan1",
+          "tag": "koan-task",
+          "data": {
+            "description": "String can be placed in format",
+            "code": "val s = \"Hello World\"\n\"Application %s\".format(s) should be (__)",
+            "mode": "scala",
+            "solutions": [
+              "\"Application Hello World\""
+            ]
+          }
+        },
+        {
+          "id": "koan2",
+          "tag": "koan-task",
+          "data": {
+            "description": "Character Literals can be an a single character",
+            "code": "val a = 'a'\nval b = 'B'\n\n//format(a) is a string format, meaning the \"%c\".format(x)\n//will return the string representation of the char.\n\n\"%c\".format(a) should be(__)\n\"%c\".format(b) should be(__)",
+            "mode": "scala",
+            "solutions": [
+              "\"a\"",
+              "\"B\""
+            ]
+          }
+        },
+        {
+          "id": "koan3",
+          "tag": "koan-task",
+          "data": {
+            "description": "Character Literals can be an escape sequence, including octal or hexidecimal",
+            "code": "val c = '\\u0061' //unicode for a\nval d = '\\141' //octal for a\nval e = '\\\"'\nval f = '\\\\'\n\n\n\"%c\".format(c) should be(__)\n\"%c\".format(d) should be(__)\n\"%c\".format(e) should be(__)\n\"%c\".format(f) should be(__)",
+            "mode": "scala",
+            "solutions": [
+              "\"a\"",
+              "\"a\"",
+              "\"\\\"\"",
+              "\"\\\\\""
+            ]
+          }
+        },
+        {
+          "id": "koan4",
+          "tag": "koan-task",
+          "data": {
+            "description": "Formatting can also include numbers",
+            "code": "val j = 190\n\"%d bottles of beer on the wall\" format j - 100 should be (__)",
+            "mode": "scala",
+            "solutions": [
+              "\"90 bottles of beer on the wall\""
+            ]
+          }
+        },
+        {
+          "id": "koan5",
+          "tag": "koan-task",
+          "data": {
+            "description": "Formatting can be used for any number of items, like a string and a number",
+            "code": "val j = 190\nval k = \"vodka\"\n\n\"%d bottles of %s on the wall\".format(j - 100, k) should be (__)",
+            "mode": "scala",
+            "solutions": [
+              "\"90 bottles of vodka on the wall\""
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": 8,
+      "title": "Enumerations",
+      "tasks": [
+        {
+          "id": "koan1",
+          "tag": "koan-task",
+          "data": {
+            "description": "Value assigns a numerical value to fields",
+            "code": "object Planets extends Enumeration {\n  val Mercury = Value\n  val Venus = Value\n  val Earth = Value\n  val Mars = Value\n  val Jupiter = Value\n  val Saturn = Value\n  val Uranus = Value\n  val Neptune = Value\n  val Pluto = Value\n}\n\nPlanets.Mercury.id should be(__)\nPlanets.Venus.id should be(__)\n\nPlanets.Mercury.toString should be(__) //How does it get the name? by Reflection.\nPlanets.Venus.toString should be(__)\n\n(Planets.Earth == Planets.Earth) should be(__)\n(Planets.Neptune == Planets.Jupiter) should be(__)",
+            "mode": "scala",
+            "solutions": [
+              "0",
+              "1",
+              "\"Mercury\"",
+              "\"Venus\"",
+              "true",
+              "false"
+            ]
+          }
+        },
+        {
+          "id": "koan2",
+          "tag": "koan-task",
+          "data": {
+            "description": "Enumerations can set their own index and name",
+            "code": "object GreekPlanets extends Enumeration {\n\n  val Mercury = Value(1, \"Hermes\")\n  val Venus = Value(2, \"Aphrodite\")\n  //Fun Fact: Tellus is Roman for (Mother) Earth\n  val Earth = Value(3, \"Gaia\")\n  val Mars = Value(4, \"Ares\")\n  val Jupiter = Value(5, \"Zeus\")\n  val Saturn = Value(6, \"Cronus\")\n  val Uranus = Value(7, \"Ouranus\")\n  val Neptune = Value(8, \"Poseidon\")\n  val Pluto = Value(9, \"Hades\")\n}\n\nGreekPlanets.Mercury.id should be(__)\nGreekPlanets.Venus.id should be(__)\n\nGreekPlanets.Mercury.toString should be(__)\nGreekPlanets.Venus.toString should be(__)\n\n(GreekPlanets.Earth == GreekPlanets.Earth) should be(__)\n(GreekPlanets.Neptune == GreekPlanets.Jupiter) should be(__)",
+            "mode": "scala",
+            "solutions": [
+              "1",
+              "2",
+              "\"Hermes\"",
+              "\"Aphrodite\"",
+              "true",
+              "false"
+            ]
+          }
+        },
+        {
+          "id": "koan3",
+          "tag": "koan-task",
+          "data": {
+            "description": "Enumeration declarations can be done on one line",
+            "code": "object Planets extends Enumeration {\n  val Mercury, Venus, Earth, Mars, Jupiter, Saturn, Uranus, Neptune, Pluto = Value\n}\n\nPlanets.Mercury.id should be(__)\nPlanets.Venus.id should be(__)\n\nPlanets.Mercury.toString should be(__)\nPlanets.Venus.toString should be(__)\n\n(Planets.Earth == Planets.Earth) should be(__)\n(Planets.Neptune == Planets.Jupiter) should be(__)",
+            "mode": "scala",
+            "solutions": [
+              "0",
+              "1",
+              "\"Mercury\"",
+              "\"Venus\"",
+              "true",
+              "false"
+            ]
+          }
+        },
+        {
+          "id": "koan4",
+          "tag": "koan-task",
+          "data": {
+            "description": "Enumerations can be declared with a string value only",
+            "code": "object GreekPlanets extends Enumeration {\n\n  val Mercury = Value(\"Hermes\")\n  val Venus = Value(\"Aphrodite\")\n  val Earth = Value(\"Gaia\")\n  val Mars = Value(\"Ares\")\n  val Jupiter = Value(\"Zeus\")\n  val Saturn = Value(\"Cronus\")\n  val Uranus = Value(\"Ouranus\")\n  val Neptune = Value(\"Poseidon\")\n  val Pluto = Value(\"Hades\")\n}\n\nGreekPlanets.Mercury.id should be(__)\nGreekPlanets.Venus.id should be(__)\n\nGreekPlanets.Mercury.toString should be(__)\nGreekPlanets.Venus.toString should be(__)\n\n(GreekPlanets.Earth == GreekPlanets.Earth) should be(__)\n(GreekPlanets.Neptune == GreekPlanets.Jupiter) should be(__)",
+            "mode": "scala",
+            "solutions": [
+              "0",
+              "1",
+              "\"Hermes\"",
+              "\"Aphrodite\"",
+              "true",
+              "false"
+            ]
+          }
+        },
+        {
+          "id": "koan5",
+          "tag": "koan-task",
+          "data": {
+            "description": "You can extend the Enumeration by extending the Val class.",
+            "code": "object Planets extends Enumeration {\n\n  val G = 6.67300E-11\n\n  class PlanetValue(val i: Int, val name: String, val mass: Double, val radius: Double)\n          extends Val(i: Int, name: String) {\n\n    def surfaceGravity = G * mass / (radius * radius)\n\n    def surfaceWeight(otherMass: Double) = otherMass * surfaceGravity\n\n    def compare(that: PlanetValue) = this.i - that.i\n  }\n\n  val Mercury = new PlanetValue(0, \"Mercury\", 3.303e+23, 2.4397e6)\n  val Venus = new PlanetValue(1, \"Venus\", 4.869e+24, 6.0518e6)\n  val Earth = new PlanetValue(2, \"Earth\", 5.976e+24, 6.37814e6)\n  val Mars = new PlanetValue(3, \"Mars\", 6.421e+23, 3.3972e6)\n  val Jupiter = new PlanetValue(4, \"Jupiter\", 1.9e+27, 7.1492e7)\n  val Saturn = new PlanetValue(5, \"Saturn\", 5.688e+26, 6.0268e7)\n  val Uranus = new PlanetValue(6, \"Uranus\", 8.686e+25, 2.5559e7)\n  val Neptune = new PlanetValue(7, \"Neptune\", 1.024e+26, 2.4746e7)\n  val Pluto = new PlanetValue(8, \"Pluto\", 1.27e+22, 1.137e6)\n\n}\n\nPlanets.Earth.mass should be(__)\nPlanets.Earth.radius should be(__)",
+            "mode": "scala",
+            "solutions": [
+              "5.976e+24",
+              "6.37814e6"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": 9,
+      "title": "Lists",
+      "tasks": [
+        {
+          "id": "koan1",
+          "tag": "koan-task",
+          "data": {
+            "description": "Nil lists are identical, even of different types",
+            "code": "val a: List[String] = Nil\nval b: List[Int] = Nil\n\n(a == Nil) should be(__)\n(b == Nil) should be(__)\n(a == b) should be(__)",
+            "mode": "scala",
+            "solutions": [
+              "true",
+              "true",
+              "true"
+            ]
+          }
+        },
+        {
+          "id": "koan2",
+          "tag": "koan-task",
+          "data": {
+            "description": "Lists are easily created",
+            "code": "val a = List(1, 2, 3)\na should equal(__)",
+            "mode": "scala",
+            "solutions": [
+              "List(1, 2, 3)"
+            ]
+          }
+        },
+        {
+          "id": "koan3",
+          "tag": "koan-task",
+          "data": {
+            "description": "Eq tests identity (same object)",
+            "code": "val a = List(1, 2, 3)\nval b = List(1, 2, 3)\n\n(a eq b) should be(__)",
+            "mode": "scala",
+            "solutions": [
+              "false"
+            ]
+          }
+        },
+        {
+          "id": "koan4",
+          "tag": "koan-task",
+          "data": {
+            "description": "== tests equality (same content)",
+            "code": "val a = List(1, 2, 3)\nval b = List(1, 2, 3)\n\n(a == b) should be(__)",
+            "mode": "scala",
+            "solutions": [
+              "true"
+            ]
+          }
+        },
+        {
+          "id": "koan5",
+          "tag": "koan-task",
+          "data": {
+            "description": "Lists can be accessed via head and tail",
+            "code": "val a = List(1, 2, 3)\na.head should equal(__)\na.tail should equal(__)",
+            "mode": "scala",
+            "solutions": [
+              "1",
+              "List(2, 3)"
+            ]
+          }
+        },
+        {
+          "id": "koan6",
+          "tag": "koan-task",
+          "data": {
+            "description": "Lists can accessed at random",
+            "code": "val a = List(1, 3, 5, 7, 9)\na(0) should equal(__)\na(2) should equal(__)\na(4) should equal(__)\n\nintercept[IndexOutOfBoundsException] {\n  println(a(5))\n}",
+            "mode": "scala",
+            "solutions": [
+              "1",
+              "5",
+              "9"
+            ]
+          }
+        },
+        {
+          "id": "koan7",
+          "tag": "koan-task",
+          "data": {
+            "description": "Lists are immutable",
+            "code": "val a = List(1, 3, 5, 7, 9)\nval b = a.filterNot(v => v == 5) // remove where value is 5\n\na should equal(__)\nb should equal(__)",
+            "mode": "scala",
+            "solutions": [
+              "List(1, 3, 5, 7, 9)",
+              "List(1, 3, 7, 9)"
+            ]
+          }
+        },
+        {
+          "id": "koan8",
+          "tag": "koan-task",
+          "data": {
+            "description": "Lists have many useful methods",
+            "code": "val a = List(1, 3, 5, 7, 9)\n\n// get the length of the list\na.length should equal(__)\n\n// reverse the list\na.reverse should equal(__)\n\n// convert the list to a string representation\na.toString should equal(__)\n\n// map a function to double the numbers over the list\na.map { v => v * 2 } should equal(__)\n\n// filter out any values divisible by 3 in the list\na.filter { v => v % 3 == 0 } should equal(__)",
+            "mode": "scala",
+            "solutions": [
+              "5",
+              "List(9, 7, 5, 3, 1)",
+              "\"List(1, 3, 5, 7, 9)\"",
+              "List(2, 6, 10, 14, 18)",
+              "List(3, 9)"
+            ]
+          }
+        },
+        {
+          "id": "koan9",
+          "tag": "koan-task",
+          "data": {
+            "description": "Functions over lists can use _ as shorthand",
+            "code": "val a = List(1, 2, 3)\n\na.map { _ * 2 } should equal(__)\n\na.filter { _ % 2 == 0 } should equal(__)",
+            "mode": "scala",
+            "solutions": [
+              "List(2, 4, 6)",
+              "List(2)"
+            ]
+          }
+        },
+        {
+          "id": "koan10",
+          "tag": "koan-task",
+          "data": {
+            "description": "Functions over lists can use () instead of {}",
+            "code": "val a = List(1, 2, 3)\na.map(_ * 2) should equal(__)\na.filter(_ % 2 != 0) should equal(__)",
+            "mode": "scala",
+            "solutions": [
+              "List(2, 4, 6)",
+              "List(1, 3)"
+            ]
+          }
+        },
+        {
+          "id": "koan11",
+          "tag": "koan-task",
+          "data": {
+            "description": "Lists can be 'reduced' with a mathematical operation",
+            "code": "val a = List(1, 3, 5, 7)\n// note the two _s below indicate the first and second args respectively\na.reduceLeft(_ + _) should equal(__)\na.reduceLeft(_ * _) should equal(__)",
+            "mode": "scala",
+            "solutions": [
+              "16",
+              "105"
+            ]
+          }
+        },
+        {
+          "id": "koan12",
+          "tag": "koan-task",
+          "data": {
+            "description": "Foldleft is like reduce, but with an explicit starting value",
+            "code": "val a = List(1, 3, 5, 7)\n// NOTE: foldLeft uses a form called currying that we will explore later\na.foldLeft(0)(_ + _) should equal(__)\na.foldLeft(10)(_ + _) should equal(__)\na.foldLeft(1)(_ * _) should equal(__)\na.foldLeft(0)(_ * _) should equal(__)",
+            "mode": "scala",
+            "solutions": [
+              "16",
+              "26",
+              "105",
+              "0"
+            ]
+          }
+        },
+        {
+          "id": "koan13",
+          "tag": "koan-task",
+          "data": {
+            "description": "You can create a list from a range",
+            "code": "val a = (1 to 5).toList\na should be(__)",
+            "mode": "scala",
+            "solutions": [
+              "List(1, 2, 3, 4, 5)"
+            ]
+          }
+        },
+        {
+          "id": "koan14",
+          "tag": "koan-task",
+          "data": {
+            "description": "Lists reuse their tails",
+            "code": "val d = Nil\nval c = 3 :: d\nval b = 2 :: c\nval a = 1 :: b\n\na should be(__)\na.tail should be(__)\nb.tail should be(__)\nc.tail should be(__)",
+            "mode": "scala",
+            "solutions": [
+              "List(1, 2, 3)",
+              "List(2, 3)",
+              "List(3)",
+              "Nil"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": 10,
+      "title": "Sets",
+      "tasks": [
+        {
+          "id": "koan1",
+          "tag": "koan-task",
+          "data": {
+            "description": "Sets can be created easily",
+            "code": "val mySet = Set(\"Michigan\", \"Ohio\", \"Wisconsin\", \"Iowa\")\nmySet.size should be(__)",
+            "mode": "scala",
+            "solutions": [
+              "4"
+            ]
+          }
+        },
+        {
+          "id": "koan2",
+          "tag": "koan-task",
+          "data": {
+            "description": "Sets contain distinct values",
+            "code": "val mySet = Set(\"Michigan\", \"Ohio\", \"Wisconsin\", \"Michigan\")\nmySet.size should be(__)",
+            "mode": "scala",
+            "solutions": [
+              "3"
+            ]
+          }
+        },
+        {
+          "id": "koan3",
+          "tag": "koan-task",
+          "data": {
+            "description": "Sets can be added to easily",
+            "code": "val mySet = Set(\"Michigan\", \"Ohio\", \"Wisconsin\", \"Iowa\")\nval aNewSet = mySet + \"Illinois\"\n\naNewSet.contains(\"Illinois\") should be(__)",
+            "mode": "scala",
+            "solutions": [
+              "true"
+            ]
+          }
+        },
+        {
+          "id": "koan4",
+          "tag": "koan-task",
+          "data": {
+            "description": "Sets may be of mixed type",
+            "code": "val mySet = Set(\"Michigan\", \"Ohio\", 12)\n\nmySet.contains(12) should be(__)\n\nmySet.contains(\"MI\") should be(__)",
+            "mode": "scala",
+            "solutions": [
+              "true",
+              "false"
+            ]
+          }
+        },
+        {
+          "id": "koan5",
+          "tag": "koan-task",
+          "data": {
+            "description": "Sets may be accessed",
+            "code": "val mySet = Set(\"Michigan\", \"Ohio\", 12)\n\nmySet(12) should be(__)\nmySet(\"MI\") should be(__)",
+            "mode": "scala",
+            "solutions": [
+              "true",
+              "false"
+            ]
+          }
+        },
+        {
+          "id": "koan6",
+          "tag": "koan-task",
+          "data": {
+            "description": "Set elements can be removed easily",
+            "code": "val mySet = Set(\"Michigan\", \"Ohio\", \"Wisconsin\", \"Iowa\")\nval aNewSet = mySet - \"Michigan\"\n\naNewSet.contains(\"Michigan\") should be(__)",
+            "mode": "scala",
+            "solutions": [
+              "false"
+            ]
+          }
+        },
+        {
+          "id": "koan7",
+          "tag": "koan-task",
+          "data": {
+            "description": "Set elements can be removed in multiple",
+            "code": "val mySet = Set(\"Michigan\", \"Ohio\", \"Wisconsin\", \"Iowa\")\nval aNewSet = mySet -- List(\"Michigan\", \"Ohio\")\n\naNewSet.contains(\"Michigan\") should be(__)\naNewSet.contains(\"Wisconsin\") should be(__)\naNewSet.size should be(__)",
+            "mode": "scala",
+            "solutions": [
+              "false",
+              "true",
+              "2"
+            ]
+          }
+        },
+        {
+          "id": "koan8",
+          "tag": "koan-task",
+          "data": {
+            "description": "Set elements can be removed with a tuple",
+            "code": "val mySet = Set(\"Michigan\", \"Ohio\", \"Wisconsin\", \"Iowa\")\nval aNewSet = mySet - (\"Michigan\", \"Ohio\") // Notice: single '-' operator for tuples\n\naNewSet.contains(\"Michigan\") should be(__)\naNewSet.contains(\"Wisconsin\") should be(__)\naNewSet.size should be(__)",
+            "mode": "scala",
+            "solutions": [
+              "false",
+              "true",
+              "2"
+            ]
+          }
+        },
+        {
+          "id": "koan9",
+          "tag": "koan-task",
+          "data": {
+            "description": "Attempted removal of nonexistent elements from a set is handled gracefully",
+            "code": "val mySet = Set(\"Michigan\", \"Ohio\", \"Wisconsin\", \"Iowa\")\nval aNewSet = mySet - \"Minnesota\"\n\naNewSet.equals(mySet) should be(__)",
+            "mode": "scala",
+            "solutions": [
+              "true"
+            ]
+          }
+        },
+        {
+          "id": "koan10",
+          "tag": "koan-task",
+          "data": {
+            "description": "Sets can be iterated easily",
+            "code": "val mySet = Set(1, 3, 4, 9)\nvar sum = 0\nfor (i <- mySet)\n  sum = sum + i\n\nsum should be(__)",
+            "mode": "scala",
+            "solutions": [
+              "17"
+            ]
+          }
+        },
+        {
+          "id": "koan11",
+          "tag": "koan-task",
+          "data": {
+            "description": "Two sets can be intersected easily",
+            "code": "val mySet1 = Set(\"Michigan\", \"Ohio\", \"Wisconsin\", \"Iowa\")\nval mySet2 = Set(\"Wisconsin\", \"Michigan\", \"Minnesota\")\nval aNewSet = mySet1 intersect mySet2\n// NOTE: Scala 2.7 used **, deprecated for & or intersect in Scala 2.8\n\naNewSet.equals(Set(\"Michigan\", \"Wisconsin\")) should be(__)",
+            "mode": "scala",
+            "solutions": [
+              "true"
+            ]
+          }
+        },
+        {
+          "id": "koan12",
+          "tag": "koan-task",
+          "data": {
+            "description": "Two sets can be joined as their union easily",
+            "code": "val mySet1 = Set(\"Michigan\", \"Ohio\", \"Wisconsin\", \"Iowa\")\nval mySet2 = Set(\"Wisconsin\", \"Michigan\", \"Minnesota\")\nval aNewSet = mySet1 union mySet2 // NOTE: You can also use the \"|\" operator\n\naNewSet.equals(Set(\"Michigan\", \"Wisconsin\", \"Ohio\", \"Iowa\", \"Minnesota\")) should be(__)",
+            "mode": "scala",
+            "solutions": [
+              "true"
+            ]
+          }
+        },
+        {
+          "id": "koan13",
+          "tag": "koan-task",
+          "data": {
+            "description": "A set is either a subset of another set or it isn't",
+            "code": "val mySet1 = Set(\"Michigan\", \"Ohio\", \"Wisconsin\", \"Iowa\")\nval mySet2 = Set(\"Wisconsin\", \"Michigan\", \"Minnesota\")\nval mySet3 = Set(\"Wisconsin\", \"Michigan\")\n\nmySet2 subsetOf mySet1 should be(__)\nmySet3 subsetOf mySet1 should be(__)",
+            "mode": "scala",
+            "solutions": [
+              "false",
+              "true"
+            ]
+          }
+        },
+        {
+          "id": "koan14",
+          "tag": "koan-task",
+          "data": {
+            "description": "The difference between two sets can be obtained easily",
+            "code": "val mySet1 = Set(\"Michigan\", \"Ohio\", \"Wisconsin\", \"Iowa\")\nval mySet2 = Set(\"Wisconsin\", \"Michigan\")\nval aNewSet = mySet1 diff mySet2 // Note: you can use the \"&~\" operator if you *really* want to.\n\naNewSet.equals(Set(\"Ohio\", \"Iowa\")) should be(__)",
+            "mode": "scala",
+            "solutions": [
+              "true"
+            ]
+          }
+        },
+        {
+          "id": "koan15",
+          "tag": "koan-task",
+          "data": {
+            "description": "Set equivalency is independent of order",
+            "code": "val mySet1 = Set(\"Michigan\", \"Ohio\", \"Wisconsin\", \"Iowa\")\nval mySet2 = Set(\"Wisconsin\", \"Michigan\", \"Ohio\", \"Iowa\")\n\nmySet1.equals(mySet2) should be(__)",
+            "mode": "scala",
+            "solutions": [
+              "true"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": 11,
+      "title": "Maps",
+      "tasks": [
+        {
+          "id": "koan1",
+          "tag": "koan-task",
+          "data": {
+            "description": "Maps can be created easily",
+            "code": "val myMap = Map(\"MI\" -> \"Michigan\", \"OH\" -> \"Ohio\", \"WI\" -> \"Wisconsin\", \"IA\" -> \"Iowa\")\nmyMap.size should be(__)",
+            "mode": "scala",
+            "solutions": [
+              "4"
+            ]
+          }
+        },
+        {
+          "id": "koan2",
+          "tag": "koan-task",
+          "data": {
+            "description": "Maps contain distinct pairings",
+            "code": "val myMap = Map(\"MI\" -> \"Michigan\", \"OH\" -> \"Ohio\", \"WI\" -> \"Wisconsin\", \"MI\" -> \"Michigan\")\nmyMap.size should be(__)",
+            "mode": "scala",
+            "solutions": [
+              "3"
+            ]
+          }
+        },
+        {
+          "id": "koan3",
+          "tag": "koan-task",
+          "data": {
+            "description": "Maps can be added to easily",
+            "code": "val myMap = Map(\"MI\" -> \"Michigan\", \"OH\" -> \"Ohio\", \"WI\" -> \"Wisconsin\", \"MI\" -> \"Michigan\")\n\nval aNewMap = myMap + (\"IL\" -> \"Illinois\")\n\naNewMap.contains(\"IL\") should be(__)",
+            "mode": "scala",
+            "solutions": [
+              "true"
+            ]
+          }
+        },
+        {
+          "id": "koan4",
+          "tag": "koan-task",
+          "data": {
+            "description": "Map values can be iterated",
+            "code": "val myMap = Map(\"MI\" -> \"Michigan\", \"OH\" -> \"Ohio\", \"WI\" -> \"Wisconsin\", \"MI\" -> \"Michigan\")\n\nval mapValues = myMap.values\n\nmapValues.size should be(__)\n\nmapValues.head should be(__)\n\nval lastElement = mapValues.last\nlastElement should be(__)\n\n// for (mval <- mapValues) println(mval)\n\n// NOTE that the following will not compile, as iterators do not implement \"contains\"\n//mapValues.contains(\"Illinois\") should be (__)",
+            "mode": "scala",
+            "solutions": [
+              "3",
+              "\"Michigan\"",
+              "\"Wisconsin\"",
+              "true"
+            ]
+          }
+        },
+        {
+          "id": "koan5",
+          "tag": "koan-task",
+          "data": {
+            "description": "Maps insertion with duplicate key updates previous entry with subsequent value",
+            "code": "val myMap = Map(\"MI\" -> \"Michigan\", \"OH\" -> \"Ohio\", \"WI\" -> \"Wisconsin\", \"MI\" -> \"Meechigan\")\n\nval mapValues = myMap.values\n\nmapValues.size should be(__)\n\nmyMap(\"MI\") should be(__)",
+            "mode": "scala",
+            "solutions": [
+              "3",
+              "\"Meechigan\""
+            ]
+          }
+        },
+        {
+          "id": "koan6",
+          "tag": "koan-task",
+          "data": {
+            "description": "Map keys may be of mixed type",
+            "code": "val myMap = Map(\"Ann Arbor\" -> \"MI\", 49931 -> \"MI\")\nmyMap(\"Ann Arbor\") should be(__)\nmyMap(49931) should be(__)",
+            "mode": "scala",
+            "solutions": [
+              "\"MI\"",
+              "\"MI\""
+            ]
+          }
+        },
+        {
+          "id": "koan7",
+          "tag": "koan-task",
+          "data": {
+            "description": "Mixed type values can be added to a map ",
+            "code": "val myMap = scala.collection.mutable.Map.empty[String, Any]\nmyMap(\"Ann Arbor\") = (48103, 48104, 48108)\nmyMap(\"Houghton\") = 49931\n\nmyMap(\"Houghton\") should be(__)\nmyMap(\"Ann Arbor\") should be(__)\n\n// what happens if you change the Any to Int\n// the entry Ann Arbor does not compile anymore as this is a List[Int] type and not Int",
+            "mode": "scala",
+            "solutions": [
+              "49931",
+              "(48103, 48104, 48108)"
+            ]
+          }
+        },
+        {
+          "id": "koan8",
+          "tag": "koan-task",
+          "data": {
+            "description": "Maps may be accessed",
+            "code": "val myMap = Map(\"MI\" -> \"Michigan\", \"OH\" -> \"Ohio\", \"WI\" -> \"Wisconsin\", \"IA\" -> \"Iowa\")\nmyMap(\"MI\") should be(__)\nmyMap(\"IA\") should be(__)",
+            "mode": "scala",
+            "solutions": [
+              "\"Michigan\"",
+              "\"Iowa\""
+            ]
+          }
+        },
+        {
+          "id": "koan9",
+          "tag": "koan-task",
+          "data": {
+            "description": "Map elements can be removed easily",
+            "code": "val myMap = Map(\"MI\" -> \"Michigan\", \"OH\" -> \"Ohio\", \"WI\" -> \"Wisconsin\", \"IA\" -> \"Iowa\")\nval aNewMap = myMap - \"MI\"\naNewMap.contains(\"MI\") should be(__)",
+            "mode": "scala",
+            "solutions": [
+              "false"
+            ]
+          }
+        },
+        {
+          "id": "koan10",
+          "tag": "koan-task",
+          "data": {
+            "description": "Accessing a map by key results in an exception if key is not found",
+            "code": "val myMap = Map(\"OH\" -> \"Ohio\", \"WI\" -> \"Wisconsin\", \"IA\" -> \"Iowa\")\n\n// Cheat Code (because this is hard to illustrate): uncomment the intercept code to make this pass\nintercept[NoSuchElementException] {\n  myMap(\"MI\") should be(__)\n}",
+            "mode": "scala",
+            "solutions": [
+              "Nil"
+            ]
+          }
+        },
+        {
+          "id": "koan11",
+          "tag": "koan-task",
+          "data": {
+            "description": "Map elements can be removed in multiple",
+            "code": "val myMap = Map(\"MI\" -> \"Michigan\", \"OH\" -> \"Ohio\", \"WI\" -> \"Wisconsin\", \"IA\" -> \"Iowa\")\n\nval aNewMap = myMap -- List(\"MI\", \"OH\")\n\naNewMap.contains(\"MI\") should be(__)\n\naNewMap.contains(\"WI\") should be(__)\naNewMap.size should be(__)",
+            "mode": "scala",
+            "solutions": [
+              "false",
+              "true",
+              "2"
+            ]
+          }
+        },
+        {
+          "id": "koan12",
+          "tag": "koan-task",
+          "data": {
+            "description": "Map elements can be removed with a tuple",
+            "code": "val myMap = Map(\"MI\" -> \"Michigan\", \"OH\" -> \"Ohio\", \"WI\" -> \"Wisconsin\", \"IA\" -> \"Iowa\")\nval aNewMap = myMap - (\"MI\", \"WI\") // Notice: single '-' operator for tuples\n\naNewMap.contains(\"MI\") should be(__)\naNewMap.contains(\"OH\") should be(__)\naNewMap.size should be(__)",
+            "mode": "scala",
+            "solutions": [
+              "false",
+              "true",
+              "2"
+            ]
+          }
+        },
+        {
+          "id": "koan13",
+          "tag": "koan-task",
+          "data": {
+            "description": "Attempted removal of nonexistent elements from a map is handled gracefully",
+            "code": "val myMap = Map(\"MI\" -> \"Michigan\", \"OH\" -> \"Ohio\", \"WI\" -> \"Wisconsin\", \"IA\" -> \"Iowa\")\nval aNewMap = myMap - \"MN\"\n\naNewMap.equals(myMap) should be(__)",
+            "mode": "scala",
+            "solutions": [
+              "true"
+            ]
+          }
+        },
+        {
+          "id": "koan14",
+          "tag": "koan-task",
+          "data": {
+            "description": "Map equivalency is independent of order",
+            "code": "val myMap1 = Map(\"MI\" -> \"Michigan\", \"OH\" -> \"Ohio\", \"WI\" -> \"Wisconsin\", \"IA\" -> \"Iowa\")\nval myMap2 = Map(\"WI\" -> \"Wisconsin\", \"MI\" -> \"Michigan\", \"IA\" -> \"Iowa\", \"OH\" -> \"Ohio\")\n\nmyMap1.equals(myMap2) should be(__)",
+            "mode": "scala",
+            "solutions": [
+              "true"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": 12,
+      "title": "Mutable Sets",
+      "tasks": [
+        {
+          "id": "koan1",
+          "tag": "koan-task",
+          "data": {
+            "description": "Mutable sets can be created easily",
+            "code": "val mySet = mutable.Set(\"Michigan\", \"Ohio\", \"Wisconsin\", \"Iowa\")\nmySet.size should be(__)\nmySet += \"Oregon\"\nmySet contains \"Oregon\" should be(__)",
+            "mode": "scala",
+            "solutions": [
+              "4",
+              "true"
+            ]
+          }
+        },
+        {
+          "id": "koan2",
+          "tag": "koan-task",
+          "data": {
+            "description": "Mutable sets can have elements removed",
+            "code": "val mySet = mutable.Set(\"Michigan\", \"Ohio\", \"Wisconsin\", \"Iowa\")\nmySet -= \"Ohio\"\nmySet contains \"Ohio\" should be(__)",
+            "mode": "scala",
+            "solutions": [
+              "false"
+            ]
+          }
+        },
+        {
+          "id": "koan3",
+          "tag": "koan-task",
+          "data": {
+            "description": "Mutable sets can have tuples of elements removed",
+            "code": "val mySet = mutable.Set(\"Michigan\", \"Ohio\", \"Wisconsin\", \"Iowa\")\nmySet -= (\"Iowa\", \"Ohio\")\nmySet contains \"Ohio\" should be(__)\nmySet.size should be(__)",
+            "mode": "scala",
+            "solutions": [
+              "false",
+              "2"
+            ]
+          }
+        },
+        {
+          "id": "koan4",
+          "tag": "koan-task",
+          "data": {
+            "description": "Mutable sets can have tuples of elements added",
+            "code": "val mySet = mutable.Set(\"Michigan\", \"Wisconsin\")\nmySet += (\"Iowa\", \"Ohio\")\nmySet contains \"Ohio\" should be(__)\nmySet.size should be(__)",
+            "mode": "scala",
+            "solutions": [
+              "true",
+              "4"
+            ]
+          }
+        },
+        {
+          "id": "koan5",
+          "tag": "koan-task",
+          "data": {
+            "description": "Mutable sets can have Lists of elements added",
+            "code": "val mySet = mutable.Set(\"Michigan\", \"Wisconsin\")\nmySet ++= List(\"Iowa\", \"Ohio\")\nmySet contains \"Ohio\" should be(__)\nmySet.size should be(__)",
+            "mode": "scala",
+            "solutions": [
+              "true",
+              "4"
+            ]
+          }
+        },
+        {
+          "id": "koan6",
+          "tag": "koan-task",
+          "data": {
+            "description": "Mutable sets can have Lists of elements removed",
+            "code": "val mySet = mutable.Set(\"Michigan\", \"Ohio\", \"Wisconsin\", \"Iowa\")\nmySet --= List(\"Iowa\", \"Ohio\")\nmySet contains \"Ohio\" should be(__)\nmySet.size should be(__)",
+            "mode": "scala",
+            "solutions": [
+              "false",
+              "2"
+            ]
+          }
+        },
+        {
+          "id": "koan7",
+          "tag": "koan-task",
+          "data": {
+            "description": "Mutable sets can be cleared",
+            "code": "val mySet = mutable.Set(\"Michigan\", \"Ohio\", \"Wisconsin\", \"Iowa\")\nmySet.clear() // Convention is to use parens if possible when method called changes state\nmySet contains \"Ohio\" should be(__)\nmySet.size should be(__)",
+            "mode": "scala",
+            "solutions": [
+              "false",
+              "0"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": 13,
+      "title": "Mutable Maps",
+      "tasks": [
+        {
+          "id": "koan1",
+          "tag": "koan-task",
+          "data": {
+            "description": "Mutable maps can be created easily",
+            "code": "val myMap = mutable.Map(\"MI\" -> \"Michigan\", \"OH\" -> \"Ohio\", \"WI\" -> \"Wisconsin\", \"IA\" -> \"Iowa\")\nmyMap.size should be(__)\nmyMap += \"OR\" -> \"Oregon\"\nmyMap contains \"OR\" should be(__)",
+            "mode": "scala",
+            "solutions": [
+              "4",
+              "true"
+            ]
+          }
+        },
+        {
+          "id": "koan2",
+          "tag": "koan-task",
+          "data": {
+            "description": "Mutable maps can have elements removed",
+            "code": "val myMap = mutable.Map(\"MI\" -> \"Michigan\", \"OH\" -> \"Ohio\", \"WI\" -> \"Wisconsin\", \"IA\" -> \"Iowa\")\nmyMap -= \"OH\"\nmyMap contains \"OH\" should be(__)",
+            "mode": "scala",
+            "solutions": [
+              "false"
+            ]
+          }
+        },
+        {
+          "id": "koan3",
+          "tag": "koan-task",
+          "data": {
+            "description": "Mutable maps can have tuples of elements removed",
+            "code": "val myMap = mutable.Map(\"MI\" -> \"Michigan\", \"OH\" -> \"Ohio\", \"WI\" -> \"Wisconsin\", \"IA\" -> \"Iowa\")\nmyMap -= (\"IA\", \"OH\")\nmyMap contains \"OH\" should be(__)\nmyMap.size should be(__)",
+            "mode": "scala",
+            "solutions": [
+              "false",
+              "2"
+            ]
+          }
+        },
+        {
+          "id": "koan4",
+          "tag": "koan-task",
+          "data": {
+            "description": "Mutable maps can have tuples of elements added",
+            "code": "val myMap = mutable.Map(\"MI\" -> \"Michigan\", \"WI\" -> \"Wisconsin\")\nmyMap += (\"IA\" -> \"Iowa\", \"OH\" -> \"Ohio\")\nmyMap contains \"OH\" should be(__)\nmyMap.size should be(__)",
+            "mode": "scala",
+            "solutions": [
+              "true",
+              "4"
+            ]
+          }
+        },
+        {
+          "id": "koan5",
+          "tag": "koan-task",
+          "data": {
+            "description": "Mutable maps can have Lists of elements added",
+            "code": "val myMap = mutable.Map(\"MI\" -> \"Michigan\", \"WI\" -> \"Wisconsin\")\nmyMap ++= List(\"IA\" -> \"Iowa\", \"OH\" -> \"Ohio\")\nmyMap contains \"OH\" should be(__)\nmyMap.size should be(__)",
+            "mode": "scala",
+            "solutions": [
+              "true",
+              "4"
+            ]
+          }
+        },
+        {
+          "id": "koan6",
+          "tag": "koan-task",
+          "data": {
+            "description": "Mutable maps can have Lists of elements removed",
+            "code": "val myMap = mutable.Map(\"MI\" -> \"Michigan\", \"OH\" -> \"Ohio\", \"WI\" -> \"Wisconsin\", \"IA\" -> \"Iowa\")\nmyMap --= List(\"IA\", \"OH\")\nmyMap contains \"OH\" should be(__)\nmyMap.size should be(__)",
+            "mode": "scala",
+            "solutions": [
+              "false",
+              "2"
+            ]
+          }
+        },
+        {
+          "id": "koan7",
+          "tag": "koan-task",
+          "data": {
+            "description": "Mutable maps can be cleared",
+            "code": "val myMap = mutable.Map(\"MI\" -> \"Michigan\", \"OH\" -> \"Ohio\", \"WI\" -> \"Wisconsin\", \"IA\" -> \"Iowa\")\nmyMap.clear() // Convention is to use parens if possible when method called changes state\nmyMap contains \"OH\" should be(__)\nmyMap.size should be(__)",
+            "mode": "scala",
+            "solutions": [
+              "false",
+              "0"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": 14,
+      "title": "Range",
+      "tasks": [
+        {
+          "id": "koan1",
+          "tag": "koan-task",
+          "data": {
+            "description": "Range are not inclusive at end of range",
+            "code": "val someNumbers = Range(0, 10)\n\nsomeNumbers.size should be(__)",
+            "mode": "scala",
+            "solutions": [
+              "10"
+            ]
+          }
+        },
+        {
+          "id": "koan2",
+          "tag": "koan-task",
+          "data": {
+            "description": "Range can specify a step for an increment",
+            "code": "val someNumbers = Range(2, 10, 3)\n\nsomeNumbers.size should be(__)",
+            "mode": "scala",
+            "solutions": [
+              "3"
+            ]
+          }
+        },
+        {
+          "id": "koan3",
+          "tag": "koan-task",
+          "data": {
+            "description": "Range doed not include the last item, even in a step increment",
+            "code": "val someNumbers = Range(0, 34, 2)\nsomeNumbers.contains(33) should be(__)\nsomeNumbers.contains(32) should be(__)\nsomeNumbers.contains(34) should be(__)",
+            "mode": "scala",
+            "solutions": [
+              "false",
+              "true",
+              "false"
+            ]
+          }
+        },
+        {
+          "id": "koan4",
+          "tag": "koan-task",
+          "data": {
+            "description": "Range can specify to include the last value",
+            "code": "val someNumbers = Range(0, 34).inclusive\n\nsomeNumbers.contains(34) should be(__)",
+            "mode": "scala",
+            "solutions": [
+              "true"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": 15,
+      "title": "For Expressions",
+      "tasks": [
+        {
+          "id": "koan1",
+          "tag": "koan-task",
+          "data": {
+            "description": "For loops can be simple",
+            "code": "val someNumbers = Range(0, 10) // non-inclusive on the upper bound\nvar sum = 0\nfor (i <- someNumbers)\n  sum += i\n\nsum should equal(__)",
+            "mode": "scala",
+            "solutions": [
+              "45"
+            ]
+          }
+        },
+        {
+          "id": "koan2",
+          "tag": "koan-task",
+          "data": {
+            "description": "For loops can contain additional logic",
+            "code": "val someNumbers = Range(0, 10)\nvar sum = 0\n// sum only the even numbers\nfor (i <- someNumbers)\n  if (i % 2 == 0) sum += i\n\nsum should equal(__)",
+            "mode": "scala",
+            "solutions": [
+              "20"
+            ]
+          }
+        },
+        {
+          "id": "koan3",
+          "tag": "koan-task",
+          "data": {
+            "description": "For expressions can nest, with later generators varying more rapidly than earlier ones",
+            "code": "val xValues = Range(1, 5)\nval yValues = Range(1, 3)\nval coordinates = for {\n  x <- xValues\n  y <- yValues\n}\nyield (x, y)\ncoordinates(4) should be(__)",
+            "mode": "scala",
+            "solutions": [
+              "(3, 1)"
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}

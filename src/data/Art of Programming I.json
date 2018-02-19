@@ -1,0 +1,1332 @@
+{
+  "id": 10,
+  "title": "Art of Programming I",
+  "chapters": [
+    {
+      "id": 1,
+      "title": "Scala Basics",
+      "tasks": [
+        {
+          "id": "koan1",
+          "tag": "koan-task",
+          "data": {
+            "description": "Welcome to this course on the Art of Programming using Scala. \nIt is based on a book with the same title by Mark C. Lewis and a set of videos that accompany the book. \nThis course combines the videos by Mark C. Lewis with interactive code snippets, called koans. \nYou should listen to the video, then fill in the blanks in the code that follows.\nFor some chapters we also provide little programming exercises we call codetasks. \nHere you need to fill in a few lines of code to pass a test. Let's get started: ",
+            "code": "2 + 3 should be(__)",
+            "mode": "scala",
+            "solutions": [
+              "5"
+            ]
+          }
+        },
+        {
+          "id": "video1",
+          "tag": "video-task",
+          "data": {
+            "description": "Objects and associated methods",
+            "url": "OdHJBxfOIfs"
+          }
+        },
+        {
+          "id": "koan2",
+          "tag": "koan-task",
+          "data": {
+            "description": "Calls on Integers: Try out some basic operations on Integers",
+            "code": "5.6.round should be(__)\n5.6.toInt should be(__)\n\n4.+(5) should be(__)\n3 + 8 should be(__)",
+            "mode": "scala",
+            "solutions": [
+              "6",
+              "5",
+              "9",
+              "11"
+            ]
+          }
+        },
+        {
+          "id": "video2",
+          "tag": "video-task",
+          "data": {
+            "description": "Scala Types",
+            "url": "yrpQnVGMX1g"
+          }
+        },
+        {
+          "id": "koan3",
+          "tag": "koan-task",
+          "data": {
+            "description": "Primitiv Datatypes: \n    Scala has a set of primitve datatypes which will \n    be familiar from other programming languages like \n    Java, C++ and so on. The difference in Scala is \n    that all of those datatypes are implemented as Classes.\n    \n    Solve the type of the following values",
+            "code": "5.isInstanceOf[Int] should be(__)\n(5.1).isInstanceOf[Double] should be(__)\n(5.1F).isInstanceOf[Float] should be(__)\n5000L.isInstanceOf[Long] should be(__)\n'x'.isInstanceOf[Char] should be(__)\ntrue.isInstanceOf[Boolean] should be(__)\n\"Hello\".isInstanceOf[String] should be(__)",
+            "mode": "scala",
+            "solutions": [
+              "true",
+              "true",
+              "true",
+              "true",
+              "true",
+              "true",
+              "true"
+            ]
+          }
+        },
+        {
+          "id": "koan4",
+          "tag": "koan-task",
+          "data": {
+            "description": "Primitive datatype arithmetic:\n    Each primitive datatype has a unique set of arithmetic functions like +,* implemented.\n    These methods can be called by invoking the method on the value of which you'll be invoking\n    the method. The argument on the right side will be used as the argument. \n    In Scala there is a special case in which you could leave the default method invokation symbol (symbol =  '.' ) \n    if the is only one arguments on the right side.\n    \n    Solve the following values",
+            "code": "6 + 4 should be(__)  \n5.6.+(4.4) should be(__)\n5.6 + 4.4 should be(__)\n\n'a' + 1 should be(__)\n'd' - 'c' should be(__)\n'a'.toInt should be(__)\n98.toChar should be(__)\n\n\"a\" + \"b\" should be(__)\n\"a\" + 1 should be(__)\n\"a\" * 3 should be(__) \n\n\"Hello \" + \"World\" should be(__)\n\"Hello \" + 5.6 should be(__)\n\"Hello \" * 3 should be(__)",
+            "mode": "scala",
+            "solutions": [
+              "10",
+              "10.0",
+              "10.0",
+              "98",
+              "1",
+              "97",
+              "'b'",
+              "\"ab\"",
+              "\"a1\"",
+              "\"aaa\"",
+              "\"Hello World\"",
+              "\"Hello 5.6\"",
+              "\"Hello Hello Hello \""
+            ]
+          }
+        },
+        {
+          "id": "koan5",
+          "tag": "koan-task",
+          "data": {
+            "description": "Tuple:\n    Scala is a functional language and in this case tuples likely \n    known from math are mandatory. Especially for the use in the match statement. \n    This will be discussed or tested in a later state of tests.\n    \n    Solve the right representation for the following tuples",
+            "code": "(\"Hello\", 42).isInstanceOf[(String, Int)] should be(__)\n(\"Hello\" -> 42).isInstanceOf[(String, Int)] should be(__)\n\n(\"Hello\", 42, 'a').isInstanceOf[(String, Int, Char)] should be(__)\n(\"Hello\" -> 42 -> 'a').isInstanceOf[(String, Int, Char)] should be(__)\n(\"Hello\" -> 42 -> 'a').isInstanceOf[((String, Int), Char)] should be(__)",
+            "mode": "scala",
+            "solutions": [
+              "true",
+              "true",
+              "true",
+              "false",
+              "true"
+            ]
+          }
+        },
+        {
+          "id": "koan6",
+          "tag": "koan-task",
+          "data": {
+            "description": "Tuple access:\n    Accessing the values in a tuple can be archived in different ways.\n    In this test case we use the primitive notation by accessing the variables\n    directly with indices.\n    ",
+            "code": "(\"Hello\", 42)._1 should be(__)\n(\"Hello\", 42)._2 should be(__)\n(\"Hello\" -> 42 -> 'a')._2 should be(__)\n\n(\"Hello\" -> 42 -> 'a')._1 should be(__)\n(\"Hello\" -> 42 -> 'a')._1._2 should be(__)",
+            "mode": "scala",
+            "solutions": [
+              "\"Hello\"",
+              "42",
+              "'a'",
+              "(Hello, 42)",
+              "42"
+            ]
+          }
+        },
+        {
+          "id": "video3",
+          "tag": "video-task",
+          "data": {
+            "description": "Details of numbers",
+            "url": "2dImF4DCWlY"
+          }
+        },
+        {
+          "id": "koan7",
+          "tag": "koan-task",
+          "data": {
+            "description": "Binary Numbers:\n    Decimal numbers can be converted into binary numbers and vice versa.\n    ",
+            "code": "42.toBinaryString should be(__)",
+            "mode": "scala",
+            "solutions": [
+              "\"101010\""
+            ]
+          }
+        },
+        {
+          "id": "video4",
+          "tag": "video-task",
+          "data": {
+            "description": "Additional Integer Types",
+            "url": "dJPxiFFZypU"
+          }
+        },
+        {
+          "id": "koan8",
+          "tag": "koan-task",
+          "data": {
+            "description": "Type Limits:\n    Types have a certain amount of bytes reserved for their value. Due to this restriction \n    there is a chance to get overflows during runtime.\n    ",
+            "code": "Int.MaxValue should be(__)\nInt.MinValue should be(__)\nInt.MaxValue + 1 should be(__)\n\nByte.MaxValue should be(__)\n\nShort.MaxValue should be(__)\n\n1000000000 + 1000000000 should be(__)\n2000000000 + 2000000000 should be(__)\n\n2000000000L + 2000000000L should be(__)\n\nChar.MinValue.toInt should be(__)\nChar.MaxValue.toInt should be(__)",
+            "mode": "scala",
+            "solutions": [
+              "2147483647",
+              "-2147483648",
+              "-2147483648",
+              "127",
+              "32767",
+              "2000000000",
+              "-294967296",
+              "4000000000L",
+              "0",
+              "65535"
+            ]
+          }
+        },
+        {
+          "id": "video5",
+          "tag": "video-task",
+          "data": {
+            "description": "Binary Arithmetic and presentation",
+            "url": "212jDl_5B7E"
+          }
+        },
+        {
+          "id": "video6",
+          "tag": "video-task",
+          "data": {
+            "description": "Signed and unsigned values",
+            "url": "qTAw30GgDZs"
+          }
+        },
+        {
+          "id": "koan9",
+          "tag": "koan-task",
+          "data": {
+            "description": "Value presentation in other representations:\n    \n    ",
+            "code": "42.toBinaryString should be(__)\n-42.toBinaryString should be(__)   \n\n42.toOctalString should be(__)\n42.toHexString should be(__)",
+            "mode": "scala",
+            "solutions": [
+              "\"101010\"",
+              "\"11111111111111111111111111010110\"",
+              "\"52\"",
+              "\"2a\""
+            ]
+          }
+        },
+        {
+          "id": "video7",
+          "tag": "video-task",
+          "data": {
+            "description": "Floating point numbers and math libary",
+            "url": "LrU7mLiTWKo"
+          }
+        },
+        {
+          "id": "koan10",
+          "tag": "koan-task",
+          "data": {
+            "description": " Mathematical Functions:\n    Scala delivers a special Math Library like many other programming languages.\n    Since version 2.08 Scala refactored their math library. It is now accessable\n    via \"scala.math\"\n    Solve the result of the constants and method calls",
+            "code": "scala.math.Pi should be(__)\nscala.math.E should be(__)\nscala.math.sqrt(9) should be(__)",
+            "mode": "scala",
+            "solutions": [
+              "3.141592653589793",
+              "2.718281828459045",
+              "3.0"
+            ]
+          }
+        },
+        {
+          "id": "video8",
+          "tag": "video-task",
+          "data": {
+            "description": "Values and Variables",
+            "url": "xJNb8UhrMcY"
+          }
+        },
+        {
+          "id": "koan11",
+          "tag": "koan-task",
+          "data": {
+            "description": " Variables and Pattern matching:\n    There are two variable concepts in Scala, Val and Var. Val declares a constant/immutable variable.\n    Var on the other hand declares a mutable variable. Due to best practice the usa of Var should\n    be minimized to the bare minimum.\n    \n    Pattern matching revisits the problem of accessing a tuple. It provides an elegant way of accessing\n    the values of a tuple by simple giving them temporary names instead. This feature makes the code \n    more readable which empowers the level of understanding.",
+            "code": "val constValue = 5\nvar variableValue = 6\n\nval explicitInt: Int = 6\n\nval name = (\"Max\", \"Mustermann\")\nname._1 should be(__)\n\nval (firstName, lastName) = (\"Max\", \"Mustermann\")\nfirstName should be(__)\nlastName should be(__)",
+            "mode": "scala",
+            "solutions": [
+              "\"Max\"",
+              "\"Max\"",
+              "\"Mustermann\""
+            ]
+          }
+        },
+        {
+          "id": "video9",
+          "tag": "video-task",
+          "data": {
+            "description": "Mental model of variables",
+            "url": "TLfRT5Ab7d0"
+          }
+        },
+        {
+          "id": "video10",
+          "tag": "video-task",
+          "data": {
+            "description": "Details of Strings and Chars",
+            "url": "hkPwD4HUK_0"
+          }
+        },
+        {
+          "id": "koan12",
+          "tag": "koan-task",
+          "data": {
+            "description": " String Interpolation:\n    Scala delivers a special string interpolation operator (s\") which offers the chance\n    to concat strings without having the problem of escaping characters. The syntax is \n    very similar to Printf methods where you add a placeholder for the value. Using s\" is bound to\n    strings. If you want to be more flexible you can use the (f\") interpolator. With this you have\n    exactly the same style as with printf. \n    \n    There is a second method of writing strings without bothering about escaping characters\n    and this could be archived with tree (\"), see last statement.",
+            "code": "val a = 5\nval b = 10\nval c = 'x'\n\na + \" \" + b + \" \" + c should be(__)\ns\"$a $b $c\" should be(__)\n\"\"\"s\"$a $b $c\" \"\"\" should be(__)\ns\"${a + 5} $b $c\" should be(__)",
+            "mode": "scala",
+            "solutions": [
+              "\"5 10 x\"",
+              "\"5 10 x\"",
+              "\"s\"$a $b $c\" \"",
+              "\"10 10 x\""
+            ]
+          }
+        },
+        {
+          "id": "video11",
+          "tag": "video-task",
+          "data": {
+            "description": "Basic string methods",
+            "url": "DDlVziE243A"
+          }
+        },
+        {
+          "id": "koan13",
+          "tag": "koan-task",
+          "data": {
+            "description": " String Methods:\n    Due to the fact that Scala is using the String implementation of Java all methods of Java Strings are availble.\n    If you're familiar with Java and the String Class then you know most of them already. But there are additional methods like splitAt.",
+            "code": "val name = \"Max\"\nname.length should be(__)\n\nname(0) should be(__)\n\nname.indexOf(\"M\") should be(__)\nname.indexOf(\"Z\") should be(__)\n\nval fullName = \"Max Mustermann\"\nfullName.substring(4) should be(__)\nfullName.substring(4, 10) should be(__)\n\nfullName.splitAt(4) should be(__)\n\n\"Max \".trim should be(__)\n\"Max\".toUpperCase should be(__)\n\"Max\".toLowerCase should be(__)",
+            "mode": "scala",
+            "solutions": [
+              "3",
+              "'M'",
+              "0",
+              "-1",
+              "\"Mustermann\"",
+              "\"Muster\"",
+              "(\"Max \", Mustermann)",
+              "\"Max\"",
+              "\"MAX\"",
+              "\"max\""
+            ]
+          }
+        },
+        {
+          "id": "video12",
+          "tag": "video-task",
+          "data": {
+            "description": "Immutability of Strings",
+            "url": "jZOg0P8-26E"
+          }
+        },
+        {
+          "id": "video13",
+          "tag": "video-task",
+          "data": {
+            "description": "Sequential Execution and string example",
+            "url": "ReS2nusS7R8"
+          }
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "title": "Conditionals",
+      "tasks": [
+        {
+          "id": "video1",
+          "tag": "video-task",
+          "data": {
+            "description": "Conditionals",
+            "url": "DYUJGtNcuYk"
+          }
+        },
+        {
+          "id": "koan1",
+          "tag": "koan-task",
+          "data": {
+            "description": " If conditional:\n    The If conditional is in almost everything the same as in any other programming language. \n    The only fact which differs from some other languages is that the conditional always returns a value.\n    The last expression in the code block is returned as result.      \n    In some cases this is very benefitial. For example if you don't want to introduce a variable to store\n    a result. In certain languages you always have to declare a variable in which you store the value of the\n    conditional, in scala you can use a val to store the result of it.",
+            "code": "val number = 12\nval response = if (number >= 0) \"Positive Number\" else \"Negative Number\"\nresponse should be(__)",
+            "mode": "scala",
+            "solutions": [
+              "\"Positive Number\""
+            ]
+          }
+        },
+        {
+          "id": "video2",
+          "tag": "video-task",
+          "data": {
+            "description": "Code Blocks",
+            "url": "WUOV9Km0o_8"
+          }
+        },
+        {
+          "id": "koan2",
+          "tag": "koan-task",
+          "data": {
+            "description": " Code block:\n    Code blocks are expressions seperated from the code with curly braces. Examples for code blocks\n    are method bodies, conditionals, loops or static code blocks. The result of a code block is always the\n    last statement",
+            "code": "val response = {\n  4\n  5\n  6\n}\nresponse should be(__)\n\nval number = -42\nval conditionResponse = if (number >= 0) {\n  println(\"The number is positive\")\n  \"Positive Number\"\n} else {\n  println(\"The number is negative\")\n  \"Negative Number\"\n}\n\nconditionResponse should be(__)",
+            "mode": "scala",
+            "solutions": [
+              "6",
+              "\"Negative Number\""
+            ]
+          }
+        },
+        {
+          "id": "video3",
+          "tag": "video-task",
+          "data": {
+            "description": "Comparison Operators",
+            "url": "XtDbWYHOQGg"
+          }
+        },
+        {
+          "id": "koan3",
+          "tag": "koan-task",
+          "data": {
+            "description": " Comparision Operator:\n    In Scala the basic comparison operators are implemented on the primitiv datatypes. \n    To compare strings there are to seperate comparing methods. The first one is to check for equality value wise(see 6th and 7th statement). \n    The other one is to check for identity, checking if two objects are the same (8th and 9th statement).\n    \n    The last statement is a bit tricky due to scalas compiler and performance enhancements.",
+            "code": "5 < 4 should be(__)\n10 > 2 should be(__)\n0 >= -1 should be(__)\n2 <= 2 should be(__)\n'a' > 'z' should be(__)\n\n\"hi\" == \"hy\" should be(__)\n\"hi\" != \"hy\" should be(__)\n\n\"hi\" eq \"hy\" should be(__)\n\"hi\" eq \"hi\" should be(__)",
+            "mode": "scala",
+            "solutions": [
+              "false",
+              "true",
+              "true",
+              "true",
+              "false",
+              "false",
+              "true",
+              "false",
+              "true"
+            ]
+          }
+        },
+        {
+          "id": "video4",
+          "tag": "video-task",
+          "data": {
+            "description": "Boolean logic",
+            "url": "qNly4zSs9-4"
+          }
+        },
+        {
+          "id": "koan4",
+          "tag": "koan-task",
+          "data": {
+            "description": " Boolean Logic:\n    The boolean logic is equal to the java language and offers the default behaviour.",
+            "code": "5 > 2 && 'a' != 'b' should be(__)\n\nval x = true\n!x || \"Hello\".length >= 4 should be(__)",
+            "mode": "scala",
+            "solutions": [
+              "true",
+              "true"
+            ]
+          }
+        },
+        {
+          "id": "video5",
+          "tag": "video-task",
+          "data": {
+            "description": "Operator Precedence",
+            "url": "hF-Kf_zG_G0"
+          }
+        },
+        {
+          "id": "koan5",
+          "tag": "koan-task",
+          "data": {
+            "description": " Operator Precedence:\n    To know when which part of a calculation or statement is processed first, Scala has \n    a fix precedence which is documentated and listed below:\n      \n    (all letters)\n\n    ^\n    &\n    < >\n    = !\n    :\n    + -\n    * / %\n    (all other special characters)\n    \n    Solve the result of the statements",
+            "code": "3 + 4 * 5 should be(__)\n(3 + 4) * 5 should be(__)\n\n3 + 3 < 4 * 2 should be(__)",
+            "mode": "scala",
+            "solutions": [
+              "23",
+              "35",
+              "true"
+            ]
+          }
+        },
+        {
+          "id": "video6",
+          "tag": "video-task",
+          "data": {
+            "description": "Nested Ifs",
+            "url": "ZT3zAIQhDE8"
+          }
+        },
+        {
+          "id": "koan6",
+          "tag": "koan-task",
+          "data": {
+            "description": " Nested If's:\n    If conditionals could be nested as seen below. A certain level of nested is okay but \n    in case of code quality, maintainability and readability it isn't a good practice if \n    the level of nested if's is above two",
+            "code": "val categorie = \"Food\"\nval item = \"Lasagne\"\nval price = if (categorie == \"Beverage\") {\n  if (item == \"Coke\") 2.6\n  else if (item == \"Water\") 1.2\n  else 0.0\n} else if (categorie == \"Food\") {\n  if (item == \"Pizza\") 6.9\n  else if (item == \"Risotto\") 7.0\n  else 7.5\n} else 0.0\nprice should be(__)",
+            "mode": "scala",
+            "solutions": [
+              "7.5"
+            ]
+          }
+        },
+        {
+          "id": "video7",
+          "tag": "video-task",
+          "data": {
+            "description": "Bitwise Arithmetic",
+            "url": "8CpZLfe0Lug"
+          }
+        },
+        {
+          "id": "koan7",
+          "tag": "koan-task",
+          "data": {
+            "description": " Bitwise Arithmetic:\n    For low level programming and encryption bitwise arithmetic is mandatory.\n    It contains basic operations as &,|,^,~ and bitwise shifting",
+            "code": "42 & 6 should be(__)\n13 | 4 should be(__)\n5 ^ 4 should be(__)\n~7 should be(__)\n1 << 1 should be(__)\n4 << 3 should be(__)\n10 >> 1 should be(__)",
+            "mode": "scala",
+            "solutions": [
+              "2",
+              "13",
+              "1",
+              "-8",
+              "2",
+              "32",
+              "5"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "title": "Functions",
+      "tasks": [
+        {
+          "id": "video1",
+          "tag": "video-task",
+          "data": {
+            "description": "Simple function definition",
+            "url": "rCQN_LRw2Ds"
+          }
+        },
+        {
+          "id": "video2",
+          "tag": "video-task",
+          "data": {
+            "description": "Side Effects",
+            "url": "a5hUmOdsDN4"
+          }
+        },
+        {
+          "id": "koan1",
+          "tag": "koan-task",
+          "data": {
+            "description": " Functions:\n    The bread and butter of Scala are functions easily that it's a functional programming language. \n    To create a function you define a function with the keyword def. A function can consist of a single \n    line or multiple lines building a code block. Due to Scala all functions should return a value \n    otherwise they could create side effects.",
+            "code": "def square(x: Double): Double = x * x\n\nsquare(3.0) should be(__)\n\ndef add(x: Int, y: Int, z: Int): Int = {\n  x + y + z\n}\n\nadd(3, 2, 1) should be(__)",
+            "mode": "scala",
+            "solutions": [
+              "9.0",
+              "6"
+            ]
+          }
+        },
+        {
+          "id": "video3",
+          "tag": "video-task",
+          "data": {
+            "description": "Lambda Expressions",
+            "url": "7a6MtgFNaWg"
+          }
+        },
+        {
+          "id": "koan2",
+          "tag": "koan-task",
+          "data": {
+            "description": " Lambda Literals: \n    Lambda literals are function literals. You could see it as a inline function.\n    They are mostly defined (exception s. last statement) with a symbol called rocket (=>).\n    In special cases you could use the buildin wildcard feature (s. last statement).\n    Lambda literals can also be called as anonymous functions",
+            "code": "val square = (x: Double) => x * x\nsquare(3) should be(__)\n\nval add = (x: Double, y: Double) => x + y\nadd(3, 4) should be(__)\n\nval func = (_: Double) * 2\nfunc(25) should be(__)",
+            "mode": "scala",
+            "solutions": [
+              "9.0",
+              "7.0",
+              "50.0"
+            ]
+          }
+        },
+        {
+          "id": "video4",
+          "tag": "video-task",
+          "data": {
+            "description": "Higher order functions",
+            "url": "D8o96hXjBBs"
+          }
+        },
+        {
+          "id": "koan3",
+          "tag": "koan-task",
+          "data": {
+            "description": " Higher Order Functions:\n    Higher order functions are based on lambda literals. \n    Basic usecase: \n      You have a set of numbers and you want to add, multiply and subtract them.\n      You could write a function for each arithmetic function or you would use the\n      benefits of lambda literals. \n      \n    In this example the user can choose which arithmetic function will be applied \n    to the dataset x,y,z by passing an lambda literal as an argument.\n    \n    The two last statements make use of the wildcard feature which shortens the function call and \n    enhances the readability",
+            "code": "def combine(x: Int, y: Int, z: Int, f: (Int, Int) => Int): Int = f(f(x, y), z)\ncombine(2, 3, 4, (x, y) => x + y) should be(__)\ncombine(2, 3, 4, (x, y) => x * y) should be(__)\ncombine(2, 3, 4, _ * _) should be(__)\ncombine(2, 3, 4, _ min _) should be(__)",
+            "mode": "scala",
+            "solutions": [
+              "9",
+              "24",
+              "24",
+              "2"
+            ]
+          }
+        },
+        {
+          "id": "video5",
+          "tag": "video-task",
+          "data": {
+            "description": "Function example with strings",
+            "url": "5Y0_fo3Jogk"
+          }
+        },
+        {
+          "id": "code1",
+          "tag": "code-task",
+          "data": {
+            "description": " Exercise: (String operations) \n    Write a function which disassembles a given time string. The result should be a tuple containing \n    the hours and minutes",
+            "mode": "scala",
+            "code": "def splitTime(time: String): (Int, Int) = {\n  val colonPosition = time.indexOf(\":\")\n  //todo\n}"
+          }
+        },
+        {
+          "id": "video6",
+          "tag": "video-task",
+          "data": {
+            "description": "Type declarations",
+            "url": "NrgF2vnGOsU"
+          }
+        },
+        {
+          "id": "koan4",
+          "tag": "koan-task",
+          "data": {
+            "description": " Type Declarations (Alias)\n    Scala offers with the keyword type a way to shorten variable types with aliases. In the example below \n    you see how to alias a three tuple. Aliases can make your code more readable. Keep in mind that aliaes don't\n    have any logic. In a later chapter we learn about case classes which will be even better.",
+            "code": "type Vect3 = (Double, Double, Double)\ndef addVect(v1: Vect3, v2: Vect3): Vect3 = { (v1._1 + v2._1, v1._2 + v2._2, v1._3 + v2._3) }\nval v1: Vect3 = (2, 3, 3)\nval v2: Vect3 = (4, 7, 7)\n\naddVect(v1, v2) should be(__)",
+            "mode": "scala",
+            "solutions": [
+              "(6, 10, 10)"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "title": "Recursion",
+      "tasks": [
+        {
+          "id": "video1",
+          "tag": "video-task",
+          "data": {
+            "description": "Basic idea behind recursion",
+            "url": "qeh2bbPqKaI"
+          }
+        },
+        {
+          "id": "video2",
+          "tag": "video-task",
+          "data": {
+            "description": "Recursion in Scala",
+            "url": "mIi5M_QiVXs"
+          }
+        },
+        {
+          "id": "video3",
+          "tag": "video-task",
+          "data": {
+            "description": "Additional Recursive functions",
+            "url": "YEVyoXa35e8"
+          }
+        },
+        {
+          "id": "video4",
+          "tag": "video-task",
+          "data": {
+            "description": "Tracing recursive functions",
+            "url": "3xO1F2Jj5kg"
+          }
+        },
+        {
+          "id": "video5",
+          "tag": "video-task",
+          "data": {
+            "description": "Tracing by substitution",
+            "url": "sl4H7PhUSWk"
+          }
+        },
+        {
+          "id": "koan1",
+          "tag": "koan-task",
+          "data": {
+            "description": " Recursive Functions:\n    Recursive calling of functions within the body of this method is as simple as in other languages. Recursive function must have a return\n    value. \n    \n    Note: During calculation of factorial values the value space of int is surely to be reach an overflow. If you want to be sure to \n    calculate the right value make use of the datatype BigInt",
+            "code": "def factorial(n: Int): Int = if (n < 2) 1 else n * factorial(n - 1)\nfactorial(5) should be(__)\n\ndef squareSum(n: Int): Int = if (n < 2) 1 else n * n + squareSum(n - 1)\nsquareSum(3) should be(__)",
+            "mode": "scala",
+            "solutions": [
+              "120",
+              "14"
+            ]
+          }
+        },
+        {
+          "id": "koan2",
+          "tag": "koan-task",
+          "data": {
+            "description": " Nested Functions:\n   Scala give you the ability to define nested functions. This limits the scope of use to inside of definition block. \n   It is mainly used to improve readability of code that uses several higher-order functions. In contrast to anonymous function literals, this allows to give \n   them meaningful names before passing them to another function.",
+            "code": "def factorial(i: Int): Int = {\n  def fact(i: Int, accumulator: Int): Int = {\n    if (i <= 1)\n      accumulator\n    else\n      fact(i - 1, i * accumulator)\n  }\n  fact(i, 1)\n}\nfactorial(5) should be(__)",
+            "mode": "scala",
+            "solutions": [
+              "120"
+            ]
+          }
+        },
+        {
+          "id": "video6",
+          "tag": "video-task",
+          "data": {
+            "description": "The match expression",
+            "url": "jemq2R67Wvw"
+          }
+        },
+        {
+          "id": "video7",
+          "tag": "video-task",
+          "data": {
+            "description": "Options for a match expression",
+            "url": "7bkOO6wKqUY"
+          }
+        },
+        {
+          "id": "koan3",
+          "tag": "koan-task",
+          "data": {
+            "description": " Match Expression:\n    A match expression could be described in a vaque way as a switch pattern like in java but way more powerful. It uses the build-in \n    pattern matching mechanism, which allows to match a given set of data with predefined matches.    \n    The match expression could be used in cases where pattern matching is already in use, e.g. tuples or case classes.\n    \n    Note: You can use a variable name instead of the wildcard, in case you want to reference the variable in the matched code block.",
+            "code": "def fact(n: Int): Int = n match {\n  case 0 => 1\n  case _ => n * fact(n - 1)\n}\nfact(6) should be(__)\n\ndef sumSquare(n: Int): Int = n match {\n  case 1 => 1\n  case _ => n * n + sumSquare(n - 1)\n}\nsumSquare(3)\n\nval result = (1, 5) match {\n  case (0, 0) => 0\n  case (3, 1) => 3\n  case (2, n) => n * 1\n  case (1, _) => 42\n}\nresult should be(__)",
+            "mode": "scala",
+            "solutions": [
+              "720",
+              "42"
+            ]
+          }
+        },
+        {
+          "id": "koan4",
+          "tag": "koan-task",
+          "data": {
+            "description": " If guards:\n    If guards are just a simple addition to the known match expression in which you could \n    add further conditionals to each case to enhance logic.",
+            "code": "val surnameResponse = (\"Max\", \"Mustermann\") match {\n  case (\"Max\", n) if n.startsWith(\"M\") => 0\n  case (\"Max\", n) if n.startsWith(\"X\") => 42\n}\nsurnameResponse should be(__)",
+            "mode": "scala",
+            "solutions": [
+              "0"
+            ]
+          }
+        },
+        {
+          "id": "video8",
+          "tag": "video-task",
+          "data": {
+            "description": "Recursive Fizz Buzz",
+            "url": "5sryc6JUe6M"
+          }
+        },
+        {
+          "id": "code1",
+          "tag": "code-task",
+          "data": {
+            "description": " Exercise: (Recursive FizzBuzz)\n    Write a recursive function which calculates the Fizz Buzz Game for the first 100 integers.\n    FizzBuzz is a simple game in which you:\n    \n    Shout Fizz when the number is divideable by 3,\n    Shout Buzz when the number is divideable by 5,\n    and FizzBuzz when both, otherwise shout the current number.",
+            "mode": "scala",
+            "code": "def fizzBuzz(x: Int): String = {\n  //todo\n}"
+          }
+        },
+        {
+          "id": "video9",
+          "tag": "video-task",
+          "data": {
+            "description": "Try/catch statements",
+            "url": "XlAA6jfy82o"
+          }
+        },
+        {
+          "id": "koan5",
+          "tag": "koan-task",
+          "data": {
+            "description": " Exception handling:\n    Like in Java, Scala offers a way to handle exceptions. The try/catch expression uses pattern matching like the match expression.\n    With this you can easily match the exception and handle it the right way. The possibility of using a wildcard in a try/catch isn't\n    good practice and even the compile will warn you about this.",
+            "code": "val response = try {\n  val s = \"Hello World\"\n  s.charAt(15)\n} catch {\n  case number: java.lang.NumberFormatException => \"You entered an illegal number\"\n  case bounds: java.lang.StringIndexOutOfBoundsException => \"You tried to access a character that is not in range of the String\"\n  case _ => \"You cought everything, well done!!!\"\n}\nresponse should be(__)",
+            "mode": "scala",
+            "solutions": [
+              "\"You tried to access a character that is not in range of the String\""
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "title": "Arrays and Lists",
+      "tasks": [
+        {
+          "id": "video1",
+          "tag": "video-task",
+          "data": {
+            "description": "Array Basics",
+            "url": "J8WWeQMD5jg"
+          }
+        },
+        {
+          "id": "video2",
+          "tag": "video-task",
+          "data": {
+            "description": "List Basics",
+            "url": "RYyaskHb8C8"
+          }
+        },
+        {
+          "id": "koan1",
+          "tag": "koan-task",
+          "data": {
+            "description": " Basics of Array and List:\n    Basic collections like arrays and lists are available from the get-go. Known from Java the collections\n    have distinct behaviour. In Scala these two collections have a way bigger distinction. Due to functional programming\n    you strive for immutability. In Scala Arrays are implemented mutable and Lists are immutable.",
+            "code": "val a = Array(1, 2, 3, 4, 5)\na(2) should be(__)\n\na.length should be(__)\na.size should be(__)\n\na(2) = 42\na(2) should be(__)\n\nval l = List(1, 2, 3, 4, 5)\n42 :: l should be(__)\nl should be(__)\n\n1 :: 2 :: 3 :: Nil should be(__)",
+            "mode": "scala",
+            "solutions": [
+              "3",
+              "5",
+              "5",
+              "42",
+              "List(42, 1, 2, 3, 4, 5)",
+              "List(1, 2, 3, 4, 5)",
+              "List(1, 2, 3)"
+            ]
+          }
+        },
+        {
+          "id": "video3",
+          "tag": "video-task",
+          "data": {
+            "description": "Recursive fill function for Arrays",
+            "url": "PrVj8CBgK5o"
+          }
+        },
+        {
+          "id": "code1",
+          "tag": "code-task",
+          "data": {
+            "description": "Exercise: (Recursive Array filling)\n    Write a function which fills an Array with a given number recursivly with the knowledge you gathered from this chapter.\n    ",
+            "mode": "scala",
+            "code": "def fillArray(array: Array[Int], value: Int, i: Int): Unit = {\n  //todo\n}"
+          }
+        },
+        {
+          "id": "video4",
+          "tag": "video-task",
+          "data": {
+            "description": "Applying higher order functions",
+            "url": "5PlT3AumYgg"
+          }
+        },
+        {
+          "id": "code2",
+          "tag": "code-task",
+          "data": {
+            "description": " Exercise: (Operate on array with higher order methods)\n    Write a function which adds up all elements recursivly with the use of a higher function (lambda literal).\n    \n    Note: Make use of the Functions chapter section Higher order methods.",
+            "mode": "scala",
+            "code": "def operateOnArray(arr: Array[Int], i: Int, f: (Int, Int) => Int): Int = {\n  //todo\n}\n\nval arr1 = Array(1, 2, 3)\noperateOnArray(arr1, 0, _ + _) should be(6)"
+          }
+        },
+        {
+          "id": "code3",
+          "tag": "code-task",
+          "data": {
+            "description": " Exercise: (Appending elements to a list)\n  Write a function which appends the first n natural numbers recursively to a list in reverse order. \n  ",
+            "mode": "scala",
+            "code": "def append(n: Int, list:List[Int]): List[Int] = {\n  //todo\n}\n\nappend(3,Nil) should be(3::2::1::Nil)"
+          }
+        },
+        {
+          "id": "koan2",
+          "tag": "koan-task",
+          "data": {
+            "description": " List Functions:\n    Each collection has it's special methods which can be invoked. \n    You can read about those methods in the scala documentation.",
+            "code": "val lst = List(1, 2, 3, 4, 5)\nlst.head should be(__)\nlst.tail should be(__)\nlst.last should be(__)",
+            "mode": "scala",
+            "solutions": [
+              "1",
+              "List(2, 3, 4, 5)",
+              "5"
+            ]
+          }
+        },
+        {
+          "id": "video5",
+          "tag": "video-task",
+          "data": {
+            "description": "List functions",
+            "url": "v_AofFV8tCU"
+          }
+        },
+        {
+          "id": "code4",
+          "tag": "code-task",
+          "data": {
+            "description": " Exercise: (Recursive summation of elements)\n   Write a function which adds up all elements recursivly with the use of a higher function (lambda literal).\n    \n   Note: Make use of the Functions chapter section Higher Functions.",
+            "mode": "scala",
+            "code": "def operateOnList(lst: List[Int], f: (Int, Int) => Int): Int = {\n  //todo\n}\n\nval lst = List(1, 2, 3, 4)"
+          }
+        },
+        {
+          "id": "video6",
+          "tag": "video-task",
+          "data": {
+            "description": "Scala library fill method",
+            "url": "El1vc04cUto"
+          }
+        },
+        {
+          "id": "video7",
+          "tag": "video-task",
+          "data": {
+            "description": "Scala library tabulate method",
+            "url": "wNn-TvgH6M8"
+          }
+        },
+        {
+          "id": "koan3",
+          "tag": "koan-task",
+          "data": {
+            "description": " Fill/Tabulate Method:\n    For quickly setting up an Array or List Scala provides a method for this for each collection",
+            "code": "Array.fill(10)(math.random).size should be(__)\nArray.fill(5)(0) should be(__)\nArray.tabulate(5)(_ + 1) should be(__)\n\nList.fill(10)(math.random).size should be(__)\nList.fill(5)(0) should be(__)\nList.tabulate(5)(_ => math.random).size should be(__)",
+            "mode": "scala",
+            "solutions": [
+              "10",
+              "Array[Int](0, 0, 0, 0, 0)",
+              "Array[Int](1, 2, 3, 4, 5)",
+              "10",
+              "Array[Int](0, 0, 0, 0, 0)",
+              "5"
+            ]
+          }
+        },
+        {
+          "id": "code5",
+          "tag": "code-task",
+          "data": {
+            "description": " Exercise: (Custom fill function)\n    Write a custom implementation of a fill method for Lists.\n    Make use of recursion",
+            "mode": "scala",
+            "code": "def fillList(n: Int, value: Double): List[Double] = {\n  //todo\n}\n\nval lst = fillList(3, 2.0)\nlst should be(List(2.0, 2.0, 2.0))"
+          }
+        },
+        {
+          "id": "video8",
+          "tag": "video-task",
+          "data": {
+            "description": "Collection methods - Data Access",
+            "url": "iNTFdp0uhHM"
+          }
+        },
+        {
+          "id": "koan4",
+          "tag": "koan-task",
+          "data": {
+            "description": " Collection Methods: Data Access\n    Arrays and Lists offer plenty of methods to access the data in itself.\n    \n    The examples below show these methods on the array collection. It is identical with\n    the list collection.\n    \n    These methods don't change the actual data in the collection.",
+            "code": "val a = Array(5, 2, 0, 1, 2, 3)\n\na.drop(2) should be(__)\na.init should be(__)\na.slice(2, 4) should be(__)\n//   a.splitAt(3) should be(__)\na.take(3) should be(__)\na.dropRight(3) should be(__)\na.takeRight(3) should be(__)",
+            "mode": "scala",
+            "solutions": [
+              "Array(0, 1, 2, 3)",
+              "Array(5, 2, 0, 1, 2)",
+              "Array(0, 1)",
+              "(Array(5, 2, 0), Array(1, 2, 3))",
+              "Array(5, 2, 0)",
+              "Array(5, 2, 0)",
+              "Array(1, 2, 3)"
+            ]
+          }
+        },
+        {
+          "id": "video9",
+          "tag": "video-task",
+          "data": {
+            "description": "Collection methods - Information Gain ",
+            "url": "_I7L2A5F_Iw"
+          }
+        },
+        {
+          "id": "koan5",
+          "tag": "koan-task",
+          "data": {
+            "description": " Collection Methods: Information Gain \n    The examples below show these methods on the array collection. It is identical with\n    the list collection.\n    These methods don't change the actual data in the collection.",
+            "code": "val a = Array(5, 2, 0, 1, 2, 3)\n\na.contains(3) should be(__)\na.endsWith(Array(1, 2, 3)) should be(__)\na.endsWith(List(1, 2, 3)) should be(__)\na.startsWith(Array(9, 8, 2)) should be(__)\na.isEmpty should be(__)\na.nonEmpty should be(__)\n\na.indexOf(5) should be(__)\na.indexOf(44) should be(__)\na.indexOf(1, 3) should be(__)",
+            "mode": "scala",
+            "solutions": [
+              "true",
+              "true",
+              "true",
+              "false",
+              "false",
+              "true",
+              "0",
+              "-1",
+              "3"
+            ]
+          }
+        },
+        {
+          "id": "video10",
+          "tag": "video-task",
+          "data": {
+            "description": "Collection Methods - Miscellaneous",
+            "url": "7LN9hyUbcJ8"
+          }
+        },
+        {
+          "id": "koan6",
+          "tag": "koan-task",
+          "data": {
+            "description": " Collection Methods: Miscellaneous\n    The examples below show these methods on the array collection. It is identical with\n    the list collection.\n    These methods don't change the actual data in the collection.",
+            "code": "val a = Array(5, 2, 0, 1, 2, 3)\n\na.diff(Array(0, 1, 2)) should be(__)\na.diff(Array(44, 12, 5)) should be(__)\na.distinct should be(__)\n\na.mkString should be(__)\na.mkString(\",\") should be(__)\na.mkString(\"(\", \",\", \")\") should be(__)\n\na.patch(2, Nil, 2) should be(__)\na.patch(2, Array(42, 21), 1) should be(__)\n\na.reverse should be(__)\n\na.toList should be(__)\n\na.min should be(__)\n\nval arr = Array(1, 2, 3)\nval lst = List(\"Hi\", \"Bye\")\n\narr.zip(lst) should be(__)\nlst.zip(arr) should be(__)\n\narr.zipWithIndex should be(__)\nlst.zipWithIndex should be(__)",
+            "mode": "scala",
+            "solutions": [
+              "Array(5, 2, 3)",
+              "Array(2, 0, 1, 2, 3)",
+              "Array(5, 2, 0, 1, 3)",
+              "\"520123\"",
+              "\"5,2,0,1,2,3\"",
+              "\"(5,2,0,1,2,3)\"",
+              "Array(5, 2, 2, 3)",
+              "Array(5, 2, 42, 21, 1, 2, 3)",
+              "Array(3, 2, 1, 0, 2, 5)",
+              "List(5, 2, 0, 1, 2, 3)",
+              "0",
+              "Array((1, \"Hi\"), (2, \"Bye\"))",
+              "List((\"Hi\", 1), (\"Bye\", 2))",
+              "Array((1, 0), (2, 1), (3, 2))",
+              "Array((\"Hi\", 0), (\"Bye\", 1))"
+            ]
+          }
+        },
+        {
+          "id": "koan7",
+          "tag": "koan-task",
+          "data": {
+            "description": " Eval Problem:\n    In Scala you have to be aware when passing values to functions.\n    Try to guess the outcome of the function calls.",
+            "code": "var i = 0.0\n\ndef fillList(n: Int, value: Double): List[Double] = {\n  if (n < 1) Nil\n  else value :: fillList(n - 1, value)\n}\n\nList.fill(5)({ i += 1.0; i }) should be(__)\ni = 0.0\nfillList(5, { i += 1.0; i }) should be(__)",
+            "mode": "scala",
+            "solutions": [
+              "List(1.0, 2.0, 3.0, 4.0, 5.0)",
+              "List(1.0, 1.0, 1.0, 1.0, 1.0)"
+            ]
+          }
+        },
+        {
+          "id": "video11",
+          "tag": "video-task",
+          "data": {
+            "description": "Higher order methods - map and filter",
+            "url": "fkepwLhK86I"
+          }
+        },
+        {
+          "id": "video12",
+          "tag": "video-task",
+          "data": {
+            "description": "Higher order methods in general",
+            "url": "6ChKZeffV_4"
+          }
+        },
+        {
+          "id": "koan8",
+          "tag": "koan-task",
+          "data": {
+            "description": " Higher Functions:\n    By default Scala offers a set of higher functions like map, filter, reduce, partition and so on.\n    With these methods you can achieve a similar behaviour as with loops. In a later chapter these methods are \n    used in the for comprehension.",
+            "code": "val a = Array(5, 2, 9, 3)\na.map(_ * 2) should be(__)\na.map(i => i * 2) should be(__)\n\na.filter(i => i % 2 == 0) should be(__)\na.filter(i => i % 2 == 1).map(_ * 2) should be(__)\n\na.count(_ % 2 == 1) should be(__)\na.dropWhile(_ < 9) should be(__)\na.exists(_ % 9 == 0) should be(__)\n\nval b = Array(1, 2, 3)\nb.map(i => Array.fill(i)(i)) should be(__)\nb.flatMap(i => Array.fill(i)(i)) should be(__)\n\nb.forall(_ < 10) should be(__)\nb.indexWhere(_ % 2 == 0) should be(__)\nb.lastIndexWhere(_ % 2 == 1) should be(__)\n\n//   b.partition(_ % 2 == 0) should be(__)\nval (even, odd) = b.partition(_ % 2 == 0)\nodd should be(__)\n\nb.takeWhile(_ < 3) should be(__)\nb.dropWhile(_ < 3) should be(__)",
+            "mode": "scala",
+            "solutions": [
+              "Array(10, 4, 18, 6)",
+              "Array(10, 4, 18, 6)",
+              "Array(2)",
+              "Array(10, 18, 6)",
+              "3",
+              "Array(9, 3)",
+              "true",
+              "Array(Array(1), Array(2, 2), Array(3, 3, 3))",
+              "Array(1, 2, 2, 3, 3, 3)",
+              "true",
+              "1",
+              "2",
+              "(Array(2), Array(1, 3))",
+              "Array(1, 3)",
+              "Array(1, 2)",
+              "Array(3)"
+            ]
+          }
+        },
+        {
+          "id": "video13",
+          "tag": "video-task",
+          "data": {
+            "description": "Reduce and fold",
+            "url": "bnOTEfNEQzw"
+          }
+        },
+        {
+          "id": "koan9",
+          "tag": "koan-task",
+          "data": {
+            "description": " Reduce and fold:\n    Those methods come in handy when you are trying to applying a certain function or operation on elements in a dataset.\n    \n    These methods are available for all collections in scala",
+            "code": "val a = Array(5, 2, 9, 3)\n\na.reduceLeft(_ + _) should be(__)\na.reduceLeft((a, b) => a + b) should be(__)\n\nval findMax = (x: Int, y: Int) => {\n  x max y\n}\na.reduceLeft(findMax) should be(__)\n\ndef min(x: Int, y: Int) = {\n  x min y\n}\na.reduceLeft(min) should be(__)\n\na.reduceRight(_ + _) should be(__)\na.reduceRight(_ - _) should be(__)\n\na.foldLeft(0)(_ + _) should be(__)\na.foldLeft(\"\")(_ + _) should be(__)",
+            "mode": "scala",
+            "solutions": [
+              "19",
+              "19",
+              "9",
+              "2",
+              "19",
+              "9",
+              "19",
+              "\"5293\""
+            ]
+          }
+        },
+        {
+          "id": "video14",
+          "tag": "video-task",
+          "data": {
+            "description": "Combinatorial iterator methods",
+            "url": "-SsecWc0ohI"
+          }
+        },
+        {
+          "id": "koan10",
+          "tag": "koan-task",
+          "data": {
+            "description": " Combinatorial functions:\n    The possibility to do combinatorial, permutations and sliding within Scala you just call the responsible function. \n    Each function delivers an Iterator. Through simple iteration functions like next() and hasNext() you can iterate\n    through the Iterator. Keep in mind that it will throw an exception if you call next after the last item.\n    \n    Note: In this example each statement creates an Array due to testing capabilities. The problem is that each function\n    returns an iterator and testing this was undoable. This is why you should enter the right multi dimensional array instead\n    of writing the Iterator.",
+            "code": "val a = Array(1, 2, 3)\na.combinations(2).toArray should be(__)\n//a.grouped(3).toArray should be(__)\na.inits.toArray should be(__)\na.tails.toArray should be(__)\na.permutations.toArray should be(__)\n//a.sliding(3).toArray should be(__)",
+            "mode": "scala",
+            "solutions": [
+              "Array(Array(1, 2), Array(1, 3), Array(2, 3))",
+              "Array(Array(1, 2), Array(3))",
+              "Array(Array(1, 2, 3), Array(1, 2), Array(1), Array())",
+              "Array(Array(1, 2, 3), Array(2, 3), Array(3), Array())",
+              "Array(Array(1, 2, 3), Array(1, 3, 2), Array(2, 1, 3), Array(2, 3, 1), Array(3, 1, 2), Array(3, 2, 1))",
+              "Array(Array(1, 2), Array(2, 3))"
+            ]
+          }
+        },
+        {
+          "id": "video15",
+          "tag": "video-task",
+          "data": {
+            "description": "Strings as Collections",
+            "url": "9KyvF-8UmSw"
+          }
+        },
+        {
+          "id": "koan11",
+          "tag": "koan-task",
+          "data": {
+            "description": " Collection String:\n    Strings are a special collection within Scala. Every function which were applied to lists or arrays could be\n    invoked on a string. E.g. indexing, map, count and so on.",
+            "code": "val s = \"Hallo\"\ns(1) should be(__)\n\ns.map(c => (c + 1).toChar) should be(__)\ns.count(c => \"aeiou\".contains(c)) should be(__)\n\nval str = \"Hello World\"\nstr.split(\" \") should be(__)\n\nval strSpaces = \"Hello      World\"\nstrSpaces.split(\" +\") should be(__)\n\n\"1 2 3 4 5 6\".split(\" \").map(_.toInt) should be(__)",
+            "mode": "scala",
+            "solutions": [
+              "'a'",
+              "\"Ibmmp\"",
+              "2",
+              "Array(\"Hello\", \"World\")",
+              "Array(\"Hello\", \"World\")",
+              "Array(1, 2, 3, 4, 5, 6)"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "title": "Types and Arguments",
+      "tasks": [
+        {
+          "id": "video1",
+          "tag": "video-task",
+          "data": {
+            "description": "Option Type",
+            "url": "i1cXwWN7Mjk"
+          }
+        },
+        {
+          "id": "koan1",
+          "tag": "koan-task",
+          "data": {
+            "description": " Option Type:\n    The option type is intended to represent something that may or may not have a value.\n    It is used by the type system to help you find certain types of error. E.g. if something\n    isn't supposed to have a value the type system will force you to deal with it.",
+            "code": "val list = List(1, 2, 3, 4, 5)\nlist.find(_ > 6) should be(__)\n\nlist.find(_ > 3) should be(__)\n \nlist.find(_ > 6).getOrElse(-1) should be(__)\nlist.find(_ > 6).map(_ * 2) should be(__)\nlist.find(_ > 3).map(_ * 2) should be(__)\n\nval response = list.find(_ > 3) match {\n  case Some(n) => n * 5\n  case None    => -1\n}\nresponse should be(__)\n\nval result = list.find(_ > 3)\nval ifResponse = if (result.nonEmpty) result.get * 5 else -1\nifResponse should be(__)",
+            "mode": "scala",
+            "solutions": [
+              "None",
+              "Some(4)",
+              "-1",
+              "None",
+              "Some(8)",
+              "20",
+              "20"
+            ]
+          }
+        },
+        {
+          "id": "video2",
+          "tag": "video-task",
+          "data": {
+            "description": "Parametric Functions",
+            "url": "nDsvIQqAIIY"
+          }
+        },
+        {
+          "id": "koan2",
+          "tag": "koan-task",
+          "data": {
+            "description": " Parametric Functions:\n    Parametric functions are function which take types as arguments. In Java those are called Generics. Parametric\n    functions are not the same as generics but for a mental model you can treat them as if they were.",
+            "code": "def ident[A](x: A): A = x\nident(2).isInstanceOf[Int] should be(__)\nident(2.0).isInstanceOf[Int] should be(__)\nident(\"Hi\").isInstanceOf[java.lang.String] should be(__)\n\ndef makeTuple[A, B](a: A, b: B): (A, B) = (a, b)\nmakeTuple(1, 1).isInstanceOf[(Int, Int)] should be(__)\nmakeTuple(1, 1.0).isInstanceOf[(Int, Double)] should be(__)\nmakeTuple(\"Hi\", 'a').isInstanceOf[(java.lang.String, Char)] should be(__)",
+            "mode": "scala",
+            "solutions": [
+              "true",
+              "false",
+              "true",
+              "true",
+              "true",
+              "true"
+            ]
+          }
+        },
+        {
+          "id": "video3",
+          "tag": "video-task",
+          "data": {
+            "description": "Subtyping",
+            "url": "fxk1P5VU7sI"
+          }
+        },
+        {
+          "id": "koan3",
+          "tag": "koan-task",
+          "data": {
+            "description": " Subtyping:\n    In Scala everything is a type. In the documentation of Scala each type is a subtype of another type. The main\n    types in Scala are AnyVal, AnyRef and Any. Any class you could imagine is a subtype of those types. The compiler has\n    to distinguish a type each time a user defines a variable. In the example the compiler has to find a type for the list entries\n    Try to figure out which type the List has to be, write the result inside of two (\"). ",
+            "code": "List(\"Hi\", 5).isInstanceOf[List[Any]] should be(__)\nList(5, true).isInstanceOf[List[AnyVal]]\nList().isInstanceOf[List[Nothing]] should be(__)",
+            "mode": "scala",
+            "solutions": [
+              "true",
+              "true"
+            ]
+          }
+        },
+        {
+          "id": "video4",
+          "tag": "video-task",
+          "data": {
+            "description": "Variable length argument Lists",
+            "url": "4ur0KE7oYJY"
+          }
+        },
+        {
+          "id": "koan4",
+          "tag": "koan-task",
+          "data": {
+            "description": " Variable Argument Lists:\n    These are argument lists that do not have a specified length as the name implies.\n    In Java this feature was written with String[] args or since Java 6 with String... args. This idenitifed a \n    variable length of arguments\n    Note: The variable type can only be the last argument in the list. This problem can be bypassed by currying the function.",
+            "code": "def average(n: Double*) = n.sum / n.length\naverage(1, 2, 3, 4, 5) should be(__)\n\nval list = List[Double](1, 2, 3, 4, 5)\n\ndef averageList(list: List[Double]): Double = list.sum / list.length\naverageList(list) should be(__)\n\naverage(list: _*) should be(__)",
+            "mode": "scala",
+            "solutions": [
+              "3.0",
+              "3.0",
+              "3.0"
+            ]
+          }
+        },
+        {
+          "id": "video5",
+          "tag": "video-task",
+          "data": {
+            "description": "Mutability and Aliasing",
+            "url": "waAztDnnFJg"
+          }
+        },
+        {
+          "id": "video6",
+          "tag": "video-task",
+          "data": {
+            "description": "Argument Passing",
+            "url": "XJ3iH6yhXvY"
+          }
+        },
+        {
+          "id": "koan5",
+          "tag": "koan-task",
+          "data": {
+            "description": "Mutability:\n    A big concern when doing concurrent programming is mutability. Scala strives for immutability which eliminates the \n    failure of accidentally changing a value. In the example below you see whats called aliasing. Aliasing is when you \n    wanted to make a copy of something but accidently just gave it an alias. When changing the value of the alias you \n    the value of the original collection.",
+            "code": "val a = Array(1, 2, 3, 4, 5)\nval b = a\nb(0) = 42\na == b should be(__)\n\ndef zeroArray(a: Array[Int], i: Int): Unit = {\n  if (i < a.length) {\n    a(i) = 0\n    zeroArray(a, i + 1)\n  }\n}\nzeroArray(a, 0)\na should be(__)",
+            "mode": "scala",
+            "solutions": [
+              "true",
+              "Array(0, 0, 0, 0, 0)"
+            ]
+          }
+        },
+        {
+          "id": "video7",
+          "tag": "video-task",
+          "data": {
+            "description": "Currying",
+            "url": "Vriy8D97kwE"
+          }
+        },
+        {
+          "id": "koan6",
+          "tag": "koan-task",
+          "data": {
+            "description": " Currying:\n    Opens the possibility to use multiple argument lists. Functions that let you use currying are e.g. fill, tabulate or fold.\n    One way of to make use of currying happens when you return a function.\n    Currying can be very useful when using Variable Argument Lists. You are now able to use more than one variable argument list.",
+            "code": "def add(x: Int): Int => Int = y => x + y\nadd(5)(11) should be(__)\n\nval plus5 = add(5)\nplus5(10) should be(__)\n\ndef addMultipleArg(x: Int)(y: Int): Int = x + y\nadd(11)(31) should be(__)\n\nval plus6 = addMultipleArg(6)_\nplus6(12) should be(__)",
+            "mode": "scala",
+            "solutions": [
+              "16",
+              "15",
+              "42",
+              "18"
+            ]
+          }
+        },
+        {
+          "id": "video8",
+          "tag": "video-task",
+          "data": {
+            "description": "Pass-by-name",
+            "url": "0K2BFqbZiHs"
+          }
+        },
+        {
+          "id": "koan7",
+          "tag": "koan-task",
+          "data": {
+            "description": " Pass by Name:\n    In addition to the default passing semantic, scala uses or allows pass by name. It is mostly disallowed\n    in many other programming languages. When understood and used right it can \n    give you an ability to do certain task easier. The function fill does this by default.\n    \n    Note: Take care when using or applying this to functions. Take note how the parameters are evaluated.",
+            "code": "def incr(i: Int) = i + 1\nincr(3 + 4) should be(__)\n\nvar a = 0\ndef thriceMultiply(i: Int): Int = i * i * i\nthriceMultiply({ a += 1; a }) should be(__)\n\na = 0\ndef thriceMultiplyAdv(i: => Int): Int = i * i * i\nthriceMultiplyAdv({ a += 1; a }) should be(__)",
+            "mode": "scala",
+            "solutions": [
+              "8",
+              "1",
+              "6"
+            ]
+          }
+        },
+        {
+          "id": "video9",
+          "tag": "video-task",
+          "data": {
+            "description": "Multidimensional Arrays",
+            "url": "kdyZpPafZOo"
+          }
+        },
+        {
+          "id": "koan8",
+          "tag": "koan-task",
+          "data": {
+            "description": " Multidimensional Arrays:\n    Like in any other language scala offers the possibility to create multidimensial arrays which is exactly\n    what the name implies within arrays. It can be archived with the library methods fill or tabulate.",
+            "code": "val arr2Dim = Array(Array(1, 2), Array(2, 3))\narr2Dim(0)(1) should be(__)\n\nArray.fill(2, 3)(0) should be(__)\nArray.tabulate(3, 3)((i, j) => i * j) should be(__)",
+            "mode": "scala",
+            "solutions": [
+              "2",
+              "Array(Array(0, 0, 0), Array(0, 0, 0))",
+              "Array(Array(0, 0, 0), Array(0, 1, 2), Array(0, 2, 4))"
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}
