@@ -15,10 +15,11 @@
       </el-col>
     </el-row>
 
-    <div class="comments">
+    <div class="comments" v-if="showDisqus">
       <vue-disqus
         shortname="codetask"
-        :identifier="currentCourse.title"
+        :identifier="currentChapter.title"
+        :title="currentChapter.title"
         url="https://codetask.disqus.com"
       />
     </div>
@@ -26,15 +27,21 @@
   </div>
 
 
-
 </template>
 
 <script>
+  import Vue from 'vue'
   import VueDisqus from 'vue-disqus/VueDisqus.vue'
   import ChapterInfoBox from './ChapterInfoBox'
   import { mapGetters } from 'vuex'
 
   export default {
+    data () {
+      return {
+        showDisqus: true
+      }
+    },
+
     components: {
       ChapterInfoBox,
       VueDisqus
@@ -45,9 +52,29 @@
         'currentCourse',
         'currentChapter'
       ])
+    },
+
+    methods: {
+      resetDisqus () {
+        const vm = this
+        vm.showDisqus = false
+        Vue.nextTick(function () {
+          vm.showDisqus = true
+        })
+      }
+    },
+
+    watch: {
+      currentChapter () {
+        // Workaround for vue-disqus bug, id doesn't change
+        this.resetDisqus()
+      }
     }
   }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
+  /deep/ .comments {
+    margin-top: 3.2rem;
+  }
 </style>
