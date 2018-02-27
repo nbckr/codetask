@@ -49,10 +49,11 @@
   }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 
   div {
-    border: aqua 5px dashed;
+    // border: aqua 5px dashed;
+    border: 1px solid #ccc;
   }
 
   .el-aside {

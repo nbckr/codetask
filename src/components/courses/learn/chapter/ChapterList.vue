@@ -35,13 +35,13 @@
   }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
   nav {
-    border: purple 3px solid;
+    // border: purple 3px solid;
   }
 
   aside {
-    border: red 4px solid;
+    // border: red 4px solid;
     background-color: white;
     display: inline-block;
     padding: 1.6rem;
