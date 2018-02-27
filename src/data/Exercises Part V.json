@@ -1,0 +1,596 @@
+{
+  "id": 11,
+  "title": "Exercises Part III",
+  "chapters": [
+    {
+      "id": 39,
+      "title": "Infix Types",
+      "tasks": [
+        {
+          "id": "koan1",
+          "tag": "koan-task",
+          "data": {
+            "description": "We can make a type infix, meaning that the type can be displayed in complement\n           between two types in order to make a readable delaration",
+            "code": "case class Person(name: String)\nclass Loves[A, B](val a: A, val b: B)\n\ndef announceCouple(couple: Person Loves Person) = {\n  //Notice our type: Person loves Person!\n  couple.a.name + \" is in love with \" + couple.b.name\n}\n\nval romeo = new Person(\"Romeo\")\nval juliet = new Person(\"Juliet\")\n\nannounceCouple(new Loves(romeo, juliet)) should be(__)",
+            "mode": "scala",
+            "solutions": [
+              "\"Romeo is in love with Juliet\""
+            ]
+          }
+        },
+        {
+          "id": "koan2",
+          "tag": "koan-task",
+          "data": {
+            "description": "Of course we can make this a bit more elegant by creating an infix operator\n  method to use with our infix type",
+            "code": "case class Person(name: String) {\n  def loves(person: Person) = new Loves(this, person)\n}\n\nclass Loves[A, B](val a: A, val b: B)\n\ndef announceCouple(couple: Person Loves Person) = {\n  //Notice our type: Person loves Person!\n  couple.a.name + \" is in love with \" + couple.b.name\n}\n\nval romeo = new Person(\"Romeo\")\nval juliet = new Person(\"Juliet\")\n\nannounceCouple(romeo loves juliet) should be(__)",
+            "mode": "scala",
+            "solutions": [
+              "\"Romeo is in love with Juliet\""
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": 40,
+      "title": "Lazy Sequences",
+      "tasks": [
+        {
+          "id": "koan1",
+          "tag": "koan-task",
+          "data": {
+            "description": "Creating a lazy collection from a strict collection",
+            "code": "val strictList = List(10, 20, 30)\nval lazyList = strictList.view\nlazyList.head should be(__)",
+            "mode": "scala",
+            "solutions": [
+              "10"
+            ]
+          }
+        },
+        {
+          "id": "koan2",
+          "tag": "koan-task",
+          "data": {
+            "description": "Lazy collection sometimes avoid processing errors",
+            "code": "val lazyList = List(2, -2, 0, 4).view map { 2 / _ }\nlazyList.head should be(__)\nlazyList(1) should be(__)\nintercept[ArithmeticException] {\n  lazyList(2)\n}",
+            "mode": "scala",
+            "solutions": [
+              "1",
+              "-1"
+            ]
+          }
+        },
+        {
+          "id": "koan3",
+          "tag": "koan-task",
+          "data": {
+            "description": "Lazy collections could also be infinite",
+            "code": "val infinite = Stream.from(1)\ninfinite.take(4).sum should be(__)\nStream.continually(1).take(4).sum should be(__)",
+            "mode": "scala",
+            "solutions": [
+              "10",
+              "4"
+            ]
+          }
+        },
+        {
+          "id": "koan4",
+          "tag": "koan-task",
+          "data": {
+            "description": "Always remember tail of a lazy collection is never computed unless required",
+            "code": "def makeLazy(value: Int): Stream[Int] = {\n  Stream.cons(value, makeLazy(value + 1))\n}\nval stream = makeLazy(1)\nstream.head should be(__)\nstream.tail.head should be(__)",
+            "mode": "scala",
+            "solutions": [
+              "1",
+              "2"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": 41,
+      "title": "Type Signatures",
+      "tasks": [
+        {
+          "id": "koan1",
+          "tag": "koan-task",
+          "data": {
+            "description": "In Java you declare a generic type within a <>, in Scala it is []",
+            "code": "val z: List[String] = \"Do\" :: \"Re\" :: \"Mi\" :: \"Fa\" :: \"So\" :: \"La\" :: \"Te\" :: \"Do\" :: Nil",
+            "mode": "scala",
+            "solutions": []
+          }
+        },
+        {
+          "id": "koan2",
+          "tag": "koan-task",
+          "data": {
+            "description": "Most of the time, Scala will infer the type and [] are optional",
+            "code": "val z = \"Do\" :: \"Re\" :: \"Mi\" :: \"Fa\" :: \"So\" :: \"La\" :: \"Te\" :: \"Do\" :: Nil //Infers that the list assigned to variable is of type List[String]",
+            "mode": "scala",
+            "solutions": []
+          }
+        },
+        {
+          "id": "koan3",
+          "tag": "koan-task",
+          "data": {
+            "description": "A trait can be declared containing a type, where a concrete implementer will satisfy the type",
+            "code": "trait Randomizer[A] {\n  def draw(): A\n}\n\nclass IntRandomizer extends Randomizer[Int] {\n  def draw() = {\n    import util.Random\n    Random.nextInt()\n  }\n}\n\nval intRand = new IntRandomizer\n(intRand.draw < Int.MaxValue) should be (__)",
+            "mode": "scala",
+            "solutions": [
+              "true"
+            ]
+          }
+        },
+        {
+          "id": "koan4",
+          "tag": "koan-task",
+          "data": {
+            "description": "Class meta-information can be retrieved by class name by using classOf[className]",
+            "code": "classOf[String].getCanonicalName should be(__)\nclassOf[String].getSimpleName should be(__)",
+            "mode": "scala",
+            "solutions": [
+              "\"java.lang.String\"",
+              "\"String\""
+            ]
+          }
+        },
+        {
+          "id": "koan5",
+          "tag": "koan-task",
+          "data": {
+            "description": "Class meta-information can be derived from an object reference using getClass()",
+            "code": "val zoom = \"zoom\"\nzoom.getClass should be(__) // Hint: classOf ...\nzoom.getClass.getCanonicalName should be(__)\nzoom.getClass.getSimpleName should be(__)",
+            "mode": "scala",
+            "solutions": [
+              "classOf[String]",
+              "\"java.lang.String\"",
+              "\"String\""
+            ]
+          }
+        },
+        {
+          "id": "koan6",
+          "tag": "koan-task",
+          "data": {
+            "description": "isInstanceOf[className] is used to determine the if an object reference is an instance of given class",
+            "code": "trait Randomizer[A] {\n  def draw(): A\n}\n\nclass IntRandomizer extends Randomizer[Int] {\n  def draw() = {\n    import util.Random\n    Random.nextInt()\n  }\n}\n\nval intRand = new IntRandomizer\nintRand.draw.isInstanceOf[Int] should be(__)",
+            "mode": "scala",
+            "solutions": [
+              "true"
+            ]
+          }
+        },
+        {
+          "id": "koan7",
+          "tag": "koan-task",
+          "data": {
+            "description": "asInstanceOf[className] is used to cast one reference to another",
+            "code": "trait Randomizer[A] {\n  def draw(): A\n}\n\nclass IntRandomizer extends Randomizer[Int] {\n  def draw = {\n    import util.Random\n    Random.nextInt()\n  }\n}\n\nval intRand = new IntRandomizer\nval rand = intRand\nval intRand2 = rand\nintRand2.isInstanceOf[IntRandomizer] should be(__)",
+            "mode": "scala",
+            "solutions": [
+              "true"
+            ]
+          }
+        },
+        {
+          "id": "koan8",
+          "tag": "koan-task",
+          "data": {
+            "description": "null.asInstanceOf[className] can be used to generate basic default values",
+            "code": "null.asInstanceOf[String] should be(__)\n   // null.asInstanceOf[Int] should be(__)\n   // null.asInstanceOf[Short] should be(__)",
+            "mode": "scala",
+            "solutions": [
+              "null",
+              "0",
+              "0"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": 42,
+      "title": "Interoperability",
+      "tasks": [
+        {
+          "id": "koan1",
+          "tag": "koan-task",
+          "data": {
+            "description": "You can interop with a java class and it's use of collections by importing\n   scala.collection.JavaConversions and letting scala implicitly convert\n   from a Scala collection type\n   into a Java collection type.  See AboutImplicits Koan Suite for more details\n   and see src/test/java for the\n   SomeJavaClass file. This koan\n   converts a scala List of String to java List of raw type.",
+            "code": "import de.htwg.scala.koans.SomeJavaClass;\n\n    import scala.collection.JavaConversions._\n    val d = new SomeJavaClass\n    val e = List(\"one\", \"two\", \"three\")\n    d.findSizeOfRawType(e) should be(__)",
+            "mode": "scala",
+            "solutions": [
+              "3"
+            ]
+          }
+        },
+        {
+          "id": "koan2",
+          "tag": "koan-task",
+          "data": {
+            "description": "This koan converts a scala List of Boat (our own class) to java List of unknown <?> type.",
+            "code": "import scala.collection.JavaConversions._\n    val d = new SomeJavaClass\n    val e = List(new Boat(33, \"Skyway\"), new Boat(35, \"New Boat\"))\n    d.findSizeOfUnknownType(e) should be(__)",
+            "mode": "scala",
+            "solutions": [
+              "2"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": 43,
+      "title": "Extractors",
+      "tasks": [
+        {
+          "id": "koan1",
+          "tag": "koan-task",
+          "data": {
+            "description": "When you create a case class, it automatically can be used with pattern matching since it has an extractor",
+            "code": "case class Employee(firstName:String, lastName:String)\n\nval rob = new Employee(\"Robin\", \"Williams\")\nval result = rob match {\n  case Employee(\"Robin\", _) => \"Where's Batman?\"\n  case _ => \"No Batman Joke For You\"\n}\n\nresult should be (__)",
+            "mode": "scala",
+            "solutions": [
+              "\"Where's Batman?\""
+            ]
+          }
+        },
+        {
+          "id": "koan2",
+          "tag": "koan-task",
+          "data": {
+            "description": "What's an extractor? In Scala it's a method in any `object` called `unapply`, and that method\n is used to disassemble the object given by returning a tuple wrapped in an option. Extractors can be used\n to assign values.",
+            "code": "class Car(val make:String, val model:String, val year:Short, val topSpeed:Short)\n\nobject ChopShop {\n   def unapply(x:Car) = Some(x.make, x.model, x.year, x.topSpeed)\n}\n\nval ChopShop(a, b, c, d) = new Car(\"Chevy\", \"Camaro\", 1978, 120)\n\na should be (__)\nb should be (__)\nc should be (__)\nd should be (__)",
+            "mode": "scala",
+            "solutions": [
+              "\"Chevy\"",
+              "\"Camaro\"",
+              "1978",
+              "120"
+            ]
+          }
+        },
+        {
+          "id": "koan3",
+          "tag": "koan-task",
+          "data": {
+            "description": "Of course an extractor can be used in pattern matching...",
+            "code": "class Car(val make:String, val model:String, val year:Short, val topSpeed:Short)\n\nobject ChopShop {\n  def unapply(x:Car) = Some(x.make, x.model, x.year, x.topSpeed)\n}\n\nval x = new Car(\"Chevy\", \"Camaro\", 1978, 120) match {\n  case ChopShop(s,t,u,v) => (s,t)\n//  case _                 => (\"Ford\", \"Edsel\") // matching unreachable here\n}\n\nx._1 should be (__)\nx._2 should be (__)",
+            "mode": "scala",
+            "solutions": [
+              "\"Chevy\"",
+              "\"Camaro\""
+            ]
+          }
+        },
+        {
+          "id": "koan4",
+          "tag": "koan-task",
+          "data": {
+            "description": "Since we aren't really using c and d in the previous pattern matching with can replace them with _.",
+            "code": "class Car(val make:String, val model:String, val year:Short, val topSpeed:Short)\n\nobject ChopShop {\n  def unapply(x:Car) = Some(x.make, x.model, x.year, x.topSpeed)\n}\n\nval x = new Car(\"Chevy\", \"Camaro\", 1978, 120) match {\n  case ChopShop(s,t,_,_) => (s,t)\n//  case _                 => (\"Ford\", \"Edsel\") // matching unreachable here\n}\n\nx._1 should be (__)\nx._2 should be (__)",
+            "mode": "scala",
+            "solutions": [
+              "\"Chevy\"",
+              "\"Camaro\""
+            ]
+          }
+        },
+        {
+          "id": "koan5",
+          "tag": "koan-task",
+          "data": {
+            "description": "As long as the method signatures aren't the same, you can have an many unapply methods as you want",
+            "code": "class Car(val make:String, val model:String, val year:Short, val topSpeed:Short)\nclass Employee(val firstName:String, val middleName: Option[String], val lastName: String)\n\nobject Tokenizer {\n  def unapply(x:Car) = Some(x.make, x.model, x.year, x.topSpeed)\n  def unapply(x:Employee) = Some(x.firstName, x.lastName)\n}\n\nval result = new Employee(\"Kurt\", None, \"Vonnegut\") match {\n  case Tokenizer(c,d) => \"c: %s, d: %s\".format(c,d)\n//  case _              => \"Not found\" // case unreachable\n}\n\nresult should be (__)",
+            "mode": "scala",
+            "solutions": [
+              "\"c: Kurt, d: Vonnegut\""
+            ]
+          }
+        },
+        {
+          "id": "koan6",
+          "tag": "koan-task",
+          "data": {
+            "description": "An extractor can be any stable object, including instantiated classes with an unapply method.",
+            "code": "class Car(val make:String, val model:String, val year:Short, val topSpeed:Short)   {\n  def unapply(x:Car) = Some(x.make, x.model)\n}\n\nval camaro = new Car(\"Chevy\", \"Camaro\", 1978, 122)\n\nval result = camaro match {\n  case camaro(make, model) => \"make: %s, model: %s\".format(make, model)\n//  case _                   => \"unknown\" // case unreachable\n}\n\nresult should be (__)",
+            "mode": "scala",
+            "solutions": [
+              "\"make: Chevy, model: Camaro\""
+            ]
+          }
+        },
+        {
+          "id": "koan7",
+          "tag": "koan-task",
+          "data": {
+            "description": "What is typical is to create a custom extractor in the companion object of the class.\n In this koan, we use it as an assignment",
+            "code": "class Employee(val firstName:String,\n               val middleName:Option[String],\n               val lastName:String)\n\nobject Employee {\n  //factory methods, extractors, apply\n  //Extractor: Create tokens that represent your object\n  def unapply(x:Employee) =\n    Some(x.lastName, x.middleName, x.firstName)\n}\n\nval singri = new Employee(\"Singri\", None, \"Keerthi\")\n\nval Employee(a,b,c) = singri\na should be (__)\nb should be (__)\nc should be (__)",
+            "mode": "scala",
+            "solutions": [
+              "\"Keerthi\"",
+              "None",
+              "\"Singri\""
+            ]
+          }
+        },
+        {
+          "id": "koan8",
+          "tag": "koan-task",
+          "data": {
+            "description": "In this koan we use the unapply for pattern matching employee objects",
+            "code": "class Employee(val firstName:String,\n               val middleName:Option[String],\n               val lastName:String)\n\nobject Employee {\n  //factory methods, extractors, apply\n  //Extractor: Create tokens that represent your object\n  def unapply(x:Employee) =\n    Some(x.lastName, x.middleName, x.firstName)\n}\n\nval singri = new Employee(\"Singri\", None, \"Keerthi\")\nvar answer = \"\"\n\nsingri match {\n  case Employee(\"Singri\", None, x)    => answer = \"Yay, Singri %s! with no middle name!\".format(x)\n  case Employee(\"Singri\", Some(x), _) => answer = \"Yay, Singri with a middle name of %s\".format(x)\n  case _                              => answer = \"I don't care, going on break\"\n}\nanswer should be (__)",
+            "mode": "scala",
+            "solutions": [
+              "\"I don't care, going on break\""
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": 44,
+      "title": "Path-dependent Types",
+      "tasks": [
+        {
+          "id": "koan1",
+          "tag": "koan-task",
+          "data": {
+            "description": "When a class is instantiated inside of another object, it belongs to the object.  This is a path\n dependent type. Once established, it cannot be placed inside of another object",
+            "code": "val b1 = Board(20, 20)\nval b2 = Board(30, 30)\nval c1 = b1.Coordinate(15, 15)\nval c2 = b2.Coordinate(25, 25)\n\nb1.occupied += c1\nb2.occupied += c2\n// Next line doesn't compile, uncomment to try, then comment and answer the koan next\n//b1.occupied += c2\n\nc1.x should be (__)",
+            "mode": "scala",
+            "solutions": [
+              "15"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": 45,
+      "title": "Implicits",
+      "tasks": [
+        {
+          "id": "koan1",
+          "tag": "koan-task",
+          "data": {
+            "description": "Implicits wrap around existing classes to provide extra functionality\n   This is similar to \\'monkey patching\\' in Ruby, and Meta-Programming in Groovy.\n   Creating a method isOdd for Int, which doesn't exist",
+            "code": "class KoanIntWrapper(val original: Int) {\n  def isOdd = original % 2 != 0\n}\n\nimplicit def thisMethodNameIsIrrelevant(value: Int) = new KoanIntWrapper(value)\n\n19.isOdd should be(__)\n20.isOdd should be(__)",
+            "mode": "scala",
+            "solutions": [
+              "true",
+              "false"
+            ]
+          }
+        },
+        {
+          "id": "koan2",
+          "tag": "koan-task",
+          "data": {
+            "description": "Implicits rules can be imported into your scope with an import",
+            "code": "object MyPredef {\n\n  class KoanIntWrapper(val original: Int) {\n    def isOdd = original % 2 != 0\n\n    def isEven = !isOdd\n  }\n\n  implicit def thisMethodNameIsIrrelevant(value: Int) = new KoanIntWrapper(value)\n}\n\nimport MyPredef._\n//imported implicits come into effect within this scope\n19.isOdd should be(__)\n20.isOdd should be(__)",
+            "mode": "scala",
+            "solutions": [
+              "true",
+              "false"
+            ]
+          }
+        },
+        {
+          "id": "koan3",
+          "tag": "koan-task",
+          "data": {
+            "description": "Implicits can be used to automatically convert one type to another",
+            "code": "import java.math.BigInteger\nimplicit def Int2BigIntegerConvert(value: Int): BigInteger = new BigInteger(value.toString)\n\ndef add(a: BigInteger, b: BigInteger) = a.add(b)\n\nadd(3, 6) should be(__)",
+            "mode": "scala",
+            "solutions": [
+              "Int2BigIntegerConvert(9)"
+            ]
+          }
+        },
+        {
+          "id": "koan4",
+          "tag": "koan-task",
+          "data": {
+            "description": "Implicits can be used to declare a value to be provided as a default as\n   long as an implicit value is set with in the scope.  These are\n   called implicit function parameters",
+            "code": "def howMuchCanIMake_?(hours: Int)(implicit dollarsPerHour: BigDecimal) = dollarsPerHour * hours\n\nimplicit var hourlyRate = BigDecimal(34.00)\n\nhowMuchCanIMake_?(30) should be(__)\n\nhourlyRate = BigDecimal(95.00)\nhowMuchCanIMake_?(95) should be(__)",
+            "mode": "scala",
+            "solutions": [
+              "1020",
+              "9025"
+            ]
+          }
+        },
+        {
+          "id": "koan5",
+          "tag": "koan-task",
+          "data": {
+            "description": "Implicit Function Parameters can contain a list of implicits",
+            "code": "def howMuchCanIMake_?(hours: Int)(implicit amount: BigDecimal, currencyName: String) =\n  (amount * hours).toString() + \" \" + currencyName\n\nimplicit var hourlyRate = BigDecimal(34.00)\nimplicit val currencyName = \"Dollars\"\n\nhowMuchCanIMake_?(30) should be(__)\n\nhourlyRate = BigDecimal(95.00)\nhowMuchCanIMake_?(95) should be(__)",
+            "mode": "scala",
+            "solutions": [
+              "\"1020.0 Dollars\"",
+              "\"9025.0 Dollars\""
+            ]
+          }
+        },
+        {
+          "id": "koan6",
+          "tag": "koan-task",
+          "data": {
+            "description": "Default arguments though are preferred to Implicit Function Parameters",
+            "code": "def howMuchCanIMake_?(hours: Int, amount: BigDecimal = 34, currencyName: String = \"Dollars\") =\n  (amount * hours).toString() + \" \" + currencyName\n\nhowMuchCanIMake_?(30) should be(__)\n\nhowMuchCanIMake_?(95, 95) should be(__)",
+            "mode": "scala",
+            "solutions": [
+              "\"1020 Dollars\"",
+              "\"9025 Dollars\""
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": 46,
+      "title": "Manifests",
+      "tasks": [
+        {
+          "id": "koan1",
+          "tag": "koan-task",
+          "data": {
+            "description": "Manifests can be used to determine a type used\n   before it erased by the VM by using an implicit manifest argument.",
+            "code": "def inspect[T](l: List[T])(implicit manifest: scala.reflect.Manifest[T]) = manifest.toString\nval list = 1 :: 2 :: 3 :: 4 :: 5 :: Nil\ninspect(list) should be(__)",
+            "mode": "scala",
+            "solutions": [
+              "\"Int\""
+            ]
+          }
+        },
+        {
+          "id": "koan2",
+          "tag": "koan-task",
+          "data": {
+            "description": "Manifests can be attached to classes. Manifests have other meta-information about\n  the type erased",
+            "code": "class Barrel[T](implicit m: scala.reflect.Manifest[T]) {\n  def +(t: T) = \"1 %s has been added\".format(m.runtimeClass.getSimpleName) //Simple-name of the class erased\n}\nval monkeyBarrel = new Barrel[Monkey]\n(monkeyBarrel + new Monkey) should be(__)",
+            "mode": "scala",
+            "solutions": [
+              "\"1 Monkey has been added\""
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": 47,
+      "title": "Type Variance",
+      "tasks": [
+        {
+          "id": "koan1",
+          "tag": "koan-task",
+          "data": {
+            "description": "Using type inference, the type that you instantiate will be the val or var reference type",
+            "code": "class MyContainer[A](a: A)(implicit manifest: scala.reflect.Manifest[A]) {\n  private[this] var item = a\n\n  def get = item\n\n  def set(a: A) {\n    item = a\n  }\n\n  def contents = manifest.runtimeClass.getSimpleName\n}\n\nval fruitBasket = new MyContainer(new Orange())\nfruitBasket.contents should be(__)",
+            "mode": "scala",
+            "solutions": [
+              "\"Orange\""
+            ]
+          }
+        },
+        {
+          "id": "koan2",
+          "tag": "koan-task",
+          "data": {
+            "description": "You can explicitly declare the type variable of the object during instantiation",
+            "code": "class MyContainer[A](a: A)(implicit manifest: scala.reflect.Manifest[A]) {\n  private[this] var item = a\n\n  def get = item\n\n  def set(a: A) {\n    item = a\n  }\n\n  def contents = manifest.runtimeClass.getSimpleName\n}\n\nval fruitBasket = new MyContainer[Fruit](new Orange())\nfruitBasket.contents should be(__)",
+            "mode": "scala",
+            "solutions": [
+              "\"Fruit\""
+            ]
+          }
+        },
+        {
+          "id": "koan3",
+          "tag": "koan-task",
+          "data": {
+            "description": "You can coerce your object to a type.",
+            "code": "class MyContainer[A](a: A)(implicit manifest: scala.reflect.Manifest[A]) {\n  private[this] var item = a\n\n  def get = item\n\n  def set(a: A) {\n    item = a\n  }\n\n  def contents = manifest.runtimeClass.getSimpleName\n}\n\nval fruitBasket: MyContainer[Fruit] = new MyContainer(new Orange())\nfruitBasket.contents should be(__)",
+            "mode": "scala",
+            "solutions": [
+              "\"Fruit\""
+            ]
+          }
+        },
+        {
+          "id": "koan4",
+          "tag": "koan-task",
+          "data": {
+            "description": "variable type must match assigned type",
+            "code": "class MyContainer[A](a: A)(implicit manifest: scala.reflect.Manifest[A]) {\n  private[this] var item = a\n\n  def get = item\n\n  def set(a: A) {\n    item = a\n  }\n\n  def contents = manifest.runtimeClass.getSimpleName\n}\n\n// Uncomment the following line\n//val fruitBasket: MyContainer[Fruit] = new MyContainer[Orange](new Orange()) // type mismatch - because in the definition A is not covariant so even if Orange <: Fruit, MyContainer[Orange] is not <: MyContainer[Fruit]",
+            "mode": "scala",
+            "solutions": []
+          }
+        },
+        {
+          "id": "koan5",
+          "tag": "koan-task",
+          "data": {
+            "description": "covariance lets you specify the container of that type or parent type",
+            "code": "class MyContainer[+A](a: A)(implicit manifest: scala.reflect.Manifest[A]) {\n  private[this] val item = a\n\n  def get = item\n\n  def contents = manifest.runtimeClass.getSimpleName\n}\n\nval fruitBasket: MyContainer[Fruit] = new MyContainer[Orange](new Orange())\nfruitBasket.contents should be(__) // Nice, this way we can keep the subtype",
+            "mode": "scala",
+            "solutions": [
+              "\"Orange\""
+            ]
+          }
+        },
+        {
+          "id": "koan6",
+          "tag": "koan-task",
+          "data": {
+            "description": "mutating an object is not allowed with covariance",
+            "code": "class MyContainer[+A](a: A)(implicit manifest: scala.reflect.Manifest[A]) {\n  private[this] val item = a\n\n  def get = item\n\n  def contents = manifest.runtimeClass.getSimpleName\n}\n\nval fruitBasket: MyContainer[Fruit] = new MyContainer[Orange](new Orange())\nfruitBasket.contents should be(__)\n\nclass NavelOrange extends Orange //Creating a subtype to prove a point\n// val navelOrangeBasket: MyContainer[NavelOrange] = new MyContainer[Orange](new Orange()) //Bad!\n// val tangeloBasket: MyContainer[Tangelo] = new MyContainer[Orange](new Orange()) //Bad!",
+            "mode": "scala",
+            "solutions": [
+              "\"Orange\""
+            ]
+          }
+        },
+        {
+          "id": "koan7",
+          "tag": "koan-task",
+          "data": {
+            "description": "contravariance is the opposite of covariance",
+            "code": "class MyContainer[-A](a: A)(implicit manifest: scala.reflect.Manifest[A]) {\n  private[this] var item = a\n\n  def set(a: A) {\n    item = a\n  }\n\n  def contents = manifest.runtimeClass.getSimpleName\n}\n\nval citrusBasket: MyContainer[Citrus] = new MyContainer[Citrus](new Orange)\ncitrusBasket.contents should be(__)\nval orangeBasket: MyContainer[Orange] = new MyContainer[Citrus](new Tangelo)\norangeBasket.contents should be(__)\nval tangeloBasket: MyContainer[Tangelo] = new MyContainer[Citrus](new Orange)\ntangeloBasket.contents should be(__)\n\nval orangeBasketReally: MyContainer[Orange] = tangeloBasket.asInstanceOf[MyContainer[Orange]]\norangeBasketReally.contents should be(__)\norangeBasketReally.set(new Orange())",
+            "mode": "scala",
+            "solutions": [
+              "\"Citrus\"",
+              "\"Citrus\"",
+              "\"Citrus\"",
+              "\"Citrus\""
+            ]
+          }
+        },
+        {
+          "id": "koan8",
+          "tag": "koan-task",
+          "data": {
+            "description": "A reference to a parent type means you cannot anticipate getting a more specific type",
+            "code": "class MyContainer[-A](a: A)(implicit manifest: scala.reflect.Manifest[A]) {\n  private[this] var item = a\n\n  def set(a: A) {\n    item = a\n  }\n\n  def contents = manifest.runtimeClass.getSimpleName\n}\n\nval citrusBasket: MyContainer[Citrus] = new MyContainer[Citrus](new Orange)\ncitrusBasket.contents should be(__)\nval orangeBasket: MyContainer[Orange] = new MyContainer[Citrus](new Tangelo)\norangeBasket.contents should be(__)\nval tangeloBasket: MyContainer[Tangelo] = new MyContainer[Citrus](new Orange)\ntangeloBasket.contents should be(__)",
+            "mode": "scala",
+            "solutions": [
+              "\"Citrus\"",
+              "\"Citrus\"",
+              "\"Citrus\""
+            ]
+          }
+        },
+        {
+          "id": "koan9",
+          "tag": "koan-task",
+          "data": {
+            "description": "invariance means you need to specify the type exactly",
+            "code": "class MyContainer[A](a: A)(implicit manifest: scala.reflect.Manifest[A]) {\n  private[this] var item = a\n\n  def set(a: A) {\n    item = a\n  }\n\n  def get = item\n\n  def contents = manifest.runtimeClass.getSimpleName\n}\n\nval citrusBasket: MyContainer[Citrus] = new MyContainer[Citrus](new Orange)\ncitrusBasket.contents should be(__)",
+            "mode": "scala",
+            "solutions": [
+              "\"Citrus\""
+            ]
+          }
+        },
+        {
+          "id": "koan10",
+          "tag": "koan-task",
+          "data": {
+            "description": "Declaring a type as invariant also means that you can both mutate and access elements from an object of generic type",
+            "code": "class MyContainer[A](a: A)(implicit manifest: scala.reflect.Manifest[A]) {\n  private[this] var item = a\n\n  def set(a: A) {\n    item = a\n  }\n\n  def get = item\n\n  def contents = manifest.runtimeClass.getSimpleName\n}\n\nval citrusBasket: MyContainer[Citrus] = new MyContainer[Citrus](new Orange)\n\ncitrusBasket.set(new Orange)\ncitrusBasket.contents should be(__)\n\ncitrusBasket.set(new Tangelo)\ncitrusBasket.contents should be(__)",
+            "mode": "scala",
+            "solutions": [
+              "\"Citrus\"",
+              "\"Citrus\""
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}
