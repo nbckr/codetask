@@ -8,3 +8,4 @@ module.exports = {
   // Grab secret variables from outer environment variables
   FIREBASE_API_KEY: `"${process.env.FIREBASE_API_KEY}"`
 }
+
