@@ -11,7 +11,9 @@
       @task-solved="onTaskSolved($event)"
     />
 
-    <p style="font-size: x-small">Cheat mode: <i v-for="s in currentTask.data.solutions">{{ s }} | </i></p>
+    <p v-if="!isProd" style="font-size: x-small">
+      Cheat mode: <i v-for="s in currentTask.data.solutions">{{ s }} | </i>
+    </p>
 
   </section>
 </template>
@@ -47,7 +49,11 @@
         'currentChapter',
         'currentCourseProgress',
         'currentTaskProgress'
-      ])
+      ]),
+
+      isProd () {
+        return process.env.NODE_ENV === 'production'
+      }
     }
   }
 </script>

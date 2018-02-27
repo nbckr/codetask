@@ -2,8 +2,8 @@
 
 module.exports = {
   NODE_ENV: '"production"',
-  FIREBASE_AUTH_ENDPOINT: '"https://vue-playground-440d7.firebaseapp.com"', //'"https://www.googleapis.com/identitytoolkit/v3/relyingparty"',
-  FIREBASE_DATA_ENDPOINT: '"https://vue-playground-440d7.firebaseio.com"',
+  FIREBASE_AUTH_ENDPOINT: '"https://codetask-c987b.firebaseapp.com"', //'"https://www.googleapis.com/identitytoolkit/v3/relyingparty"',
+  FIREBASE_DATA_ENDPOINT: '"https://codetask-c987b.firebaseio.com"',
 
   // Grab secret variables from outer environment variables
   FIREBASE_API_KEY: `"${process.env.FIREBASE_API_KEY}"`
