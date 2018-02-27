@@ -14,7 +14,8 @@
 
     <br>
 
-    <el-row type="flex" justify="space-between">
+    <!-- Task navigation -->
+    <el-row type="flex" justify="space-between" id="task-nav">
 
       <el-col :span="12">
         <el-row type="flex" class="row-bg" justify="start">
@@ -131,7 +132,7 @@
 <style scoped lang="scss">
 
   section {
-    border: yellow 2px solid;
+    // border: yellow 2px solid;
     // background-color: white;
     // display: inline-block;
     padding: 1.6rem;
@@ -145,5 +146,11 @@
   #router-window {
     height: 550px;
     // overflow: scroll;
+  }
+
+  #task-nav {
+    background-color: white;
+    padding-top: 0.6rem;
+    border-top: lightgrey 1px solid;
   }
 </style>

@@ -46,7 +46,7 @@
   #container {
     padding: 0;
     height: 100%;
-    border: green 3px solid;
+    // border: green 3px solid;
   }
 
   .el-header, .el-main {

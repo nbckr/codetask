@@ -10,7 +10,8 @@
         <!-- Course title and overall percentage -->
         <template slot="title">
           <el-row type="flex" align="middle">
-            <el-col :span="10"><p>{{ course.title }}</p></el-col>
+            <el-col :span="10">
+              <p class="course-title">{{ course.title }}</p></el-col>
             <el-col :span="10">
               <el-progress :percentage="coursePercentage(course)" :stroke-width="10"/>
             </el-col>
@@ -25,7 +26,7 @@
                 tag="el-col"
                 :to="{name: 'chapter-start', params: { course: course.id, chapter: chapter.id }}"
                 :span="10">
-                <a>{{ chapter.title }}</a>
+                <a class="chapter-title">{{ chapter.title }}</a>
               </router-link>
               <el-col :span="10">
                 <el-progress :percentage="chapterPercentage(chapter)"/>
@@ -122,6 +123,14 @@
   #pen {
     margin: 0 auto;
     display: block;
-    padding: 1.6rem;
+    padding: 2.6rem;
+  }
+
+  a {
+    color: black;
+  }
+
+  .course-title {
+    font-weight: bold;
   }
 </style>
