@@ -53,7 +53,7 @@
     margin: 0;
     height: 100%;
 
-    @include htwg-background-bright;
+    background-color: $htwg-color-dark-blue;
 
     font-family: swiss-light, $font-stack;
     line-height: 1.6rem;

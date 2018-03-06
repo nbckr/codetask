@@ -47,6 +47,8 @@
     padding: 0;
     height: 100%;
     // border: green 3px solid;
+
+    @include htwg-background-bright;
   }
 
   .el-header, .el-main {
