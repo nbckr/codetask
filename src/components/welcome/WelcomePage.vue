@@ -54,11 +54,7 @@
     height: 100%;
     justify-content: center;
 
-    // HTWG style dark-blue grid, inspired by https://codepen.io/edmundojr/pen/xOYJGw
-    background: linear-gradient(90deg, $htwg-color-dark-blue ($grid-dot-space - $grid-dot-size), transparent 1%) center,
-    linear-gradient($htwg-color-dark-blue ($grid-dot-space - $grid-dot-size), transparent 1%) center,
-    $htwg-color-soft-blue;
-    background-size: $grid-dot-space $grid-dot-space;
+    @include htwg-background-dark;
   }
 
   #welcome-box {

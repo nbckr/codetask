@@ -7,6 +7,19 @@ $htwg-color-dark-blue: #334152;
 $grid-dot-size: 0.2rem;
 $grid-dot-space: 8rem;
 
+// Background mixins, grid implementation inspired by https://codepen.io/edmundojr/pen/xOYJGw
+@mixin htwg-background($background, $foreground) {
+  background: linear-gradient(90deg, $background ($grid-dot-space - $grid-dot-size), transparent 1%) center,
+  linear-gradient($background ($grid-dot-space - $grid-dot-size), transparent 1%) center, $foreground;
+  background-size: $grid-dot-space $grid-dot-space;
+}
+@mixin htwg-background-bright {
+  @include htwg-background($htwg-color-soft-blue, $htwg-color-dark-blue)
+}
+@mixin htwg-background-dark {
+  @include htwg-background($htwg-color-dark-blue, $htwg-color-soft-blue)
+}
+
 // Swiss 721 font-face
 @font-face {
   font-family: 'swiss-heavy';
