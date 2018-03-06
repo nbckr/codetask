@@ -33,6 +33,7 @@ import 'vue-awesome/icons/check-circle'
 import 'vue-awesome/icons/clock-o'
 import 'vue-awesome/icons/percent'
 import 'vue-awesome/icons/list-ul'
+import 'vue-awesome/icons/copy'
 
 // -----------------------------------------------------------------------------
 

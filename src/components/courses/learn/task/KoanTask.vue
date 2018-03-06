@@ -1,17 +1,33 @@
 <template>
   <div>
     <!-- Inputs to be inserted into the codemirror component at initialization time-->
-    <input
+    <div
       v-for="(solution, index) in currentTask.data.solutions"
-      v-autowidth="autowidthOptions"
-      :id="`input-${index}`"
       class="code-input"
-      :class="{success: userInputsCorrect[index] }"
-      :readonly="userInputsCorrect[index]"
-      :autofocus="index === 0"
-      v-model="userInputs[index]"
-      @input="onInput"
-    />
+    >
+
+      <input
+        v-autowidth="autowidthOptions"
+        :id="`input-${index}`"
+        :class="{ success: userInputsCorrect[index] }"
+        :readonly="userInputsCorrect[index]"
+        :autofocus="index === 0"
+        v-model="userInputs[index]"
+        @input="onInput"
+      />
+
+      <el-tooltip
+        effect="light"
+        placement="top-start"
+      >
+        <div slot="content">
+          {{ solution }}
+          <el-button size="mini" plain><icon name="copy" /></el-button>
+        </div>
+        <i class="el-icon-question"></i>
+      </el-tooltip>
+
+    </div>
 
     <codemirror
       :value="currentTask.data.code"
@@ -27,6 +43,7 @@
   import 'codemirror/lib/codemirror.css'
   import 'codemirror/theme/monokai.css' // Theme
   import 'codemirror/mode/clike/clike' // Scala
+  import Icon from 'vue-awesome/components/Icon'
 
   export default {
     data () {
@@ -50,7 +67,8 @@
     },
 
     components: {
-      codemirror
+      codemirror,
+      Icon
     },
 
     methods: {
