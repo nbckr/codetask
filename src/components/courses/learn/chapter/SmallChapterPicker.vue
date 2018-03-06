@@ -3,16 +3,20 @@
   <nav>
 
     <el-breadcrumb separator-class="el-icon-arrow-right">
-      <el-breadcrumb-item :to="{ name: 'dashboard' }">Meine Kurse</el-breadcrumb-item>
-      <el-breadcrumb-item :to="{ name: 'course', params: { course: currentCourse.id } }">{{ currentCourse.title }}
+      <el-breadcrumb-item :to="{ name: 'dashboard' }">{{ currentCourse.title }}
       </el-breadcrumb-item>
       <el-breadcrumb-item>
-        <el-select :value="currentChapter.title" size="mini" :placeholder="currentChapter.title">
+        <el-select
+          :value="currentChapter.id"
+          size="mini"
+          :placeholder="currentChapter.title"
+          @change="navigateOnSelect"
+        >
           <el-option
             v-for="chapter in currentCourse.chapters"
             :key="chapter.id"
             :label="chapter.title"
-            :value="chapter.title">
+            :value="chapter.id">
           </el-option>
         </el-select>
       </el-breadcrumb-item>
@@ -26,6 +30,12 @@
   import { mapGetters } from 'vuex'
 
   export default {
+    methods: {
+      navigateOnSelect (chapterId) {
+        this.$router.push({name: 'chapter-start', params: { chapter: chapterId }})
+      }
+    },
+
     computed: {
       ...mapGetters([
         'currentCourse',

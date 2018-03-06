@@ -16,7 +16,6 @@ import LearnPage from '@/components/courses/learn/LearnPage'
 import ChapterStart from '@/components/courses/learn/chapter/ChapterStart'
 import ChapterEnd from '@/components/courses/learn/chapter/ChapterEnd'
 import ChapterPanel from '@/components/courses/learn/chapter/ChapterPanel'
-import CourseStart from '@/components/courses/learn/CourseStart'
 import BaseTask from '@/components/courses/learn/task/BaseTask'
 
 // Etc
@@ -77,11 +76,6 @@ export default new Router({
           path: 'courses/learn/:course',
           component: LearnPage,
           children: [
-            {
-              path: '',
-              name: 'course',
-              component: CourseStart
-            },
             {
               path: 'chapters/:chapter/',
               component: ChapterPanel,
