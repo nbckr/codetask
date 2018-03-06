@@ -13,7 +13,8 @@
 
     <el-menu-item index="title" :route="{ name: 'dashboard' }">
       <template slot="title">
-        <img src="/static/img/codetask/logo-white-full-centered.svg" id="app-title"/>
+        <img class="hidden-xs-only" src="/static/img/codetask/logo-white-full-centered.svg" />
+        <img class="hidden-sm-and-up" src="/static/img/codetask/logo-white-icon.svg"/>
       </template>
     </el-menu-item>
 
@@ -32,7 +33,14 @@
       <el-menu-item index="submenu-logout" @click="logout">Ausloggen</el-menu-item>
     </el-submenu>
 
-    <el-menu-item index="dashboard" id="dashboard" :route="{ name: 'dashboard' }">Dashboard</el-menu-item>
+    <el-menu-item
+      class="hidden-xs-only"
+      index="dashboard"
+      id="dashboard"
+      :route="{ name: 'dashboard' }"
+    >
+      Dashboard
+    </el-menu-item>
 
   </el-menu>
 
@@ -116,10 +124,6 @@
     /* line-height: 22px; */
     color: white;
     font-weight: bold;
-  }
-
-  header {
-    // TODO: min-width 450px
   }
 
 </style>

@@ -52,6 +52,7 @@
   body, html {
     margin: 0;
     height: 100%;
+    min-width: 350px;
 
     background-color: $htwg-color-dark-blue;
 
@@ -62,9 +63,13 @@
     -moz-osx-font-smoothing: grayscale;
     color: #13181F;
 
-    b, h1, h2, h3, h4, h5, h6 {
+    b, h2, h3, h4, h5, h6 {
       font-family: swiss-heavy, $font-stack;
       font-weight: normal !important;
+    }
+
+    h1 {
+      color: $htwg-color-teal;
     }
   }
 

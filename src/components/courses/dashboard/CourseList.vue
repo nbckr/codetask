@@ -3,9 +3,17 @@
   <div>
     <h2>Meine Kurse</h2>
 
-    <el-collapse v-if="currentUser" v-model="collapsedName" accordion>
+    <el-collapse
+      v-if="currentUser && progress.length > 0"
+      v-model="collapsedName"
+      accordion
+    >
 
-      <el-collapse-item v-for="(course, i) in progress" :name="i" :key="i">
+      <el-collapse-item
+        v-for="(course, i) in progress"
+        :name="i"
+        :key="i"
+      >
 
         <!-- Course title and overall percentage -->
         <template slot="title">
@@ -48,6 +56,10 @@
 
       </el-collapse-item>
     </el-collapse>
+
+    <div v-if="progress.length === 0">
+      <p>Noch keine Kurse belegt – Jetzt unten neue Kurse entdecken.</p>
+    </div>
 
     <img
       id="pen"

@@ -53,6 +53,7 @@
   }
 
   li {
+    padding-left: 0 !important;
     text-overflow: ellipsis;
     overflow: hidden;
   }
