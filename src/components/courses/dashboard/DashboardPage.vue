@@ -8,24 +8,17 @@
       <enroll-panel v-if="showEnrollPanel"/>
     </el-collapse-transition>
 
-    <div
-      id="show-enroll-panel"
-      @click="showEnrollPanel = !showEnrollPanel"
-    >
-      <i :class="showEnrollPanel ? 'el-icon-arrow-up' : 'el-icon-arrow-down'" ></i>
-      <br>
-      <el-button type="text">
-        Neue Kurse entdecken
-      </el-button>
-    </div>
-
-
+    <content-revealer
+        v-model="showEnrollPanel"
+        name="Neue Kurse"
+    />
   </div>
 </template>
 
 <script>
   import CourseList from './CourseList'
   import EnrollPanel from './EnrollPanel'
+  import ContentRevealer from '../../shared/ContentRevealer'
 
   export default {
     data () {
@@ -36,7 +29,8 @@
 
     components: {
       CourseList,
-      EnrollPanel
+      EnrollPanel,
+      ContentRevealer
     }
   }
 </script>
@@ -46,22 +40,5 @@
     // margin: 0 auto;
     // padding: 2rem 4.5rem;
     // max-width: 900px;
-  }
-
-  #show-enroll-panel {
-    text-align: center;
-
-    i {
-      cursor: pointer;
-      font-size: 125%;
-      color: white;
-      background-color: $htwg-color-teal;
-      padding: 5px;
-      border-radius: 50%;
-    }
-
-    button {
-      padding-bottom: 0;
-    }
   }
 </style>
