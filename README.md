@@ -1,4 +1,6 @@
-# codetask
+<p align="center">
+  <img width="200px" src="/static/img/codetask/logo-dark-compact.svg">
+</p>
 
 > A complete rewrite of the Play & Polymer-based CodeTask application
 
@@ -23,5 +25,3 @@ npm run unit
 # run all tests
 npm test
 ```
-
-For detailed explanation on how things work, checkout the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).

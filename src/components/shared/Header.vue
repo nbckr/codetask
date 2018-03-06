@@ -8,25 +8,25 @@
     @select="onMenuSelect"
     background-color="#334152"
     text-color="white"
-    active-text-color="#009b91"
+    active-text-color="#d9e5ec"
   >
 
     <el-menu-item index="title" :route="{ name: 'dashboard' }">
       <template slot="title">
-        <img src="/static/img/codetask/logo-white-full.svg" id="app-title"/>
+        <img src="/static/img/codetask/logo-white-full-centered.svg" id="app-title"/>
       </template>
     </el-menu-item>
 
     <el-submenu index="user-menu" id="user-menu" v-if="currentUser">
       <template slot="title">
-        <img src="http://via.placeholder.com/128x128" id="user-img"/>
+        <img src="http://www.pieglobal.com/wp-content/uploads/2015/10/placeholder-user.png" id="user-img"/>
         {{ currentUser.displayName }}
 
         <user-score-tag :score="currentUser.score" />
       </template>
 
       <el-menu-item index="submenu-profile" :route="{name: 'profile'}">Mein Profil</el-menu-item>
-      <el-menu-item index="submenu-settings" :route="{name: 'settings'}">Einstellungen</el-menu-item>
+      <el-menu-item index="submenu-settings" :route="{name: 'settings'}" disabled>Einstellungen</el-menu-item>
       <el-menu-item index="submenu-leaderboard" :route="{name: 'leaderboard'}">Bestenliste</el-menu-item>
       <el-menu-item index="submenu-admin" :route="{name: 'admin'}">Kurse und Nutzer verwalten</el-menu-item>
       <el-menu-item index="submenu-logout" @click="logout">Ausloggen</el-menu-item>

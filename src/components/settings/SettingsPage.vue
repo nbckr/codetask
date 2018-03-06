@@ -2,9 +2,21 @@
   <div>
     <h1>Einstellungen</h1>
 
-    {{ currentUser }}
+    <div v-if="false">
+      {{ currentUser }}
+      <el-switch v-model="currentUser.settings.autoplay"/>
+    </div>
 
-    <el-switch v-model="currentUser.settings.autoplay" />
+    <div v-else>
+      <el-alert
+        title="Diese Seite ist momentan nicht verfügbar"
+        type="warning"
+        show-icon
+        closeable="false"
+      />
+    </div>
+
+
   </div>
 </template>
 

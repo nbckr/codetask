@@ -1,6 +1,6 @@
 {
-  "name": "{ codetask | Learn Scala With Ease }",
-  "short_name": "{ codetask }",
+  "name": "codetask | Learn Scala With Ease",
+  "short_name": "codetask",
   "icons": [
     {
       "src": "/static/img/icons/android-chrome-192x192.png",
