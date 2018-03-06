@@ -15,14 +15,21 @@
       </el-col>
     </el-row>
 
-    <div class="comments" v-if="showDisqus">
-      <vue-disqus
-        shortname="codetask"
-        :identifier="currentChapter.title"
-        :title="currentChapter.title"
-        url="https://codetask.disqus.com"
-      />
-    </div>
+    <el-collapse-transition>
+      <div class="comments" v-if="showDisqus">
+        <vue-disqus
+          shortname="codetask"
+          :identifier="currentChapter.title"
+          :title="currentChapter.title"
+          url="https://codetask.disqus.com"
+        />
+      </div>
+    </el-collapse-transition>
+
+    <content-revealer
+      v-model="showDisqus"
+      name="Kommentare"
+    />
 
   </div>
 
@@ -34,17 +41,19 @@
   import VueDisqus from 'vue-disqus/VueDisqus.vue'
   import ChapterInfoBox from './ChapterInfoBox'
   import { mapGetters } from 'vuex'
+  import ContentRevealer from '@/components/shared/ContentRevealer'
 
   export default {
     data () {
       return {
-        showDisqus: true
+        showDisqus: false
       }
     },
 
     components: {
       ChapterInfoBox,
-      VueDisqus
+      VueDisqus,
+      ContentRevealer
     },
 
     computed: {
@@ -55,6 +64,8 @@
     },
 
     methods: {
+      // If comments should be shown while view changes, this workaround
+      // needs to be run for vue-disqus bug, id doesn't change
       resetDisqus () {
         const vm = this
         vm.showDisqus = false
@@ -66,8 +77,7 @@
 
     watch: {
       currentChapter () {
-        // Workaround for vue-disqus bug, id doesn't change
-        this.resetDisqus()
+        this.showDisqus = false
       }
     }
   }

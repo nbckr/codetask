@@ -18,7 +18,7 @@
 <script>
   import CourseList from './CourseList'
   import EnrollPanel from './EnrollPanel'
-  import ContentRevealer from '../../shared/ContentRevealer'
+  import ContentRevealer from '@/components/shared/ContentRevealer'
 
   export default {
     data () {
