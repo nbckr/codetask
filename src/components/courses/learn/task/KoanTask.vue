@@ -20,9 +20,11 @@
         effect="light"
         placement="top-start"
       >
-        <div slot="content">
+        <div slot="content" class="helper-tooltip">
           {{ solution }}
-          <el-button size="mini" plain><icon name="copy" /></el-button>
+          <el-button size="mini" plain v-clipboard:copy="solution">
+            <icon name="copy" />
+          </el-button>
         </div>
         <i class="el-icon-question"></i>
       </el-tooltip>
@@ -163,6 +165,12 @@
 
   /deep/ input.success {
     background-color: rgba(111, 240, 111, 0.75) !important;
+  }
+
+  .helper-tooltip {
+    button {
+      padding: 4px 6px;
+    }
   }
 
 </style>

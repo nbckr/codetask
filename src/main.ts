@@ -4,6 +4,7 @@ import router from './router'
 import store from './store/index'
 import axios from 'axios'
 import Vuelidate from 'vuelidate'
+import VueClipboard from 'vue-clipboard2'
 
 // App and features
 import App from './App.vue'
@@ -46,6 +47,7 @@ Vue.use(VueYoutubeEmbed)
 Vue.use(VueInputAutowidth)
 Vue.use(VueParticles)
 Vue.use(Vuelidate)
+Vue.use(VueClipboard)
 
 // Setup global navigation guard
 router.beforeEach((to, from, next) => {

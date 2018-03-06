@@ -23,6 +23,7 @@
     "typescript": "^2.6.2",
     "vue": "^2.5.13",
     "vue-awesome": "^2.3.4",
+    "vue-clipboard2": "0.0.9",
     "vue-codemirror": "^4.0.2",
     "vue-disqus": "^2.0.4",
     "vue-input-autowidth": "^1.0.2",
