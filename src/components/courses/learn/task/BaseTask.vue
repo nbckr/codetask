@@ -32,8 +32,11 @@
         if (!this.currentTaskProgress.solved) {
           // Update store
           this.$store.dispatch('CURRENT_TASK_SOLVED', scoreValue)
+
           // Send upwards to allow e.g. auto-next
-          this.$emit('task-solved')
+          if (scoreValue !== 0) {
+            this.$emit('task-solved')
+          }
         }
       }
     },

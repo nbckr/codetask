@@ -28,8 +28,8 @@
   export default {
     data () {
       return {
-        remainingBlanks: this.currentTask.data.solutions.length,
-        scoreValue: this.currentTask.data.solutions.length,
+        remainingBlanks: 0,
+        scoreValue: 0,
         codemirrorOptions: {
           tabSize: 4,
           styleActiveLine: true,
@@ -83,8 +83,11 @@
 
     created () {
       // Take care of edge case with zero blanks
-      if (this.currentTask.data.solutions.length === 0) {
+      if (!this.currentTask.data.solutions) {
         this.onTaskSolved()
+      } else {
+        this.remainingBlanks = this.currentTask.data.solutions.length
+        this.scoreValue = this.currentTask.data.solutions.length
       }
     }
   }
