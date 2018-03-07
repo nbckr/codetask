@@ -4,6 +4,7 @@
     <koan-task-blank
       v-for="(solution, index) in currentTask.data.solutions"
       :key="index"
+      :ref="index + 1"
       :solution="solution"
       class="koan-blank"
       @solved="onBlankSolved"
@@ -92,6 +93,14 @@
       } else {
         this.remainingBlanks = this.currentTask.data.solutions.length
         this.scoreValue = this.currentTask.data.solutions.length
+      }
+    },
+
+    mounted () {
+      if (this.currentTask.data.solutions) {
+        // Focus first blank
+        console.log('refs', this.$refs[1])
+        this.$refs[1][0].focusInput()
       }
     }
   }

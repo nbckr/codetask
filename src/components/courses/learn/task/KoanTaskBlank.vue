@@ -2,10 +2,14 @@
   <div>
 
     <input
+      type="text"
+      autocomplete="off"
       v-model="inputValue"
       v-autowidth="autowidthOptions"
       :class="{ success: solved, 'used-helper': usedHelper }"
       :readonly="solved"
+      ref="input"
+      @focus="$event.target.select()"
     />
 
     <!-- TODO: Extract helper into separate component -->
@@ -85,6 +89,13 @@
 
       onCopySolution () {
         this.showHelperTooltip = false
+      },
+
+      focusInput () {
+        console.log('focus', this.$refs.input)
+        // this.$refs.input.__vue__.focus()
+        this.$refs.input.select()
+        // document.getElementById('input-test').focus()
       }
     },
 
@@ -100,7 +111,7 @@
 
     watch: {
       solved () {
-        this.$emit('solved', { usedHelper: this.usedHelper })
+        this.$emit('solved', {usedHelper: this.usedHelper})
       }
     },
 
