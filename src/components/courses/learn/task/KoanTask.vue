@@ -82,10 +82,6 @@
     props: ['currentTask'],
 
     created () {
-      console.log('cr', this.currentTask.data.solutions)
-      // this.remainingBlanks = this.currentTask.data.solutions.length
-      // this.scoreValue = this.currentTask.data.solutions.length
-
       // Take care of edge case with zero blanks
       if (this.currentTask.data.solutions.length === 0) {
         this.onTaskSolved()
@@ -95,7 +91,6 @@
 </script>
 
 <style scoped lang="scss">
-
   /deep/ .CodeMirror {
     padding: 1rem;
     font-family: monospace;

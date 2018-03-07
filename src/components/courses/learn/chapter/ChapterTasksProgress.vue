@@ -66,7 +66,7 @@
   }
 
   /deep/ .el-progress-bar__inner {
-    background-color: #67c23a; /* To match el-steps */
+    background-color: $success-color;
     transition: width 1s, background-color 1s;
   }
 </style>

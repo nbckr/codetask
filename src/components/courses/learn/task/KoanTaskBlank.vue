@@ -4,21 +4,44 @@
     <input
       v-model="inputValue"
       v-autowidth="autowidthOptions"
-      :class="{ success: solved, usedHelper }"
+      :class="{ success: solved, 'used-helper': usedHelper }"
       :readonly="solved"
     />
 
     <el-tooltip
+      v-if="!solved"
       effect="light"
       placement="top-start"
+      :disabled="!showHelperTooltip"
     >
       <div slot="content" class="helper-tooltip">
         {{ solution }}
-        <el-button size="mini" plain v-clipboard:copy="solution">
+        <el-button
+          plain
+          size="mini"
+          v-clipboard:copy="solution"
+          v-clipboard:success="onCopySolution"
+        >
           <icon name="copy"/>
         </el-button>
       </div>
-      <i class="el-icon-question"></i>
+      <i
+        class="el-icon-question"
+        @click="showHelperTooltip = !showHelperTooltip"
+      />
+    </el-tooltip>
+
+    <el-tooltip
+      v-else
+      effect="light"
+      placement="top-start"
+      content="Richtig gelöst! Versuche es beim nächsten mal ohne Hilfe."
+      :disabled="!usedHelper"
+    >
+      <i
+        class="el-icon-success"
+        :class="{ success: !usedHelper }"
+      />
     </el-tooltip>
 
   </div>
@@ -32,6 +55,7 @@
     data () {
       return {
         inputValue: '',
+        showHelperTooltip: false,
         usedHelper: false,
         autowidthOptions: {
           minWidth: '2.5rem',
@@ -49,6 +73,13 @@
       solution: {
         type: String,
         required: true
+      }
+    },
+
+    methods: {
+      onCopySolution () {
+        this.usedHelper = true
+        this.showHelperTooltip = false
       }
     },
 
@@ -78,7 +109,7 @@
 </script>
 
 <style scoped lang="scss">
-  /deep/ input {
+  input {
     /* transition: width 0.15s; */
 
     /* From Monokai Syntax CSS theme */
@@ -97,18 +128,20 @@
     cursor: text;
   }
 
-  /deep/ input:focus {
+  input:focus {
     outline: none;
     background-color: rgba(254, 130, 85, 0.75);
     border-color: #9ecaed;
     box-shadow: 0 0 10px #9ecaed;
   }
 
-  /deep/ input.success {
-    background-color: rgba(111, 240, 111, 0.75) !important;
+  input.success {
+    // background-color: rgba(111, 240, 111, 0.75);
+    background-color: $success-color;
 
     &.used-helper {
-      background-color: yellow;
+      // color: $htwg-color-dark-blue;
+      background-color: lighten($success-color, 25%);
     }
   }
 
@@ -116,6 +149,15 @@
     button {
       padding: 4px 6px;
       margin-left: 0.6rem;
+    }
+  }
+
+  i {
+    &:not(.success) {
+      cursor: pointer;
+    }
+    &.success {
+      color: $success-color;
     }
   }
 
