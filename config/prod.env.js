@@ -9,3 +9,4 @@ module.exports = {
   // Firebase API key also works with Youtube API v3
   FIREBASE_API_KEY: `"${process.env.FIREBASE_API_KEY}"`
 }
+
