@@ -6,5 +6,6 @@ module.exports = {
   FIREBASE_DATA_ENDPOINT: '"https://codetask-c987b.firebaseio.com"',
 
   // Grab secret variables from outer environment variables
+  // Firebase API key also works with Youtube API v3
   FIREBASE_API_KEY: `"${process.env.FIREBASE_API_KEY}"`
 }
