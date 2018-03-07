@@ -14,15 +14,15 @@
       <ul class="indented">
         <li v-if="currentKoanTasks.length > 0">
           <icon name="tasks"/>
-          {{ currentKoanTasks.length }} Koan-Aufgaben
+          {{ currentKoanTasks.length }} Koan-Aufgabe{{ currentKoanTasks.length > 1 ? 'n' : '' }}
         </li>
         <li v-if="currentVideoTasks.length > 0">
           <icon name="film"/>
-          {{ currentVideoTasks.length }} Video-Aufgaben
+          {{ currentVideoTasks.length }} Video-Aufgabe{{ currentVideoTasks.length > 1 ? 'n' : '' }}
         </li>
         <li v-if="currentCodeTasks.length > 0">
           <icon name="terminal"/>
-          {{ currentCodeTasks.length }} Code-Aufgaben
+          {{ currentCodeTasks.length }} Code-Aufgabe{{ currentCodeTasks.length > 1 ? 'n' : '' }}
         </li>
       </ul>
 
@@ -53,7 +53,8 @@
         'currentSolvedTasks'
       ]),
 
-      /* estimate duration of course depending on tasks and their types */
+      // estimate duration of course depending on tasks and their types
+      // TODO: Use same values as in the tasks' computed scoreValue, as they reflect required minutes
       duration: (vm) => {
         const koanDuration = 3
         const codeDuration = 5
