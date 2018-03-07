@@ -29,7 +29,7 @@
     },
 
     methods: {
-      onSolved () {
+      onBlankSolved () {
         this.$emit('task-solved', this.scoreValue)
       }
     },
