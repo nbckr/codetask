@@ -6,7 +6,7 @@
 
     <el-col :xs="24" :sm="12" class="framed">
       <p>Wie hat dir dieses Kapitel gefallen?</p>
-      <el-rate v-model="rating" :disabled="rating"/>
+      <el-rate v-model="rating" :disabled="rating !== 0"/>
       <el-alert
         v-if="rating"
         title="Danke für deine Bewertung!"
