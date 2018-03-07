@@ -66,8 +66,12 @@
         })
       },
 
-      onBlankSolved () {
+      onBlankSolved (args) {
         this.remainingBlanks--
+        if (args.usedHelper) {
+          this.scoreValue--
+        }
+
         if (this.remainingBlanks === 0) {
           this.onTaskSolved()
         }

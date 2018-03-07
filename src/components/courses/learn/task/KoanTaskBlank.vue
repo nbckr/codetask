@@ -8,6 +8,7 @@
       :readonly="solved"
     />
 
+    <!-- TODO: Extract helper into separate component -->
     <el-tooltip
       v-if="!solved"
       effect="light"
@@ -27,7 +28,7 @@
       </div>
       <i
         class="el-icon-question"
-        @click="showHelperTooltip = !showHelperTooltip"
+        @click="onShowHelperTooltip"
       />
     </el-tooltip>
 
@@ -77,8 +78,12 @@
     },
 
     methods: {
-      onCopySolution () {
+      onShowHelperTooltip () {
+        this.showHelperTooltip = !this.showHelperTooltip
         this.usedHelper = true
+      },
+
+      onCopySolution () {
         this.showHelperTooltip = false
       }
     },
@@ -95,7 +100,7 @@
 
     watch: {
       solved () {
-        this.$emit('solved')
+        this.$emit('solved', { usedHelper: this.usedHelper })
       }
     },
 
@@ -126,22 +131,22 @@
     font-size: medium;
     font-weight: bold;
     cursor: text;
-  }
 
-  input:focus {
-    outline: none;
-    background-color: rgba(254, 130, 85, 0.75);
-    border-color: #9ecaed;
-    box-shadow: 0 0 10px #9ecaed;
-  }
+    &:focus {
+      outline: none;
+      background-color: rgba(254, 130, 85, 0.75);
+      border-color: #9ecaed;
+      box-shadow: 0 0 10px #9ecaed;
+    }
 
-  input.success {
-    // background-color: rgba(111, 240, 111, 0.75);
-    background-color: $success-color;
+    &.success {
+      // background-color: rgba(111, 240, 111, 0.75);
+      background-color: $success-color;
 
-    &.used-helper {
-      // color: $htwg-color-dark-blue;
-      background-color: lighten($success-color, 25%);
+      &.used-helper {
+        // color: $htwg-color-dark-blue;
+        background-color: lighten($success-color, 25%);
+      }
     }
   }
 
@@ -153,6 +158,7 @@
   }
 
   i {
+    user-select: none;
     &:not(.success) {
       cursor: pointer;
     }
