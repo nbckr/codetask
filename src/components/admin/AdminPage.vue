@@ -142,9 +142,12 @@
 
       // Adjustments to the old data model
       transformCourse (course) {
-        course.chapters.forEach(chapter => {
+        course.chapters.forEach((chapter, index) => {
+          // Chapters must be 1-indexed as not to break firebase reference name logic
+          chapter.id = index + 1
+
           chapter.tasks = chapter.tasks
-          // NOTE: Filtering code-tasks because of currently broken backend functionality
+          // Filtering code-tasks because of currently broken backend functionality
             .filter(task => task.tag !== 'code-task')
             // Numeric indices starting at 1 instead of task-specific strings
             .map((task, index) => {

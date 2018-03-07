@@ -30,7 +30,9 @@
         <el-row>
           <ul>
             <li v-for="chapter in course.chapters">
+              <!-- Note: A bug caused chapters without id to exist, which broke everything -->
               <router-link
+                v-if="chapter.id"
                 tag="el-col"
                 :to="{name: 'chapter-start', params: { course: course.id, chapter: chapter.id }}"
                 :span="10">
@@ -39,6 +41,7 @@
               <el-col :span="10">
                 <el-progress :percentage="chapterPercentage(chapter)"/>
               </el-col>
+
             </li>
           </ul>
         </el-row>
