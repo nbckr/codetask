@@ -35,5 +35,8 @@
   }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
+  /deep/ .el-alert {
+    margin-bottom: 1rem;
+  }
 </style>

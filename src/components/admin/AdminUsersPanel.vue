@@ -4,14 +4,39 @@
 
     <!-- TODO -->
     <el-alert
-      title="Diese Seite ist momentan nicht verfügbar"
+      title="Nutzer können derzeit nicht bearbeitet oder gelöscht werden,
+             nur direkt in Firebase (Database + Authentication)."
       type="warning"
       show-icon
-      closeable="false"
+      :closeable="true"
     />
+
+    <el-alert
+      v-for="user in users"
+      :key="user.uid"
+      :title="user.email"
+      type="success"
+      :closable="false"
+    >
+      <ul>
+        <li>Name:   <b>{{ user.displayName }}</b></li>
+        <li>Rolle:  <b>{{ user.role }}</b></li>
+        <li>Punkte: <b>{{ user.score }}</b></li>
+      </ul>
+    </el-alert>
   </div>
 </template>
 
-<script></script>
+<script>
+  import { mapGetters } from 'vuex'
+
+  export default {
+    computed: {
+      ...mapGetters([
+        'users'
+      ])
+    }
+  }
+</script>
 
 <style></style>

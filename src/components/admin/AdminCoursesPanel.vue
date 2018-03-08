@@ -1,84 +1,119 @@
 <template>
   <div>
-    <h2>Neuen Kurs hochladen</h2>
+    <h2>Kurse verwalten</h2>
 
-    <form @submit.prevent="onSubmit">
-      <el-row :gutter="40">
+    <!-- TODO -->
+    <el-alert
+      title="Kurse können derzeit nicht bearbeitet oder gelöscht werden, nur direkt in Firebase.
+             Upload neuer Kurse ist jedoch funktionsfähig."
+      type="warning"
+      show-icon
+      :closeable="true"
+    />
 
-        <!----------------------------------------------------- File Upload -->
-        <el-col :xs="24" :md="12">
-          <el-row class="form-row">
-            <el-upload
-              ref="upload"
-              id="file"
-              accept="application/json"
-              action="#"
-              :multiple="false"
-              :show-file-list="true"
-              :on-change="onCourseFileChange"
-              :auto-upload="false"
-            >
+    <el-alert
+      v-for="course in courses"
+      :key="course.id"
+      :title="course.title"
+      :description="course.description"
+      type="success"
+      :closable="false"
+    />
 
-              <el-button>Datei hochladen</el-button>
-              <div class="el-upload__tip" slot="tip">CodeTask-Kurs im JSON-Format</div>
-            </el-upload>
+    <!-- TODO: Refactor upload panel into own component -->
+    <el-collapse-transition>
+      <div v-if="showUploadCourse">
+        <h2>Neuen Kurs hochladen</h2>
+
+        <form @submit.prevent="onSubmit">
+          <el-row :gutter="40">
+
+            <!----------------------------------------------------- File Upload -->
+            <el-col :xs="24" :md="12">
+              <el-row class="form-row">
+                <el-upload
+                  ref="upload"
+                  id="file"
+                  accept="application/json"
+                  action="#"
+                  :multiple="false"
+                  :show-file-list="true"
+                  :on-change="onCourseFileChange"
+                  :auto-upload="false"
+                >
+
+                  <el-button>Datei hochladen</el-button>
+                  <div class="el-upload__tip" slot="tip">CodeTask-Kurs im JSON-Format</div>
+                </el-upload>
+              </el-row>
+
+              <!-- el-input will compile to input, so the label will find its input element after compilation -->
+              <!----------------------------------------------------- Title and description -->
+              <el-row class="form-row">
+                <label for="title">Titel</label>
+                <el-input
+                  id="title"
+                  placeholder="Titel deines neuen Kurses"
+                  :maxlength="42"
+                  v-model="course.title"
+                  @input="$v.course.title.$touch()"
+                />
+              </el-row>
+
+              <el-row class="form-row">
+                <label for="description">Beschreibung</label>
+                <el-input
+                  id="description"
+                  type="textarea"
+                  :autosize="{ minRows: 2, maxRows: 10}"
+                  :maxlength="1000"
+                  placeholder="Eine kurze Beschreibung des Kursinhalts"
+                  v-model="additional.description"
+                >
+                </el-input>
+              </el-row>
+            </el-col>
+
           </el-row>
 
-          <!-- el-input will compile to input, so the label will find its input element after compilation -->
-          <!----------------------------------------------------- Title and description -->
-          <el-row class="form-row">
-            <label for="title">Titel</label>
-            <el-input
-              id="title"
-              placeholder="Titel deines neuen Kurses"
-              :maxlength="42"
-              v-model="course.title"
-              @input="$v.course.title.$touch()"
-            />
-          </el-row>
+          <!----------------------------------------------------- Submit -->
+          <el-col>
+            <el-row type="flex" justify="end">
+              <el-button
+                @click="onSubmit"
+                :disabled="$v.$invalid || this.$refs.upload.uploadFiles.length === 0"
+                native-type="submit"
+                type="primary"
+              >
+                Kurs anlegen
+              </el-button>
+            </el-row>
+          </el-col>
 
-          <el-row class="form-row">
-            <label for="description">Beschreibung</label>
-            <el-input
-              id="description"
-              type="textarea"
-              :autosize="{ minRows: 2, maxRows: 10}"
-              :maxlength="1000"
-              placeholder="Eine kurze Beschreibung des Kursinhalts"
-              v-model="additional.description"
-            >
-            </el-input>
-          </el-row>
-        </el-col>
+        </form>
+      </div>
+    </el-collapse-transition>
 
-      </el-row>
+    <content-revealer
+      v-model="showUploadCourse"
+      name="Upload-Formular für neue Kurse"
+    />
 
-      <!----------------------------------------------------- Submit -->
-      <el-col>
-        <el-row type="flex" justify="end">
-          <el-button
-            @click="onSubmit"
-            :disabled="$v.$invalid || this.$refs.upload.uploadFiles.length === 0"
-            native-type="submit"
-            type="primary"
-          >
-            Kurs anlegen
-          </el-button>
-        </el-row>
-      </el-col>
-
-    </form>
   </div>
+
 </template>
 
 <script>
+  import ContentRevealer from '@/components/shared/ContentRevealer'
   import { required, minLength, maxLength } from 'vuelidate/lib/validators'
+  import { mapGetters } from 'vuex'
 
   export default {
     data () {
       return {
-        course: {},
+        showUploadCourse: false,
 
+        course: {},
         // Additional attributes that extend the original data model
         additional: {}
       }
@@ -152,6 +187,12 @@
       }
     },
 
+    computed: {
+      ...mapGetters([
+        'courses'
+      ])
+    },
+
     validations: {
       course: {
         title: {
@@ -167,6 +208,10 @@
           maxLength: maxLength(150)
         }
       }
+    },
+
+    components: {
+      ContentRevealer
     }
   }
 </script>
@@ -182,4 +227,5 @@
     align-items: center;
     margin: 1rem 0;
   }
+
 </style>

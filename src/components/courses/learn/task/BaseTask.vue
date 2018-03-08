@@ -64,7 +64,7 @@
   // Note: This is not scoped!
   .score-message {
     min-width: 0 !important;
-    background-color: $htwg-color-teal;
+    background-color: $htwg-color-teal !important;
     border-color: $htwg-color-soft-blue;
 
     i, p {
