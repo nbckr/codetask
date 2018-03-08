@@ -26,11 +26,32 @@
         <user-score-tag :score="currentUser.score" />
       </template>
 
-      <el-menu-item index="submenu-profile" :route="{name: 'profile'}">Mein Profil</el-menu-item>
-      <el-menu-item index="submenu-settings" :route="{name: 'settings'}" disabled>Einstellungen</el-menu-item>
-      <el-menu-item index="submenu-leaderboard" :route="{name: 'leaderboard'}">Bestenliste</el-menu-item>
-      <el-menu-item index="submenu-admin" :route="{name: 'admin'}">Kurse und Nutzer verwalten</el-menu-item>
-      <el-menu-item index="submenu-logout" @click="logout">Ausloggen</el-menu-item>
+      <el-menu-item
+        index="submenu-profile"
+        :route="{name: 'profile'}">
+        Mein Profil
+      </el-menu-item>
+      <el-menu-item
+        index="submenu-leaderboard"
+        :route="{name: 'leaderboard'}">
+        Bestenliste
+      </el-menu-item>
+      <el-menu-item
+        index="submenu-admin"
+        v-if="currentUser.role === 'teacher' || currentUser.role === 'admin'"
+        :route="{name: 'admin'}">
+        Kurse und Nutzer verwalten
+      </el-menu-item>
+      <el-menu-item
+        index="submenu-settings"
+        :route="{name: 'settings'}"
+        disabled>Einstellungen
+      </el-menu-item>
+      <el-menu-item
+        index="submenu-logout"
+        @click="logout">
+        Ausloggen
+      </el-menu-item>
     </el-submenu>
 
     <el-menu-item

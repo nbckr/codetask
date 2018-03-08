@@ -16,6 +16,6 @@ enum Role {
 }
 
 class Settings {
-  constructor (public autoPlay: boolean = false,
+  constructor (public autoPlay: boolean = true,
                public autoNext: boolean = true) { }
 }
