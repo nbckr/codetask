@@ -31,11 +31,21 @@
         <el-row type="flex" justify="end">
           <!-- ChapterStart-->
           <el-button
-            v-if="isChapterStart"
+            v-if="isChapterStart && !chapterSolvedCompletely"
             type="primary" plain
             :disabled="nextIsDisabled"
             @click="goToNextUnsolved">
             <span class="hidden-sm-and-down">Weiter zu Aufgabe {{ currentHighestSolvedTask.id + 1 }} </span>
+            <i class="el-icon-arrow-right"></i>
+          </el-button>
+
+          <!-- ChapterStart and all tasks solved-->
+          <el-button
+            v-else-if="isChapterStart && chapterSolvedCompletely"
+            type="primary" plain
+            :disabled="nextIsDisabled"
+            @click="goToFirst">
+            <span class="hidden-sm-and-down">Weiter zu Aufgabe 1</span>
             <i class="el-icon-arrow-right"></i>
           </el-button>
 
@@ -83,9 +93,14 @@
         return !vm.currentTaskProgress.solved
       },
 
+      chapterSolvedCompletely: (vm) => {
+        return vm.currentHighestSolvedTask.id === vm.currentChapter.tasks.length
+      },
+
       ...mapGetters([
         'currentTask',
         'currentChapter',
+        'currentChapterProgress',
         'currentCourseProgress',
         'currentTaskProgress',
         'currentHighestSolvedTask',
@@ -112,6 +127,12 @@
             name: 'task', params: {task}
           })
         }
+      },
+
+      goToFirst () {
+        this.$router.push({
+          name: 'task', params: {task: 1}
+        })
       },
 
       goToNextUnsolved () {
